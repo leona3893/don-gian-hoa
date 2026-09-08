@@ -3,82 +3,142 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>IT nói tiếng người</title>
-  <style>
-    :root { --ink:#18251e; --muted:#66736b; --line:#dfe8df; --paper:#f7faf4; --card:#fff; --green:#177245; --lime:#d9f26c; --purple:#6c48da; }
-    * { box-sizing:border-box; }
-    body { margin:0; color:var(--ink); background:var(--paper); font-family:Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
-    button,input { font:inherit; } button { cursor:pointer; }
-    .wrap { width:min(1120px, calc(100% - 40px)); margin:auto; }
-    header { padding:22px 0; display:flex; justify-content:space-between; align-items:center; }
-    .brand { display:flex; gap:10px; align-items:center; font-weight:800; letter-spacing:-.04em; font-size:20px; }
-    .mark { width:34px; height:34px; border-radius:11px; display:grid; place-items:center; background:var(--green); color:white; box-shadow:4px 4px 0 var(--lime); }
-    .nav { color:var(--muted); font-size:14px; }
-    .hero { padding:62px 0 48px; display:grid; grid-template-columns:1.1fr .9fr; gap:56px; align-items:center; }
-    .eyebrow { color:var(--green); font-weight:800; font-size:13px; letter-spacing:.08em; text-transform:uppercase; }
-    h1 { font-size:clamp(42px, 6vw, 72px); letter-spacing:-.075em; line-height:.96; margin:16px 0 20px; max-width:680px; }
-    .accent { position:relative; display:inline-block; z-index:0; } .accent:after { content:""; position:absolute; z-index:-1; left:-2px; right:-3px; bottom:4px; height:17px; background:var(--lime); transform:rotate(-1.5deg); }
-    .sub { max-width:570px; font-size:18px; line-height:1.55; color:var(--muted); }
-    .search-wrap { position:relative; margin-top:28px; }.search { background:white; border:1px solid var(--line); border-radius:16px; padding:7px; display:flex; box-shadow:0 10px 30px #17452a12; }
-    .search span { padding:11px 10px 10px 14px; font-size:20px; } .search input { border:0; outline:0; flex:1; min-width:0; padding:8px 0; color:var(--ink); }
-    .search button { border:0; border-radius:11px; padding:11px 17px; color:white; font-weight:750; background:var(--green); }
-    .suggestions { display:none; position:absolute; z-index:3; top:calc(100% + 8px); left:0; right:0; overflow:hidden; background:#fff; border:1px solid var(--line); border-radius:14px; box-shadow:0 16px 32px #123a2620; }.suggestions.show { display:block; }.suggestion { width:100%; display:flex; align-items:center; gap:11px; border:0; border-bottom:1px solid #edf1ed; padding:12px 15px; text-align:left; background:white; color:var(--ink); }.suggestion:last-child { border-bottom:0; }.suggestion:hover,.suggestion.selected { background:#f1f8e6; }.suggestion b { font-size:15px; }.suggestion span { color:var(--muted); font-size:13px; margin-left:auto; }
-    .search-result { display:none; position:absolute; z-index:4; top:calc(100% + 8px); left:0; right:0; background:#fff; border:1px solid var(--line); border-radius:14px; padding:10px; box-shadow:0 16px 32px #123a2620; }.search-result.show { display:block; }.result-label { color:var(--muted); font-size:12px; font-weight:700; padding:4px 7px 9px; }.result-item { width:100%; display:flex; align-items:center; gap:11px; border:0; border-radius:10px; padding:12px 10px; background:#fff; text-align:left; color:var(--ink); }.result-item:hover { background:#f1f8e6; }.result-item b { font-size:15px; }.result-item p { margin:2px 0 0; color:var(--muted); font-size:13px; }.result-empty { color:var(--muted); padding:11px 8px; font-size:14px; }
-    .hero-card { background:#193629; color:white; border-radius:24px; padding:28px; box-shadow:12px 13px 0 var(--lime); transform:rotate(2deg); }
-    .hero-card small { color:#b5ccb8; } .hero-card h2 { margin:8px 0 12px; letter-spacing:-.04em; font-size:30px; } .hero-card p { line-height:1.55; color:#dce8df; margin:0; }
-    .mini-flow { display:flex; gap:8px; align-items:center; margin-top:24px; } .flow-box { background:#315542; padding:10px 12px; border-radius:10px; font-size:12px; font-weight:700; } .arrow { color:var(--lime); }
-    .section { padding:36px 0 64px; } .section-head { display:flex; justify-content:space-between; align-items:baseline; gap:18px; margin-bottom:18px; } h3 { margin:0; letter-spacing:-.045em; font-size:28px; } .count { color:var(--muted); font-size:14px; }
-    .chips { display:flex; flex-wrap:wrap; gap:9px; margin-bottom:24px; } .chip { background:transparent; border:1px solid var(--line); border-radius:100px; padding:8px 13px; color:#526159; font-size:14px; } .chip.active,.chip:hover { color:#123a26; background:var(--lime); border-color:var(--lime); }
-    .grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; }.term { text-align:left; background:var(--card); border:1px solid var(--line); padding:20px; border-radius:16px; transition:.18s transform,.18s box-shadow; }.term:hover { transform:translateY(-3px); box-shadow:0 12px 22px #123a2611; }.term .icon { font-size:24px; }.term h4 { margin:12px 0 6px; font-size:18px; letter-spacing:-.035em; }.term p { color:var(--muted); font-size:14px; line-height:1.45; margin:0; }
-    .empty { display:none; color:var(--muted); padding:24px 0; }.modal { display:none; position:fixed; inset:0; background:#0d2418a8; z-index:5; align-items:center; justify-content:center; padding:20px; }.modal.show { display:flex; }.detail { position:relative; background:white; width:min(640px,100%); max-height:90vh; overflow:auto; border-radius:23px; padding:34px; }.close { position:absolute; top:15px; right:15px; width:35px; height:35px; border:0; background:#eef4ed; border-radius:50%; font-size:21px; }.tag { background:#e7f3dd; color:#29613f; padding:6px 10px; border-radius:100px; font-weight:700; font-size:12px; }.detail h2 { margin:17px 0 8px; font-size:38px; letter-spacing:-.06em; }.detail .plain { font-size:19px; line-height:1.5; }.analogy { background:#f4f8ee; border-left:4px solid var(--lime); border-radius:0 12px 12px 0; padding:16px; line-height:1.55; margin:20px 0; }.detail strong { color:#207145; }.related { display:flex; flex-wrap:wrap; gap:8px; }.related button { border:0; background:#f0edff; color:#573ab6; padding:8px 10px; border-radius:9px; }
-    footer { padding:28px 0 45px; color:#78847d; font-size:14px; border-top:1px solid var(--line); }
-    @media(max-width:760px) { .nav { display:none; }.hero { grid-template-columns:1fr; padding-top:35px; gap:28px; }.hero-card { transform:none; box-shadow:8px 8px 0 var(--lime); }.grid { grid-template-columns:1fr 1fr; } h1 { font-size:49px; } }
-    @media(max-width:440px) { .wrap { width:min(100% - 28px,1120px); }.grid { grid-template-columns:1fr; }.search button { padding:10px; font-size:0; }.search button:after { content:'→'; font-size:19px; } }
-  </style>
+  <title>IT nói tiếng người — Từ điển công nghệ cho người mới bắt đầu</title>
+  <meta name="description" content="Từ điển thuật ngữ công nghệ giải thích bằng ví dụ đời thường. API, database, server, cache… hiểu bản chất mà không cần biết code." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/" />
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="IT nói tiếng người — Từ điển công nghệ cho người mới bắt đầu" />
+  <meta property="og:description" content="Thuật ngữ công nghệ giải thích bằng ví dụ đời thường. Hiểu bản chất trước khi học sâu hơn." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="styles.css" />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"WebSite","name":"IT nói tiếng người","inLanguage":"vi","url":"https://leona3893.github.io/don-gian-hoa/","description":"Từ điển thuật ngữ công nghệ giải thích bằng ví dụ đời thường."}
+  </script>
 </head>
 <body>
   <main class="wrap">
-    <header><div class="brand"><div class="mark">⌁</div> IT nói tiếng người</div><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
+    <header><a class="brand" href="./"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <section class="hero">
       <div><div class="eyebrow">Từ điển cho người mới</div><h1>IT không khó.<br>Chỉ cần được <span class="accent">giải thích đúng.</span></h1><p class="sub">Biến thuật ngữ công nghệ thành những câu chuyện và ví dụ gần gũi — để bạn hiểu bản chất trước khi học sâu hơn.</p><div class="search-wrap"><form class="search" id="searchForm"><span>⌕</span><input id="searchInput" autocomplete="off" aria-label="Tìm thuật ngữ" placeholder="Thử tìm: API, cache, database..." /><button type="button" id="searchButton">Tìm hiểu</button></form><div class="suggestions" id="suggestions" role="listbox"></div><div class="search-result" id="searchResult" aria-live="polite"></div></div></div>
-      <aside class="hero-card"><small>Hôm nay hiểu nhanh</small><h2>API là gì?</h2><p>API giống như người phục vụ ở nhà hàng: nhận yêu cầu của bạn, chuyển vào bếp và mang món ăn trở ra.</p><div class="mini-flow"><div class="flow-box">Bạn gọi món</div><div class="arrow">→</div><div class="flow-box">Người phục vụ</div><div class="arrow">→</div><div class="flow-box">Nhà bếp</div></div></aside>
+      <aside class="hero-card"><small>Hôm nay hiểu nhanh</small><h2><a href="thuat-ngu/api/">API là gì?</a></h2><p>API giống như người phục vụ ở nhà hàng: nhận yêu cầu của bạn, chuyển vào bếp và mang món ăn trở ra.</p><div class="mini-flow"><div class="flow-box">Bạn gọi món</div><div class="arrow">→</div><div class="flow-box">Người phục vụ</div><div class="arrow">→</div><div class="flow-box">Nhà bếp</div></div></aside>
     </section>
     <section class="section"><div class="section-head"><h3>Khám phá thuật ngữ</h3><span class="count" id="count"></span></div><div class="chips" id="chips"></div><div class="grid" id="grid"></div><p class="empty" id="empty">Chưa thấy thuật ngữ này. Hãy thử “API”, “server” hoặc “database”.</p></section>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
   </main>
-  <div class="modal" id="modal" aria-hidden="true"><article class="detail"><button class="close" id="close" aria-label="Đóng">×</button><span class="tag" id="detailCategory"></span><h2 id="detailTitle"></h2><p class="plain" id="detailPlain"></p><div class="analogy" id="detailAnalogy"></div><strong>Liên quan</strong><div class="related" id="related"></div></article></div>
-  <script>
-    const terms = [
-      {name:'API', icon:'🍽️', cat:'Web', brief:'Người phục vụ giúp hai phần mềm nói chuyện.', plain:'API là cánh cửa có quy tắc để một ứng dụng yêu cầu dữ liệu hoặc việc gì đó từ ứng dụng khác.', analogy:'Hãy hình dung bạn không vào bếp tự nấu: bạn gọi món với người phục vụ. Họ chuyển đúng yêu cầu vào bếp và mang kết quả ra.', related:['Frontend','Backend','Server']},
-      {name:'Database', icon:'🗄️', cat:'Dữ liệu', brief:'Tủ hồ sơ được sắp xếp để tìm lại thật nhanh.', plain:'Database là nơi lưu trữ dữ liệu có tổ chức: tài khoản, sản phẩm, đơn hàng, bài viết…', analogy:'Nó như kho hồ sơ của thư viện: mỗi thứ có vị trí riêng, nên cần là tìm được thay vì lục tung mọi thứ.', related:['Server','Backend','Cache']},
-      {name:'Server', icon:'🏢', cat:'Web', brief:'Nơi luôn trực để trả lời yêu cầu từ người dùng.', plain:'Server là máy tính hoặc chương trình cung cấp dữ liệu, xử lý yêu cầu và gửi kết quả về cho thiết bị của bạn.', analogy:'Giống quầy bếp luôn mở: bạn đặt món từ điện thoại, quầy bếp nhận đơn, làm món rồi gửi lại.', related:['API','Cloud','Database']},
-      {name:'Frontend', icon:'🪟', cat:'Phát triển', brief:'Phần bạn nhìn và trực tiếp bấm vào.', plain:'Frontend là giao diện website hoặc ứng dụng chạy trước mắt người dùng.', analogy:'Đây là sảnh, menu và nút bấm của một cửa hàng — thứ khách thấy và tương tác.', related:['Backend','UI/UX','API']},
-      {name:'Backend', icon:'⚙️', cat:'Phát triển', brief:'Phần hậu trường xử lý mọi việc phía sau.', plain:'Backend chứa logic, dữ liệu và các quy tắc vận hành để ứng dụng hoạt động đúng.', analogy:'Nếu frontend là mặt tiền cửa hàng thì backend là kho, sổ sách và đội vận hành bên trong.', related:['Frontend','Server','Database']},
-      {name:'Cloud', icon:'☁️', cat:'Hạ tầng', brief:'Thuê tài nguyên máy tính qua Internet.', plain:'Cloud cho phép bạn dùng máy chủ, lưu trữ hay phần mềm của nhà cung cấp thay vì tự mua và chăm máy.', analogy:'Như thuê căn hộ có sẵn điện nước thay vì tự mua đất, xây nhà và bảo trì từng thứ.', related:['Server','Deploy','Database']},
-      {name:'Cache', icon:'⚡', cat:'Hiệu năng', brief:'Ngăn để đồ hay dùng, giúp lấy nhanh hơn.', plain:'Cache giữ tạm dữ liệu thường xuyên được dùng để lần sau không cần tính hoặc tải lại từ đầu.', analogy:'Bạn để chìa khóa ở một cái khay cạnh cửa, thay vì mỗi lần ra ngoài lại đi tìm khắp nhà.', related:['Database','Server','API']},
-      {name:'Git', icon:'🕰️', cat:'Công cụ', brief:'Cỗ máy thời gian cho mã nguồn.', plain:'Git lưu các mốc thay đổi của dự án và giúp nhiều người làm cùng nhau mà không mất công việc.', analogy:'Như Google Docs có lịch sử chỉnh sửa, nhưng mạnh hơn và dành cho việc làm phần mềm.', related:['Deploy','Backend','Frontend']},
-      {name:'Deploy', icon:'🚀', cat:'Hạ tầng', brief:'Đưa sản phẩm từ máy làm việc đến nơi người dùng dùng được.', plain:'Deploy là quá trình phát hành phiên bản ứng dụng để nó chạy ở môi trường thật.', analogy:'Nấu xong trong bếp chưa đủ; deploy là lúc đưa món ra quầy để khách có thể gọi.', related:['Cloud','Server','Git']},
-      {name:'Bug', icon:'🐛', cat:'Cơ bản', brief:'Lỗi khiến sản phẩm hoạt động không đúng ý.', plain:'Bug là sai sót trong mã, dữ liệu hoặc thiết kế gây ra hành vi ngoài dự tính.', analogy:'Như công thức ghi nhầm một muỗng muối thành một bát muối: mọi bước vẫn làm, nhưng kết quả sai.', related:['Debug','Git','Backend']},
-      {name:'Debug', icon:'🔎', cat:'Cơ bản', brief:'Tìm và sửa nguyên nhân của lỗi.', plain:'Debug là công việc quan sát, đặt giả thuyết và kiểm tra để biết vì sao bug xảy ra.', analogy:'Giống thợ sửa xe lần theo dấu hiệu để biết xe không nổ máy vì hết xăng, yếu bình hay hỏng bugi.', related:['Bug','Git','Backend']},
-      {name:'UI/UX', icon:'✨', cat:'Thiết kế', brief:'Làm sản phẩm vừa đẹp, vừa dễ dùng.', plain:'UI là giao diện nhìn thấy; UX là toàn bộ trải nghiệm khi một người cố hoàn thành việc gì đó.', analogy:'UI là màu sơn và biển chỉ dẫn của quán; UX là việc khách có tìm được bàn, gọi món và thanh toán thoải mái không.', related:['Frontend','API','Backend']}
-    ];
-    const grid=document.querySelector('#grid'), input=document.querySelector('#searchInput'), chips=document.querySelector('#chips'), count=document.querySelector('#count'), empty=document.querySelector('#empty'), modal=document.querySelector('#modal'), suggestions=document.querySelector('#suggestions'), searchResult=document.querySelector('#searchResult'), searchButton=document.querySelector('#searchButton');
-    let category='Tất cả', selectedSuggestion=-1;
-    // Một chuẩn chung cho mọi lần tìm: không phân biệt HOA/thường, có/không dấu và khoảng trắng thừa.
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><article class="detail"><button class="close" id="close" aria-label="Đóng">×</button><span class="tag" id="detailCategory"></span><h2 id="detailTitle"></h2><p class="plain" id="detailPlain"></p><div class="analogy" id="detailAnalogy"></div><strong>Liên quan</strong><div class="related" id="related"></div></article></div>
+
+  <script type="module">
+    import { TERMS as terms, ALIASES as aliases, slugify } from './terms.js';
+
+    // Ghi nhớ thư mục gốc NGAY khi tải, trước mọi pushState.
+    const BASE = new URL('.', location.href).href;
+    const urlOf = name => BASE + 'thuat-ngu/' + slugify(name) + '/';
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+
+    const grid=document.querySelector('#grid'), input=document.querySelector('#searchInput'), chips=document.querySelector('#chips'),
+          count=document.querySelector('#count'), empty=document.querySelector('#empty'), modal=document.querySelector('#modal'),
+          suggestions=document.querySelector('#suggestions'), searchResult=document.querySelector('#searchResult'),
+          searchButton=document.querySelector('#searchButton'), relatedBox=document.querySelector('#related');
+    const HOME_TITLE = document.title;
+    let category='Tất cả', selectedSuggestion=-1, lastFocus=null;
+
     const normalize=s=>String(s).trim().toLocaleLowerCase('vi-VN').normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/đ/g,'d').replace(/\s+/g,' ');
-    const aliases={
-      'API':'giao dien lap trinh ket noi ung dung', 'Database':'co so du lieu du lieu', 'Server':'may chu', 'Frontend':'giao dien phia nguoi dung', 'Backend':'phia may chu xu ly he thong', 'Cloud':'dien toan dam may', 'Cache':'bo nho dem luu tam', 'Git':'quan ly phien ban ma nguon', 'Deploy':'trien khai phat hanh', 'Bug':'loi phan mem', 'Debug':'sua loi tim loi', 'UI/UX':'thiet ke giao dien trai nghiem nguoi dung'
-    };
     const categories=['Tất cả',...new Set(terms.map(t=>t.cat))];
-    function renderChips(){chips.innerHTML=categories.map(c=>`<button class="chip ${c===category?'active':''}" data-cat="${c}">${c}</button>`).join('');}
+
+    function renderChips(){chips.innerHTML=categories.map(c=>`<button class="chip ${c===category?'active':''}" data-cat="${esc(c)}">${esc(c)}</button>`).join('');}
     function matchesQuery(t,q){return normalize(`${t.name} ${aliases[t.name]||''}`).includes(q);}
-    function render(){const q=normalize(input.value.trim()); const shown=terms.filter(t=>(category==='Tất cả'||t.cat===category)&&(!q||matchesQuery(t,q))); grid.innerHTML=shown.map(t=>`<button class="term" data-name="${t.name}"><div class="icon">${t.icon}</div><h4>${t.name}</h4><p>${t.brief}</p></button>`).join(''); count.textContent=`${shown.length} thuật ngữ`; empty.style.display=shown.length?'none':'block';}
+    function render(){
+      const q=normalize(input.value.trim());
+      const shown=terms.filter(t=>(category==='Tất cả'||t.cat===category)&&(!q||matchesQuery(t,q)));
+      grid.innerHTML=shown.map(t=>`<a class="term" href="${esc(urlOf(t.name))}" data-name="${esc(t.name)}"><div class="icon">${t.icon}</div><h4>${esc(t.name)}</h4><p>${esc(t.brief)}</p></a>`).join('');
+      count.textContent=`${shown.length} thuật ngữ`; empty.style.display=shown.length?'none':'block';
+    }
     function searchMatches(){const q=normalize(input.value.trim()); return q?terms.filter(t=>matchesQuery(t,q)).slice(0,5):[];}
-    function renderSuggestions(){const matches=searchMatches(); selectedSuggestion=-1; suggestions.innerHTML=matches.map(t=>`<button class="suggestion" data-name="${t.name}" role="option">${t.icon}<b>${t.name}</b><span>${t.cat}</span></button>`).join(''); suggestions.classList.toggle('show',matches.length>0);}
-    function chooseTerm(name){input.value=name; suggestions.classList.remove('show'); openTerm(name);}
-    function runSearch(){const query=input.value.trim(), matches=searchMatches(); suggestions.classList.remove('show'); render(); if(!query){searchResult.innerHTML='<div class="result-empty">Hãy nhập một thuật ngữ, ví dụ: API, cache hoặc server.</div>';searchResult.classList.add('show');return;} if(!matches.length){searchResult.innerHTML=`<div class="result-empty">Chưa có kết quả cho “${query}”. Thử API, database, server hoặc bug nhé.</div>`;searchResult.classList.add('show');return;} searchResult.innerHTML=`<div class="result-label">${matches.length} kết quả cho “${query}”</div>`+matches.map(t=>`<button class="result-item" data-name="${t.name}"><span>${t.icon}</span><span><b>${t.name}</b><p>${t.brief}</p></span></button>`).join('');searchResult.classList.add('show');}
-    function openTerm(name){const t=terms.find(x=>x.name===name); if(!t)return; document.querySelector('#detailCategory').textContent=t.cat; document.querySelector('#detailTitle').textContent=`${t.icon} ${t.name}`; document.querySelector('#detailPlain').textContent=t.plain; document.querySelector('#detailAnalogy').innerHTML=`<strong>Nói theo đời thường:</strong><br>${t.analogy}`; document.querySelector('#related').innerHTML=t.related.map(r=>`<button data-name="${r}">${r}</button>`).join(''); modal.classList.add('show'); modal.setAttribute('aria-hidden','false');}
-    chips.addEventListener('click',e=>{if(e.target.dataset.cat){category=e.target.dataset.cat;renderChips();render();}}); grid.addEventListener('click',e=>{const card=e.target.closest('[data-name]');if(card)openTerm(card.dataset.name)}); input.addEventListener('input',()=>{searchResult.classList.remove('show');render();renderSuggestions()}); input.addEventListener('keydown',e=>{const options=[...suggestions.querySelectorAll('.suggestion')];if(e.key==='ArrowDown'&&options.length){e.preventDefault();selectedSuggestion=(selectedSuggestion+1)%options.length;}else if(e.key==='ArrowUp'&&options.length){e.preventDefault();selectedSuggestion=(selectedSuggestion-1+options.length)%options.length;}else if(e.key==='Escape'){suggestions.classList.remove('show');}options.forEach((o,i)=>o.classList.toggle('selected',i===selectedSuggestion));}); suggestions.addEventListener('mousedown',e=>{const choice=e.target.closest('[data-name]');if(choice){e.preventDefault();chooseTerm(choice.dataset.name);}}); searchButton.addEventListener('click',runSearch); document.querySelector('#searchForm').addEventListener('submit',e=>{e.preventDefault();runSearch()}); searchResult.addEventListener('click',e=>{const choice=e.target.closest('[data-name]');if(choice){searchResult.classList.remove('show');chooseTerm(choice.dataset.name);}}); document.querySelector('#close').onclick=()=>modal.classList.remove('show'); modal.addEventListener('click',e=>{if(e.target===modal)modal.classList.remove('show')}); document.querySelector('#related').addEventListener('click',e=>{if(e.target.dataset.name)openTerm(e.target.dataset.name)}); document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap')){suggestions.classList.remove('show');searchResult.classList.remove('show')}}); document.addEventListener('keydown',e=>{if(e.key==='Escape')modal.classList.remove('show')}); renderChips();render();
+    function renderSuggestions(){
+      const matches=searchMatches(); selectedSuggestion=-1;
+      suggestions.innerHTML=matches.map(t=>`<button class="suggestion" data-name="${esc(t.name)}" role="option">${t.icon}<b>${esc(t.name)}</b><span>${esc(t.cat)}</span></button>`).join('');
+      suggestions.classList.toggle('show',matches.length>0);
+    }
+    function runSearch(){
+      const query=input.value.trim(), matches=searchMatches();
+      suggestions.classList.remove('show'); render();
+      if(!query){searchResult.innerHTML='<div class="result-empty">Hãy nhập một thuật ngữ, ví dụ: API, cache hoặc server.</div>';searchResult.classList.add('show');return;}
+      if(!matches.length){searchResult.innerHTML=`<div class="result-empty">Chưa có kết quả cho “${esc(query)}”. Thử API, database, server hoặc bug nhé.</div>`;searchResult.classList.add('show');return;}
+      searchResult.innerHTML=`<div class="result-label">${matches.length} kết quả cho “${esc(query)}”</div>`+matches.map(t=>`<button class="result-item" data-name="${esc(t.name)}"><span>${t.icon}</span><span><b>${esc(t.name)}</b><p>${esc(t.brief)}</p></span></button>`).join('');
+      searchResult.classList.add('show');
+    }
+
+    function openTerm(name,{push=true}={}){
+      const t=terms.find(x=>x.name===name); if(!t)return;
+      lastFocus=document.activeElement;
+      document.querySelector('#detailCategory').textContent=t.cat;
+      document.querySelector('#detailTitle').textContent=`${t.icon} ${t.name}`;
+      document.querySelector('#detailPlain').textContent=t.plain;
+      document.querySelector('#detailAnalogy').innerHTML=`<strong>Nói theo đời thường:</strong><br>${esc(t.analogy)}`;
+      relatedBox.innerHTML=t.related.map(r=>`<a href="${esc(urlOf(r))}" data-name="${esc(r)}">${esc(r)}</a>`).join('');
+      modal.classList.add('show'); modal.setAttribute('aria-hidden','false');
+      document.title=`${t.name} là gì? — IT nói tiếng người`;
+      if(push) history.pushState({term:t.name},'',urlOf(t.name));
+      document.querySelector('#close').focus();
+    }
+    function closeTerm({push=true}={}){
+      if(!modal.classList.contains('show'))return;
+      modal.classList.remove('show'); modal.setAttribute('aria-hidden','true');
+      document.title=HOME_TITLE;
+      if(push) history.pushState({},'',BASE);
+      if(lastFocus&&document.contains(lastFocus)) lastFocus.focus();
+    }
+    // Giữ tiêu điểm bên trong hộp thoại khi bấm Tab.
+    modal.addEventListener('keydown',e=>{
+      if(e.key!=='Tab')return;
+      const f=[...modal.querySelectorAll('button, a[href]')].filter(el=>el.offsetParent!==null);
+      if(!f.length)return;
+      const first=f[0], last=f[f.length-1];
+      if(e.shiftKey&&document.activeElement===first){e.preventDefault();last.focus();}
+      else if(!e.shiftKey&&document.activeElement===last){e.preventDefault();first.focus();}
+    });
+
+    const plainClick=e=>!(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0);
+    function wireLinks(box){
+      box.addEventListener('click',e=>{
+        const el=e.target.closest('[data-name]'); if(!el)return;
+        if(el.tagName==='A'&&!plainClick(e))return;   // Ctrl/giữa chuột: để trình duyệt mở tab mới
+        e.preventDefault(); openTerm(el.dataset.name);
+      });
+    }
+    wireLinks(grid); wireLinks(relatedBox);
+    searchResult.addEventListener('click',e=>{const c=e.target.closest('[data-name]');if(c){searchResult.classList.remove('show');input.value=c.dataset.name;openTerm(c.dataset.name);}});
+    suggestions.addEventListener('mousedown',e=>{const c=e.target.closest('[data-name]');if(c){e.preventDefault();input.value=c.dataset.name;suggestions.classList.remove('show');openTerm(c.dataset.name);}});
+
+    chips.addEventListener('click',e=>{if(e.target.dataset.cat){category=e.target.dataset.cat;renderChips();render();}});
+    input.addEventListener('input',()=>{searchResult.classList.remove('show');render();renderSuggestions()});
+    input.addEventListener('keydown',e=>{
+      const options=[...suggestions.querySelectorAll('.suggestion')];
+      if(e.key==='ArrowDown'&&options.length){e.preventDefault();selectedSuggestion=(selectedSuggestion+1)%options.length;}
+      else if(e.key==='ArrowUp'&&options.length){e.preventDefault();selectedSuggestion=(selectedSuggestion-1+options.length)%options.length;}
+      else if(e.key==='Escape'){suggestions.classList.remove('show');}
+      options.forEach((o,i)=>o.classList.toggle('selected',i===selectedSuggestion));
+    });
+    searchButton.addEventListener('click',runSearch);
+    document.querySelector('#searchForm').addEventListener('submit',e=>{e.preventDefault();runSearch()});
+    document.querySelector('#close').onclick=()=>closeTerm();
+    modal.addEventListener('click',e=>{if(e.target===modal)closeTerm()});
+    document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap')){suggestions.classList.remove('show');searchResult.classList.remove('show')}});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTerm()});
+
+    // Nút lùi/tiến của trình duyệt phải đồng bộ với hộp thoại.
+    addEventListener('popstate',()=>{
+      const rest=decodeURIComponent(location.href.replace(BASE,''));
+      const m=rest.match(/^thuat-ngu\/([^/]+)\/?$/);
+      const t=m&&terms.find(x=>slugify(x.name)===m[1]);
+      if(t) openTerm(t.name,{push:false}); else closeTerm({push:false});
+    });
+
+    renderChips(); render();
   </script>
 </body>
 </html>

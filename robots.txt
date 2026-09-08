@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://leona3893.github.io/don-gian-hoa/sitemap.xml
