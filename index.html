@@ -29,7 +29,7 @@
     <section class="section"><div class="section-head"><h3>Khám phá thuật ngữ</h3><span class="count" id="count"></span></div><div class="chips" id="chips"></div><div class="grid" id="grid"></div><p class="empty" id="empty">Chưa thấy thuật ngữ này. Hãy thử “API”, “server” hoặc “database”.</p></section>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
   </main>
-  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><article class="detail"><button class="close" id="close" aria-label="Đóng">×</button><span class="tag" id="detailCategory"></span><h2 id="detailTitle"></h2><p class="plain" id="detailPlain"></p><div class="analogy" id="detailAnalogy"></div><strong>Liên quan</strong><div class="related" id="related"></div></article></div>
+  <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="detailTitle"><article class="detail"><button class="close" id="close" aria-label="Đóng">×</button><span class="tag" id="detailCategory"></span><h2 id="detailTitle"></h2><p class="brief" id="detailBrief"></p><p class="plain" id="detailPlain"></p><div class="analogy" id="detailAnalogy"></div><strong>Liên quan</strong><div class="related" id="related"></div><a class="full-link" id="fullLink" href="">Mở trang đầy đủ →</a></article></div>
 
   <script type="module">
     import { TERMS as terms, ALIASES as aliases, slugify } from './terms.js';
@@ -94,7 +94,10 @@
       lastFocus=document.activeElement;
       document.querySelector('#detailCategory').textContent=t.cat;
       document.querySelector('#detailTitle').textContent=`${t.icon} ${t.name}`;
+      document.querySelector('#detailBrief').textContent=t.brief;
       document.querySelector('#detailPlain').textContent=t.plain;
+      // Link này KHÔNG bị wireLinks chặn nên bấm vào là điều hướng thật sang trang tĩnh.
+      document.querySelector('#fullLink').href=urlOf(t.name);
       document.querySelector('#detailAnalogy').innerHTML=`<strong>Nói theo đời thường:</strong><br>${esc(t.analogy)}`;
       relatedBox.innerHTML=t.related.map(r=>`<a href="${esc(urlOf(r))}" data-name="${esc(r)}">${esc(r)}</a>`).join('');
       modal.classList.add('show'); modal.setAttribute('aria-hidden','false');

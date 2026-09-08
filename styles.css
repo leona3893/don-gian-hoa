@@ -47,3 +47,9 @@ footer { padding:28px 0 45px; color:#78847d; font-size:14px; border-top:1px soli
 /* Gợi ý và kết quả tìm kiếm giờ là thẻ <a> thật (mở tab mới được) nên bỏ gạch chân. */
 .suggestion, .result-item { text-decoration:none; }
 .suggestion:focus-visible, .result-item:focus-visible, .term:focus-visible { outline:3px solid var(--green); outline-offset:2px; }
+
+/* Popup: dòng tóm tắt cho khớp trang tĩnh, và lối sang trang đầy đủ. */
+.detail .brief { font-size:17px; color:var(--muted); line-height:1.55; margin:0 0 14px; }
+.full-link { display:inline-block; margin-top:24px; font-weight:700; color:var(--green); text-decoration:none; border-bottom:2px solid var(--lime); padding-bottom:2px; }
+.full-link:hover { border-bottom-color:var(--green); }
+.full-link:focus-visible { outline:3px solid var(--green); outline-offset:3px; }
