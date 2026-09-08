@@ -43,3 +43,7 @@ footer { padding:28px 0 45px; color:#78847d; font-size:14px; border-top:1px soli
 
 @media(max-width:760px) { .nav { display:none; }.hero { grid-template-columns:1fr; padding-top:35px; gap:28px; }.hero-card { transform:none; box-shadow:8px 8px 0 var(--lime); }.grid { grid-template-columns:1fr 1fr; } h1 { font-size:49px; } }
 @media(max-width:440px) { .wrap { width:min(100% - 28px,1120px); }.grid { grid-template-columns:1fr; }.search button { padding:10px; font-size:0; }.search button:after { content:'→'; font-size:19px; } }
+
+/* Gợi ý và kết quả tìm kiếm giờ là thẻ <a> thật (mở tab mới được) nên bỏ gạch chân. */
+.suggestion, .result-item { text-decoration:none; }
+.suggestion:focus-visible, .result-item:focus-visible, .term:focus-visible { outline:3px solid var(--green); outline-offset:2px; }

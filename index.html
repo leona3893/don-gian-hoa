@@ -23,7 +23,7 @@
   <main class="wrap">
     <header><a class="brand" href="./"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <section class="hero">
-      <div><div class="eyebrow">Từ điển cho người mới</div><h1>IT không khó.<br>Chỉ cần được <span class="accent">giải thích đúng.</span></h1><p class="sub">Biến thuật ngữ công nghệ thành những câu chuyện và ví dụ gần gũi — để bạn hiểu bản chất trước khi học sâu hơn.</p><div class="search-wrap"><form class="search" id="searchForm"><span>⌕</span><input id="searchInput" autocomplete="off" aria-label="Tìm thuật ngữ" placeholder="Thử tìm: API, cache, database..." /><button type="button" id="searchButton">Tìm hiểu</button></form><div class="suggestions" id="suggestions" role="listbox"></div><div class="search-result" id="searchResult" aria-live="polite"></div></div></div>
+      <div><div class="eyebrow">Từ điển cho người mới</div><h1>IT không khó.<br>Chỉ cần được <span class="accent">giải thích đúng.</span></h1><p class="sub">Biến thuật ngữ công nghệ thành những câu chuyện và ví dụ gần gũi — để bạn hiểu bản chất trước khi học sâu hơn.</p><div class="search-wrap"><form class="search" id="searchForm"><span>⌕</span><input id="searchInput" autocomplete="off" aria-label="Tìm thuật ngữ" placeholder="Thử tìm: API, cache, database..." role="combobox" aria-expanded="false" aria-controls="suggestions" aria-autocomplete="list" /><button type="button" id="searchButton">Tìm hiểu</button></form><div class="suggestions" id="suggestions" role="listbox"></div><div class="search-result" id="searchResult" aria-live="polite"></div></div></div>
       <aside class="hero-card"><small>Hôm nay hiểu nhanh</small><h2><a href="thuat-ngu/api/">API là gì?</a></h2><p>API giống như người phục vụ ở nhà hàng: nhận yêu cầu của bạn, chuyển vào bếp và mang món ăn trở ra.</p><div class="mini-flow"><div class="flow-box">Bạn gọi món</div><div class="arrow">→</div><div class="flow-box">Người phục vụ</div><div class="arrow">→</div><div class="flow-box">Nhà bếp</div></div></aside>
     </section>
     <section class="section"><div class="section-head"><h3>Khám phá thuật ngữ</h3><span class="count" id="count"></span></div><div class="chips" id="chips"></div><div class="grid" id="grid"></div><p class="empty" id="empty">Chưa thấy thuật ngữ này. Hãy thử “API”, “server” hoặc “database”.</p></section>
@@ -36,6 +36,13 @@
 
     // Ghi nhớ thư mục gốc NGAY khi tải, trước mọi pushState.
     const BASE = new URL('.', location.href).href;
+
+    // pushState đổi URL hiện tại, nên mọi đường dẫn tương đối (favicon, logo,
+    // link trong hero) sẽ bị phân giải lại theo URL mới và gãy. Ghim một <base>
+    // tuyệt đối để chúng luôn trỏ về gốc site dù URL có đổi thế nào.
+    const baseTag = document.createElement('base');
+    baseTag.href = BASE;
+    document.head.prepend(baseTag);
     const urlOf = name => BASE + 'thuat-ngu/' + slugify(name) + '/';
     const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 
@@ -60,15 +67,25 @@
     function searchMatches(){const q=normalize(input.value.trim()); return q?terms.filter(t=>matchesQuery(t,q)).slice(0,5):[];}
     function renderSuggestions(){
       const matches=searchMatches(); selectedSuggestion=-1;
-      suggestions.innerHTML=matches.map(t=>`<button class="suggestion" data-name="${esc(t.name)}" role="option">${t.icon}<b>${esc(t.name)}</b><span>${esc(t.cat)}</span></button>`).join('');
-      suggestions.classList.toggle('show',matches.length>0);
+      suggestions.innerHTML=matches.map((t,i)=>`<a class="suggestion" id="sug-${i}" href="${esc(urlOf(t.name))}" data-name="${esc(t.name)}" role="option" aria-selected="false">${t.icon}<b>${esc(t.name)}</b><span>${esc(t.cat)}</span></a>`).join('');
+      const open=matches.length>0;
+      suggestions.classList.toggle('show',open);
+      input.setAttribute('aria-expanded',String(open));
+      input.removeAttribute('aria-activedescendant');
+    }
+    // Đóng dropdown và dọn luôn trạng thái ARIA kèm theo.
+    function hideSuggestions(){
+      suggestions.classList.remove('show');
+      input.setAttribute('aria-expanded','false');
+      input.removeAttribute('aria-activedescendant');
+      selectedSuggestion=-1;
     }
     function runSearch(){
       const query=input.value.trim(), matches=searchMatches();
-      suggestions.classList.remove('show'); render();
+      hideSuggestions(); render();
       if(!query){searchResult.innerHTML='<div class="result-empty">Hãy nhập một thuật ngữ, ví dụ: API, cache hoặc server.</div>';searchResult.classList.add('show');return;}
       if(!matches.length){searchResult.innerHTML=`<div class="result-empty">Chưa có kết quả cho “${esc(query)}”. Thử API, database, server hoặc bug nhé.</div>`;searchResult.classList.add('show');return;}
-      searchResult.innerHTML=`<div class="result-label">${matches.length} kết quả cho “${esc(query)}”</div>`+matches.map(t=>`<button class="result-item" data-name="${esc(t.name)}"><span>${t.icon}</span><span><b>${esc(t.name)}</b><p>${esc(t.brief)}</p></span></button>`).join('');
+      searchResult.innerHTML=`<div class="result-label">${matches.length} kết quả cho “${esc(query)}”</div>`+matches.map(t=>`<a class="result-item" href="${esc(urlOf(t.name))}" data-name="${esc(t.name)}"><span>${t.icon}</span><span><b>${esc(t.name)}</b><p>${esc(t.brief)}</p></span></a>`).join('');
       searchResult.classList.add('show');
     }
 
@@ -103,31 +120,47 @@
     });
 
     const plainClick=e=>!(e.metaKey||e.ctrlKey||e.shiftKey||e.altKey||e.button!==0);
-    function wireLinks(box){
+    function wireLinks(box,before){
       box.addEventListener('click',e=>{
         const el=e.target.closest('[data-name]'); if(!el)return;
         if(el.tagName==='A'&&!plainClick(e))return;   // Ctrl/giữa chuột: để trình duyệt mở tab mới
-        e.preventDefault(); openTerm(el.dataset.name);
+        e.preventDefault();
+        if(before) before(el.dataset.name);
+        openTerm(el.dataset.name);
       });
     }
     wireLinks(grid); wireLinks(relatedBox);
-    searchResult.addEventListener('click',e=>{const c=e.target.closest('[data-name]');if(c){searchResult.classList.remove('show');input.value=c.dataset.name;openTerm(c.dataset.name);}});
-    suggestions.addEventListener('mousedown',e=>{const c=e.target.closest('[data-name]');if(c){e.preventDefault();input.value=c.dataset.name;suggestions.classList.remove('show');openTerm(c.dataset.name);}});
+    wireLinks(searchResult, name=>{ searchResult.classList.remove('show'); input.value=name; });
+    wireLinks(suggestions, name=>{ hideSuggestions(); input.value=name; });
 
     chips.addEventListener('click',e=>{if(e.target.dataset.cat){category=e.target.dataset.cat;renderChips();render();}});
     input.addEventListener('input',()=>{searchResult.classList.remove('show');render();renderSuggestions()});
     input.addEventListener('keydown',e=>{
       const options=[...suggestions.querySelectorAll('.suggestion')];
+      // Enter khi đang tô sáng một gợi ý thì mở thẳng thuật ngữ đó, không chạy tìm kiếm.
+      if(e.key==='Enter'&&selectedSuggestion>=0&&options[selectedSuggestion]){
+        e.preventDefault();
+        const name=options[selectedSuggestion].dataset.name;
+        hideSuggestions(); input.value=name; openTerm(name);
+        return;
+      }
       if(e.key==='ArrowDown'&&options.length){e.preventDefault();selectedSuggestion=(selectedSuggestion+1)%options.length;}
       else if(e.key==='ArrowUp'&&options.length){e.preventDefault();selectedSuggestion=(selectedSuggestion-1+options.length)%options.length;}
-      else if(e.key==='Escape'){suggestions.classList.remove('show');}
-      options.forEach((o,i)=>o.classList.toggle('selected',i===selectedSuggestion));
+      else if(e.key==='Escape'){hideSuggestions();}
+      options.forEach((o,i)=>{
+        const on=i===selectedSuggestion;
+        o.classList.toggle('selected',on);
+        o.setAttribute('aria-selected',String(on));
+      });
+      const active=options[selectedSuggestion];
+      if(active) input.setAttribute('aria-activedescendant',active.id);
+      else input.removeAttribute('aria-activedescendant');
     });
     searchButton.addEventListener('click',runSearch);
     document.querySelector('#searchForm').addEventListener('submit',e=>{e.preventDefault();runSearch()});
     document.querySelector('#close').onclick=()=>closeTerm();
     modal.addEventListener('click',e=>{if(e.target===modal)closeTerm()});
-    document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap')){suggestions.classList.remove('show');searchResult.classList.remove('show')}});
+    document.addEventListener('click',e=>{if(!e.target.closest('.search-wrap')){hideSuggestions();searchResult.classList.remove('show')}});
     document.addEventListener('keydown',e=>{if(e.key==='Escape')closeTerm()});
 
     // Nút lùi/tiến của trình duyệt phải đồng bộ với hộp thoại.
