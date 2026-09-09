@@ -94,3 +94,18 @@ pre.code .s { color:#d9f26c; }
 .moc-row b { display:block; margin-bottom:2px; }
 .moc-row span { color:var(--muted); font-size:14px; }
 @media(max-width:640px){ .two { grid-template-columns:1fr; } }
+
+/* ── Lối vào trang lộ trình ── */
+.nav { display:flex; align-items:center; gap:16px; }
+.nav a { color:var(--green); font-weight:700; text-decoration:none; white-space:nowrap; }
+.nav a:hover { text-decoration:underline; }
+.lotrinh-banner { display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; background:var(--card); border:1px solid var(--line); border-radius:18px; padding:20px 24px; margin-top:8px; }
+.lotrinh-banner .txt b { display:block; font-size:19px; letter-spacing:-.03em; margin-bottom:4px; }
+.lotrinh-banner .txt span { color:var(--muted); font-size:15px; line-height:1.55; }
+.lotrinh-banner a { flex:none; background:var(--green); color:#fff; font-weight:700; padding:12px 20px; border-radius:100px; text-decoration:none; white-space:nowrap; }
+@media(max-width:760px) {
+  .nav { display:flex; }
+  .nav .tagline { display:none; }
+  .lotrinh-banner { padding:18px 20px; }
+  .lotrinh-banner a { width:100%; text-align:center; }
+}

@@ -124,7 +124,7 @@ const page = t => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a></div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › ${esc(t.name)}</nav>
     <article class="article">
       <span class="tag">${esc(t.cat)}</span>${badge}
@@ -176,7 +176,7 @@ const trangLoTrinh = () => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
+    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../lo-trinh/">Lộ trình</a></div></header>
     <nav class="crumb"><a href="../">Trang chủ</a> › Lộ trình</nav>
     <article class="article">
       <h1>Bạn đang ở mốc nào?</h1>
