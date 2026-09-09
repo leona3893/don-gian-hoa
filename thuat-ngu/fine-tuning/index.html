@@ -23,13 +23,38 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Fine-tuning</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-3">Mốc 3 · Tự ghép được</a>
       <h1>🎚️ Fine-tuning là gì?</h1>
       <p class="brief">Dạy thêm cho model có sẵn để hợp việc của bạn.</p>
-      <p class="plain">Fine-tuning là huấn luyện tiếp một model đã có trên dữ liệu riêng, để nó quen giọng văn hoặc nghiệp vụ cụ thể.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như tuyển người đã biết nghề rồi đào tạo thêm quy trình nội bộ, thay vì dạy lại từ con số không.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../training/">Training</a><a href="../model/">Model</a><a href="../dataset/">Dataset</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Fine-tuning là huấn luyện tiếp một model đã có trên dữ liệu riêng, để nó quen giọng văn hoặc nghiệp vụ cụ thể.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như tuyển người đã biết nghề rồi đào tạo thêm quy trình nội bộ, thay vì dạy lại từ con số không.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Đào tạo thêm quy trình nội bộ” — nghe như cách nhồi kiến thức vào model. <span class="punch">Nhưng fine-tuning dạy giọng điệu và cách làm tốt hơn nhiều so với dạy sự kiện.</span></p>
+<p>Muốn model biết bảng giá công ty bạn thì RAG rẻ hơn và chính xác hơn nhiều. Fine-tuning hợp khi bạn cần nó <em>trả lời theo một phong cách nhất quán</em>, hoặc theo một định dạng cố định. Nhầm hai việc này là sai lầm tốn kém phổ biến nhất.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Cần model biết bảng giá mới nhất?</span>
+  → RAG. Rẻ, cập nhật ngay, có trích nguồn.
+
+<span class="c">Cần model luôn trả lời theo giọng thương hiệu, đúng mẫu?</span>
+  → Fine-tuning. Cần vài trăm tới vài nghìn ví dụ mẫu.</pre>
+    <p class="cap">Câu hỏi tự vấn: bạn cần nó <em>biết thêm</em> hay cần nó <em>cư xử khác</em>?</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần giọng điệu hoặc định dạng rất nhất quán</li><li>Prompt đã tối ưu hết mà vẫn không đủ</li><li>Có sẵn vài trăm ví dụ chất lượng</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Chỉ cần model biết dữ liệu mới (dùng RAG)</li><li>Chưa thử tối ưu prompt cho tử tế</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> LoRA, chuẩn bị dữ liệu huấn luyện, đánh giá sau fine-tune, quên kiến thức cũ.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Bạn đã ở mốc này nếu đang cân nhắc fine-tune. Hãy thử RAG trước, thường là đủ.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../rag/">RAG</a><span>Lựa chọn nên cân nhắc trước fine-tuning.</span></li><li><a href="../training/">Training</a><span>Fine-tuning là bản rút gọn của nó.</span></li><li><a href="../dataset/">Dataset</a><span>Chất lượng ví dụ quyết định kết quả.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Trước khi nghĩ tới fine-tuning, thử đưa 3 ví dụ mẫu ngay trong prompt. Rất nhiều trường hợp chỉ cần vậy là đủ, không tốn đồng nào.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

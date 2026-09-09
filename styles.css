@@ -53,3 +53,44 @@ footer { padding:28px 0 45px; color:#78847d; font-size:14px; border-top:1px soli
 .full-link { display:inline-block; margin-top:24px; font-weight:700; color:var(--green); text-decoration:none; border-bottom:2px solid var(--lime); padding-bottom:2px; }
 .full-link:hover { border-bottom-color:var(--green); }
 .full-link:focus-visible { outline:3px solid var(--green); outline-offset:3px; }
+
+/* ── Cấu trúc 4 tầng ── */
+.badge-moc { display:inline-block; background:#eef2ff; color:#4338a8; padding:6px 10px; border-radius:100px; font-weight:700; font-size:12px; text-decoration:none; margin-left:6px; }
+.layer { display:flex; align-items:center; gap:10px; margin:38px 0 14px; }
+.layer-no { flex:none; width:26px; height:26px; border-radius:50%; background:var(--green); color:#fff; font-size:13px; font-weight:700; display:grid; place-items:center; }
+.layer-name { font-size:13px; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--green); }
+.layer-line { flex:1; height:1px; background:var(--line); }
+.leak { background:#fdf5ec; border-left:4px solid #e0a15f; border-radius:0 12px 12px 0; padding:16px 18px; margin:20px 0; line-height:1.6; }
+.leak h4 { margin:0 0 10px; font-size:15px; color:#8a5a22; }
+.leak p { margin:10px 0; }
+.leak .punch { font-weight:700; color:#8a5a22; }
+pre.code { background:#18251e; color:#e9f3e6; border-radius:12px; padding:15px 17px; overflow-x:auto; margin:14px 0; font-size:14px; line-height:1.65; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+pre.code .c { color:#8fb39b; }
+pre.code .s { color:#d9f26c; }
+.cap { font-size:14px; color:var(--muted); margin:6px 0 0; line-height:1.55; }
+.two { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0; }
+.box { border:1px solid var(--line); border-radius:12px; padding:15px 17px; background:var(--card); line-height:1.6; }
+.box h4 { margin:0 0 9px; font-size:14px; }
+.box.yes h4 { color:#207145; }
+.box.no h4 { color:#a2543a; }
+.box ul { margin:0; padding-left:18px; }
+.box li { margin:5px 0; }
+.notyet { background:#f3f6f8; border-radius:12px; padding:16px 18px; margin:16px 0; line-height:1.6; font-size:15px; }
+.notyet .row { margin:9px 0; }
+.notyet .k { font-weight:700; color:#3d5a6c; }
+.notyet .sign { border-top:1px dashed #c9d6de; margin-top:12px; padding-top:11px; }
+.nextlist { list-style:none; margin:12px 0 0; padding:0; }
+.nextlist li { border-bottom:1px solid var(--line); padding:12px 0; line-height:1.55; }
+.nextlist li:last-child { border-bottom:0; }
+.nextlist a { color:#573ab6; font-weight:700; text-decoration:none; }
+.nextlist span { display:block; color:var(--muted); font-size:14px; margin-top:3px; }
+.try { background:#eef7f0; border:1px solid #cfe6d6; border-radius:12px; padding:16px 18px; margin:22px 0 0; line-height:1.6; }
+.try h4 { margin:0 0 8px; font-size:15px; color:#207145; }
+.track { border:1px solid var(--line); border-radius:14px; padding:19px 21px; margin:16px 0; background:var(--card); }
+.track > h3 { margin:0 0 4px; font-size:21px; }
+.track .cho { color:var(--muted); font-size:14px; margin:0 0 14px; }
+.moc-row { display:flex; gap:12px; padding:11px 0; border-top:1px solid var(--line); line-height:1.55; }
+.moc-row .num { flex:none; width:24px; height:24px; border-radius:50%; background:var(--green); color:#fff; font-size:12px; font-weight:700; display:grid; place-items:center; }
+.moc-row b { display:block; margin-bottom:2px; }
+.moc-row span { color:var(--muted); font-size:14px; }
+@media(max-width:640px){ .two { grid-template-columns:1fr; } }

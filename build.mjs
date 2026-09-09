@@ -1,8 +1,9 @@
-// Sinh trang tĩnh cho từng thuật ngữ + sitemap.
-// Chạy lại mỗi khi sửa terms.js:   node build.mjs
+// Sinh trang tĩnh cho từng thuật ngữ + trang lộ trình + sitemap.
+// Chạy lại mỗi khi sửa terms.js hoặc chi-tiet.js:   node build.mjs
 import fs from 'fs';
 import path from 'path';
 import { TERMS, slugify } from './terms.js';
+import { TRACKS, CHI_TIET } from './chi-tiet.js';
 
 const SITE = 'https://leona3893.github.io/don-gian-hoa/';
 const OUT = 'thuat-ngu';
@@ -10,10 +11,65 @@ const OUT = 'thuat-ngu';
 const esc = s => String(s).replace(/[&<>"']/g, c =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+// Nhóm nào dùng bộ mốc nào. Không khai báo riêng thì rơi về bộ nền tảng.
+const trackOf = cat => TRACKS[cat] || TRACKS._default;
+
 // Mô tả cho thẻ meta: gọn, dưới ~160 ký tự để Google không cắt giữa chừng.
 const metaDesc = t => {
   const s = `${t.name} là gì? ${t.plain}`;
   return s.length <= 158 ? s : s.slice(0, 155).replace(/\s+\S*$/, '') + '…';
+};
+
+// ── Bốn tầng: chỉ dựng khi thuật ngữ có mục trong chi-tiet.js ──
+const layer = (n, ten) =>
+  `<div class="layer"><div class="layer-no">${n}</div><div class="layer-name">${ten}</div><div class="layer-line"></div></div>`;
+
+const bonTang = (t, d) => {
+  const tr = trackOf(t.cat);
+  const mocCuoi = tr.moc[d.notYet.toiMoc];
+  const linkNext = n => TERMS.some(x => x.name === n.ten)
+    ? `<a href="../${slugify(n.ten)}/">${esc(n.ten)}</a>`
+    : `<span>${esc(n.ten)}</span>`;
+
+  return `
+    ${layer(1, 'Hiểu nó là gì')}
+    <p class="plain">${esc(t.plain)}</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>${esc(t.analogy)}</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4>${d.leak}</div>
+
+    ${layer(2, 'Code trông thế nào')}
+    <pre class="code">${d.code}</pre>
+    <p class="cap">${d.cap}</p>
+
+    ${layer(3, 'Khi nào bạn dùng nó')}
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul>${d.yes.map(x => `<li>${x}</li>`).join('')}</ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul>${d.no.map(x => `<li>${x}</li>`).join('')}</ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> ${d.notYet.gi}.</div>
+      <div class="row"><span class="k">Để dành tới Mốc ${d.notYet.toiMoc} — ${esc(mocCuoi.ten)}:</span> ${esc(mocCuoi.tuKiem)}</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> ${d.notYet.dauHieu}</div>
+    </div>
+
+    ${layer(4, 'Đi đâu tiếp')}
+    <ul class="nextlist">${d.next.map(n => `<li>${linkNext(n)}<span>${n.vi}</span></li>`).join('')}</ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>${d.try}</div>`;
+};
+
+// Bản rút gọn cho thuật ngữ chưa có nội dung 4 tầng.
+const banGon = t => {
+  const related = t.related
+    .filter(r => TERMS.some(x => x.name === r))
+    .map(r => `<a href="../${slugify(r)}/">${esc(r)}</a>`)
+    .join('');
+  return `
+      <p class="brief">${esc(t.brief)}</p>
+      <p class="plain">${esc(t.plain)}</p>
+      <div class="analogy"><strong>Nói theo đời thường:</strong><br>${esc(t.analogy)}</div>
+      <h2>Thuật ngữ liên quan</h2>
+      <div class="related">${related}</div>`;
 };
 
 const page = t => {
@@ -21,10 +77,8 @@ const page = t => {
   const url = `${SITE}${OUT}/${slug}/`;
   const title = `${t.name} là gì? Giải thích dễ hiểu — IT nói tiếng người`;
   const desc = metaDesc(t);
-  const related = t.related
-    .filter(r => TERMS.some(x => x.name === r))
-    .map(r => `<a href="../${slugify(r)}/">${esc(r)}</a>`)
-    .join('');
+  const d = CHI_TIET[t.name];
+  const tr = trackOf(t.cat);
 
   const ld = {
     '@context': 'https://schema.org',
@@ -43,6 +97,10 @@ const page = t => {
       { '@type': 'ListItem', position: 2, name: t.name, item: url }
     ]
   };
+
+  const badge = d
+    ? `<a class="badge-moc" href="../../lo-trinh/#${tr.id}-${d.moc}">Mốc ${d.moc} · ${esc(tr.moc[d.moc].ten)}</a>`
+    : '';
 
   return `<!doctype html>
 <html lang="vi">
@@ -69,13 +127,9 @@ const page = t => {
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › ${esc(t.name)}</nav>
     <article class="article">
-      <span class="tag">${esc(t.cat)}</span>
+      <span class="tag">${esc(t.cat)}</span>${badge}
       <h1>${t.icon} ${esc(t.name)} là gì?</h1>
-      <p class="brief">${esc(t.brief)}</p>
-      <p class="plain">${esc(t.plain)}</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>${esc(t.analogy)}</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related">${related}</div>
+      ${d ? `<p class="brief">${esc(t.brief)}</p>${bonTang(t, d)}` : banGon(t)}
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
@@ -85,18 +139,75 @@ const page = t => {
 `;
 };
 
+// ── Trang lộ trình: giải thích các mốc của từng nhóm ──
+const trangLoTrinh = () => {
+  const url = `${SITE}lo-trinh/`;
+  const nhom = Object.entries(TRACKS).map(([key, tr]) => {
+    const soTerm = TERMS.filter(t => key === '_default' ? !TRACKS[t.cat] : t.cat === key).length;
+    return `
+    <div class="track" id="${tr.id}">
+      <h3>${esc(tr.ten)}</h3>
+      <p class="cho">Cho: ${esc(tr.cho)} · ${soTerm} thuật ngữ</p>
+      ${Object.entries(tr.moc).map(([n, m]) => `
+      <div class="moc-row" id="${tr.id}-${n}">
+        <div class="num">${n}</div>
+        <div><b>${esc(m.ten)}</b><span>Tự kiểm: ${esc(m.tuKiem)}</span></div>
+      </div>`).join('')}
+    </div>`;
+  }).join('');
+
+  return `<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lộ trình — bạn đang ở mốc nào? · IT nói tiếng người</title>
+  <meta name="description" content="Ba mốc học cho từng nhóm: Kiểm thử, AI và Nền tảng. Đo bằng việc bạn làm được, không đo bằng thời gian đã học." />
+  <link rel="canonical" href="${url}" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Lộ trình — bạn đang ở mốc nào?" />
+  <meta property="og:description" content="Ba mốc học cho từng nhóm, đo bằng việc bạn làm được chứ không phải thời gian đã học." />
+  <meta property="og:url" content="${url}" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
+    <nav class="crumb"><a href="../">Trang chủ</a> › Lộ trình</nav>
+    <article class="article">
+      <h1>Bạn đang ở mốc nào?</h1>
+      <p class="plain">“Người mới” hay “đã có kinh nghiệm” là cách chia gần như vô nghĩa, vì mỗi người học một tốc độ. Ở đây chia theo <strong>việc bạn làm được</strong>: đọc câu tự kiểm, trả lời được thì bạn đã qua mốc đó.</p>
+      <p class="cap">Mỗi nhóm thuật ngữ có bộ mốc riêng, vì người học automation và người muốn hiểu AI đi hai con đường khác nhau.</p>
+      ${nhom}
+      <a class="back" href="../">← Xem tất cả thuật ngữ</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>
+`;
+};
+
 // --- Sinh trang ---
-let written = 0;
+let written = 0, coChiTiet = 0;
 for (const t of TERMS) {
   const dir = path.join(OUT, slugify(t.name));
   fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, 'index.html'), page(t), 'utf8');
   written++;
+  if (CHI_TIET[t.name]) coChiTiet++;
 }
+
+fs.mkdirSync('lo-trinh', { recursive: true });
+fs.writeFileSync(path.join('lo-trinh', 'index.html'), trangLoTrinh(), 'utf8');
 
 // --- Sitemap ---
 const today = new Date().toISOString().slice(0, 10);
-const urls = [SITE, ...TERMS.map(t => `${SITE}${OUT}/${slugify(t.name)}/`)];
+const urls = [SITE, `${SITE}lo-trinh/`, ...TERMS.map(t => `${SITE}${OUT}/${slugify(t.name)}/`)];
 fs.writeFileSync('sitemap.xml',
   `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n` +
   urls.map(u => `  <url><loc>${u}</loc><lastmod>${today}</lastmod></url>`).join('\n') +
@@ -104,4 +215,4 @@ fs.writeFileSync('sitemap.xml',
 
 fs.writeFileSync('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE}sitemap.xml\n`, 'utf8');
 
-console.log(`Đã sinh ${written} trang thuật ngữ, sitemap ${urls.length} URL.`);
+console.log(`Đã sinh ${written} trang thuật ngữ (${coChiTiet} bản 4 tầng, ${written - coChiTiet} bản gọn) + trang lộ trình, sitemap ${urls.length} URL.`);

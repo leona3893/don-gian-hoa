@@ -23,13 +23,40 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Test Automation</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>🤖 Test Automation là gì?</h1>
       <p class="brief">Để máy bấm thử thay vì người ngồi bấm tay.</p>
-      <p class="plain">Test Automation là viết chương trình tự thao tác và kiểm tra phần mềm, chạy lại được nhiều lần mà không cần người ngồi làm từng bước.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như lắp dây chuyền soi hàng thay cho việc thuê người cầm từng món lên xem: chạy nhanh hơn, và lần nào cũng soi đúng một kiểu.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../test-case/">Test Case</a><a href="../test-script/">Test Script</a><a href="../regression-test/">Regression Test</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Test Automation là viết chương trình tự thao tác và kiểm tra phần mềm, chạy lại được nhiều lần mà không cần người ngồi làm từng bước.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như lắp dây chuyền soi hàng thay cho việc thuê người cầm từng món lên xem: chạy nhanh hơn, và lần nào cũng soi đúng một kiểu.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Dây chuyền soi hàng lắp xong là chạy mãi. Bộ test tự động thì <strong>phải nuôi</strong>: giao diện đổi một chút là hàng loạt test đỏ.</p>
+<p><span class="punch">Automation không phải “làm một lần chạy mãi mãi”.</span> Nó là một phần mềm thứ hai bạn phải bảo trì song song với phần mềm chính. Nhiều đội bỏ automation giữa chừng vì tốn công sửa test hơn công test tay tiết kiệm được.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">test(<span class="s">'thêm vào giỏ hàng'</span>, async ({ page }) =&gt; {
+  await page.goto(<span class="s">'/san-pham/ao-thun'</span>)
+  await page.getByRole(<span class="s">'button'</span>, { name: <span class="s">'Thêm vào giỏ'</span> }).click()
+  await expect(page.getByTestId(<span class="s">'so-luong-gio'</span>)).toHaveText(<span class="s">'1'</span>)
+})</pre>
+    <p class="cap">Ba việc, luôn theo thứ tự này: <strong>đi tới đâu → làm gì → kiểm tra thấy gì</strong>.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Một ca test phải chạy đi chạy lại nhiều lần</li><li>Cần chạy trên nhiều trình duyệt hoặc nhiều máy</li><li>Muốn biết ngay khi code mới làm hỏng tính năng cũ</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Tính năng còn đang đổi từng ngày</li><li>Ca test chỉ chạy đúng một lần rồi thôi</li><li>Thứ cần mắt người đánh giá: đẹp hay xấu, thuận tay hay không</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> chọn framework nào, thiết kế khung test, chạy song song, tích hợp CI.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 2 — Tự viết được cái đầu tiên:</span> Bạn viết được một test mở trang, bấm nút, kiểm tra chữ hiện ra — và nó chạy xanh trên máy bạn.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn thấy mình copy-paste cùng một đoạn “mở trang rồi đăng nhập” sang ca test thứ tư.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../test-case/">Test Case</a><span>Phải biết viết ca test bằng tiếng Việt trước khi bảo máy làm nó.</span></li><li><a href="../test-script/">Test Script</a><span>Chỗ ca test biến thành code chạy được.</span></li><li><a href="../regression-test/">Regression Test</a><span>Lý do lớn nhất khiến người ta chịu bỏ công làm automation.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Mở một trang bất kỳ, bấm <strong>F12</strong> → Console, gõ:
+<pre class="code">document.querySelector(<span class="s">'button'</span>).click()</pre>
+Bạn vừa ra lệnh cho trình duyệt làm việc thay tay mình. Đó là hạt nhân của mọi automation.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

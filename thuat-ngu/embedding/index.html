@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Embedding</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-3">Mốc 3 · Tự ghép được</a>
       <h1>📍 Embedding là gì?</h1>
       <p class="brief">Biến chữ nghĩa thành toạ độ để so độ giống nhau.</p>
-      <p class="plain">Embedding chuyển văn bản hoặc ảnh thành dãy số, sao cho những thứ có nghĩa gần nhau thì nằm gần nhau.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như xếp sách thư viện theo chủ đề: đứng ở kệ nấu ăn thì quanh đó toàn sách nấu ăn, khỏi cần đọc tên từng cuốn.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../rag/">RAG</a><a href="../dataset/">Dataset</a><a href="../model/">Model</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Embedding chuyển văn bản hoặc ảnh thành dãy số, sao cho những thứ có nghĩa gần nhau thì nằm gần nhau.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như xếp sách thư viện theo chủ đề: đứng ở kệ nấu ăn thì quanh đó toàn sách nấu ăn, khỏi cần đọc tên từng cuốn.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Xếp sách theo chủ đề — nhưng <span class="punch">“gần nhau” theo máy không phải lúc nào cũng là “liên quan” theo người.</span></p>
+<p>“Tôi thích món này” và “tôi ghét món này” nằm rất gần nhau trong không gian vector, vì cấu trúc câu giống hệt. Đó là lý do tìm kiếm bằng embedding đôi khi trả về đoạn văn ngược hẳn ý bạn cần — và vì sao người ta phải ghép thêm tìm kiếm theo từ khoá.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Chữ → dãy số</span>
+"chó"    →  [0.21, -0.88, 0.34, ...]
+"cún"    →  [0.23, -0.85, 0.31, ...]   ← rất gần
+"máy bay" →  [-0.71, 0.42, 0.90, ...]  ← rất xa
+
+<span class="c">Máy so khoảng cách giữa các dãy số, không đọc chữ</span></pre>
+    <p class="cap">Nhờ vậy tìm được “cún” khi người dùng gõ “chó” — điều tìm kiếm theo từ khoá không làm được.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần tìm theo ý nghĩa thay vì theo đúng từ</li><li>Xây RAG hoặc gợi ý nội dung tương tự</li><li>Gom nhóm tài liệu tự động</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Cần khớp chính xác mã sản phẩm, số hợp đồng (dùng tìm kiếm thường)</li><li>Ngữ cảnh phủ định quan trọng</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> cơ sở dữ liệu vector, chọn model embedding, tìm kiếm lai, chia đoạn.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Bạn đã ở mốc này nếu đang xây RAG. Bắt đầu bằng việc kiểm tra thủ công 20 truy vấn xem nó lấy đúng đoạn không.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../rag/">RAG</a><span>Ứng dụng phổ biến nhất của embedding.</span></li><li><a href="../model/">Model</a><span>Embedding cũng do một model sinh ra.</span></li><li><a href="../dataset/">Dataset</a><span>Chất lượng tài liệu quyết định chất lượng tìm kiếm.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Tìm trong Google Photos bằng từ “bữa tối”. Nó ra ảnh đồ ăn dù bạn chưa gắn nhãn nào. Đó là embedding đang so ý nghĩa giữa chữ và ảnh.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

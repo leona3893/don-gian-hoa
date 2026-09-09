@@ -23,13 +23,42 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Unit Test</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>🔬 Unit Test là gì?</h1>
       <p class="brief">Thử từng mảnh code nhỏ nhất, tách riêng ra.</p>
-      <p class="plain">Unit Test kiểm tra một hàm hoặc một lớp đơn lẻ, không đụng tới database hay mạng, nên chạy rất nhanh.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như thử riêng từng linh kiện trước khi lắp: bóng đèn sáng chưa, công tắc bật được chưa, rồi mới ráp cả mạch.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../integration-test/">Integration Test</a><a href="../mock/">Mock</a><a href="../test-coverage/">Test Coverage</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Unit Test kiểm tra một hàm hoặc một lớp đơn lẻ, không đụng tới database hay mạng, nên chạy rất nhanh.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như thử riêng từng linh kiện trước khi lắp: bóng đèn sáng chưa, công tắc bật được chưa, rồi mới ráp cả mạch.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Thử riêng bóng đèn thì bóng nào cũng như bóng nào. Nhưng <span class="punch">một hàm hiếm khi đứng một mình</span> — nó gọi hàm khác, đọc giờ hệ thống, lấy dữ liệu từ đâu đó.</p>
+<p>Để test được “riêng”, bạn phải cắt hết các dây nối đó bằng mock. Và cắt càng nhiều thì cái bạn đang test càng xa với cái chạy thật. Đó là đánh đổi cố hữu của unit test, không phải lỗi ai làm sai.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Hàm cần test</span>
+function tinhTien(gia, soLuong) { return gia * soLuong }
+
+<span class="c">// Unit test</span>
+test(<span class="s">'nhân giá với số lượng'</span>, () =&gt; {
+  expect(tinhTien(100, 3)).toBe(300)
+})</pre>
+    <p class="cap">Không mở trình duyệt, không gọi mạng. Chạy xong trong vài mili giây.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Hàm có logic tính toán, nhiều nhánh if</li><li>Muốn phản hồi trong 1 giây thay vì 1 phút</li><li>Cần cố định một quy tắc nghiệp vụ để sau không ai vô tình đổi</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Hàm chỉ gọi thẳng sang hàm khác, không có logic gì</li><li>Thứ cần kiểm tra là các mảnh ghép với nhau</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> độ phủ nhánh, kiểm thử theo tính chất, mutation testing.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi coverage báo 90% mà production vẫn lỗi đều đều.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../mock/">Mock</a><span>Công cụ cắt dây nối để hàm đứng một mình được.</span></li><li><a href="../integration-test/">Integration Test</a><span>Tầng trên: thử các mảnh ghép lại với nhau.</span></li><li><a href="../test-coverage/">Test Coverage</a><span>Đo xem unit test đã chạm tới bao nhiêu phần code.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>F12 → Console, tự làm một unit test thô sơ:
+<pre class="code">const f = (a,b) =&gt; a * b
+console.assert(f(100,3) === 300, <span class="s">'sai'</span>)</pre></div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

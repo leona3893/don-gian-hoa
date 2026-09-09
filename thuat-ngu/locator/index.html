@@ -23,13 +23,43 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Locator</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>🗺️ Locator là gì?</h1>
       <p class="brief">Cách chỉ cho máy biết phải bấm vào phần tử nào.</p>
-      <p class="plain">Locator là chuỗi mô tả giúp tìm đúng phần tử trên trang, dựa vào id, class, nội dung chữ hay thuộc tính riêng như data-testid.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như địa chỉ nhà: ghi càng rõ càng dễ tìm, ghi mập mờ thì shipper giao nhầm nhà.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../xpath/">XPath</a><a href="../test-script/">Test Script</a><a href="../flaky-test/">Flaky Test</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Locator là chuỗi mô tả giúp tìm đúng phần tử trên trang, dựa vào id, class, nội dung chữ hay thuộc tính riêng như data-testid.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như địa chỉ nhà: ghi càng rõ càng dễ tìm, ghi mập mờ thì shipper giao nhầm nhà.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Địa chỉ nhà thì cố định. <span class="punch">Locator thì đổi mỗi lần dev sửa giao diện</span> — và họ sửa liên tục mà không báo bạn.</p>
+<p>Đây là nguyên nhân số một khiến bộ test tự động chết dần: không phải vì logic sai, mà vì cái nút đổi class. Cách chữa duy nhất bền vững là xin dev gắn <code>data-testid</code> — thuộc tính sinh ra chỉ để cho test bám vào và không ai được đổi vì lý do thẩm mỹ.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Dễ gãy — class do công cụ CSS sinh ra tự động</span>
+page.locator(<span class="s">'.btn-primary.css-1x7y9z'</span>)
+
+<span class="c">// Bền — theo vai trò và chữ người dùng thật sự nhìn thấy</span>
+page.getByRole(<span class="s">'button'</span>, { name:<span class="s">'Đăng nhập'</span> })
+
+<span class="c">// Bền nhất — thuộc tính dành riêng cho test</span>
+page.getByTestId(<span class="s">'nut-dang-nhap'</span>)</pre>
+    <p class="cap">Thứ tự ưu tiên: testid → vai trò và nhãn → cuối cùng mới tới CSS.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Mọi lúc bạn cần chỉ vào một phần tử để bấm hoặc đọc</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Bám vào class trang trí hoặc vị trí thứ mấy trong danh sách</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> locator lồng nhau, lọc theo phần tử con, shadow DOM.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn cần bấm nút Xoá nằm trong đúng dòng có chữ “Áo thun trắng”, giữa một bảng 50 dòng.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../xpath/">XPath</a><span>Vũ khí cuối cùng khi không còn cách nào khác bám vào.</span></li><li><a href="../flaky-test/">Flaky Test</a><span>Locator chọn dở là nguồn flaky phổ biến nhất.</span></li><li><a href="../page-object-model/">Page Object Model</a><span>Cách gom locator về một chỗ để sửa một lần.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>F12 → Console, trên trang bất kỳ:
+<pre class="code">document.querySelectorAll(<span class="s">'[data-testid]'</span>).length</pre>
+Ra 0 nghĩa là đội dev chưa gắn testid nào. Đó là cuộc trò chuyện đầu tiên bạn nên có với họ.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

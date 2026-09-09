@@ -23,13 +23,40 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › TDD</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>🔴 TDD là gì?</h1>
       <p class="brief">Viết test trước, viết code sau.</p>
-      <p class="plain">TDD yêu cầu viết test cho tính năng chưa có, nhìn nó fail, rồi mới viết vừa đủ code để test pass và dọn lại cho gọn.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như dựng khuôn bánh trước rồi mới đổ bột: khuôn quyết định hình dáng, nên không phải đổ tràn lan rồi ngồi cắt gọt.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../unit-test/">Unit Test</a><a href="../bdd/">BDD</a><a href="../test-case/">Test Case</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">TDD yêu cầu viết test cho tính năng chưa có, nhìn nó fail, rồi mới viết vừa đủ code để test pass và dọn lại cho gọn.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như dựng khuôn bánh trước rồi mới đổ bột: khuôn quyết định hình dáng, nên không phải đổ tràn lan rồi ngồi cắt gọt.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Dựng khuôn trước rồi đổ bột — hay, nhưng <span class="punch">chỉ làm được khi bạn đã biết cái bánh trông thế nào.</span></p>
+<p>TDD hợp với logic đã rõ yêu cầu (tính tiền, kiểm tra dữ liệu). Nó vướng khi bạn đang dò tìm giải pháp, đang thử giao diện, hay đang tích hợp với thứ chưa hiểu rõ. TDD là một công cụ, không phải một tôn giáo — và người bán khoá học hay quên nói vế sau.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// 1. Đỏ — viết test cho hàm chưa tồn tại</span>
+expect(tinhThue(1000)).toBe(100)
+
+<span class="c">// 2. Xanh — viết vừa đủ để nó chạy</span>
+const tinhThue = t =&gt; t * 0.1
+
+<span class="c">// 3. Dọn — sửa cho gọn, test vẫn phải xanh</span></pre>
+    <p class="cap">Đỏ → Xanh → Dọn. Vòng lặp chỉ nên mất vài phút mỗi lần.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Logic nghiệp vụ đã rõ yêu cầu</li><li>Nhiều trường hợp biên cần chốt trước</li><li>Đang sửa code cũ và muốn có lưới an toàn</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Đang thử nghiệm, chưa biết mình muốn gì</li><li>Code giao diện thuần trang trí</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> TDD ở tầng tích hợp, kiến trúc hexagonal, London vs Chicago school.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn muốn áp TDD cho một hàm gọi 4 dịch vụ bên ngoài và không biết bắt đầu từ đâu.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../unit-test/">Unit Test</a><span>Loại test TDD dùng chủ yếu.</span></li><li><a href="../bdd/">BDD</a><span>Cùng tinh thần nhưng viết ở tầng hành vi, ai cũng đọc được.</span></li><li><a href="../test-case/">Test Case</a><span>Biết viết ca test rõ ràng là điều kiện cần của TDD.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Lấy giấy, viết ra kết quả mong đợi của một hàm tính giảm giá trước khi nghĩ tới cách viết nó: <em>1000 giảm 10% ra 900</em>. Bạn vừa làm bước Đỏ của TDD mà không cần máy.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

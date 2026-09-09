@@ -23,13 +23,38 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Model</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-1">Mốc 1 · Nói chuyện được</a>
       <h1>🧮 Model là gì?</h1>
       <p class="brief">Thành quả sau khi học xong, đem ra dùng được.</p>
-      <p class="plain">Model là tập tham số đã học được từ dữ liệu, dùng để dự đoán hoặc tạo ra nội dung mới.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Giống công thức nấu ăn đúc kết sau nhiều lần thử: bản thân nó không phải món ăn, nhưng cứ theo đó là nấu ra được.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../training/">Training</a><a href="../machine-learning/">Machine Learning</a><a href="../inference/">Inference</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Model là tập tham số đã học được từ dữ liệu, dùng để dự đoán hoặc tạo ra nội dung mới.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Giống công thức nấu ăn đúc kết sau nhiều lần thử: bản thân nó không phải món ăn, nhưng cứ theo đó là nấu ra được.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Mô hình” nghe như một bản thiết kế tĩnh. <span class="punch">Thực ra model chỉ là một file chứa hàng tỉ con số.</span></p>
+<p>Nó không chứa dữ liệu gốc, không tra cứu gì cả — chỉ là các trọng số đã được chỉnh. Hệ quả quan trọng: model <strong>đóng băng tại thời điểm huấn luyện</strong>. Nó không biết chuyện xảy ra sau ngày đó, và không tự cập nhật khi thế giới đổi.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c"># Model chỉ là một file</span>
+model.safetensors    14 GB
+
+<span class="c"># Bên trong: hàng tỉ con số, không có chữ nào của dữ liệu gốc</span>
+[0.0234, -0.9912, 0.4471, ...]</pre>
+    <p class="cap">Vì thế model không “tra” được thông tin mới — muốn vậy phải ghép thêm RAG.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần thứ đã học xong để đem ra dùng</li><li>Muốn chạy cùng một logic ở nhiều nơi</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Cần thông tin cập nhật theo thời gian thực</li><li>Cần truy vết vì sao ra kết quả đó</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> định dạng model, lượng tử hoá, phục vụ model, phiên bản model.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn cần chạy model trên máy riêng và thấy nó ngốn hết RAM.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../training/">Training</a><span>Quá trình sinh ra model.</span></li><li><a href="../inference/">Inference</a><span>Lúc đem model ra dùng thật.</span></li><li><a href="../fine-tuning/">Fine-tuning</a><span>Cách dạy thêm cho model có sẵn.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Hỏi một chatbot: “hôm nay là ngày mấy?” Nếu nó không có công cụ tra cứu, nó sẽ đoán hoặc nói không biết — vì model đóng băng từ lúc huấn luyện.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

@@ -23,13 +23,38 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Regression Test</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>🔁 Regression Test là gì?</h1>
       <p class="brief">Chạy lại cái cũ để chắc chưa làm hỏng gì.</p>
-      <p class="plain">Regression Test chạy lại các test đã có sau mỗi lần sửa code, để phát hiện thay đổi mới có phá vỡ tính năng cũ hay không.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Sửa xong vòi nước thì mở thử luôn mấy vòi khác trong nhà: đôi khi vặn chỗ này lại rò chỗ kia.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../test-suite/">Test Suite</a><a href="../test-automation/">Test Automation</a><a href="../ci-cd/">CI/CD</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Regression Test chạy lại các test đã có sau mỗi lần sửa code, để phát hiện thay đổi mới có phá vỡ tính năng cũ hay không.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Sửa xong vòi nước thì mở thử luôn mấy vòi khác trong nhà: đôi khi vặn chỗ này lại rò chỗ kia.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Mở thử vài vòi nước khác thì mất một phút. <span class="punch">Bộ test hồi quy thật thì lớn tới mức không ai chạy đủ trước mỗi lần sửa.</span></p>
+<p>Nên nghề này thực chất là nghề <em>chọn</em>: chạy nhóm nào, bỏ nhóm nào, chấp nhận rủi ro tới đâu. Không phải nghề chạy hết.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c"># Trước khi phát hành: chạy toàn bộ</span>
+npx playwright test
+
+<span class="c"># Mỗi lần đẩy code: chỉ chạy nhóm quan trọng</span>
+npx playwright test --grep @smoke</pre>
+    <p class="cap">Gắn thẻ cho ca test để chọn nhóm mà chạy — đây là lý do chính người ta dùng thẻ.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Sau mỗi lần sửa code</li><li>Trước mỗi lần phát hành</li><li>Sau khi nâng cấp thư viện hoặc đổi hạ tầng</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Tính năng đang xây dở, chưa chốt hành vi</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> chọn ca test theo vùng code đã đổi, phân tầng bộ hồi quy.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bộ hồi quy chạy lâu tới mức cả đội bắt đầu bỏ qua nó cho nhanh.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../smoke-test/">Smoke Test</a><span>Bộ nhỏ chạy trước, để không phí thời gian chạy bộ lớn.</span></li><li><a href="../ci-cd/">CI/CD</a><span>Nơi hồi quy nên chạy tự động thay vì nhớ chạy tay.</span></li><li><a href="../test-suite/">Test Suite</a><span>Cách gom và gắn thẻ để chọn nhóm chạy.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Nghĩ về lần gần nhất sản phẩm bạn làm bị lỗi ở một chỗ mà không ai đụng vào. Đó chính xác là ca test hồi quy mà lẽ ra nên có.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

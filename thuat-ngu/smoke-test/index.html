@@ -23,13 +23,37 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Smoke Test</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>💨 Smoke Test là gì?</h1>
       <p class="brief">Thử nhanh vài thứ sống còn xem có chạy nổi không.</p>
-      <p class="plain">Smoke Test là bộ test ngắn kiểm tra các chức năng quan trọng nhất, chạy ngay khi có bản build mới trước khi test sâu.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như nổ máy xe trước khi lên đường: chưa cần kiểm tra kỹ, chỉ cần biết nó còn nổ được hay chết hẳn.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../sanity-test/">Sanity Test</a><a href="../regression-test/">Regression Test</a><a href="../deploy/">Deploy</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Smoke Test là bộ test ngắn kiểm tra các chức năng quan trọng nhất, chạy ngay khi có bản build mới trước khi test sâu.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như nổ máy xe trước khi lên đường: chưa cần kiểm tra kỹ, chỉ cần biết nó còn nổ được hay chết hẳn.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Xe nổ máy được thì ít ra còn chạy. Nhưng <span class="punch">smoke test xanh không có nghĩa bản build dùng được</span> — chỉ nghĩa là nó chưa chết hẳn.</p>
+<p>Nguy hiểm khi có người nhìn smoke test xanh rồi kết luận “ổn rồi, phát hành thôi”. Nó chỉ trả lời đúng một câu: có đáng bỏ công test tiếp không.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Chỉ 5-10 ca, chạy dưới 2 phút</span>
+test(<span class="s">'@smoke trang chủ mở được'</span>, ...)
+test(<span class="s">'@smoke đăng nhập được'</span>, ...)
+test(<span class="s">'@smoke tìm kiếm ra kết quả'</span>, ...)</pre>
+    <p class="cap">Tiêu chí chọn: hỏng cái này thì mọi ca test khác đằng nào cũng đỏ.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Ngay sau khi có bản build mới</li><li>Sau khi deploy lên môi trường test</li><li>Trước khi cho cả đội bắt đầu test tay</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Thay cho bộ hồi quy đầy đủ</li><li>Đưa vào quá nhiều ca, mất luôn tính “nhanh”</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> cổng chặn tự động trong pipeline, tự rollback khi smoke đỏ.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn đã ba lần ngồi chờ bộ test đầy đủ chạy 40 phút chỉ để phát hiện trang chủ không mở nổi.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../sanity-test/">Sanity Test</a><span>Anh em gần nhất, hay bị nhầm lẫn với smoke.</span></li><li><a href="../regression-test/">Regression Test</a><span>Bộ lớn chạy sau khi smoke đã xanh.</span></li><li><a href="../deploy/">Deploy</a><span>Thời điểm smoke test hay được kích hoạt nhất.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Liệt kê ra giấy 5 chức năng mà nếu hỏng thì sản phẩm coi như chết. Đó là bộ smoke test của bạn. Nếu liệt kê quá 10 cái, bạn đang nhầm nó với hồi quy.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

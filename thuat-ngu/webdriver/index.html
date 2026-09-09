@@ -23,13 +23,37 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › WebDriver</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>🚗 WebDriver là gì?</h1>
       <p class="brief">Chuẩn chung để ra lệnh cho trình duyệt.</p>
-      <p class="plain">WebDriver là giao thức quy định cách gửi lệnh mở trang, click hay gõ chữ tới trình duyệt, nhờ đó code test không dính chặt vào một trình duyệt cụ thể.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như quy ước vô lăng và chân ga giống nhau ở mọi hãng xe: biết lái một chiếc thì lái được chiếc khác.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../selenium/">Selenium</a><a href="../appium/">Appium</a><a href="../headless/">Headless</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">WebDriver là giao thức quy định cách gửi lệnh mở trang, click hay gõ chữ tới trình duyệt, nhờ đó code test không dính chặt vào một trình duyệt cụ thể.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như quy ước vô lăng và chân ga giống nhau ở mọi hãng xe: biết lái một chiếc thì lái được chiếc khác.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Vô lăng xe nào cũng như nhau, nhưng <span class="punch">các trình duyệt lại hiểu cùng một lệnh theo cách hơi khác nhau.</span></p>
+<p>Cùng lệnh “click”, Chrome và Firefox có thể xử lý khác nhau khi phần tử bị che một nửa hoặc đang trong animation. Chuẩn chung giúp bạn viết một lần chạy nhiều nơi, nhưng không xoá được khác biệt giữa các trình duyệt — đó là lý do test cross-browser vẫn cần chạy thật.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c"># WebDriver thực chất là các lời gọi HTTP</span>
+POST /session/{id}/element        <span class="c"># tìm phần tử</span>
+POST /session/{id}/element/{e}/click   <span class="c"># bấm vào nó</span>
+GET  /session/{id}/element/{e}/text    <span class="c"># đọc chữ trong nó</span></pre>
+    <p class="cap">Mọi thư viện Selenium ở mọi ngôn ngữ, bên dưới đều chỉ đang gửi mấy request này.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Muốn hiểu vì sao Selenium và Appium làm được điều chúng làm</li><li>Đang gỡ lỗi ở tầng sâu, log Selenium khó hiểu</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Mới bắt đầu — cứ dùng thư viện, chưa cần biết bên dưới</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> BiDi protocol, CDP, tự viết client WebDriver.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn cần bắt lỗi console của trình duyệt trong lúc test chạy, và thư viện không cho sẵn.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../selenium/">Selenium</a><span>Cách dùng WebDriver phổ biến nhất.</span></li><li><a href="../appium/">Appium</a><span>Dùng lại WebDriver cho app điện thoại.</span></li><li><a href="../api-testing/">API Testing</a><span>WebDriver chính là một API — hiểu API testing thì hiểu luôn cơ chế này.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Không cần code: WebDriver hoạt động đúng như những gì bạn thấy ở tab Network khi bấm nút trên web. Mở F12 → Network, bấm vài nút, nhìn danh sách request hiện ra. Selenium cũng đang gửi những request y hệt vậy, chỉ là gửi cho trình duyệt.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

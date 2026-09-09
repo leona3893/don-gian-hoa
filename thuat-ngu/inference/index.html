@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Inference</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-2">Mốc 2 · Tự dùng được</a>
       <h1>🎯 Inference là gì?</h1>
       <p class="brief">Lúc model chạy thật để trả kết quả.</p>
-      <p class="plain">Inference là giai đoạn dùng model đã huấn luyện xong để xử lý dữ liệu mới, khác với training là giai đoạn còn đang học.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Học xong thì đến lúc hành nghề: training là đi học, inference là ngồi tiếp khách và xử lý từng ca.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../model/">Model</a><a href="../training/">Training</a><a href="../gpu/">GPU</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Inference là giai đoạn dùng model đã huấn luyện xong để xử lý dữ liệu mới, khác với training là giai đoạn còn đang học.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Học xong thì đến lúc hành nghề: training là đi học, inference là ngồi tiếp khách và xử lý từng ca.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Học xong rồi hành nghề” — nhưng <span class="punch">model không tích luỹ kinh nghiệm qua từng ca như người hành nghề.</span></p>
+<p>Mỗi lần gọi là một lần hoàn toàn mới. Nó không nhớ gì về lần trước trừ khi bạn tự nhét lại lịch sử vào prompt. Cảm giác “chatbot nhớ mình” thực ra là ứng dụng đang gửi lại toàn bộ cuộc trò chuyện mỗi lần — và đó là lý do chat càng dài càng tốn tiền.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Bạn tưởng:</span>
+  bạn: "tên tôi là Na"     → model ghi nhớ
+  bạn: "tôi tên gì?"       → model nhớ lại
+
+<span class="c">Thực tế mỗi lần gọi:</span>
+  gửi đi: ["tên tôi là Na", "chào Na", "tôi tên gì?"]   ← gửi lại tất cả</pre>
+    <p class="cap">Không có trí nhớ nào cả — chỉ là gửi lại toàn bộ lịch sử mỗi lượt.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Bất cứ khi nào bạn dùng AI thật sự</li><li>Cần ước lượng chi phí và độ trễ vận hành</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Kỳ vọng model tự học từ phản hồi người dùng (không có chuyện đó)</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> gộp lô, phục vụ model, tối ưu độ trễ, lượng tử hoá.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi ứng dụng của bạn có người dùng thật và chi phí gọi API bắt đầu đáng kể.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../model/">Model</a><span>Thứ đang được đem ra chạy.</span></li><li><a href="../context-window/">Context window</a><span>Giới hạn lịch sử gửi lại được.</span></li><li><a href="../token/">Token</a><span>Đơn vị tính tiền cho mỗi lần gọi.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Trong một chat dài, để ý xem có bao giờ AI tự nhắc lại chuyện bạn kể ở cuộc chat <em>khác</em> không. Không, vì mỗi cuộc chat là một tờ giấy trắng.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

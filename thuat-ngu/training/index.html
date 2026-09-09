@@ -23,13 +23,40 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Training</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-1">Mốc 1 · Nói chuyện được</a>
       <h1>🏋️ Training là gì?</h1>
       <p class="brief">Giai đoạn cho máy xem dữ liệu để học.</p>
-      <p class="plain">Training là quá trình đưa dữ liệu vào, đo xem sai bao nhiêu rồi chỉnh dần tham số, lặp lại cho tới khi model đủ tốt.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như luyện thi: làm đề, dò đáp án, biết sai chỗ nào thì sửa, lặp đi lặp lại cho tới khi chắc tay.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../model/">Model</a><a href="../dataset/">Dataset</a><a href="../fine-tuning/">Fine-tuning</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Training là quá trình đưa dữ liệu vào, đo xem sai bao nhiêu rồi chỉnh dần tham số, lặp lại cho tới khi model đủ tốt.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như luyện thi: làm đề, dò đáp án, biết sai chỗ nào thì sửa, lặp đi lặp lại cho tới khi chắc tay.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Đi học” gợi ra hình ảnh tiếp thu dần dần. <span class="punch">Training thực ra là dò tìm bằng cách sai đi sai lại hàng triệu lần.</span></p>
+<p>Model đoán, so với đáp án, chỉnh lại một chút, rồi lặp lại. Không có “hiểu ra” ở bước nào. Và khác với người đi học, training cực kỳ tốn kém: các model lớn tốn hàng triệu đô tiền điện và không thể học thêm sau khi xong.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Vòng lặp huấn luyện, lặp hàng triệu lần:</span>
+
+1. Đưa vào một mẫu
+2. Model đoán
+3. So với đáp án đúng → tính độ sai
+4. Chỉnh trọng số cho lần sau sai ít hơn
+5. Quay lại bước 1</pre>
+    <p class="cap">Không có bước nào tên là “hiểu”. Chỉ có giảm sai số.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần model chuyên cho lĩnh vực riêng</li><li>Có đủ dữ liệu và đủ máy</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Model có sẵn đã đủ tốt (gần như luôn là trường hợp này)</li><li>Dữ liệu dưới vài nghìn mẫu</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> siêu tham số, lịch trình học, huấn luyện phân tán, checkpoint.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn thật sự cần huấn luyện chứ không phải chỉ viết prompt tốt hơn.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../dataset/">Dataset</a><span>Nguyên liệu đầu vào của training.</span></li><li><a href="../overfitting/">Overfitting</a><span>Điều xảy ra khi huấn luyện quá lâu.</span></li><li><a href="../fine-tuning/">Fine-tuning</a><span>Bản rút gọn và rẻ hơn nhiều của training.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Nghĩ về việc học lái xe: bạn không đọc lý thuyết rồi lái giỏi ngay, mà đạp nhầm chân ga vài chục lần rồi quen dần. Training giống vậy, chỉ là lặp hàng triệu lần và không có cảm giác nào.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

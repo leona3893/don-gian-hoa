@@ -23,13 +23,41 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › E2E Test</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>🛣️ E2E Test là gì?</h1>
       <p class="brief">Đi trọn hành trình đúng như một người dùng thật.</p>
-      <p class="plain">E2E Test chạy qua toàn bộ luồng từ giao diện xuống database rồi ngược lên, mô phỏng đúng cách người dùng thao tác.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như tự đóng vai khách: vào cửa hàng, chọn món, thanh toán, nhận hàng, xem cả quy trình có trôi không chứ không chỉ soi một khâu.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../integration-test/">Integration Test</a><a href="../selenium/">Selenium</a><a href="../playwright/">Playwright</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">E2E Test chạy qua toàn bộ luồng từ giao diện xuống database rồi ngược lên, mô phỏng đúng cách người dùng thao tác.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như tự đóng vai khách: vào cửa hàng, chọn món, thanh toán, nhận hàng, xem cả quy trình có trôi không chứ không chỉ soi một khâu.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Đóng vai khách một lần thì biết quy trình trôi hay không. Nhưng <span class="punch">E2E test đắt hơn mọi loại test khác vài chục lần</span> — chậm, hay chập chờn, và hỏng chỗ nào cũng khó lần.</p>
+<p>Sai lầm phổ biến nhất của người mới: thấy E2E “giống thật nhất” nên viết tất cả bằng E2E. Kết quả là bộ test chạy hai tiếng, đỏ liên tục, rồi cả đội bỏ luôn không thèm nhìn.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">test(<span class="s">'mua hàng từ đầu tới cuối'</span>, async ({ page }) =&gt; {
+  await page.goto(<span class="s">'/'</span>)
+  await page.getByPlaceholder(<span class="s">'Tìm sản phẩm'</span>).fill(<span class="s">'áo thun'</span>)
+  await page.getByRole(<span class="s">'button'</span>, { name:<span class="s">'Tìm'</span> }).click()
+  await page.getByText(<span class="s">'Áo thun trắng'</span>).click()
+  await page.getByRole(<span class="s">'button'</span>, { name:<span class="s">'Mua ngay'</span> }).click()
+  await expect(page.getByText(<span class="s">'Đặt hàng thành công'</span>)).toBeVisible()
+})</pre>
+    <p class="cap">Một ca như thế này chạy 10-30 giây. Nhân với 500 ca thì bạn hiểu vì sao phải tiết chế.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Luồng quan trọng nhất, mất tiền nếu hỏng: đăng nhập, thanh toán, đặt hàng</li><li>Cần bằng chứng cả hệ thống ghép lại vẫn chạy</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Kiểm tra mọi trường hợp lỗi nhỏ (để cho unit hoặc API test)</li><li>Tính năng còn đang đổi giao diện liên tục</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> kim tự tháp test, tái dùng trạng thái đăng nhập, chạy song song.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bộ E2E của bạn vượt 15 phút và bắt đầu đỏ ngẫu nhiên vài ca mỗi lần chạy.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../flaky-test/">Flaky Test</a><span>Bệnh nghề nghiệp của E2E, gần như chắc chắn sẽ gặp.</span></li><li><a href="../playwright/">Playwright</a><span>Công cụ viết E2E phổ biến nhất hiện nay.</span></li><li><a href="../api-testing/">API Testing</a><span>Cách rẻ hơn để kiểm phần lớn thứ bạn định kiểm bằng E2E.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Tự làm E2E bằng tay một lần: mở trang bạn đang test, bấm đúng luồng mua hàng từ đầu tới cuối, vừa làm vừa ghi lại từng bước. Đếm xem bao nhiêu bước. Đó chính là số dòng code bạn sắp phải viết.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

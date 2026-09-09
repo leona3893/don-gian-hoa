@@ -23,13 +23,41 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Wait</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>⏳ Wait là gì?</h1>
       <p class="brief">Bảo test đợi trang kịp hiện rồi hãy làm tiếp.</p>
-      <p class="plain">Wait cho test dừng đến khi phần tử xuất hiện hoặc điều kiện thoả mãn; chờ cứng theo số giây thì vừa chậm vừa bấp bênh, chờ theo điều kiện thì đáng tin hơn.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Gọi món xong thì chờ tới lúc bếp báo có món, chứ không phải đếm đủ ba mươi giây rồi cứ thế lao vào bếp bưng ra.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../flaky-test/">Flaky Test</a><a href="../locator/">Locator</a><a href="../test-script/">Test Script</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Wait cho test dừng đến khi phần tử xuất hiện hoặc điều kiện thoả mãn; chờ cứng theo số giây thì vừa chậm vừa bấp bênh, chờ theo điều kiện thì đáng tin hơn.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Gọi món xong thì chờ tới lúc bếp báo có món, chứ không phải đếm đủ ba mươi giây rồi cứ thế lao vào bếp bưng ra.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Chờ bếp báo có món nghe rất hợp lý, nhưng <span class="punch">“món đã ra” và “món ăn được” là hai chuyện khác nhau.</span></p>
+<p>Phần tử hiện ra không có nghĩa nó bấm được: có thể đang trong animation, đang bị popup che, hoặc vừa hiện xong đã bị React vẽ lại. Chờ đúng thứ cần chờ (dữ liệu đã lên chưa) khó hơn nhiều so với chờ phần tử xuất hiện.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Chờ mù — chậm và vẫn có thể thiếu</span>
+await page.waitForTimeout(3000)
+
+<span class="c">// Chờ theo điều kiện — nhanh và chắc</span>
+await expect(page.getByRole(<span class="s">'alert'</span>)).toBeVisible()
+
+<span class="c">// Chờ đúng thứ mình thực sự cần</span>
+await page.waitForResponse(r =&gt; r.url().includes(<span class="s">'/api/gio-hang'</span>))</pre>
+    <p class="cap">Ba kiểu chờ, độ tin cậy tăng dần từ trên xuống.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Mọi chỗ trang tải dữ liệu sau khi mở</li><li>Sau khi bấm nút gây gọi mạng</li><li>Trang có hiệu ứng chuyển động</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Chờ cứng theo số giây khi có cách chờ theo điều kiện</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> tự viết điều kiện chờ, chờ theo trạng thái mạng, đặt timeout riêng từng ca.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn phát hiện mình rải <code>waitForTimeout</code> khắp nơi để “cho chắc”.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../flaky-test/">Flaky Test</a><span>Hậu quả trực tiếp của chờ sai cách.</span></li><li><a href="../playwright/">Playwright</a><span>Tự chờ sẵn, đỡ được phần lớn trường hợp thường gặp.</span></li><li><a href="../selenium/">Selenium</a><span>Phải tự viết chờ, nên đây là kỹ năng bắt buộc.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>F12 → tab Network → chọn “Slow 3G” rồi tải lại một trang bất kỳ. Mọi chỗ bạn thấy nội dung nhảy vào muộn chính là chỗ test sẽ cần chờ.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

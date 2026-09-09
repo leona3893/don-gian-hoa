@@ -23,13 +23,38 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Bias</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-1">Mốc 1 · Nói chuyện được</a>
       <h1>⚖️ Bias là gì?</h1>
       <p class="brief">Thiên lệch học từ dữ liệu, dẫn tới kết quả thiếu công bằng.</p>
-      <p class="plain">Bias xảy ra khi dữ liệu huấn luyện mang sẵn định kiến hoặc thiếu đại diện, khiến model đối xử lệch với một số nhóm.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Tuyển người mà chỉ nhìn theo hồ sơ cũ của công ty thì sẽ lặp lại đúng thói quen tuyển ngày trước, kể cả những thói quen sai.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../dataset/">Dataset</a><a href="../training/">Training</a><a href="../ai/">AI</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Bias xảy ra khi dữ liệu huấn luyện mang sẵn định kiến hoặc thiếu đại diện, khiến model đối xử lệch với một số nhóm.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Tuyển người mà chỉ nhìn theo hồ sơ cũ của công ty thì sẽ lặp lại đúng thói quen tuyển ngày trước, kể cả những thói quen sai.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Học theo hồ sơ cũ nên lặp lại thói quen cũ” — đúng, nhưng <span class="punch">bỏ trường giới tính hay dân tộc ra không hề xoá được thiên lệch.</span></p>
+<p>Model sẽ tìm ra thứ thay thế: mã vùng, tên trường học, thậm chí cách viết tên. Đây là điều khiến bias khó xử lý hơn người ta tưởng — không phải cứ giấu thông tin nhạy cảm đi là công bằng. Phải đo kết quả thật trên từng nhóm người mới biết.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Bỏ trường "giới tính" khỏi dữ liệu tuyển dụng</span>
+  → model học từ "câu lạc bộ bóng đá nữ" trong CV
+  → vẫn phân biệt như cũ, chỉ khó phát hiện hơn
+
+<span class="c">Cách duy nhất: đo tỉ lệ chấp nhận trên từng nhóm sau khi chạy</span></pre>
+    <p class="cap">Công bằng phải <strong>đo được ở đầu ra</strong>, không đảm bảo được ở đầu vào.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Mọi hệ thống AI ảnh hưởng tới con người: tuyển dụng, tín dụng, y tế</li><li>Trước khi đưa model vào dùng thật</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Cho rằng bỏ trường nhạy cảm là đã xử lý xong</li><li>Chỉ đo độ chính xác tổng thể mà không tách theo nhóm</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> các định nghĩa công bằng, kiểm định thiên lệch, tài liệu model.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi model của bạn sắp được dùng để ra quyết định ảnh hưởng tới quyền lợi người khác.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../dataset/">Dataset</a><span>Nơi thiên lệch bắt đầu.</span></li><li><a href="../training/">Training</a><span>Nơi thiên lệch được khuếch đại.</span></li><li><a href="../ai/">AI</a><span>Bối cảnh chung của vấn đề này.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Yêu cầu một công cụ tạo ảnh vẽ “một giám đốc điều hành” 10 lần. Đếm tỉ lệ giới tính và độ tuổi trong kết quả. Đó là bias hiện ra bằng mắt thường.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

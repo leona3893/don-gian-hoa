@@ -23,13 +23,38 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Token</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-2">Mốc 2 · Tự dùng được</a>
       <h1>🧩 Token là gì?</h1>
       <p class="brief">Mẩu chữ nhỏ mà AI thực sự đọc.</p>
-      <p class="plain">Model không đọc theo từ mà cắt văn bản thành các token, mỗi token là một mẩu ký tự. Chi phí và giới hạn độ dài đều tính theo token.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như đếm tiền theo tờ chứ không theo câu chuyện: dài hay ngắn rốt cuộc đều quy ra bao nhiêu mẩu.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../llm/">LLM</a><a href="../prompt/">Prompt</a><a href="../context-window/">Context window</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Model không đọc theo từ mà cắt văn bản thành các token, mỗi token là một mẩu ký tự. Chi phí và giới hạn độ dài đều tính theo token.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như đếm tiền theo tờ chứ không theo câu chuyện: dài hay ngắn rốt cuộc đều quy ra bao nhiêu mẩu.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Mẩu chữ” khiến người ta tưởng một token là một từ. <span class="punch">Với tiếng Việt thì lệch rất xa.</span></p>
+<p>Model chủ yếu được huấn luyện trên tiếng Anh, nên tiếng Việt có dấu bị cắt vụn hơn nhiều: một từ như “nghiêng” có thể tốn 3-4 token trong khi “tilt” chỉ tốn 1. Hệ quả thực tế: <strong>cùng một nội dung, viết bằng tiếng Việt tốn tiền và tốn chỗ hơn tiếng Anh khoảng 2-3 lần.</strong></p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">"Hello world"        →  2 token</span>
+<span class="c">"Xin chào thế giới"  →  ~8 token</span>
+
+<span class="c">Chi phí và giới hạn độ dài đều tính theo token,</span>
+<span class="c">nên cùng một ý, tiếng Việt đắt hơn đáng kể.</span></pre>
+    <p class="cap">Đây là lý do thực tế khiến nhiều sản phẩm AI cho thị trường Việt tốn hơn dự tính.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần ước lượng chi phí gọi API</li><li>Cần biết còn bao nhiêu chỗ trong cửa sổ ngữ cảnh</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Đếm token bằng cách đếm từ (luôn sai với tiếng Việt)</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> thuật toán tách token, khác biệt giữa các model, tối ưu chi phí.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi hoá đơn API cao hơn dự tính và bạn cần biết chỗ nào đang tốn.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../context-window/">Context window</a><span>Giới hạn tính bằng token.</span></li><li><a href="../prompt/">Prompt</a><span>Prompt dài tốn token, nên viết gọn có giá trị thật.</span></li><li><a href="../llm/">LLM</a><span>Thứ đọc theo token chứ không theo từ.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Tìm “tokenizer” trên trang của bất kỳ nhà cung cấp AI nào, dán một đoạn tiếng Việt vào. Xem nó bị cắt thành bao nhiêu mẩu — thường nhiều hơn bạn tưởng.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

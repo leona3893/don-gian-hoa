@@ -23,13 +23,37 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Sanity Test</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>🩺 Sanity Test là gì?</h1>
       <p class="brief">Kiểm tra gọn, đúng chỗ vừa sửa.</p>
-      <p class="plain">Sanity Test tập trung xác nhận tính năng vừa sửa hoặc vừa thêm đã chạy hợp lý, trước khi bỏ công chạy bộ test đầy đủ.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Thợ vá xong cái lốp thì bơm lên xem còn xì không, chứ chưa cần khám tổng thể cả chiếc xe.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../smoke-test/">Smoke Test</a><a href="../regression-test/">Regression Test</a><a href="../test-case/">Test Case</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Sanity Test tập trung xác nhận tính năng vừa sửa hoặc vừa thêm đã chạy hợp lý, trước khi bỏ công chạy bộ test đầy đủ.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Thợ vá xong cái lốp thì bơm lên xem còn xì không, chứ chưa cần khám tổng thể cả chiếc xe.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Ranh giới với smoke test <span class="punch">không rõ ràng như sách vở nói</span>, và mỗi công ty định nghĩa một kiểu.</p>
+<p>Cách nhớ thực dụng: <strong>smoke</strong> hỏi “bản build này còn sống không?” (rộng, nông). <strong>Sanity</strong> hỏi “chỗ vừa sửa đã đúng chưa?” (hẹp, sâu). Đừng tranh cãi định nghĩa với đồng nghiệp — hỏi thẳng công ty bạn đang hiểu từ đó theo nghĩa nào.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Dev vừa vá lỗi làm tròn tiền ở giỏ hàng</span>
+<span class="c">// Sanity: chỉ soi đúng chỗ đó, chưa cần chạy cả bộ</span>
+test(<span class="s">'tiền giỏ hàng làm tròn đúng'</span>, ...)
+test(<span class="s">'tiền giỏ hàng cộng phí ship đúng'</span>, ...)</pre>
+    <p class="cap">Vài ca, chạy trong một phút, chỉ quanh chỗ vừa động vào.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Dev vừa vá xong một lỗi và cần xác nhận nhanh</li><li>Chưa muốn tốn 40 phút chạy bộ đầy đủ</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Thay cho hồi quy — sanity không nói gì về phần còn lại của hệ thống</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> chọn ca test tự động theo vùng code đã đổi.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn phải tự đoán “sửa chỗ này thì nên test lại những gì” quá nhiều lần trong tuần.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../smoke-test/">Smoke Test</a><span>Rộng và nông, ngược với sanity.</span></li><li><a href="../regression-test/">Regression Test</a><span>Bộ đầy đủ chạy sau khi sanity đã đạt.</span></li><li><a href="../bug/">Bug</a><span>Sanity thường chạy ngay sau khi một bug được vá.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Lần tới dev báo “đã fix rồi”, đừng chạy cả bộ. Viết ra 3 câu hỏi hẹp nhất kiểm tra đúng chỗ đó. Đấy là sanity test.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

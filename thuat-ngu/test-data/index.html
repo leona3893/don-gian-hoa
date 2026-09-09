@@ -23,13 +23,40 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Test Data</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>🗃️ Test Data là gì?</h1>
       <p class="brief">Dữ liệu dựng riêng để chạy thử.</p>
-      <p class="plain">Test Data là bộ dữ liệu đầu vào cho test: tài khoản mẫu, đơn hàng giả, file mẫu. Cần sạch và dựng lại được để mỗi lần chạy đều như nhau.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như bột và trứng để đầu bếp tập làm bánh: dùng nguyên liệu riêng, không lôi phần đã bán cho khách ra mà nghịch.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../test-case/">Test Case</a><a href="../mock/">Mock</a><a href="../flaky-test/">Flaky Test</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Test Data là bộ dữ liệu đầu vào cho test: tài khoản mẫu, đơn hàng giả, file mẫu. Cần sạch và dựng lại được để mỗi lần chạy đều như nhau.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như bột và trứng để đầu bếp tập làm bánh: dùng nguyên liệu riêng, không lôi phần đã bán cho khách ra mà nghịch.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Bột và trứng dùng xong là hết. <span class="punch">Dữ liệu test thì ở lại</span> — và ca test sau sẽ vấp phải nó.</p>
+<p>Kinh điển: ca test tạo tài khoản <code>na@vd.com</code>, chạy lần hai thì đỏ vì email đã tồn tại. Dữ liệu test phải <em>dựng lại được</em> và <em>dọn sạch được</em>, nếu không bộ test của bạn chỉ xanh đúng lần chạy đầu tiên trên máy mới.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Dễ vỡ — chạy lần hai là đỏ</span>
+await taoTaiKhoan(<span class="s">'na@vd.com'</span>)
+
+<span class="c">// Bền — mỗi lần chạy một email khác nhau</span>
+await taoTaiKhoan(<span class="s">`na+${Date.now()}@vd.com`</span>)</pre>
+    <p class="cap">Mẹo đơn giản mà cứu được rất nhiều ca: gắn thêm dấu thời gian vào dữ liệu.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Mọi ca test cần dữ liệu đầu vào</li><li>Cần tình huống cụ thể: đơn hàng đã huỷ, tài khoản bị khoá</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Dùng dữ liệu thật của khách hàng (vừa nguy hiểm vừa vi phạm quyền riêng tư)</li><li>Dùng chung một tài khoản cho mọi ca test</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> factory sinh dữ liệu, seed tự động, dọn dữ liệu sau mỗi ca.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn phải vào database xoá tay dữ liệu rác trước mỗi lần chạy bộ test.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../test-environment/">Test Environment</a><span>Nơi dữ liệu test được phép tồn tại.</span></li><li><a href="../flaky-test/">Flaky Test</a><span>Dữ liệu dùng chung là nguyên nhân flaky phổ biến thứ nhì.</span></li><li><a href="../mock/">Mock</a><span>Cách tránh phải dựng dữ liệu thật.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>F12 → Console:
+<pre class="code"><span class="s">`na+${Date.now()}@vd.com`</span></pre>
+Gõ lại lần nữa, ra email khác. Đó là cách đơn giản nhất để ca test chạy được nhiều lần.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

@@ -23,13 +23,40 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Deep Learning</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-1">Mốc 1 · Nói chuyện được</a>
       <h1>🧠 Deep Learning là gì?</h1>
       <p class="brief">Máy học bằng mạng nhiều tầng, hiểu được thứ phức tạp.</p>
-      <p class="plain">Deep Learning là nhánh của Machine Learning dùng mạng nơ-ron nhiều tầng để học các mẫu phức tạp như ảnh, âm thanh và ngôn ngữ.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như dây chuyền nhiều công đoạn: tầng đầu chỉ nhận ra đường nét, tầng giữa ghép thành mắt mũi, tầng cuối mới kết luận đó là khuôn mặt ai.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../machine-learning/">Machine Learning</a><a href="../neural-network/">Neural Network</a><a href="../model/">Model</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Deep Learning là nhánh của Machine Learning dùng mạng nơ-ron nhiều tầng để học các mẫu phức tạp như ảnh, âm thanh và ngôn ngữ.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như dây chuyền nhiều công đoạn: tầng đầu chỉ nhận ra đường nét, tầng giữa ghép thành mắt mũi, tầng cuối mới kết luận đó là khuôn mặt ai.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Mạng nhiều tầng nên học sâu hơn” — <span class="punch">chữ “sâu” chỉ nói về số tầng, không nói về độ sâu sắc.</span></p>
+<p>Nhiều tầng cho phép model nhận ra khuôn mẫu phức tạp hơn, nhưng cũng khiến nó thành hộp đen: gần như không ai giải thích được vì sao nó ra quyết định đó. Trong y tế hay tín dụng, chỗ này là vấn đề pháp lý thật, không phải chuyện học thuật.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Ảnh một con mèo đi qua các tầng:</span>
+
+tầng 1  →  nhận ra cạnh và góc
+tầng 5  →  nhận ra mắt, tai, ria
+tầng 20 →  "đây là mèo"
+
+<span class="c">Không ai lập trình các tầng giữa. Chúng tự hình thành.</span></pre>
+    <p class="cap">Điểm mạnh và điểm yếu là một: <strong>không ai bảo nó phải nhìn vào đâu</strong>.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Dữ liệu phức tạp: ảnh, âm thanh, ngôn ngữ</li><li>Có rất nhiều dữ liệu và đủ máy để huấn luyện</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Dữ liệu bảng đơn giản (mô hình cổ điển thường tốt hơn và rẻ hơn)</li><li>Bắt buộc phải giải thích được quyết định</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> kiến trúc mạng, lan truyền ngược, hàm kích hoạt, transformer.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn cần chọn giữa fine-tuning một model có sẵn và huấn luyện từ đầu.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../neural-network/">Neural Network</a><span>Cấu trúc nền tảng của deep learning.</span></li><li><a href="../gpu/">GPU</a><span>Thứ phần cứng khiến deep learning khả thi.</span></li><li><a href="../computer-vision/">Computer Vision</a><span>Lĩnh vực deep learning thành công sớm nhất.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Mở camera điện thoại hướng vào mặt người. Khung vuông bám theo mặt chính là deep learning chạy thời gian thực, ngay trên máy bạn, không cần mạng.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

@@ -23,13 +23,41 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Gherkin</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>🥒 Gherkin là gì?</h1>
       <p class="brief">Cú pháp Given When Then để viết kịch bản test.</p>
-      <p class="plain">Gherkin dùng các từ khoá Given, When, Then để viết tình huống theo lối kể chuyện, rồi công cụ như Cucumber nối từng dòng đó với code chạy thật.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như công thức nấu ăn chia mục rõ ràng: có sẵn gì, làm gì, ra kết quả gì. Đọc là hình dung được ngay.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../bdd/">BDD</a><a href="../test-case/">Test Case</a><a href="../test-script/">Test Script</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Gherkin dùng các từ khoá Given, When, Then để viết tình huống theo lối kể chuyện, rồi công cụ như Cucumber nối từng dòng đó với code chạy thật.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như công thức nấu ăn chia mục rõ ràng: có sẵn gì, làm gì, ra kết quả gì. Đọc là hình dung được ngay.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Công thức nấu ăn thì đọc là làm được. Gherkin thì <span class="punch">mỗi dòng phải có một đoạn code đứng sau nó</span>, và đoạn code đó ai đó phải viết.</p>
+<p>Viết Gherkin mất 2 phút, viết step definition cho nó mất 2 giờ. Đó là chi phí ẩn khiến nhiều đội bỏ giữa chừng. Và nếu mỗi kịch bản dùng một cách diễn đạt khác nhau, số bước cần code sẽ phình không kiểm soát.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c"># Kịch bản</span>
+Khi tôi đăng nhập bằng mật khẩu sai
+
+<span class="c">// Đoạn code đứng sau nó — phần tốn công</span>
+When(<span class="s">'tôi đăng nhập bằng mật khẩu sai'</span>, async () =&gt; {
+  await page.getByLabel(<span class="s">'Mật khẩu'</span>).fill(<span class="s">'sai'</span>)
+  await page.getByRole(<span class="s">'button'</span>, { name:<span class="s">'Đăng nhập'</span> }).click()
+})</pre>
+    <p class="cap">Mẹo sống còn: dùng lại y nguyên câu chữ giữa các kịch bản để tái dùng được bước.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Đã chọn làm BDD và có người nghiệp vụ tham gia</li><li>Cần tài liệu mà đọc xong chạy được luôn</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Chỉ đội kỹ thuật dùng với nhau</li><li>Chưa đủ người để nuôi lớp step definition</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> Scenario Outline, bảng dữ liệu, hook, gắn thẻ kịch bản.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 2 — Tự viết được cái đầu tiên:</span> Bạn viết được một test mở trang, bấm nút, kiểm tra chữ hiện ra — và nó chạy xanh trên máy bạn.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn có 8 kịch bản giống hệt nhau chỉ khác mỗi con số.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../bdd/">BDD</a><span>Phương pháp mà Gherkin phục vụ.</span></li><li><a href="../test-script/">Test Script</a><span>Step definition thực chất là test script.</span></li><li><a href="../test-case/">Test Case</a><span>Gherkin là một cách trình bày ca test.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Viết lại ca test “đăng nhập sai mật khẩu” của bạn thành đúng 3 dòng Cho trước / Khi / Thì. Đếm xem có bao nhiêu từ mà máy sẽ phải hiểu — đó là số bước bạn sắp phải code.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

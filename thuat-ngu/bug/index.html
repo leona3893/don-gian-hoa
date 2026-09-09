@@ -23,13 +23,40 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Bug</nav>
     <article class="article">
-      <span class="tag">Cơ bản</span>
+      <span class="tag">Cơ bản</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-1">Mốc 1 · Nói chuyện được</a>
       <h1>🐛 Bug là gì?</h1>
       <p class="brief">Lỗi khiến sản phẩm hoạt động không đúng ý.</p>
-      <p class="plain">Bug là sai sót trong mã, dữ liệu hoặc thiết kế gây ra hành vi ngoài dự tính.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như công thức ghi nhầm một muỗng muối thành một bát muối: mọi bước vẫn làm, nhưng kết quả sai.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../debug/">Debug</a><a href="../git/">Git</a><a href="../backend/">Backend</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Bug là sai sót trong mã, dữ liệu hoặc thiết kế gây ra hành vi ngoài dự tính.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như công thức ghi nhầm một muỗng muối thành một bát muối: mọi bước vẫn làm, nhưng kết quả sai.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Công thức ghi nhầm muối — nhưng <span class="punch">phần lớn bug không phải do ai gõ sai.</span></p>
+<p>Chúng sinh ra ở chỗ hai người hiểu yêu cầu khác nhau, hoặc ở tình huống không ai nghĩ tới: người dùng bấm hai lần, mạng rớt giữa chừng, nhập tên có dấu tiếng Việt. Bug đắt nhất thường không nằm trong code — nó nằm trong bản yêu cầu mà không ai đọc kỹ.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Báo cáo bug tốt luôn có đủ ba phần:</span>
+
+Các bước:   1. Mở /gio-hang  2. Nhập số lượng 0  3. Bấm Thanh toán
+Mong đợi:   Báo lỗi "Số lượng phải lớn hơn 0"
+Thực tế:    Đơn hàng tạo thành công với tổng tiền 0đ
+
+Kèm: ảnh chụp, trình duyệt, thời điểm, tài khoản dùng để test</pre>
+    <p class="cap">Thiếu phần “các bước” thì dev không tái hiện được, và bug sẽ bị đóng với lý do “không lặp lại được”.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Sản phẩm chạy khác với điều đã thống nhất</li><li>Có cách tái hiện lại được</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Bạn không thích thiết kế (đó là góp ý, không phải bug)</li><li>Chưa ai chốt hành vi đúng là gì (đi hỏi trước đã)</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> phân loại mức độ, quy trình vòng đời bug, phân tích nguyên nhân gốc.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 2 — Đọc hiểu được:</span> Nhìn một sơ đồ hệ thống hoặc một log lỗi, bạn đoán được chỗ nào đang hỏng.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn phải trả lời “bug này có đáng hoãn ngày phát hành không?”</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../debug/">Debug</a><span>Việc tiếp theo sau khi bug được báo.</span></li><li><a href="../test-case/">Test Case</a><span>Mỗi bug tìm ra nên thành một ca test mới.</span></li><li><a href="../qa/">QA</a><span>Nghề tìm cách để bug đừng sinh ra từ đầu.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Lấy một lỗi bạn từng gặp trên app nào đó, viết lại theo đúng ba dòng trên. Nếu không viết nổi phần “các bước”, bạn hiểu vì sao dev hay bảo không tái hiện được.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

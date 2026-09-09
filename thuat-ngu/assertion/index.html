@@ -23,13 +23,40 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Assertion</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>✅ Assertion là gì?</h1>
       <p class="brief">Câu lệnh phán xử đúng hay sai.</p>
-      <p class="plain">Assertion là chỗ test so sánh kết quả thực tế với kết quả mong đợi: khớp thì test pass, lệch thì test fail.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như người chấm thi đối chiếu bài làm với đáp án: giống thì cho điểm, khác thì gạch.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../test-case/">Test Case</a><a href="../test-script/">Test Script</a><a href="../test-report/">Test Report</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Assertion là chỗ test so sánh kết quả thực tế với kết quả mong đợi: khớp thì test pass, lệch thì test fail.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như người chấm thi đối chiếu bài làm với đáp án: giống thì cho điểm, khác thì gạch.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Người chấm thi biết linh động: viết “Hà Nội” hay “hà nội” đều cho đúng. <span class="punch">Assertion thì so từng ký tự.</span></p>
+<p>Thừa một dấu cách, khác hoa thường, ngày ghi 01/09 thay vì 1/9 — đều fail. Và ngược lại, assertion lỏng quá (chỉ cần “có chữ Hà”) thì test xanh cả khi sản phẩm sai. Chọn độ chặt của assertion là cả một nghề.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Quá chặt — đổi một dấu cách là đỏ</span>
+await expect(el).toHaveText(<span class="s">'Chào Na,  bạn có 3 đơn'</span>)
+
+<span class="c">// Vừa đủ — kiểm tra đúng thứ mình quan tâm</span>
+await expect(el).toContainText(<span class="s">'3 đơn'</span>)</pre>
+    <p class="cap">Kiểm tra <strong>đúng thứ bạn quan tâm</strong>, đừng kiểm tra cả những thứ tình cờ nằm cạnh.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Mọi ca test — không có assertion thì không phải test</li><li>Cần chốt “thế nào là đạt” thành thứ máy hiểu được</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Chưa biết kết quả đúng là gì (đi hỏi cho ra trước đã)</li><li>Kiểm tra cả những thứ không liên quan tới ca test này</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> soft assertion, snapshot testing, matcher tự viết.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi test đỏ ở dòng đầu và bạn muốn nó chạy tiếp để xem còn sai chỗ nào nữa.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../test-report/">Test Report</a><span>Nơi hiện ra assertion nào trượt và trượt vì sao.</span></li><li><a href="../visual-testing/">Visual Testing</a><span>Khi thứ cần kiểm tra là hình ảnh chứ không phải chữ.</span></li><li><a href="../test-case/">Test Case</a><span>Phần “mong đợi” của ca test chính là assertion.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>F12 → Console:
+<pre class="code">console.assert(1 + 1 === 3, <span class="s">'sai rồi'</span>)</pre>
+Đó là assertion trần trụi nhất: đúng thì im lặng, sai thì kêu lên.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

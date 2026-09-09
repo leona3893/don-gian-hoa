@@ -23,13 +23,40 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Cache</nav>
     <article class="article">
-      <span class="tag">Hiệu năng</span>
+      <span class="tag">Hiệu năng</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-1">Mốc 1 · Nói chuyện được</a>
       <h1>⚡ Cache là gì?</h1>
       <p class="brief">Ngăn để đồ hay dùng, giúp lấy nhanh hơn.</p>
-      <p class="plain">Cache giữ tạm dữ liệu thường xuyên được dùng để lần sau không cần tính hoặc tải lại từ đầu.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Bạn để chìa khóa ở một cái khay cạnh cửa, thay vì mỗi lần ra ngoài lại đi tìm khắp nhà.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../database/">Database</a><a href="../server/">Server</a><a href="../api/">API</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Cache giữ tạm dữ liệu thường xuyên được dùng để lần sau không cần tính hoặc tải lại từ đầu.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Bạn để chìa khóa ở một cái khay cạnh cửa, thay vì mỗi lần ra ngoài lại đi tìm khắp nhà.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Khay để chìa khoá cạnh cửa — <span class="punch">nhưng chìa khoá thì không tự cũ đi, còn dữ liệu thì có.</span></p>
+<p>Câu nói nổi tiếng nhất ngành: hai việc khó nhất là đặt tên biến và <em>biết lúc nào phải xoá cache</em>. Cache sai khiến người dùng thấy giá cũ, tồn kho cũ, hoặc thấy dữ liệu của người khác. Lỗi cache thường khó tái hiện, vì nó chỉ xảy ra đúng lúc bộ nhớ đệm còn hạn.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c"># Lần đầu: hỏi database, mất 800ms</span>
+GET /san-pham/7  →  database  →  lưu vào cache 60 giây
+
+<span class="c"># 60 giây sau đó: lấy từ cache, mất 2ms</span>
+GET /san-pham/7  →  cache
+
+<span class="c"># Nhưng nếu giá vừa đổi ở giây thứ 3 thì sao?</span></pre>
+    <p class="cap">Câu hỏi cuối chính là toàn bộ độ khó của cache.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Dữ liệu đọc nhiều, sửa ít</li><li>Tính toán tốn kém mà kết quả lặp lại</li><li>Cần chịu tải cao</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Dữ liệu đổi liên tục và phải chính xác tuyệt đối (số dư, tồn kho)</li><li>Dữ liệu riêng của từng người mà cache dùng chung</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> chiến lược xoá cache, TTL, cache nhiều tầng, CDN.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự dựng được:</span> Bạn tự đưa được một trang lên mạng, và biết phải sờ vào đâu khi nó không lên.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi người dùng báo “tôi sửa rồi mà vẫn thấy cái cũ” và bạn phải giải thích vì sao.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../database/">Database</a><span>Thứ cache đang gánh đỡ.</span></li><li><a href="../load-test/">Load Test</a><span>Cách chứng minh cache thật sự có tác dụng.</span></li><li><a href="../server/">Server</a><span>Nơi cache thường được đặt.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Mở một trang, bấm Ctrl+F5 (tải lại bỏ qua cache) rồi so với F5 thường ở tab Network. Chênh lệch thời gian chính là phần cache đang tiết kiệm cho bạn.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

@@ -23,13 +23,40 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › QA</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>🛡️ QA là gì?</h1>
       <p class="brief">Lo chất lượng cả quy trình, không chỉ đi bắt lỗi.</p>
-      <p class="plain">QA hướng tới ngăn lỗi từ sớm bằng quy trình, tiêu chuẩn và review, khác với việc chỉ kiểm tra sản phẩm sau khi đã làm xong.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như bên an toàn thực phẩm: không chỉ nếm món cuối cùng, mà kiểm cả nguồn nguyên liệu lẫn cách bếp vận hành.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../test-case/">Test Case</a><a href="../bug/">Bug</a><a href="../test-automation/">Test Automation</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">QA hướng tới ngăn lỗi từ sớm bằng quy trình, tiêu chuẩn và review, khác với việc chỉ kiểm tra sản phẩm sau khi đã làm xong.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như bên an toàn thực phẩm: không chỉ nếm món cuối cùng, mà kiểm cả nguồn nguyên liệu lẫn cách bếp vận hành.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Bên an toàn thực phẩm kiểm cả quy trình — nhưng <span class="punch">QA không phải người gác cổng có quyền chặn.</span></p>
+<p>Ở nhiều đội, QA bị hiểu thành “người bấm nút cuối cùng trước khi phát hành”, và thành nơi đổ lỗi khi có sự cố. QA đúng nghĩa là làm chất lượng thành việc của <em>cả đội</em> — đặt câu hỏi từ lúc còn đang bàn yêu cầu, chứ không phải đứng cuối dây chuyền bắt lỗi.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">QC (kiểm soát): sản phẩm làm xong rồi — có lỗi không?</span>
+<span class="c">QA (đảm bảo): quy trình đang chạy thế nào — sao để lỗi đừng sinh ra?</span>
+
+Ví dụ việc của QA:
+  · Đọc yêu cầu và hỏi "trường hợp này thì sao?" trước khi dev code
+  · Đề xuất gắn data-testid ngay từ lúc thiết kế
+  · Dựng bộ smoke test chạy tự động sau mỗi lần deploy</pre>
+    <p class="cap">Câu hỏi đúng lúc bàn yêu cầu rẻ hơn một bug tìm ra ở production khoảng trăm lần.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Từ lúc bắt đầu bàn yêu cầu, không phải lúc sắp phát hành</li><li>Khi cùng một loại lỗi lặp lại nhiều lần</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Chỉ được gọi vào ở khâu cuối để “test hộ”</li><li>Bị coi là người duy nhất chịu trách nhiệm chất lượng</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> chiến lược test, quản lý rủi ro, chỉ số chất lượng, shift-left.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 2 — Tự viết được cái đầu tiên:</span> Bạn viết được một test mở trang, bấm nút, kiểm tra chữ hiện ra — và nó chạy xanh trên máy bạn.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn phải trả lời câu “test bao nhiêu là đủ?” trước cả đội và không biết dựa vào đâu.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../test-case/">Test Case</a><span>Công cụ hàng ngày của QA.</span></li><li><a href="../bug/">Bug</a><span>Thứ QA muốn ngăn từ đầu chứ không phải đi nhặt.</span></li><li><a href="../test-automation/">Test Automation</a><span>Cách QA nhân sức mình lên nhiều lần.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Lần tới trong buổi họp bàn tính năng mới, hỏi đúng một câu: “nếu người dùng làm việc này hai lần liên tiếp thì sao?” Bạn vừa làm đúng công việc của QA, trước khi có dòng code nào.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

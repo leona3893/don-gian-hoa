@@ -23,13 +23,43 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › XPath</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>🧭 XPath là gì?</h1>
       <p class="brief">Đường dẫn lần theo cấu trúc trang để tìm phần tử.</p>
-      <p class="plain">XPath là cú pháp duyệt cây HTML theo quan hệ cha con, thường dùng khi phần tử không có id hay class ổn định để bám vào.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như chỉ đường bằng mô tả: đi hết hẻm, rẽ trái, nhà thứ ba. Tìm được thật, nhưng hàng xóm xây thêm cái cổng là lạc ngay.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../locator/">Locator</a><a href="../test-script/">Test Script</a><a href="../flaky-test/">Flaky Test</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">XPath là cú pháp duyệt cây HTML theo quan hệ cha con, thường dùng khi phần tử không có id hay class ổn định để bám vào.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như chỉ đường bằng mô tả: đi hết hẻm, rẽ trái, nhà thứ ba. Tìm được thật, nhưng hàng xóm xây thêm cái cổng là lạc ngay.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Chỉ đường bằng mô tả thì <span class="punch">chỉ cần hàng xóm xây thêm cái cổng là lạc</span> — và với XPath thì “cái cổng” là một thẻ <code>div</code> dev thêm vào để chỉnh khoảng cách.</p>
+<p>XPath dạng đường dẫn tuyệt đối (<code>/html/body/div[3]/div[2]/...</code>) gãy gần như chắc chắn. Nếu buộc phải dùng XPath, hãy bám vào chữ hoặc thuộc tính, đừng bám vào vị trí.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Rất dễ gãy</span>
+/html/body/div[3]/div[2]/button[1]
+
+<span class="c">// Đỡ hơn nhiều — bám vào chữ người dùng nhìn thấy</span>
+//button[text()=<span class="s">'Đăng nhập'</span>]
+
+<span class="c">// Bám vào thuộc tính riêng</span>
+//*[@data-testid=<span class="s">'nut-dang-nhap'</span>]</pre>
+    <p class="cap">Quy tắc: đếm được thì đừng đếm, tả được thì hãy tả.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Phần tử không có id, class ổn định hay testid</li><li>Cần tìm theo nội dung chữ bên trong</li><li>Cần đi ngược lên phần tử cha (CSS không làm được)</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Đã có testid hoặc vai trò rõ ràng để bám</li><li>Chép XPath từ menu chuột phải của trình duyệt (gần như luôn là dạng dễ gãy)</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> trục XPath (ancestor, following-sibling), hàm XPath nâng cao.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn cần đi từ ô chữ lên tìm cái dòng chứa nó rồi mới bấm nút Xoá trong dòng đó.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../locator/">Locator</a><span>Cách bám phần tử nên thử trước khi tới XPath.</span></li><li><a href="../flaky-test/">Flaky Test</a><span>XPath tuyệt đối là nguồn gãy test kinh điển.</span></li><li><a href="../test-script/">Test Script</a><span>Nơi XPath được dùng.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>F12 → Console, thử XPath ngay:
+<pre class="code">$x(<span class="s">"//button"</span>)</pre>
+Ra danh sách mọi nút trên trang. Đổi thành <code>$x("//button[text()='Tìm']")</code> để lọc theo chữ.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

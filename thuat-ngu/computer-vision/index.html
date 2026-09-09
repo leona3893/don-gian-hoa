@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Computer Vision</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-1">Mốc 1 · Nói chuyện được</a>
       <h1>👁️ Computer Vision là gì?</h1>
       <p class="brief">Dạy máy nhìn và hiểu hình ảnh.</p>
-      <p class="plain">Computer Vision giúp máy nhận ra vật thể, khuôn mặt, chữ viết hay chuyển động trong ảnh và video.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như dạy người mới phân biệt biển báo giao thông: nhìn đủ nhiều rồi thì liếc qua là biết ngay biển nào.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../deep-learning/">Deep Learning</a><a href="../neural-network/">Neural Network</a><a href="../dataset/">Dataset</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Computer Vision giúp máy nhận ra vật thể, khuôn mặt, chữ viết hay chuyển động trong ảnh và video.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như dạy người mới phân biệt biển báo giao thông: nhìn đủ nhiều rồi thì liếc qua là biết ngay biển nào.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Dạy máy nhìn” — nhưng <span class="punch">máy không nhìn thấy vật thể, nó xử lý một bảng số.</span></p>
+<p>Hệ quả rất thực tế: đổi ánh sáng, đổi góc chụp, hay thêm vài điểm nhiễu mắt người không thấy cũng có thể khiến nó nhận nhầm hoàn toàn. Con người nhận ra cái ghế dù ở góc nào; model thì chỉ nhận ra những góc nó từng thấy trong dữ liệu huấn luyện.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Ảnh với máy chỉ là bảng số:</span>
+
+mỗi điểm ảnh  →  [đỏ, xanh lá, xanh dương]  →  [237, 28, 36]
+ảnh 1000×1000 →  3 triệu con số
+
+<span class="c">"Nhận ra con mèo" = tìm khuôn mẫu trong 3 triệu con số đó</span></pre>
+    <p class="cap">Không có khái niệm “con mèo” ở đâu cả — chỉ có khuôn mẫu số học.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Đếm, phân loại, phát hiện vật thể trong ảnh và video</li><li>Đọc chữ từ ảnh chụp giấy tờ</li><li>Kiểm tra chất lượng sản phẩm trên dây chuyền</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Cần độ chính xác tuyệt đối trong điều kiện ánh sáng thất thường</li><li>Dữ liệu huấn luyện không phủ được điều kiện thực tế</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> CNN, phát hiện vật thể, phân đoạn ảnh, tăng cường dữ liệu.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi model chạy tốt ở phòng thí nghiệm nhưng sai liên tục ngoài công trường.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../deep-learning/">Deep Learning</a><span>Công nghệ đứng sau computer vision hiện đại.</span></li><li><a href="../dataset/">Dataset</a><span>Điều kiện chụp trong dataset quyết định tất cả.</span></li><li><a href="../visual-testing/">Visual Testing</a><span>Họ hàng gần trong lĩnh vực kiểm thử.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Mở Google Lens hoặc tính năng tìm kiếm bằng ảnh, chụp một vật quen thuộc trong điều kiện thiếu sáng. So với lúc đủ sáng. Khác biệt cho bạn thấy giới hạn thật.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

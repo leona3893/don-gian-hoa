@@ -23,13 +23,40 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Load Test</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-3">Mốc 3 · Tự sửa được khi nó hỏng</a>
       <h1>🏋️ Load Test là gì?</h1>
       <p class="brief">Thử xem đông người vào cùng lúc thì có sập không.</p>
-      <p class="plain">Load Test mô phỏng nhiều người dùng truy cập đồng thời để đo tốc độ phản hồi và tìm ngưỡng chịu tải của hệ thống.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như thử cầu bằng cách cho cả đoàn xe tải chạy lên: đi một chiếc thì cầu nào chẳng qua được.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../cache/">Cache</a><a href="../server/">Server</a><a href="../test-environment/">Test Environment</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Load Test mô phỏng nhiều người dùng truy cập đồng thời để đo tốc độ phản hồi và tìm ngưỡng chịu tải của hệ thống.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như thử cầu bằng cách cho cả đoàn xe tải chạy lên: đi một chiếc thì cầu nào chẳng qua được.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Cho đoàn xe tải chạy lên cầu — nhưng <span class="punch">1000 người dùng ảo không giống 1000 người thật.</span></p>
+<p>Người thật vào rải rác, thao tác khác nhau, có người bỏ giữa chừng, dùng mạng yếu. Công cụ load test bắn đều tăm tắp từ một chỗ, nên dễ ra kết quả đẹp hơn hoặc xấu hơn thực tế. Con số load test là để <em>so sánh giữa các lần</em>, đừng đọc nó như lời tiên tri.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// k6 — tăng dần lên 100 người trong 30 giây</span>
+export const options = {
+  stages: [{ duration: <span class="s">'30s'</span>, target: 100 }]
+}
+export default function () {
+  http.get(<span class="s">'https://vd.com/san-pham'</span>)
+}</pre>
+    <p class="cap">Đo hai thứ: thời gian phản hồi và tỉ lệ lỗi. Ngưỡng chịu tải là chỗ hai đường này gãy.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Sắp có đợt cao điểm: sale, tuyển sinh, ra mắt</li><li>Vừa đổi hạ tầng hoặc tối ưu lớn</li><li>Cần biết ngưỡng chịu tải trước khi khách phát hiện ra</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Chạy trên production giờ cao điểm</li><li>Hệ thống còn đang thay đổi kiến trúc từng tuần</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> soak test, spike test, đọc biểu đồ phân vị p95/p99, phân tích nút thắt.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Bạn đã ở mốc này rồi nếu đang lo về ngày sale. Bắt đầu bằng việc đo trạng thái bình thường để có mốc so sánh.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../cache/">Cache</a><span>Vũ khí số một để chịu tải cao.</span></li><li><a href="../server/">Server</a><span>Thứ đang bị bạn ép tới giới hạn.</span></li><li><a href="../test-environment/">Test Environment</a><span>Load test phải chạy ở môi trường riêng, không phải production.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>F12 → Network → chọn “Slow 3G”, tải lại một trang. Bạn vừa thấy trải nghiệm của người dùng lúc hệ thống quá tải — chậm cũng là một dạng hỏng.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

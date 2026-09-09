@@ -23,13 +23,41 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Test Script</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>📜 Test Script là gì?</h1>
       <p class="brief">Đoạn code thực hiện bài kiểm tra.</p>
-      <p class="plain">Test Script là mã nguồn viết ra để máy tự chạy một test case: mở trang, điền dữ liệu, bấm nút rồi so kết quả.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như kịch bản quay phim ghi rõ từng động tác: diễn viên, ở đây là máy, cứ theo đó mà làm chứ không tự nghĩ thêm.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../test-case/">Test Case</a><a href="../test-automation/">Test Automation</a><a href="../assertion/">Assertion</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Test Script là mã nguồn viết ra để máy tự chạy một test case: mở trang, điền dữ liệu, bấm nút rồi so kết quả.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như kịch bản quay phim ghi rõ từng động tác: diễn viên, ở đây là máy, cứ theo đó mà làm chứ không tự nghĩ thêm.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Kịch bản phim viết cho diễn viên biết suy đoán. <span class="punch">Máy thì không suy đoán gì cả.</span></p>
+<p>Bạn ghi “bấm nút Đăng nhập” thì máy hỏi lại: nút nào, nếu có hai nút cùng chữ đó thì sao, nếu nút chưa hiện thì đợi bao lâu, nếu nút bị che thì tính là bấm được không. Mọi thứ bạn coi là hiển nhiên đều phải viết ra.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Ca test bằng tiếng Việt → thành code</span>
+await page.goto(<span class="s">'/dang-nhap'</span>)
+await page.getByLabel(<span class="s">'Email'</span>).fill(<span class="s">'na@vd.com'</span>)
+await page.getByLabel(<span class="s">'Mật khẩu'</span>).fill(<span class="s">'matkhausai'</span>)
+await page.getByRole(<span class="s">'button'</span>, { name: <span class="s">'Đăng nhập'</span> }).click()
+await expect(page.getByRole(<span class="s">'alert'</span>)).toContainText(<span class="s">'Sai email hoặc mật khẩu'</span>)</pre>
+    <p class="cap">Từng dòng ứng đúng một bước trong ca test viết tay ở trên.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Ca test đã ổn định, không đổi mỗi tuần</li><li>Cần chạy lại thường xuyên</li><li>Muốn máy chạy lúc mình đang ngủ</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Còn đang dò xem tính năng chạy thế nào</li><li>Ca test viết tay còn chưa rõ “đúng” là gì</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> gom code dùng chung, fixture, hook trước/sau, tham số hoá ca test.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 2 — Tự viết được cái đầu tiên:</span> Bạn viết được một test mở trang, bấm nút, kiểm tra chữ hiện ra — và nó chạy xanh trên máy bạn.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn sửa một cái nút mà phải mở 12 file test ra sửa cùng một dòng.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../locator/">Locator</a><span>Phần khó nhất của script: chỉ đúng phần tử cần bấm.</span></li><li><a href="../assertion/">Assertion</a><span>Dòng cuối quyết định test đỗ hay trượt.</span></li><li><a href="../page-object-model/">Page Object Model</a><span>Cách dọn script khi nó bắt đầu lặp lại.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>F12 → Console, trên một trang có ô tìm kiếm:
+<pre class="code">document.querySelector(<span class="s">'input'</span>).value = <span class="s">'áo thun'</span></pre>
+Bạn vừa viết dòng script đầu tiên: điền dữ liệu vào ô mà không đụng bàn phím.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

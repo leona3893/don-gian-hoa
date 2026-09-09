@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › RAG</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-3">Mốc 3 · Tự ghép được</a>
       <h1>📎 RAG là gì?</h1>
       <p class="brief">Cho AI tra tài liệu trước khi trả lời.</p>
-      <p class="plain">RAG ghép model với một kho tài liệu: khi có câu hỏi, hệ thống tìm đoạn liên quan rồi đưa kèm vào prompt để câu trả lời có căn cứ.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như thi được mở tài liệu: thay vì moi từ trí nhớ, thí sinh lật đúng trang rồi mới trả lời nên ít nói bừa.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../embedding/">Embedding</a><a href="../hallucination/">Hallucination</a><a href="../llm/">LLM</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">RAG ghép model với một kho tài liệu: khi có câu hỏi, hệ thống tìm đoạn liên quan rồi đưa kèm vào prompt để câu trả lời có căn cứ.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như thi được mở tài liệu: thay vì moi từ trí nhớ, thí sinh lật đúng trang rồi mới trả lời nên ít nói bừa.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Thi mở tài liệu” — nhưng <span class="punch">thí sinh chỉ được đọc đúng những trang mà hệ thống tìm ra hộ.</span></p>
+<p>Nếu bước tìm kiếm lấy nhầm đoạn, model sẽ trả lời sai một cách rất tự tin, dựa trên tài liệu sai. Chất lượng RAG phụ thuộc vào chất lượng tìm kiếm nhiều hơn phụ thuộc vào model. Phần lớn dự án RAG thất bại ở khâu tìm kiếm, không phải ở khâu sinh câu trả lời.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Câu hỏi: "Chính sách đổi trả bao nhiêu ngày?"</span>
+
+1. Chuyển câu hỏi thành vector
+2. Tìm trong kho tài liệu → lấy 3 đoạn giống nhất   <span class="c">← khâu hay hỏng</span>
+3. Nhét 3 đoạn đó vào prompt kèm câu hỏi
+4. Model trả lời dựa trên 3 đoạn đó</pre>
+    <p class="cap">Bước 2 quyết định tất cả. Model giỏi tới đâu cũng không cứu được tài liệu lấy nhầm.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần AI trả lời dựa trên tài liệu riêng của công ty</li><li>Tài liệu cập nhật thường xuyên</li><li>Cần trích dẫn nguồn cho câu trả lời</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Tài liệu quá ít (nhét thẳng vào prompt là xong)</li><li>Cần model đổi giọng điệu chứ không cần thêm kiến thức</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> chia đoạn tài liệu, tìm kiếm lai, xếp hạng lại, đánh giá chất lượng truy xuất.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Bạn đã ở mốc này. Bắt đầu bằng việc kiểm tra bước tìm kiếm có lấy đúng đoạn không, trước khi đổ lỗi cho model.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../embedding/">Embedding</a><span>Cơ chế đứng sau bước tìm kiếm.</span></li><li><a href="../hallucination/">Hallucination</a><span>Vấn đề mà RAG sinh ra để giảm bớt.</span></li><li><a href="../context-window/">Context window</a><span>Giới hạn số đoạn tài liệu nhét vào được.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Tải một file PDF lên một chatbot rồi hỏi về nội dung trong đó. Bạn vừa dùng RAG. Thử hỏi điều <em>không</em> có trong file để xem nó phản ứng thế nào.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

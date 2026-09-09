@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Neural Network</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-1">Mốc 1 · Nói chuyện được</a>
       <h1>🕸️ Neural Network là gì?</h1>
       <p class="brief">Mạng các nút tính toán mô phỏng tế bào thần kinh.</p>
-      <p class="plain">Neural network gồm nhiều nút nối với nhau; mỗi nút nhận tín hiệu, cân nhắc theo trọng số riêng rồi truyền tiếp cho tầng sau.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như hội đồng chấm thi nhiều vòng: mỗi người cho ý kiến với mức tin cậy khác nhau, qua đủ vòng mới chốt được kết luận.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../deep-learning/">Deep Learning</a><a href="../model/">Model</a><a href="../training/">Training</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Neural network gồm nhiều nút nối với nhau; mỗi nút nhận tín hiệu, cân nhắc theo trọng số riêng rồi truyền tiếp cho tầng sau.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như hội đồng chấm thi nhiều vòng: mỗi người cho ý kiến với mức tin cậy khác nhau, qua đủ vòng mới chốt được kết luận.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Mô phỏng não người” là ẩn dụ <span class="punch">gây hiểu lầm nhiều nhất trong cả ngành AI.</span></p>
+<p>Nơ-ron nhân tạo chỉ là một phép nhân cộng rồi so ngưỡng. Nó không giống nơ-ron sinh học về cơ chế, tốc độ hay cách học. Cái tên là di sản lịch sử từ những năm 1950. Nghĩ nó “giống não” sẽ khiến bạn kỳ vọng sai về những gì nó làm được.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Một "nơ-ron" thực chất chỉ là:</span>
+
+ket_qua = (dau_vao1 × trong_so1) + (dau_vao2 × trong_so2) + do_lech
+nếu ket_qua &gt; ngưỡng thì kích hoạt
+
+<span class="c">Ghép vài triệu cái như vậy lại → mạng nơ-ron</span></pre>
+    <p class="cap">Toàn bộ “trí thông minh” nằm ở việc chỉnh các <em>trọng số</em> đó cho đúng.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần hiểu nền tảng bên dưới mọi model AI hiện nay</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Chỉ muốn dùng AI (không cần biết bên trong)</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> lan truyền ngược, gradient descent, các loại tầng, chuẩn hoá.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn muốn tự huấn luyện một model thay vì dùng model có sẵn.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../deep-learning/">Deep Learning</a><span>Điều xảy ra khi xếp thật nhiều tầng nơ-ron.</span></li><li><a href="../training/">Training</a><span>Quá trình chỉnh trọng số.</span></li><li><a href="../model/">Model</a><span>Sản phẩm cuối cùng sau khi huấn luyện xong.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Vào playground.tensorflow.org. Bạn thấy một mạng nơ-ron thật, thêm bớt tầng được và xem nó học ngay trước mắt. Không cần cài gì.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

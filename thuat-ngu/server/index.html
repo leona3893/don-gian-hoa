@@ -23,13 +23,41 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Server</nav>
     <article class="article">
-      <span class="tag">Web</span>
+      <span class="tag">Web</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-1">Mốc 1 · Nói chuyện được</a>
       <h1>🏢 Server là gì?</h1>
       <p class="brief">Nơi luôn trực để trả lời yêu cầu từ người dùng.</p>
-      <p class="plain">Server là máy tính hoặc chương trình cung cấp dữ liệu, xử lý yêu cầu và gửi kết quả về cho thiết bị của bạn.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Giống quầy bếp luôn mở: bạn đặt món từ điện thoại, quầy bếp nhận đơn, làm món rồi gửi lại.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../api/">API</a><a href="../cloud/">Cloud</a><a href="../database/">Database</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Server là máy tính hoặc chương trình cung cấp dữ liệu, xử lý yêu cầu và gửi kết quả về cho thiết bị của bạn.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Giống quầy bếp luôn mở: bạn đặt món từ điện thoại, quầy bếp nhận đơn, làm món rồi gửi lại.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Quầy bếp luôn mở — nhưng <span class="punch">“server” ngày nay thường không phải một cái máy nào cả.</span></p>
+<p>Nó có thể là hàng chục máy ảo tự sinh ra tự mất đi theo lượng khách, hoặc một hàm chạy đúng 200 mili giây rồi biến mất (serverless). Hình dung “một cái máy đứng đâu đó” giúp bạn bắt đầu, nhưng sẽ vướng khi nghe tới auto-scaling hay container.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Một server tối giản bằng Node.js</span>
+import http from <span class="s">'http'</span>
+
+http.createServer((req, res) =&gt; {
+  res.end(<span class="s">'Chào bạn'</span>)
+}).listen(3000)
+
+<span class="c">// Mở trình duyệt vào localhost:3000 là thấy</span></pre>
+    <p class="cap">Bốn dòng. Server thực chất chỉ là một chương trình ngồi chờ và trả lời.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần chỗ chạy code liên tục để phục vụ người dùng</li><li>Cần nơi giữ dữ liệu chung cho mọi người</li><li>Xử lý việc nặng mà máy người dùng không kham nổi</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Trang tĩnh thuần (dùng hosting tĩnh rẻ hơn nhiều)</li><li>Việc chỉ chạy một lần rồi thôi</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> cân bằng tải, container, tự co giãn, serverless.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự dựng được:</span> Bạn tự đưa được một trang lên mạng, và biết phải sờ vào đâu khi nó không lên.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi trang của bạn sập vào đúng giờ đông người và bạn không biết thêm máy kiểu gì.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../cloud/">Cloud</a><span>Cách thuê server mà không phải mua máy.</span></li><li><a href="../api/">API</a><span>Cách người ngoài nói chuyện với server.</span></li><li><a href="../deploy/">Deploy</a><span>Cách đưa code lên server.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>F12 → Network, tải lại một trang. Cột <em>Time</em> cho biết server mất bao lâu để trả lời bạn. Trên 500ms là người dùng bắt đầu thấy chậm.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

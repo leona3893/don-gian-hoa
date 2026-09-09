@@ -23,13 +23,42 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Stub</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>🔩 Stub là gì?</h1>
       <p class="brief">Bản giả tối giản, hỏi gì cũng trả đúng một câu.</p>
-      <p class="plain">Stub là dạng giả đơn giản nhất: gọi vào thì trả về giá trị cố định, không quan tâm được gọi mấy lần hay với tham số nào.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như đoạn ghi âm sẵn ở tổng đài: hỏi gì cũng phát đúng một câu, nhưng thế là đủ để thử đường dây có thông không.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../mock/">Mock</a><a href="../unit-test/">Unit Test</a><a href="../test-data/">Test Data</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Stub là dạng giả đơn giản nhất: gọi vào thì trả về giá trị cố định, không quan tâm được gọi mấy lần hay với tham số nào.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như đoạn ghi âm sẵn ở tổng đài: hỏi gì cũng phát đúng một câu, nhưng thế là đủ để thử đường dây có thông không.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Đoạn ghi âm tổng đài phát mãi một câu — <span class="punch">và đó chính là giới hạn thật của stub.</span></p>
+<p>Nếu test của bạn cần biết “hàm đó có được gọi không, gọi mấy lần, với tham số gì” thì stub chịu, phải dùng mock. Nhưng nếu chỉ cần “có dữ liệu để chạy tiếp” thì stub đơn giản hơn nhiều và ít làm test dính chặt vào chi tiết cài đặt.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Stub: hỏi gì cũng trả đúng một câu</span>
+const layTyGia = async () =&gt; 25000
+
+<span class="c">// Mock: có trí nhớ, kiểm tra được</span>
+const layTyGia = jest.fn(async () =&gt; 25000)
+expect(layTyGia).toHaveBeenCalledTimes(1)</pre>
+    <p class="cap">Khác nhau đúng một chỗ: dòng cuối. Stub không kiểm tra được điều đó.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Chỉ cần dữ liệu để chạy tiếp, không quan tâm nó bị gọi thế nào</li><li>Muốn test đơn giản, ít dính vào chi tiết cài đặt</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Cần kiểm tra hàm có được gọi đúng cách không (lúc đó dùng mock)</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> fake (bản giả có logic thật thu nhỏ), in-memory database.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi stub của bạn bắt đầu phải có <code>if</code> để trả về giá trị khác nhau tuỳ đầu vào.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../mock/">Mock</a><span>Bản có trí nhớ — so hai cái là hiểu ngay ranh giới.</span></li><li><a href="../unit-test/">Unit Test</a><span>Nơi stub được dùng nhiều nhất.</span></li><li><a href="../test-data/">Test Data</a><span>Giá trị stub trả về nên lấy từ dữ liệu mẫu thật.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>F12 → Console:
+<pre class="code">const layGio = () =&gt; <span class="s">'09:00'</span>
+layGio()</pre>
+Bạn vừa viết một stub: một hàm luôn trả về đúng một giá trị, để phần code phía sau có cái mà chạy.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

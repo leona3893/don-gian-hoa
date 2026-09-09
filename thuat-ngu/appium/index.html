@@ -23,13 +23,36 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Appium</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>📱 Appium là gì?</h1>
       <p class="brief">Selenium phiên bản dành cho app điện thoại.</p>
-      <p class="plain">Appium tự động thao tác ứng dụng iOS và Android bằng cùng một cách viết, dùng lại nhiều khái niệm quen thuộc từ Selenium.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Cũng là điều khiển từ xa, chỉ khác chỗ bấm: thay vì trình duyệt trên máy tính thì là ứng dụng trên điện thoại.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../selenium/">Selenium</a><a href="../webdriver/">WebDriver</a><a href="../test-automation/">Test Automation</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Appium tự động thao tác ứng dụng iOS và Android bằng cùng một cách viết, dùng lại nhiều khái niệm quen thuộc từ Selenium.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Cũng là điều khiển từ xa, chỉ khác chỗ bấm: thay vì trình duyệt trên máy tính thì là ứng dụng trên điện thoại.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Selenium cho điện thoại” là cách nói cho dễ hình dung, nhưng <span class="punch">test mobile khó hơn test web một bậc rõ rệt.</span></p>
+<p>Bạn phải lo thêm: máy thật hay máy ảo, phiên bản hệ điều hành, quyền truy cập, thông báo đẩy chen ngang, xoay ngang xoay dọc, mạng yếu. Cùng một đoạn code chạy ngon trên Android có thể chết trên iOS vì lý do chẳng liên quan gì tới code.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Gần giống Selenium, khác ở cách tìm phần tử</span>
+driver.findElement(AppiumBy.accessibilityId(<span class="s">"nut-dang-nhap"</span>)).click();
+driver.findElement(AppiumBy.xpath(<span class="s">"//android.widget.EditText[@text='Email']"</span>)).sendKeys(<span class="s">"na@vd.com"</span>);</pre>
+    <p class="cap"><code>accessibilityId</code> là cách tìm phần tử ổn định nhất trên mobile — xin dev gắn sẵn cho bạn.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Sản phẩm có app iOS hoặc Android cần test lặp lại</li><li>Cần chạy cùng bộ test trên cả hai nền tảng</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Sản phẩm chỉ có web (dùng Playwright nhẹ hơn nhiều)</li><li>Đội chưa có máy thật hoặc chưa có dịch vụ thuê máy</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> device farm, chạy song song nhiều máy, test theo cử chỉ phức tạp.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn cần kiểm tra trên 6 đời máy mà trong tay chỉ có đúng một cái điện thoại.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../webdriver/">WebDriver</a><span>Appium dùng lại đúng giao thức này.</span></li><li><a href="../selenium/">Selenium</a><span>Hiểu Selenium trước thì Appium học rất nhanh.</span></li><li><a href="../locator/">Locator</a><span>Phần khác biệt lớn nhất khi chuyển từ web sang mobile.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Trên điện thoại Android, bật <em>Tùy chọn nhà phát triển → Hiển thị giới hạn bố cục</em>. Bạn sẽ thấy app được chia thành các ô chữ nhật — đó đúng là những phần tử mà Appium tìm và bấm.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

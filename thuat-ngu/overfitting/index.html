@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Overfitting</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-1">Mốc 1 · Nói chuyện được</a>
       <h1>🎓 Overfitting là gì?</h1>
       <p class="brief">Học thuộc lòng dữ liệu cũ, gặp cái mới là hỏng.</p>
-      <p class="plain">Overfitting là khi model khớp quá sát dữ liệu huấn luyện, thuộc cả phần nhiễu, nên làm rất tốt trên đề cũ mà kém hẳn với dữ liệu thật.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Học tủ đúng đề năm ngoái: kiểm tra lại đề đó thì điểm cao, đổi đề một chút là trượt.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../training/">Training</a><a href="../dataset/">Dataset</a><a href="../model/">Model</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Overfitting là khi model khớp quá sát dữ liệu huấn luyện, thuộc cả phần nhiễu, nên làm rất tốt trên đề cũ mà kém hẳn với dữ liệu thật.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Học tủ đúng đề năm ngoái: kiểm tra lại đề đó thì điểm cao, đổi đề một chút là trượt.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Học tủ đúng đề năm ngoái” — ẩn dụ này rất sát, nhưng <span class="punch">khác một chỗ quan trọng: học sinh biết mình đang học tủ, model thì không.</span></p>
+<p>Model overfit báo cáo độ chính xác 99% và hoàn toàn “tin” vào con số đó. Chỉ khi gặp dữ liệu thật nó mới lộ. Đó là lý do phải giữ riêng một phần dữ liệu mà model chưa từng thấy — không có nó thì bạn không có cách nào biết mình đang bị lừa.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Dấu hiệu kinh điển:</span>
+
+độ chính xác trên tập train:  99%   ← thuộc lòng
+độ chính xác trên tập test:   61%   ← gặp cái mới là hỏng
+
+<span class="c">Chênh lệch càng lớn, overfit càng nặng</span></pre>
+    <p class="cap">Chỉ nhìn con số đầu tiên là cách tự lừa mình phổ biến nhất trong ML.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>— Không ai muốn có. Việc của bạn là phát hiện sớm.</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Đánh giá model bằng chính dữ liệu đã dùng để huấn luyện</li><li>Huấn luyện thêm mãi vì thấy con số vẫn đang đẹp lên</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> chính quy hoá, dừng sớm, dropout, kiểm định chéo.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi model của bạn đạt điểm rất cao lúc chấm nhưng người dùng thật phàn nàn liên tục.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../dataset/">Dataset</a><span>Cách chia dữ liệu để phát hiện overfitting.</span></li><li><a href="../training/">Training</a><span>Quá trình sinh ra vấn đề này.</span></li><li><a href="../model/">Model</a><span>Thứ đang học thuộc thay vì học hiểu.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Nghĩ về một người ôn thi bằng cách làm đi làm lại đúng một đề. Điểm đề đó rất cao. Đổi đề là rớt. Model cũng vậy, chỉ khác là nó không tự biết.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

@@ -23,13 +23,37 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Cypress</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>🌲 Cypress là gì?</h1>
       <p class="brief">Test chạy trong trình duyệt, xem lại được từng bước.</p>
-      <p class="plain">Cypress chạy test cùng môi trường với ứng dụng web, có giao diện tua lại từng bước kèm ảnh chụp lúc lỗi nên dễ tìm nguyên nhân.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như camera hành trình gắn sẵn: test hỏng ở đâu thì tua đúng đoạn đó ra mà xem.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../playwright/">Playwright</a><a href="../selenium/">Selenium</a><a href="../e2e-test/">E2E Test</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Cypress chạy test cùng môi trường với ứng dụng web, có giao diện tua lại từng bước kèm ảnh chụp lúc lỗi nên dễ tìm nguyên nhân.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như camera hành trình gắn sẵn: test hỏng ở đâu thì tua đúng đoạn đó ra mà xem.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Camera hành trình quay lại mọi thứ — nhưng <span class="punch">Cypress chạy bên trong chính trang web đang test.</span></p>
+<p>Đó vừa là điểm mạnh (thấy được mọi thứ bên trong) vừa là giới hạn thật: khó test nhiều tab, khó nhảy sang tên miền khác, và không chạy được Safari. Nếu luồng của bạn có bước thanh toán chuyển sang trang ngân hàng, cân nhắc kỹ trước khi chọn.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">cy.visit(<span class="s">'/dang-nhap'</span>)
+cy.get(<span class="s">'#email'</span>).type(<span class="s">'na@vd.com'</span>)
+cy.get(<span class="s">'#submit'</span>).click()
+cy.contains(<span class="s">'Sai email hoặc mật khẩu'</span>).should(<span class="s">'be.visible'</span>)</pre>
+    <p class="cap">Cú pháp nối chuỗi, đọc gần như tiếng Anh. Đây là điểm nhiều người thích ở Cypress.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Đội frontend muốn tự test phần mình làm</li><li>Cần công cụ gỡ lỗi trực quan, tua lại từng bước</li><li>Ứng dụng gói gọn trong một tên miền</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Luồng test đi qua nhiều tên miền hoặc nhiều tab</li><li>Bắt buộc phải hỗ trợ Safari</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> lệnh tự viết, chặn network nâng cao, Cypress Cloud.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn lặp lại cùng một chuỗi 6 lệnh đăng nhập ở đầu mọi file test.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../playwright/">Playwright</a><span>Lựa chọn còn lại, mạnh hơn ở đa tab và đa trình duyệt.</span></li><li><a href="../e2e-test/">E2E Test</a><span>Loại test mà Cypress sinh ra để phục vụ.</span></li><li><a href="../assertion/">Assertion</a><span>Phần <code>.should()</code> trong cú pháp Cypress.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Vào cypress.io, xem đoạn video demo ở trang chủ. Chú ý phần bên trái tua lại từng bước — đó là thứ khiến người ta chọn Cypress, không phải cú pháp.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

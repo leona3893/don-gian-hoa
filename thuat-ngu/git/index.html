@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Git</nav>
     <article class="article">
-      <span class="tag">Công cụ</span>
+      <span class="tag">Công cụ</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-2">Mốc 2 · Đọc hiểu được</a>
       <h1>🕰️ Git là gì?</h1>
       <p class="brief">Cỗ máy thời gian cho mã nguồn.</p>
-      <p class="plain">Git lưu các mốc thay đổi của dự án và giúp nhiều người làm cùng nhau mà không mất công việc.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như Google Docs có lịch sử chỉnh sửa, nhưng mạnh hơn và dành cho việc làm phần mềm.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../deploy/">Deploy</a><a href="../backend/">Backend</a><a href="../frontend/">Frontend</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Git lưu các mốc thay đổi của dự án và giúp nhiều người làm cùng nhau mà không mất công việc.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như Google Docs có lịch sử chỉnh sửa, nhưng mạnh hơn và dành cho việc làm phần mềm.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Cỗ máy thời gian — nhưng <span class="punch">Git không lưu “thay đổi”, nó lưu toàn bộ ảnh chụp dự án ở mỗi lần commit.</span></p>
+<p>Hiểu sai chỗ này là nguồn gốc của mọi nỗi sợ Git. Khi biết mỗi commit là một ảnh chụp đầy đủ và gần như không bao giờ mất, bạn sẽ thôi sợ thao tác sai — vì hầu hết thứ bạn tưởng đã mất vẫn nằm trong <code>git reflog</code>.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">git status            <span class="c"># đang có gì thay đổi</span>
+git add .             <span class="c"># chọn thứ muốn lưu</span>
+git commit -m <span class="s">"sửa lỗi tính tiền"</span>   <span class="c"># chụp một ảnh</span>
+git push              <span class="c"># đẩy lên chỗ chung</span>
+
+git log --oneline     <span class="c"># xem lại các mốc đã chụp</span></pre>
+    <p class="cap">Năm lệnh này đủ dùng cho 90% công việc hàng ngày.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Nhiều người cùng sửa một dự án</li><li>Cần quay lại phiên bản cũ khi hỏng</li><li>Muốn biết ai đổi dòng nào lúc nào</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>File nhị phân lớn như video (Git không hợp)</li><li>Lưu mật khẩu và khoá bí mật (commit lên là lộ vĩnh viễn)</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> rebase, cherry-pick, giải quyết xung đột phức tạp, mô hình nhánh.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự dựng được:</span> Bạn tự đưa được một trang lên mạng, và biết phải sờ vào đâu khi nó không lên.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn cần gộp nhánh của mình với nhánh chung mà hai bên cùng sửa một file.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../deploy/">Deploy</a><span>Bước sau khi code đã vào Git.</span></li><li><a href="../ci-cd/">CI/CD</a><span>Thứ tự động chạy mỗi khi bạn push.</span></li><li><a href="../bug/">Bug</a><span>Git giúp tìm ra commit nào làm sinh bug.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Vào một repo bất kỳ trên GitHub, bấm vào một file rồi chọn <strong>History</strong>. Bạn đang xem cỗ máy thời gian của người khác — mỗi dòng là một ảnh chụp.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

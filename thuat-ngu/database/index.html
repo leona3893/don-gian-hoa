@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Database</nav>
     <article class="article">
-      <span class="tag">Dữ liệu</span>
+      <span class="tag">Dữ liệu</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-1">Mốc 1 · Nói chuyện được</a>
       <h1>🗄️ Database là gì?</h1>
       <p class="brief">Tủ hồ sơ được sắp xếp để tìm lại thật nhanh.</p>
-      <p class="plain">Database là nơi lưu trữ dữ liệu có tổ chức: tài khoản, sản phẩm, đơn hàng, bài viết…</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Nó như kho hồ sơ của thư viện: mỗi thứ có vị trí riêng, nên cần là tìm được thay vì lục tung mọi thứ.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../server/">Server</a><a href="../backend/">Backend</a><a href="../cache/">Cache</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Database là nơi lưu trữ dữ liệu có tổ chức: tài khoản, sản phẩm, đơn hàng, bài viết…</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Nó như kho hồ sơ của thư viện: mỗi thứ có vị trí riêng, nên cần là tìm được thay vì lục tung mọi thứ.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Tủ hồ sơ thì lấy ra là xong. Database <span class="punch">phải trả lời hàng nghìn người cùng lúc, trong đó có người đang sửa đúng tờ hồ sơ người khác đang đọc.</span></p>
+<p>Phần khó nhất của database không phải lưu, mà là xử lý chuyện đó cho không ai đọc nhầm và không mất dữ liệu. Đó là lý do sinh ra transaction, khoá, và cả một ngành nghề riêng.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">-- Lấy 5 đơn hàng mới nhất của khách số 7</span>
+SELECT ma_don, tong_tien, ngay_tao
+FROM don_hang
+WHERE khach_id = 7
+ORDER BY ngay_tao DESC
+LIMIT 5;</pre>
+    <p class="cap">SQL đọc gần như tiếng Anh: <em>chọn gì · từ bảng nào · lọc điều kiện · sắp xếp · lấy bao nhiêu</em>.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Dữ liệu cần tồn tại sau khi tắt máy</li><li>Cần tìm kiếm và lọc nhanh trong lượng lớn dữ liệu</li><li>Nhiều người cùng đọc ghi</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Dữ liệu tạm chỉ dùng trong một lần chạy</li><li>Vài dòng cấu hình (file là đủ)</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> index, transaction, chuẩn hoá, SQL khác NoSQL, sao lưu và phục hồi.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 2 — Đọc hiểu được:</span> Nhìn một sơ đồ hệ thống hoặc một log lỗi, bạn đoán được chỗ nào đang hỏng.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi một câu truy vấn chạy 8 giây và bạn không biết vì sao nó chậm.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../cache/">Cache</a><span>Lớp đứng trước database để nó đỡ phải làm việc.</span></li><li><a href="../backend/">Backend</a><span>Nơi viết các câu truy vấn.</span></li><li><a href="../test-data/">Test Data</a><span>Dữ liệu bạn nhét vào database khi test.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Mở F12 → tab Application → Local Storage trên một trang bạn hay dùng. Đó là một database tí hon ngay trong trình duyệt bạn, đang lưu thật.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

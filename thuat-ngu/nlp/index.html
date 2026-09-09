@@ -23,13 +23,38 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › NLP</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-1">Mốc 1 · Nói chuyện được</a>
       <h1>🗣️ NLP là gì?</h1>
       <p class="brief">Cho máy xử lý được tiếng người.</p>
-      <p class="plain">NLP là lĩnh vực giúp máy đọc hiểu, phân tích và tạo ra ngôn ngữ tự nhiên: dịch, tóm tắt, phân loại cảm xúc.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như phiên dịch viên đứng giữa người và máy, chuyển câu chữ lộn xộn đời thường thành thứ máy xử lý được.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../llm/">LLM</a><a href="../ai/">AI</a><a href="../machine-learning/">Machine Learning</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">NLP là lĩnh vực giúp máy đọc hiểu, phân tích và tạo ra ngôn ngữ tự nhiên: dịch, tóm tắt, phân loại cảm xúc.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như phiên dịch viên đứng giữa người và máy, chuyển câu chữ lộn xộn đời thường thành thứ máy xử lý được.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Phiên dịch giữa người và máy” — nhưng <span class="punch">tiếng Việt là một trong những ngôn ngữ khó nhất cho NLP.</span></p>
+<p>Không có dấu cách giữa các tiếng trong một từ (“học sinh” là một từ hay hai?), có dấu thanh, có nhiều cách viết không dấu. Phần lớn công cụ NLP được xây cho tiếng Anh nên chạy trên tiếng Việt luôn kém hơn — điều bạn phải tính tới khi làm sản phẩm cho thị trường Việt.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Tiếng Anh: tách từ theo dấu cách, xong</span>
+"I love you"  →  ["I", "love", "you"]
+
+<span class="c">Tiếng Việt: dấu cách không phải ranh giới từ</span>
+"học sinh giỏi"  →  ["học sinh", "giỏi"]?  hay  ["học", "sinh", "giỏi"]?</pre>
+    <p class="cap">Bài toán tách từ này là bước đầu tiên và cũng là bước hay hỏng nhất với tiếng Việt.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Phân loại, tóm tắt, trích xuất thông tin từ văn bản</li><li>Phân tích cảm xúc bình luận khách hàng</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Kỳ vọng công cụ tiếng Anh chạy tốt như vậy trên tiếng Việt</li><li>Văn bản quá ít để rút ra kết luận</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> tách từ tiếng Việt, nhận dạng thực thể, phân tích cú pháp, model Việt hoá.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 2 — Tự dùng được:</span> Bạn viết được prompt cho ra kết quả dùng được thật, và giải thích được vì sao lần trước nó hỏng.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi công cụ phân tích cảm xúc trả kết quả sai liên tục trên bình luận tiếng Việt.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../llm/">LLM</a><span>Bước nhảy khiến nhiều bài toán NLP cũ trở nên dễ.</span></li><li><a href="../token/">Token</a><span>Cách model cắt tiếng Việt ra để xử lý.</span></li><li><a href="../embedding/">Embedding</a><span>Cách biến chữ thành số để so sánh ý nghĩa.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Gõ một câu tiếng Việt có dấu vào Google Dịch, dịch sang tiếng Anh rồi dịch ngược lại. Chỗ nghĩa bị lệch là chỗ NLP còn khó.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

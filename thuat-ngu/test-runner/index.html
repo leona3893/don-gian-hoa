@@ -23,13 +23,41 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Test Runner</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>▶️ Test Runner là gì?</h1>
       <p class="brief">Công cụ bấm nút chạy test và gom kết quả.</p>
-      <p class="plain">Test Runner tìm các test trong dự án, chạy chúng theo thứ tự hoặc song song, rồi tổng hợp cái nào pass cái nào fail.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như giám thị phòng thi: phát đề, canh giờ, thu bài rồi báo lại có bao nhiêu người đỗ.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../test-suite/">Test Suite</a><a href="../test-report/">Test Report</a><a href="../ci-cd/">CI/CD</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Test Runner tìm các test trong dự án, chạy chúng theo thứ tự hoặc song song, rồi tổng hợp cái nào pass cái nào fail.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như giám thị phòng thi: phát đề, canh giờ, thu bài rồi báo lại có bao nhiêu người đỗ.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Giám thị chỉ phát đề rồi thu bài. Test runner làm nhiều hơn: nó <span class="punch">dựng sẵn môi trường trước mỗi ca và dọn dẹp sau đó</span> — mở trình duyệt, đăng nhập, xoá dữ liệu cũ.</p>
+<p>Phần lớn thời gian chạy test thật ra nằm ở khâu dựng và dọn này, chứ không phải ở mấy dòng bấm nút bạn viết.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c"># Chạy cả bộ</span>
+npx playwright test
+
+<span class="c"># Chạy một file, hiện trình duyệt ra xem</span>
+npx playwright test gio-hang.spec.js --headed
+
+<span class="c"># Chạy lại đúng những ca vừa trượt</span>
+npx playwright test --last-failed</pre>
+    <p class="cap">Ba lệnh này đủ dùng cho vài tháng đầu.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Có từ 2 ca test trở lên</li><li>Muốn chạy chọn lọc thay vì chạy hết</li><li>Cần báo cáo tổng hợp sau mỗi lần chạy</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Mới đang thử một dòng lệnh trong Console</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> chạy song song, chia shard, retry tự động, cấu hình nhiều môi trường.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bộ test chạy 40 phút và CI bắt cả đội ngồi chờ.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../test-report/">Test Report</a><span>Đầu ra của runner sau mỗi lần chạy.</span></li><li><a href="../ci-cd/">CI/CD</a><span>Nơi runner chạy tự động thay vì bạn gõ tay.</span></li><li><a href="../headless/">Headless</a><span>Chế độ runner chạy không hiện cửa sổ.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Chưa cài gì cũng xem được: vào trang playwright.dev, mục Getting Started. Đọc đúng phần “Running tests” — ba lệnh ở trên là toàn bộ thứ bạn cần trong hai tháng đầu.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

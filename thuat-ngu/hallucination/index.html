@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Hallucination</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-1">Mốc 1 · Nói chuyện được</a>
       <h1>🌫️ Hallucination là gì?</h1>
       <p class="brief">AI nói sai nhưng nghe rất thuyết phục.</p>
-      <p class="plain">Hallucination là khi model tạo ra thông tin không có thật, như tên sách, số liệu hay trích dẫn, mà vẫn trình bày chắc nịch.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như người kể chuyện quá tự tin: chỗ nào quên thì bịa cho liền mạch, nghe trôi chảy nên người nghe khó nhận ra.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../llm/">LLM</a><a href="../rag/">RAG</a><a href="../prompt/">Prompt</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Hallucination là khi model tạo ra thông tin không có thật, như tên sách, số liệu hay trích dẫn, mà vẫn trình bày chắc nịch.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như người kể chuyện quá tự tin: chỗ nào quên thì bịa cho liền mạch, nghe trôi chảy nên người nghe khó nhận ra.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Ảo giác” gợi ra một trạng thái bất thường, thi thoảng mới xảy ra. <span class="punch">Thực ra bịa và trả lời đúng là cùng một cơ chế.</span></p>
+<p>Model luôn đoán token có khả năng nhất. Khi nó biết, kết quả đúng. Khi nó không biết, nó vẫn đoán — và câu bịa nghe y hệt câu đúng, cùng giọng tự tin. Không có công tắc nào bật lên khi nó đang bịa, kể cả với chính nó. Đó là lý do không thể tin vào độ chắc chắn trong giọng văn của AI.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Câu hỏi: "Điều 47 Luật Doanh nghiệp 2020 quy định gì?"</span>
+
+Model trả lời trôi chảy, có số điều, có trích dẫn.
+Nghe rất thuyết phục. Có thể hoàn toàn bịa.
+
+<span class="c">Cách duy nhất chắc chắn: tự tra lại nguồn gốc.</span></pre>
+    <p class="cap">Càng chuyên ngành hẹp, tỉ lệ bịa càng cao — và bạn càng khó phát hiện.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>— Không ai muốn có. Việc của bạn là biết nó luôn có thể xảy ra.</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Tin vào số liệu, trích dẫn, tên riêng mà chưa tra lại</li><li>Dùng AI làm nguồn cuối cùng cho việc quan trọng</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> đo tỉ lệ bịa, chấm điểm bằng model khác, hệ thống trích nguồn.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn cần đưa AI vào sản phẩm thật và phải trả lời câu “làm sao biết nó không bịa?”</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../rag/">RAG</a><span>Cách giảm bịa hiệu quả nhất hiện nay.</span></li><li><a href="../llm/">LLM</a><span>Hiểu cơ chế đoán token thì hiểu vì sao có hallucination.</span></li><li><a href="../prompt/">Prompt</a><span>Prompt tốt giảm được phần nào.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Hỏi một chatbot về một cuốn sách không tồn tại: “tóm tắt cuốn <em>Đường về Ba Vì</em> của Nguyễn Văn A”. Nhiều model sẽ tóm tắt rất mượt một cuốn sách chưa từng có.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

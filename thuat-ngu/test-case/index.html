@@ -23,13 +23,41 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Test Case</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>📋 Test Case là gì?</h1>
       <p class="brief">Một tình huống cần thử, kèm sẵn kết quả đúng.</p>
-      <p class="plain">Test Case mô tả điều kiện đầu vào, các bước thực hiện và kết quả mong đợi, để biết phần mềm chạy đạt hay không đạt.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như một câu trong đề thi có sẵn đáp án: làm xong đối chiếu là biết đúng hay sai ngay.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../test-suite/">Test Suite</a><a href="../assertion/">Assertion</a><a href="../test-script/">Test Script</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Test Case mô tả điều kiện đầu vào, các bước thực hiện và kết quả mong đợi, để biết phần mềm chạy đạt hay không đạt.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như một câu trong đề thi có sẵn đáp án: làm xong đối chiếu là biết đúng hay sai ngay.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Đề thi có đáp án cố định. Ca test thì <span class="punch">phần “đáp án đúng” nhiều khi chính là thứ chưa ai chốt.</span></p>
+<p>Nửa số tranh cãi trong nghề test không phải “code chạy sai”, mà là “thế nào mới đúng”. Viết ca test giỏi thực ra là kỹ năng <em>đặt câu hỏi cho người ra đề</em>, không phải kỹ năng chấm bài.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Ca test: Đăng nhập sai mật khẩu</span>
+
+Điều kiện:  Đã có tài khoản na@vd.com
+Các bước:   1. Mở /dang-nhap
+            2. Nhập na@vd.com / matkhausai
+            3. Bấm Đăng nhập
+Mong đợi:   Hiện chữ "Sai email hoặc mật khẩu"
+            Vẫn ở lại trang đăng nhập</pre>
+    <p class="cap">Ca test tốt viết bằng tiếng Việt trước, ai đọc cũng làm theo được — chưa cần dòng code nào.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần người khác làm lại đúng y như bạn</li><li>Muốn biết rõ “đạt” nghĩa là gì trước khi bắt tay test</li><li>Chuẩn bị giao cho máy chạy tự động</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Đang dò thử tính năng mới để tìm hiểu (lúc đó cứ nghịch tự do)</li><li>Ca quá hiển nhiên, viết ra chỉ tốn giấy</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> ma trận ca test, phân vùng tương đương, phân tích giá trị biên.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 2 — Tự viết được cái đầu tiên:</span> Bạn viết được một test mở trang, bấm nút, kiểm tra chữ hiện ra — và nó chạy xanh trên máy bạn.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn nhận ra mình viết 30 ca test mà chúng chỉ khác nhau đúng một con số.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../assertion/">Assertion</a><span>Phần “mong đợi” khi viết thành code thì thành assertion.</span></li><li><a href="../test-suite/">Test Suite</a><span>Nhiều ca test gom lại thành bộ.</span></li><li><a href="../test-data/">Test Data</a><span>Phần “điều kiện” lấy dữ liệu từ đâu ra.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Lấy một tính năng bạn dùng hàng ngày — nút tìm kiếm của Shopee chẳng hạn. Viết ra giấy 3 ca test theo đúng 4 dòng trên. Bạn sẽ phát hiện ít nhất một chỗ mình không chắc “thế nào mới là đúng”.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

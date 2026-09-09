@@ -23,13 +23,40 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › LLM</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-1">Mốc 1 · Nói chuyện được</a>
       <h1>💬 LLM là gì?</h1>
       <p class="brief">Mô hình ngôn ngữ lớn, thứ đứng sau các chatbot.</p>
-      <p class="plain">LLM là model được huấn luyện trên lượng văn bản khổng lồ để hiểu và tạo ra ngôn ngữ tự nhiên.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như người đã đọc gần hết thư viện: không nhớ từng trang, nhưng thấm được cách chữ nghĩa thường đi với nhau nên viết tiếp rất trôi.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../prompt/">Prompt</a><a href="../token/">Token</a><a href="../hallucination/">Hallucination</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">LLM là model được huấn luyện trên lượng văn bản khổng lồ để hiểu và tạo ra ngôn ngữ tự nhiên.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như người đã đọc gần hết thư viện: không nhớ từng trang, nhưng thấm được cách chữ nghĩa thường đi với nhau nên viết tiếp rất trôi.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Mô hình ngôn ngữ lớn” nghe như nó biết ngôn ngữ. <span class="punch">Thực chất nó chỉ đoán token tiếp theo, từng cái một.</span></p>
+<p>Không có kế hoạch cho cả câu trả lời, không kiểm tra lại. Hiểu điều này giải thích được gần hết hành vi kỳ lạ của nó: vì sao nó bịa ra tên sách nghe rất thật, vì sao bảo nó “nghĩ từng bước” lại cho kết quả tốt hơn, và vì sao nó không đếm nổi chữ cái.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Cách LLM sinh câu trả lời:</span>
+
+"Thủ đô của Việt Nam là"  →  đoán: "Hà"
+"Thủ đô của Việt Nam là Hà"  →  đoán: "Nội"
+"...Hà Nội"  →  đoán: "."
+
+<span class="c">Mỗi lần chỉ đoán đúng một mẩu, dựa trên toàn bộ phần trước</span></pre>
+    <p class="cap">Không có bước nào nó “biết” đáp án trước rồi mới viết ra.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Việc liên quan tới ngôn ngữ: viết, tóm tắt, dịch, phân loại</li><li>Chấp nhận kiểm tra lại kết quả</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Cần con số chính xác tuyệt đối</li><li>Cần thông tin mới hơn ngày model được huấn luyện</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> nhiệt độ, top-p, cửa sổ ngữ cảnh, gọi hàm, so sánh model.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 2 — Tự dùng được:</span> Bạn viết được prompt cho ra kết quả dùng được thật, và giải thích được vì sao lần trước nó hỏng.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi cùng một prompt cho ra kết quả khác nhau mỗi lần và bạn cần nó ổn định.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../prompt/">Prompt</a><span>Cách điều khiển LLM.</span></li><li><a href="../hallucination/">Hallucination</a><span>Hệ quả trực tiếp của việc chỉ đoán token tiếp theo.</span></li><li><a href="../rag/">RAG</a><span>Cách cho LLM tra tài liệu để bớt bịa.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Bảo một chatbot: “viết một câu 7 chữ”. Đếm lại. Nhiều model đếm sai — vì nó đang đoán từng mẩu chứ không đếm.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

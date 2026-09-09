@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Test Report</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>📈 Test Report là gì?</h1>
       <p class="brief">Bản tổng kết test nào đỗ, test nào trượt.</p>
-      <p class="plain">Test Report tóm tắt kết quả một lần chạy: số test pass và fail, thời gian chạy, log và ảnh chụp màn hình ngay chỗ lỗi để dễ lần ra nguyên nhân.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như bảng điểm cuối kỳ: nhìn là biết môn nào trượt và trượt ở câu nào, khỏi phải giở lại toàn bộ bài thi.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../test-runner/">Test Runner</a><a href="../assertion/">Assertion</a><a href="../ci-cd/">CI/CD</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Test Report tóm tắt kết quả một lần chạy: số test pass và fail, thời gian chạy, log và ảnh chụp màn hình ngay chỗ lỗi để dễ lần ra nguyên nhân.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như bảng điểm cuối kỳ: nhìn là biết môn nào trượt và trượt ở câu nào, khỏi phải giở lại toàn bộ bài thi.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Bảng điểm chỉ có điểm. <span class="punch">Test report tốt phải trả lời được câu “vì sao trượt”</span>, không chỉ “trượt mấy ca”.</p>
+<p>Report chỉ hiện “12 fail” là gần như vô dụng — người đọc vẫn phải chạy lại tay để biết chuyện gì. Cái đáng tiền là ảnh chụp màn hình lúc lỗi, video, và trace tua lại được từng bước.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c"># Mở báo cáo sau khi chạy</span>
+npx playwright show-report
+
+<span class="c"># Bật trace để tua lại từng bước khi ca test đỏ</span>
+<span class="c"># playwright.config.js</span>
+use: { trace: <span class="s">'on-first-retry'</span>, screenshot: <span class="s">'only-on-failure'</span> }</pre>
+    <p class="cap">Hai dòng cấu hình này tiết kiệm hàng giờ điều tra mỗi tuần.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Sau mỗi lần chạy bộ test</li><li>Cần báo cáo cho người không chạy test</li><li>Điều tra ca đỏ trên CI</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Chỉ nhìn con số pass/fail rồi kết luận chất lượng</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> gộp báo cáo nhiều lần chạy, thống kê xu hướng, tự gửi Slack.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn cần biết ca nào đỏ nhiều nhất trong tháng chứ không chỉ trong lần chạy này.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../test-runner/">Test Runner</a><span>Thứ sinh ra báo cáo.</span></li><li><a href="../flaky-test/">Flaky Test</a><span>Báo cáo theo thời gian là cách duy nhất phát hiện flaky.</span></li><li><a href="../ci-cd/">CI/CD</a><span>Nơi báo cáo được sinh tự động sau mỗi lần đẩy code.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Vào một repo mã nguồn mở có CI trên GitHub, mở tab Actions, chọn một lần chạy đỏ. Đọc log tìm dòng đầu tiên báo lỗi. Đó chính là kỹ năng đọc test report.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

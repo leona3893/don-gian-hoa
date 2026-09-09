@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › BDD</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>📖 BDD là gì?</h1>
       <p class="brief">Mô tả hành vi bằng lời thường để ai cũng đọc được.</p>
-      <p class="plain">BDD viết yêu cầu thành các tình huống bằng ngôn ngữ gần đời thường, để dev, tester và người làm nghiệp vụ hiểu giống nhau về cùng một tính năng.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Thay vì đưa bản vẽ kỹ thuật cho khách xem, mình kể: khách bấm đặt hàng thì phải nhận được tin nhắn xác nhận. Ai nghe cũng gật được.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../gherkin/">Gherkin</a><a href="../tdd/">TDD</a><a href="../test-case/">Test Case</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">BDD viết yêu cầu thành các tình huống bằng ngôn ngữ gần đời thường, để dev, tester và người làm nghiệp vụ hiểu giống nhau về cùng một tính năng.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Thay vì đưa bản vẽ kỹ thuật cho khách xem, mình kể: khách bấm đặt hàng thì phải nhận được tin nhắn xác nhận. Ai nghe cũng gật được.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Ai nghe cũng gật — nhưng <span class="punch">gật không có nghĩa là hiểu giống nhau.</span></p>
+<p>BDD chỉ có giá trị nếu người làm nghiệp vụ <em>thật sự</em> ngồi vào viết cùng. Nếu chỉ có tester tự viết Given/When/Then rồi tự đọc, bạn đã tốn thêm một lớp cú pháp mà chẳng ai ngoài bạn đọc. Đây là lý do phần lớn dự án BDD thất bại: giữ lại phần hình thức, bỏ mất phần trò chuyện.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">Tính năng: Đăng nhập
+
+  Kịch bản: Sai mật khẩu
+    Cho trước  tài khoản na@vd.com đã tồn tại
+    Khi        tôi đăng nhập bằng mật khẩu sai
+    Thì        tôi thấy thông báo "Sai email hoặc mật khẩu"</pre>
+    <p class="cap">Người làm nghiệp vụ đọc được, sửa được — đó mới là mục đích.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Nghiệp vụ phức tạp, dev và BA hay hiểu lệch nhau</li><li>Có người làm nghiệp vụ chịu ngồi viết cùng</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Chỉ tester tự viết tự đọc</li><li>Nghiệp vụ đơn giản, viết ca test thường là đủ</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> nối bước với code (step definition), tham số hoá kịch bản, sinh tài liệu sống.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 2 — Tự viết được cái đầu tiên:</span> Bạn viết được một test mở trang, bấm nút, kiểm tra chữ hiện ra — và nó chạy xanh trên máy bạn.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi cả đội đã đồng ý dùng Gherkin và bạn cần biến các dòng đó thành test chạy được.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../gherkin/">Gherkin</a><span>Cú pháp cụ thể để viết kịch bản BDD.</span></li><li><a href="../test-case/">Test Case</a><span>Cùng mục đích, khác cách trình bày.</span></li><li><a href="../tdd/">TDD</a><span>Anh em cùng tinh thần, ở tầng kỹ thuật hơn.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Lấy một tính năng đang làm, viết đúng ba dòng Cho trước / Khi / Thì. Rồi đưa cho một người không làm kỹ thuật đọc. Nếu họ sửa được một chữ, BDD đang có tác dụng.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

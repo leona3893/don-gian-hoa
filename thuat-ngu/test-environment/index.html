@@ -23,13 +23,39 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Test Environment</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>🏗️ Test Environment là gì?</h1>
       <p class="brief">Bản sao hệ thống dành riêng để thử nghiệm.</p>
-      <p class="plain">Test Environment là môi trường riêng có code, dữ liệu và cấu hình gần giống thật, để test thoải mái mà không đụng tới người dùng.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như sân tập của đội bóng: cùng kích thước, cùng mặt cỏ, nhưng đá hỏng cũng không ai mất tiền vé.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../test-data/">Test Data</a><a href="../deploy/">Deploy</a><a href="../ci-cd/">CI/CD</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Test Environment là môi trường riêng có code, dữ liệu và cấu hình gần giống thật, để test thoải mái mà không đụng tới người dùng.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như sân tập của đội bóng: cùng kích thước, cùng mặt cỏ, nhưng đá hỏng cũng không ai mất tiền vé.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Sân tập cùng kích thước sân thật — <span class="punch">nhưng môi trường test gần như không bao giờ giống thật.</span></p>
+<p>Ít dữ liệu hơn (nên nhanh hơn giả tạo), cấu hình khác, phiên bản dịch vụ ngoài khác. Đó là lý do có lỗi chỉ xuất hiện trên production. Càng gần thật càng tốt, nhưng phải chấp nhận không bao giờ bằng — và biết chỗ nào đang khác.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c"># Mỗi môi trường một cấu hình</span>
+BASE_URL=https://staging.vd.com   <span class="c"># test</span>
+BASE_URL=https://vd.com           <span class="c"># thật</span>
+
+<span class="c">// Test không hardcode tên miền</span>
+await page.goto(<span class="s">'/gio-hang'</span>)  <span class="c">// tự ghép với BASE_URL</span></pre>
+    <p class="cap">Đừng viết cứng tên miền trong test — đó là thứ khiến bộ test chỉ chạy được ở một nơi.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần test mà không đụng dữ liệu người dùng thật</li><li>Nhiều người cùng test song song</li><li>Cần dựng lại trạng thái sạch trước mỗi lần chạy</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Test thẳng trên production (trừ vài ca giám sát có kiểm soát)</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> môi trường tạm theo từng nhánh, Docker Compose, quản lý bí mật.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi hai người test cùng lúc và giẫm chân nhau trên cùng một môi trường.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../test-data/">Test Data</a><span>Thứ sống trong môi trường test.</span></li><li><a href="../deploy/">Deploy</a><span>Cách code lên được môi trường test.</span></li><li><a href="../ci-cd/">CI/CD</a><span>Nơi môi trường test hay được dựng tự động.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Hỏi đội bạn: “môi trường staging khác production ở những điểm nào?” Nếu không ai trả lời được đầy đủ, bạn vừa tìm ra một nguồn lỗi production tiềm tàng.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

@@ -23,13 +23,38 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Integration Test</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-1">Mốc 1 · Nói chuyện được</a>
       <h1>🔗 Integration Test là gì?</h1>
       <p class="brief">Thử xem các phần ghép với nhau có chạy không.</p>
-      <p class="plain">Integration Test kiểm tra nhiều thành phần làm việc chung: code gọi database, gọi API hay đọc file có đúng như kỳ vọng không.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Linh kiện nào cũng tốt chưa chắc lắp vào là chạy; đây là lúc cắm điện cả mạch xem có sáng thật không.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../unit-test/">Unit Test</a><a href="../e2e-test/">E2E Test</a><a href="../api-testing/">API Testing</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Integration Test kiểm tra nhiều thành phần làm việc chung: code gọi database, gọi API hay đọc file có đúng như kỳ vọng không.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Linh kiện nào cũng tốt chưa chắc lắp vào là chạy; đây là lúc cắm điện cả mạch xem có sáng thật không.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Cắm điện cả mạch thì đèn sáng hoặc không sáng, biết ngay. <span class="punch">Integration test hỏng thì thường không biết hỏng ở mảnh nào.</span></p>
+<p>Đó là cái giá: càng ghép nhiều thành phần, test càng giống thật nhưng càng khó lần ra nguyên nhân. Unit test đỏ là biết ngay hàm nào; integration test đỏ là bắt đầu cuộc điều tra.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">test(<span class="s">'lưu đơn hàng xuống database'</span>, async () =&gt; {
+  const don = await taoDonHang({ ma:<span class="s">'DH01'</span>, tien:300 })
+  const trongDb = await db.donHang.findOne({ ma:<span class="s">'DH01'</span> })
+  expect(trongDb.tien).toBe(300)
+})</pre>
+    <p class="cap">Có database thật (thường là bản dựng riêng cho test), không mock.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần chắc code nói chuyện đúng với database hoặc API</li><li>Chỗ ghép nối hay hỏng trong quá khứ</li><li>Unit test đã xanh hết mà thực tế vẫn sai</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Logic thuần tính toán (unit test rẻ hơn nhiều)</li><li>Chưa có môi trường test riêng, sợ đụng dữ liệu thật</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> testcontainers, dựng database tạm trong Docker, seed dữ liệu tự động.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi test của bạn xanh ở máy vì database local còn dữ liệu cũ, còn máy đồng nghiệp thì đỏ.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../test-environment/">Test Environment</a><span>Nơi integration test cần có để chạy.</span></li><li><a href="../e2e-test/">E2E Test</a><span>Tầng trên nữa: đi trọn hành trình người dùng.</span></li><li><a href="../api-testing/">API Testing</a><span>Dạng integration test phổ biến nhất và rẻ nhất.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Không cần code: mở F12 → Network trên một trang thương mại điện tử, bấm “thêm vào giỏ”. Bạn đang nhìn đúng chỗ mà integration test kiểm tra — lời gọi giữa giao diện và server.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

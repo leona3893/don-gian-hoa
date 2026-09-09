@@ -23,13 +23,41 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Prompt</nav>
     <article class="article">
-      <span class="tag">AI</span>
+      <span class="tag">AI</span><a class="badge-moc" href="../../lo-trinh/#ai-2">Mốc 2 · Tự dùng được</a>
       <h1>✍️ Prompt là gì?</h1>
       <p class="brief">Câu bạn nhập vào để bảo AI làm gì.</p>
-      <p class="plain">Prompt là phần mô tả yêu cầu, bối cảnh và ràng buộc mà bạn gửi cho model để nhận về kết quả mong muốn.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như đặt hàng thợ may: nói rõ dáng, vải và số đo thì đồ về vừa vặn; nói qua loa thì nhận lại thứ hên xui.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../llm/">LLM</a><a href="../context-window/">Context window</a><a href="../token/">Token</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Prompt là phần mô tả yêu cầu, bối cảnh và ràng buộc mà bạn gửi cho model để nhận về kết quả mong muốn.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như đặt hàng thợ may: nói rõ dáng, vải và số đo thì đồ về vừa vặn; nói qua loa thì nhận lại thứ hên xui.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Ra lệnh cho AI” gợi cảm giác bạn đang điều khiển. <span class="punch">Thực ra bạn đang gợi ý, và kết quả có tính ngẫu nhiên.</span></p>
+<p>Cùng một prompt có thể ra hai câu trả lời khác nhau. Đó không phải lỗi, đó là thiết kế. Nên đừng coi prompt như dòng lệnh chắc chắn chạy đúng — hãy coi nó như lời dặn cho một cộng tác viên rất giỏi nhưng hay quên và đôi khi tự tin thái quá.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">Prompt yếu:</span>
+"Viết về sản phẩm của tôi"
+
+<span class="c">Prompt tốt: có vai, có ngữ cảnh, có định dạng, có ví dụ</span>
+"Bạn là người viết nội dung cho dân văn phòng Việt Nam.
+Viết 3 tiêu đề cho app quản lý chi tiêu.
+Mỗi tiêu đề dưới 12 chữ, giọng gần gũi, không dùng từ Hán Việt.
+Ví dụ giọng mong muốn: 'Tiêu gì hết tiền, mở ra là biết'"</pre>
+    <p class="cap">Bốn thứ làm nên khác biệt: <strong>vai · ngữ cảnh · định dạng · ví dụ</strong>.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Mọi lúc bạn dùng AI</li><li>Cần kết quả theo đúng định dạng để đưa vào chỗ khác</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Kỳ vọng kết quả giống hệt nhau mỗi lần chạy</li><li>Nhét dữ liệu nhạy cảm vào prompt</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> chuỗi suy luận, few-shot có hệ thống, prompt hệ thống, đánh giá tự động.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự ghép được:</span> Bạn nối được AI vào tài liệu của mình và biết cách kiểm tra nó trả lời đúng hay đang bịa.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn cần prompt chạy ổn định cho 1000 lượt gọi chứ không phải một lần dùng thử.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../llm/">LLM</a><span>Thứ đang nhận prompt của bạn.</span></li><li><a href="../token/">Token</a><span>Đơn vị tính chi phí và độ dài của prompt.</span></li><li><a href="../hallucination/">Hallucination</a><span>Prompt tốt giảm được đáng kể, nhưng không hết.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Lấy một prompt bạn hay dùng, thêm đúng một dòng: “Nếu không chắc, hãy nói không chắc thay vì đoán.” So sánh kết quả trước và sau.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

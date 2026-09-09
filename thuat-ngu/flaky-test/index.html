@@ -23,13 +23,38 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Flaky Test</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-3">Mốc 3 · Tự sửa được khi nó hỏng</a>
       <h1>🎲 Flaky Test là gì?</h1>
       <p class="brief">Test lúc pass lúc fail dù code không đổi gì.</p>
-      <p class="plain">Flaky Test cho kết quả không ổn định, thường do chờ thiếu thời gian, dùng chung dữ liệu hay phụ thuộc thứ tự chạy, khiến cả đội mất niềm tin vào bộ test.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như công tắc tiếp xúc kém: bật mười lần sáng bảy lần, riết rồi không ai biết đèn hỏng hay công tắc hỏng.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../wait/">Wait</a><a href="../test-data/">Test Data</a><a href="../test-automation/">Test Automation</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Flaky Test cho kết quả không ổn định, thường do chờ thiếu thời gian, dùng chung dữ liệu hay phụ thuộc thứ tự chạy, khiến cả đội mất niềm tin vào bộ test.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như công tắc tiếp xúc kém: bật mười lần sáng bảy lần, riết rồi không ai biết đèn hỏng hay công tắc hỏng.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Công tắc tiếp xúc kém thì thay là xong. <span class="punch">Flaky test thì nguyên nhân thường không nằm ở test.</span></p>
+<p>Nó nằm ở thời gian, ở dữ liệu dùng chung, ở việc hai ca chạy song song giẫm chân nhau, hoặc chính sản phẩm có lỗi đua tranh mà chỉ lộ ra khi máy chậm. Phản xạ sai phổ biến nhất là thêm <code>sleep(5)</code> cho qua chuyện — điều đó giấu lỗi đi chứ không sửa, và có khi bạn vừa che mất một bug thật.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Chữa triệu chứng — đừng làm thế này</span>
+await page.waitForTimeout(5000)
+
+<span class="c">// Chữa nguyên nhân — chờ đúng điều kiện cần</span>
+await expect(page.getByTestId(<span class="s">'so-luong-gio'</span>)).toHaveText(<span class="s">'1'</span>)</pre>
+    <p class="cap">Mọi <code>sleep</code> cứng trong bộ test đều là một tờ giấy nợ.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>— Không ai muốn có nó. Việc của bạn là tìm ra và diệt.</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Cho retry tự động rồi coi như xong: test vẫn dối, chỉ là dối kín hơn</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> phát hiện flaky tự động, cách ly ca test, thống kê tỉ lệ đỏ theo thời gian.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Bạn đã ở đúng mốc rồi. Bắt đầu bằng việc ghi lại ca nào đỏ, bao lâu một lần.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../wait/">Wait</a><span>Nguyên nhân số một, và cũng là cách chữa số một.</span></li><li><a href="../test-data/">Test Data</a><span>Nguyên nhân số hai: hai ca test dùng chung một tài khoản.</span></li><li><a href="../ci-cd/">CI/CD</a><span>Nơi flaky test lộ ra rõ nhất vì máy CI thường chậm hơn máy bạn.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Nếu có bộ test trong tay, chạy cùng một ca 10 lần liên tiếp. Nếu không xanh cả 10 lần thì bạn vừa bắt được một con flaky — và nó vẫn ở đó dù hôm nay bạn có nhìn thấy hay không.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>

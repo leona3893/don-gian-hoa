@@ -23,13 +23,38 @@
     <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav">Không cần biết code vẫn hiểu được công nghệ.</div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › Playwright</nav>
     <article class="article">
-      <span class="tag">Kiểm thử</span>
+      <span class="tag">Kiểm thử</span><a class="badge-moc" href="../../lo-trinh/#kiem-thu-2">Mốc 2 · Tự viết được cái đầu tiên</a>
       <h1>🎬 Playwright là gì?</h1>
       <p class="brief">Công cụ đời mới, chạy nhanh và ít lỗi vặt.</p>
-      <p class="plain">Playwright do Microsoft làm, điều khiển được Chromium, Firefox và WebKit, có sẵn cơ chế tự chờ nên đỡ hẳn lỗi do canh thời gian thiếu.</p>
-      <div class="analogy"><strong>Nói theo đời thường:</strong><br>Cùng việc như Selenium nhưng như xe đời mới có trợ lái: đỡ phải tự canh từng thao tác một.</div>
-      <h2>Thuật ngữ liên quan</h2>
-      <div class="related"><a href="../selenium/">Selenium</a><a href="../cypress/">Cypress</a><a href="../e2e-test/">E2E Test</a></div>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Playwright do Microsoft làm, điều khiển được Chromium, Firefox và WebKit, có sẵn cơ chế tự chờ nên đỡ hẳn lỗi do canh thời gian thiếu.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Cùng việc như Selenium nhưng như xe đời mới có trợ lái: đỡ phải tự canh từng thao tác một.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>“Có trợ lái” không có nghĩa không bao giờ đâm. <span class="punch">Tự chờ chỉ giải quyết chờ phần tử hiện ra, không giải quyết được dữ liệu chưa sẵn sàng.</span></p>
+<p>Test vẫn chập chờn như thường nếu đơn hàng bạn vừa tạo chưa kịp đồng bộ, hoặc hai ca test dùng chung một tài khoản. Công cụ tốt hạ thấp mặt sàn chứ không xoá được flaky test.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c">// Không cần khai báo chờ — Playwright tự đợi nút bấm được</span>
+await page.getByRole(<span class="s">'button'</span>, { name:<span class="s">'Đăng nhập'</span> }).click()
+
+<span class="c">// Tự đợi tới khi chữ xuất hiện, tối đa 5 giây</span>
+await expect(page.getByRole(<span class="s">'alert'</span>)).toBeVisible()</pre>
+    <p class="cap">So với Selenium ở trên: cùng việc, không dòng chờ nào phải tự viết.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Dự án mới, đội dùng JS/TS hoặc Python</li><li>Cần chạy cả Chrome, Firefox, Safari</li><li>Muốn xem lại chính xác chuyện gì xảy ra khi test đỏ (trace viewer)</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Đội đã đầu tư sâu vào Selenium và không có lý do đổi</li><li>Cần hỗ trợ trình duyệt rất cũ</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> fixture, tái dùng trạng thái đăng nhập, chia shard, component testing.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự sửa được khi nó hỏng:</span> Test đỏ trên CI mà xanh ở máy bạn, và bạn biết bắt đầu tìm từ đâu.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi mỗi ca test của bạn đều mất 8 giây chỉ để đăng nhập lại từ đầu.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../locator/">Locator</a><span>Cách Playwright chỉ tới phần tử, khác hẳn tư duy Selenium.</span></li><li><a href="../mock/">Mock</a><span>Playwright chặn network rất gọn, nên đây là cặp đi liền nhau.</span></li><li><a href="../flaky-test/">Flaky Test</a><span>Vẫn sẽ gặp, chỉ là ít hơn.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Không cần cài: vào playwright.dev, mục “Getting started”. Đọc đúng đoạn code đầu tiên và so với ví dụ Selenium ở trang bên cạnh. Khác biệt nằm ở chỗ không có dòng nào tên là <code>wait</code>.</div>
       <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
