@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frontend và Backend khác nhau thế nào? — IT nói tiếng người</title>
+  <meta name="description" content="Frontend chạy trong máy người dùng nên ai cũng sửa được bằng F12. Backend chạy trên server nên là nơi duy nhất kiểm tra được…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-sanh/frontend-va-backend/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Frontend và Backend khác nhau thế nào?" />
+  <meta property="og:description" content="Frontend chạy trong máy người dùng nên ai cũng sửa được bằng F12. Backend chạy trên server nên là nơi duy nhất kiểm tra được…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-sanh/frontend-va-backend/" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Fullstack là gì?","acceptedAnswer":{"@type":"Answer","text":"Là người làm được cả hai phía. Không phải một phần thứ ba, chỉ là một người kiêm hai việc."}},{"@type":"Question","name":"Tester cần biết code frontend hay backend?","acceptedAnswer":{"@type":"Answer","text":"Biết đủ để mở F12, đọc tab Network và hiểu request/response là đã đi được rất xa. Không cần viết được ứng dụng."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"So sánh","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/"},{"@type":"ListItem","position":3,"name":"Frontend và Backend khác nhau thế nào?","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/frontend-va-backend/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">So sánh</a> › Frontend và Backend khác nhau thế nào?</nav>
+    <article class="article">
+      <span class="tag">Nền tảng</span>
+      <h1>Frontend và Backend khác nhau thế nào?</h1>
+      <div class="tldr"><b>Trả lời ngắn</b>Frontend chạy <strong>trong máy người dùng</strong> nên ai cũng sửa được bằng F12. Backend chạy <strong>trên server</strong> nên là nơi duy nhất kiểm tra được thật.</div>
+
+      <h2>Bảng so sánh</h2>
+      <div class="bang-wrap"><table class="bang">
+        <thead><tr><th></th><th>Frontend</th><th>Backend</th></tr></thead>
+        <tbody><tr><th scope="row">Chạy ở đâu</th><td>Trình duyệt của người dùng</td><td>Máy chủ</td></tr><tr><th scope="row">Người dùng sửa được không</th><td>Được — mở F12 là sửa</td><td>Không</td></tr><tr><th scope="row">Việc chính</th><td>Hiển thị, nhận thao tác, phản hồi tức thì</td><td>Logic nghiệp vụ, dữ liệu, quyền hạn</td></tr><tr><th scope="row">Kiểm tra dữ liệu để làm gì</th><td>Cho người dùng đỡ bực</td><td>Để bảo vệ hệ thống — mới là thật</td></tr><tr><th scope="row">Test bằng gì</th><td>E2E, visual testing</td><td>API testing, unit test</td></tr></tbody>
+      </table></div>
+
+      <div class="nho"><h4>💡 Cách nhớ</h4>Câu duy nhất cần nhớ: <strong>mọi thứ frontend gửi lên đều có thể đã bị sửa.</strong> Vì thế backend luôn phải kiểm lại, kể cả khi frontend đã kiểm rồi.</div>
+
+      <h2>Chọn cái nào?</h2>
+      <ul class="chon"><li><b>Nếu Nút bị lệch, chữ hiển thị sai</b><span>→ Frontend</span></li><li><b>Nếu Đặt được đơn hàng với số lượng 0</b><span>→ Backend — frontend chặn không tính</span></li><li><b>Nếu Trang tải chậm</b><span>→ Có thể cả hai — xem tab Network để biết chờ ở đâu</span></li></ul>
+
+      <div class="leak"><h4>⚠ Bẫy thường gặp</h4><p>Bẫy kinh điển khi test: thấy nút Thanh toán bị mờ đi nên kết luận “không đặt được đơn sai”. Mở F12 gõ một dòng là nút sáng lại và bấm được. <strong>Chỉ khi backend từ chối thì mới thật sự là chặn.</strong></p></div>
+
+      <h2>Câu hỏi hay gặp</h2>
+      <dl class="faq"><dt>Fullstack là gì?</dt><dd>Là người làm được cả hai phía. Không phải một phần thứ ba, chỉ là một người kiêm hai việc.</dd><dt>Tester cần biết code frontend hay backend?</dt><dd>Biết đủ để mở F12, đọc tab Network và hiểu request/response là đã đi được rất xa. Không cần viết được ứng dụng.</dd></dl>
+
+      <h2>Đọc kỹ từng thuật ngữ</h2>
+      <div class="related"><a href="../../thuat-ngu/frontend/">Frontend</a><a href="../../thuat-ngu/backend/">Backend</a></div>
+
+      <a class="back" href="../">← Xem các bảng so sánh khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

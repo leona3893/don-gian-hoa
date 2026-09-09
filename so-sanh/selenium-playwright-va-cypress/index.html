@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Selenium, Playwright và Cypress — chọn cái nào? — IT nói tiếng người</title>
+  <meta name="description" content="Dự án mới dùng JS hoặc Python → Playwright. Đội đã có sẵn Selenium, hoặc cần Java/C# → Selenium. Đội frontend muốn tự test, ứng dụng gói trong một tên…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-sanh/selenium-playwright-va-cypress/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Selenium, Playwright và Cypress — chọn cái nào?" />
+  <meta property="og:description" content="Dự án mới dùng JS hoặc Python → Playwright. Đội đã có sẵn Selenium, hoặc cần Java/C# → Selenium. Đội frontend muốn tự test, ứng dụng gói trong một tên…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-sanh/selenium-playwright-va-cypress/" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Playwright có thay thế hẳn Selenium không?","acceptedAnswer":{"@type":"Answer","text":"Với dự án mới thì Playwright thường là lựa chọn tốt hơn. Nhưng Selenium vẫn là chuẩn thực tế ở rất nhiều công ty lớn và không biến mất trong nhiều năm tới."}},{"@type":"Question","name":"Học cái nào trước nếu mới bắt đầu?","acceptedAnswer":{"@type":"Answer","text":"Playwright, vì cơ chế tự chờ giúp bạn tránh được lớp lỗi khó nhất khi mới học. Hiểu nguyên lý rồi thì chuyển sang Selenium rất nhanh."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"So sánh","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/"},{"@type":"ListItem","position":3,"name":"Selenium, Playwright và Cypress — chọn cái nào?","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/selenium-playwright-va-cypress/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">So sánh</a> › Selenium, Playwright và Cypress — chọn cái nào?</nav>
+    <article class="article">
+      <span class="tag">Kiểm thử</span>
+      <h1>Selenium, Playwright và Cypress — chọn cái nào?</h1>
+      <div class="tldr"><b>Trả lời ngắn</b>Dự án mới dùng JS hoặc Python → <strong>Playwright</strong>. Đội đã có sẵn Selenium, hoặc cần Java/C# → <strong>Selenium</strong>. Đội frontend muốn tự test, ứng dụng gói trong một tên miền → <strong>Cypress</strong>.</div>
+
+      <h2>Bảng so sánh</h2>
+      <div class="bang-wrap"><table class="bang">
+        <thead><tr><th></th><th>Selenium</th><th>Playwright</th><th>Cypress</th></tr></thead>
+        <tbody><tr><th scope="row">Ngôn ngữ</th><td>Java, C#, Python, JS, Ruby</td><td>JS/TS, Python, Java, C#</td><td>Chỉ JS/TS</td></tr><tr><th scope="row">Tự chờ phần tử</th><td>Không — phải tự viết</td><td>Có sẵn</td><td>Có sẵn</td></tr><tr><th scope="row">Nhiều tab, nhiều tên miền</th><td>Được</td><td>Được</td><td>Rất hạn chế</td></tr><tr><th scope="row">Safari / WebKit</th><td>Được</td><td>Được</td><td>Không</td></tr><tr><th scope="row">Gỡ lỗi khi test đỏ</th><td>Đọc log</td><td>Trace tua lại từng bước</td><td>Giao diện tua lại trực quan</td></tr><tr><th scope="row">Tuổi đời</th><td>Lâu nhất, tài liệu nhiều nhất</td><td>Mới, đang lên nhanh</td><td>Vừa, cộng đồng frontend mạnh</td></tr></tbody>
+      </table></div>
+
+      <div class="nho"><h4>💡 Cách nhớ</h4>Khác biệt lớn nhất <strong>không phải cú pháp mà là chuyện tự chờ</strong>. Selenium bấm ngay khi được lệnh, kể cả lúc trang chưa vẽ xong — đó là nguồn gốc phần lớn test chập chờn trong các dự án Selenium.</div>
+
+      <h2>Chọn cái nào?</h2>
+      <ul class="chon"><li><b>Nếu Bắt đầu dự án mới, đội biết JS hoặc Python</b><span>→ Playwright</span></li><li><b>Nếu Công ty đã có hàng nghìn ca test Selenium</b><span>→ Giữ Selenium — đổi không đáng</span></li><li><b>Nếu Bắt buộc dùng Java hoặc C#</b><span>→ Selenium (Playwright có hỗ trợ nhưng hệ sinh thái mỏng hơn)</span></li><li><b>Nếu Luồng test có bước sang trang thanh toán của ngân hàng</b><span>→ Đừng chọn Cypress</span></li><li><b>Nếu Cần test cả app điện thoại</b><span>→ Không cái nào — dùng Appium</span></li></ul>
+
+      <div class="leak"><h4>⚠ Bẫy thường gặp</h4><p>Cái bẫy lớn nhất là <strong>chọn công cụ trước khi biết mình cần test gì</strong>. Công cụ nào cũng mở được trang và bấm được nút. Thứ quyết định bộ test của bạn sống hay chết là chiến lược chọn ca test và cách chọn locator — không phải tên công cụ.</p></div>
+
+      <h2>Câu hỏi hay gặp</h2>
+      <dl class="faq"><dt>Playwright có thay thế hẳn Selenium không?</dt><dd>Với dự án mới thì Playwright thường là lựa chọn tốt hơn. Nhưng Selenium vẫn là chuẩn thực tế ở rất nhiều công ty lớn và không biến mất trong nhiều năm tới.</dd><dt>Học cái nào trước nếu mới bắt đầu?</dt><dd>Playwright, vì cơ chế tự chờ giúp bạn tránh được lớp lỗi khó nhất khi mới học. Hiểu nguyên lý rồi thì chuyển sang Selenium rất nhanh.</dd></dl>
+
+      <h2>Đọc kỹ từng thuật ngữ</h2>
+      <div class="related"><a href="../../thuat-ngu/selenium/">Selenium</a><a href="../../thuat-ngu/playwright/">Playwright</a><a href="../../thuat-ngu/cypress/">Cypress</a></div>
+
+      <a class="back" href="../">← Xem các bảng so sánh khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RAG và Fine-tuning — chọn cái nào? — IT nói tiếng người</title>
+  <meta name="description" content="Cần model biết thêm dữ liệu của bạn → RAG. Cần model cư xử khác, đúng giọng và đúng định dạng →…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-sanh/rag-va-fine-tuning/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="RAG và Fine-tuning — chọn cái nào?" />
+  <meta property="og:description" content="Cần model biết thêm dữ liệu của bạn → RAG. Cần model cư xử khác, đúng giọng và đúng định dạng →…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-sanh/rag-va-fine-tuning/" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Có thể dùng cả hai không?","acceptedAnswer":{"@type":"Answer","text":"Có. Cách làm phổ biến là fine-tune để chốt giọng điệu và định dạng, rồi ghép RAG để cấp dữ liệu cập nhật."}},{"@type":"Question","name":"Nên thử cái nào trước?","acceptedAnswer":{"@type":"Answer","text":"Prompt trước, RAG sau, fine-tuning cuối cùng. Đi theo thứ tự đó tiết kiệm được rất nhiều tiền và thời gian."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"So sánh","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/"},{"@type":"ListItem","position":3,"name":"RAG và Fine-tuning — chọn cái nào?","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/rag-va-fine-tuning/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">So sánh</a> › RAG và Fine-tuning — chọn cái nào?</nav>
+    <article class="article">
+      <span class="tag">AI</span>
+      <h1>RAG và Fine-tuning — chọn cái nào?</h1>
+      <div class="tldr"><b>Trả lời ngắn</b>Cần model <strong>biết thêm dữ liệu</strong> của bạn → RAG. Cần model <strong>cư xử khác</strong>, đúng giọng và đúng định dạng → fine-tuning.</div>
+
+      <h2>Bảng so sánh</h2>
+      <div class="bang-wrap"><table class="bang">
+        <thead><tr><th></th><th>RAG</th><th>Fine-tuning</th></tr></thead>
+        <tbody><tr><th scope="row">Giải quyết việc gì</th><td>Model không biết dữ liệu của bạn</td><td>Model trả lời không đúng giọng, sai định dạng</td></tr><tr><th scope="row">Cập nhật dữ liệu mới</th><td>Ngay lập tức — chỉ cần thêm tài liệu</td><td>Phải huấn luyện lại</td></tr><tr><th scope="row">Chi phí</th><td>Thấp</td><td>Cao hơn nhiều</td></tr><tr><th scope="row">Trích được nguồn</th><td>Có</td><td>Không</td></tr><tr><th scope="row">Cần chuẩn bị gì</th><td>Kho tài liệu</td><td>Vài trăm tới vài nghìn ví dụ mẫu</td></tr><tr><th scope="row">Giảm bịa đặt</th><td>Có, đáng kể</td><td>Không — vẫn bịa như thường</td></tr></tbody>
+      </table></div>
+
+      <div class="nho"><h4>💡 Cách nhớ</h4>Một câu tự vấn: bạn cần nó <strong>biết thêm</strong> hay cần nó <strong>cư xử khác</strong>? Biết thêm → RAG. Cư xử khác → fine-tuning.</div>
+
+      <h2>Chọn cái nào?</h2>
+      <ul class="chon"><li><b>Nếu Muốn AI trả lời theo bảng giá và chính sách công ty</b><span>→ RAG</span></li><li><b>Nếu Muốn AI luôn viết đúng giọng thương hiệu</b><span>→ Fine-tuning</span></li><li><b>Nếu Tài liệu đổi hàng tuần</b><span>→ RAG — fine-tune không theo kịp</span></li><li><b>Nếu Chưa thử tối ưu prompt cho tử tế</b><span>→ Làm prompt trước đã, rất nhiều trường hợp thế là đủ</span></li></ul>
+
+      <div class="leak"><h4>⚠ Bẫy thường gặp</h4><p>Sai lầm tốn kém phổ biến nhất là <strong>fine-tune để nhồi kiến thức</strong>. Vừa đắt, vừa không cập nhật được, và model vẫn bịa như thường vì fine-tuning không dạy nó biết mình đang không biết. Muốn nó biết dữ liệu của bạn thì RAG rẻ hơn và chính xác hơn nhiều.</p></div>
+
+      <h2>Câu hỏi hay gặp</h2>
+      <dl class="faq"><dt>Có thể dùng cả hai không?</dt><dd>Có. Cách làm phổ biến là fine-tune để chốt giọng điệu và định dạng, rồi ghép RAG để cấp dữ liệu cập nhật.</dd><dt>Nên thử cái nào trước?</dt><dd>Prompt trước, RAG sau, fine-tuning cuối cùng. Đi theo thứ tự đó tiết kiệm được rất nhiều tiền và thời gian.</dd></dl>
+
+      <h2>Đọc kỹ từng thuật ngữ</h2>
+      <div class="related"><a href="../../thuat-ngu/rag/">RAG</a><a href="../../thuat-ngu/fine-tuning/">Fine-tuning</a></div>
+
+      <a class="back" href="../">← Xem các bảng so sánh khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

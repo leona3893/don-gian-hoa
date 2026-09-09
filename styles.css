@@ -109,3 +109,31 @@ pre.code .s { color:#d9f26c; }
   .lotrinh-banner { padding:18px 20px; }
   .lotrinh-banner a { width:100%; text-align:center; }
 }
+
+/* ── Trang so sánh ── */
+.tldr { background:#193629; color:#eaf3ec; border-radius:16px; padding:20px 22px; margin:18px 0 8px; line-height:1.6; font-size:17px; }
+.tldr b { display:block; color:var(--lime); font-size:12px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; }
+.tldr strong { color:#fff; }
+.bang-wrap { overflow-x:auto; margin:14px 0; }
+table.bang { border-collapse:collapse; width:100%; min-width:520px; font-size:15px; }
+table.bang th, table.bang td { border:1px solid var(--line); padding:11px 13px; text-align:left; vertical-align:top; line-height:1.5; }
+table.bang thead th { background:#eef4ed; font-size:15px; letter-spacing:-.01em; }
+table.bang tbody th { background:var(--paper); font-weight:700; width:22%; color:var(--muted); font-size:14px; }
+table.bang td { background:var(--card); }
+.nho { background:#f4f8ee; border-left:4px solid var(--lime); border-radius:0 12px 12px 0; padding:16px 18px; margin:22px 0; line-height:1.6; }
+.nho h4 { margin:0 0 8px; font-size:15px; color:#3f6b2a; }
+ul.chon { list-style:none; margin:12px 0 0; padding:0; }
+ul.chon li { border-bottom:1px solid var(--line); padding:12px 0; line-height:1.55; }
+ul.chon li:last-child { border-bottom:0; }
+ul.chon b { display:block; }
+ul.chon span { color:var(--green); font-weight:700; }
+dl.faq { margin:12px 0 0; }
+dl.faq dt { font-weight:700; margin:16px 0 5px; }
+dl.faq dd { margin:0; color:var(--muted); line-height:1.6; }
+.so-sanh-lien { border:1px solid var(--line); border-radius:14px; padding:16px 19px; margin:26px 0 0; background:var(--card); }
+.so-sanh-lien h4 { margin:0; font-size:15px; color:#8a5a22; }
+.so-sanh-banner { display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; background:#193629; color:#eaf3ec; border-radius:18px; padding:20px 24px; margin-top:14px; }
+.so-sanh-banner .txt b { display:block; font-size:19px; letter-spacing:-.03em; margin-bottom:4px; color:#fff; }
+.so-sanh-banner .txt span { color:#b5ccb8; font-size:15px; line-height:1.55; }
+.so-sanh-banner a { flex:none; background:var(--lime); color:#18251e; font-weight:700; padding:12px 20px; border-radius:100px; text-decoration:none; white-space:nowrap; }
+@media(max-width:760px) { .so-sanh-banner a { width:100%; text-align:center; } }

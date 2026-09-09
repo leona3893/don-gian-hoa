@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Smoke Test và Sanity Test khác nhau thế nào? — IT nói tiếng người</title>
+  <meta name="description" content="Smoke hỏi “bản build này còn sống không?” — rộng và nông. Sanity hỏi “chỗ vừa sửa đã đúng chưa?” — hẹp và…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-sanh/smoke-test-va-sanity-test/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Smoke Test và Sanity Test khác nhau thế nào?" />
+  <meta property="og:description" content="Smoke hỏi “bản build này còn sống không?” — rộng và nông. Sanity hỏi “chỗ vừa sửa đã đúng chưa?” — hẹp và…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-sanh/smoke-test-va-sanity-test/" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Smoke test có phải là regression test không?","acceptedAnswer":{"@type":"Answer","text":"Không. Smoke chỉ vài ca kiểm tra chức năng sống còn, chạy dưới 2 phút. Regression là bộ đầy đủ chạy lại mọi thứ, thường mất hàng chục phút tới hàng giờ."}},{"@type":"Question","name":"Có cần chạy cả hai không?","acceptedAnswer":{"@type":"Answer","text":"Có, nhưng ở hai thời điểm khác nhau. Smoke chạy khi có bản build mới. Sanity chạy khi có người vừa sửa một chỗ cụ thể."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"So sánh","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/"},{"@type":"ListItem","position":3,"name":"Smoke Test và Sanity Test khác nhau thế nào?","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/smoke-test-va-sanity-test/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">So sánh</a> › Smoke Test và Sanity Test khác nhau thế nào?</nav>
+    <article class="article">
+      <span class="tag">Kiểm thử</span>
+      <h1>Smoke Test và Sanity Test khác nhau thế nào?</h1>
+      <div class="tldr"><b>Trả lời ngắn</b>Smoke hỏi <strong>“bản build này còn sống không?”</strong> — rộng và nông. Sanity hỏi <strong>“chỗ vừa sửa đã đúng chưa?”</strong> — hẹp và sâu.</div>
+
+      <h2>Bảng so sánh</h2>
+      <div class="bang-wrap"><table class="bang">
+        <thead><tr><th></th><th>Smoke Test</th><th>Sanity Test</th></tr></thead>
+        <tbody><tr><th scope="row">Câu hỏi trả lời</th><td>Có đáng bỏ công test tiếp không?</td><td>Chỗ vừa vá đã chạy đúng chưa?</td></tr><tr><th scope="row">Phạm vi</th><td>Rộng — chạm mọi chức năng sống còn</td><td>Hẹp — chỉ quanh chỗ vừa động vào</td></tr><tr><th scope="row">Độ sâu</th><td>Nông — chỉ cần chạy được</td><td>Sâu — soi kỹ các trường hợp của tính năng đó</td></tr><tr><th scope="row">Chạy khi nào</th><td>Ngay khi có bản build mới</td><td>Ngay sau khi dev báo đã fix</td></tr><tr><th scope="row">Số ca test</th><td>5–10 ca, dưới 2 phút</td><td>Vài ca, khoảng 1 phút</td></tr></tbody>
+      </table></div>
+
+      <div class="nho"><h4>💡 Cách nhớ</h4><strong>Smoke = rộng và nông. Sanity = hẹp và sâu.</strong> Smoke chạy trước để khỏi phí công; sanity chạy sau khi có người vừa sửa gì đó.</div>
+
+      <h2>Chọn cái nào?</h2>
+      <ul class="chon"><li><b>Nếu Vừa nhận bản build mới từ dev</b><span>→ Smoke — xem nó có mở nổi không đã</span></li><li><b>Nếu Dev vừa báo “đã fix lỗi làm tròn tiền”</b><span>→ Sanity — soi đúng chỗ đó</span></li><li><b>Nếu Sắp phát hành cho người dùng thật</b><span>→ Không phải hai cái này — chạy bộ hồi quy đầy đủ</span></li></ul>
+
+      <div class="leak"><h4>⚠ Bẫy thường gặp</h4><p>Ranh giới giữa hai loại này <strong>không rõ ràng như sách vở</strong>, và mỗi công ty định nghĩa một kiểu. Đừng tốn thời gian tranh cãi định nghĩa với đồng nghiệp — hỏi thẳng “ở đây mình đang hiểu smoke test là gì” rồi làm theo cách đội đang dùng.</p></div>
+
+      <h2>Câu hỏi hay gặp</h2>
+      <dl class="faq"><dt>Smoke test có phải là regression test không?</dt><dd>Không. Smoke chỉ vài ca kiểm tra chức năng sống còn, chạy dưới 2 phút. Regression là bộ đầy đủ chạy lại mọi thứ, thường mất hàng chục phút tới hàng giờ.</dd><dt>Có cần chạy cả hai không?</dt><dd>Có, nhưng ở hai thời điểm khác nhau. Smoke chạy khi có bản build mới. Sanity chạy khi có người vừa sửa một chỗ cụ thể.</dd></dl>
+
+      <h2>Đọc kỹ từng thuật ngữ</h2>
+      <div class="related"><a href="../../thuat-ngu/smoke-test/">Smoke Test</a><a href="../../thuat-ngu/sanity-test/">Sanity Test</a></div>
+
+      <a class="back" href="../">← Xem các bảng so sánh khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

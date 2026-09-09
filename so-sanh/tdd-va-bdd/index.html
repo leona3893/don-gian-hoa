@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TDD và BDD khác nhau thế nào? — IT nói tiếng người</title>
+  <meta name="description" content="TDD viết test trước cho chính người code. BDD viết kịch bản trước cho cả đội cùng hiểu giống nhau — dev, tester và người làm nghiệp…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-sanh/tdd-va-bdd/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="TDD và BDD khác nhau thế nào?" />
+  <meta property="og:description" content="TDD viết test trước cho chính người code. BDD viết kịch bản trước cho cả đội cùng hiểu giống nhau — dev, tester và người làm nghiệp…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-sanh/tdd-va-bdd/" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"BDD có phải là Cucumber không?","acceptedAnswer":{"@type":"Answer","text":"Không. Cucumber chỉ là một công cụ chạy kịch bản Gherkin. BDD là cách làm việc, có thể làm mà không dùng công cụ nào."}},{"@type":"Question","name":"Có thể làm cả hai cùng lúc không?","acceptedAnswer":{"@type":"Answer","text":"Có, và nhiều đội làm vậy. BDD ở tầng hành vi để thống nhất yêu cầu, TDD ở tầng code khi dev bắt tay viết."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"So sánh","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/"},{"@type":"ListItem","position":3,"name":"TDD và BDD khác nhau thế nào?","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/tdd-va-bdd/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">So sánh</a> › TDD và BDD khác nhau thế nào?</nav>
+    <article class="article">
+      <span class="tag">Kiểm thử</span>
+      <h1>TDD và BDD khác nhau thế nào?</h1>
+      <div class="tldr"><b>Trả lời ngắn</b>TDD viết test trước <strong>cho chính người code</strong>. BDD viết kịch bản trước <strong>cho cả đội cùng hiểu giống nhau</strong> — dev, tester và người làm nghiệp vụ.</div>
+
+      <h2>Bảng so sánh</h2>
+      <div class="bang-wrap"><table class="bang">
+        <thead><tr><th></th><th>TDD</th><th>BDD</th></tr></thead>
+        <tbody><tr><th scope="row">Viết cho ai đọc</th><td>Người viết code</td><td>Cả đội, kể cả người không kỹ thuật</td></tr><tr><th scope="row">Ngôn ngữ</th><td>Code</td><td>Tiếng Việt/Anh thường, dạng Given–When–Then</td></tr><tr><th scope="row">Tầng</th><td>Hàm, lớp</td><td>Hành vi người dùng</td></tr><tr><th scope="row">Ai tham gia viết</th><td>Chủ yếu dev</td><td>Dev + BA + tester cùng ngồi</td></tr><tr><th scope="row">Chi phí</th><td>Thấp, bắt đầu ngay được</td><td>Cao — mỗi dòng cần một đoạn code đứng sau</td></tr></tbody>
+      </table></div>
+
+      <div class="nho"><h4>💡 Cách nhớ</h4><strong>TDD là kỷ luật cá nhân. BDD là công cụ giao tiếp.</strong> Nếu chỉ có một người đọc thứ bạn viết ra thì bạn đang làm TDD, dù có gõ chữ Given–When–Then.</div>
+
+      <h2>Chọn cái nào?</h2>
+      <ul class="chon"><li><b>Nếu Muốn code chặt hơn, ít bug hơn</b><span>→ TDD</span></li><li><b>Nếu Dev và BA hay hiểu lệch nhau về yêu cầu</b><span>→ BDD — nhưng phải có BA chịu ngồi viết cùng</span></li><li><b>Nếu Chỉ tester viết rồi tự đọc</b><span>→ Đừng làm BDD, viết ca test thường là đủ</span></li></ul>
+
+      <div class="leak"><h4>⚠ Bẫy thường gặp</h4><p>Phần lớn dự án BDD thất bại vì <strong>giữ lại phần hình thức và bỏ mất phần trò chuyện</strong>. Nếu người làm nghiệp vụ không thật sự ngồi viết cùng, bạn chỉ vừa thêm một lớp cú pháp mà không ai ngoài tester đọc — tốn công gấp đôi, được lợi bằng không.</p></div>
+
+      <h2>Câu hỏi hay gặp</h2>
+      <dl class="faq"><dt>BDD có phải là Cucumber không?</dt><dd>Không. Cucumber chỉ là một công cụ chạy kịch bản Gherkin. BDD là cách làm việc, có thể làm mà không dùng công cụ nào.</dd><dt>Có thể làm cả hai cùng lúc không?</dt><dd>Có, và nhiều đội làm vậy. BDD ở tầng hành vi để thống nhất yêu cầu, TDD ở tầng code khi dev bắt tay viết.</dd></dl>
+
+      <h2>Đọc kỹ từng thuật ngữ</h2>
+      <div class="related"><a href="../../thuat-ngu/tdd/">TDD</a><a href="../../thuat-ngu/bdd/">BDD</a></div>
+
+      <a class="back" href="../">← Xem các bảng so sánh khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

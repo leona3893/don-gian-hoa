@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>So sánh — những thuật ngữ hay bị nhầm lẫn · IT nói tiếng người</title>
+  <meta name="description" content="Mock hay Stub? Smoke hay Sanity? Unit, Integration hay E2E? Bảng so sánh trả lời thẳng, kèm cách nhớ và bẫy thường gặp." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-sanh/" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="So sánh — những thuật ngữ hay bị nhầm lẫn" />
+  <meta property="og:description" content="Bảng so sánh trả lời thẳng, kèm cách nhớ và bẫy thường gặp." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-sanh/" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../lo-trinh/">Lộ trình</a><a href="../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../">Trang chủ</a> › So sánh</nav>
+    <article class="article">
+      <h1>Hay bị nhầm lẫn</h1>
+      <p class="plain">Biết định nghĩa từng cái là một chuyện. Biết <strong>khi nào dùng cái nào</strong> lại là chuyện khác. Mỗi bảng dưới đây trả lời thẳng trong một câu, rồi mới đi vào chi tiết.</p>
+      
+      <h2>Kiểm thử</h2>
+      <ul class="nextlist"><li><a href="mock-va-stub/">Mock và Stub khác nhau thế nào?</a><span>Stub trả sẵn một câu cố định. Mock cũng trả sẵn, nhưng còn nhớ nó đã bị gọi mấy lần và với tham số gì — để test kiểm tra được đúng điều đó.</span></li><li><a href="smoke-test-va-sanity-test/">Smoke Test và Sanity Test khác nhau thế nào?</a><span>Smoke hỏi “bản build này còn sống không?” — rộng và nông. Sanity hỏi “chỗ vừa sửa đã đúng chưa?” — hẹp và sâu.</span></li><li><a href="unit-test-integration-test-va-e2e-test/">Unit Test, Integration Test và E2E Test khác nhau thế nào?</a><span>Ba tầng từ dưới lên: càng lên cao càng giống thật, càng chậm, và càng khó biết hỏng ở đâu. Nên viết nhiều ở dưới, ít ở trên.</span></li><li><a href="selenium-playwright-va-cypress/">Selenium, Playwright và Cypress — chọn cái nào?</a><span>Dự án mới dùng JS hoặc Python → Playwright. Đội đã có sẵn Selenium, hoặc cần Java/C# → Selenium. Đội frontend muốn tự test, ứng dụng gói trong một tên miền → Cypress.</span></li><li><a href="tdd-va-bdd/">TDD và BDD khác nhau thế nào?</a><span>TDD viết test trước cho chính người code. BDD viết kịch bản trước cho cả đội cùng hiểu giống nhau — dev, tester và người làm nghiệp vụ.</span></li></ul>
+      <h2>Nền tảng</h2>
+      <ul class="nextlist"><li><a href="frontend-va-backend/">Frontend và Backend khác nhau thế nào?</a><span>Frontend chạy trong máy người dùng nên ai cũng sửa được bằng F12. Backend chạy trên server nên là nơi duy nhất kiểm tra được thật.</span></li></ul>
+      <h2>AI</h2>
+      <ul class="nextlist"><li><a href="rag-va-fine-tuning/">RAG và Fine-tuning — chọn cái nào?</a><span>Cần model biết thêm dữ liệu của bạn → RAG. Cần model cư xử khác, đúng giọng và đúng định dạng → fine-tuning.</span></li><li><a href="ai-machine-learning-va-deep-learning/">AI, Machine Learning và Deep Learning khác nhau thế nào?</a><span>Ba vòng tròn lồng nhau: AI là mục tiêu lớn nhất, Machine Learning là cách phổ biến nhất để đạt nó, Deep Learning là một nhánh của Machine Learning dùng mạng nơ-ron nhiều tầng.</span></li></ul>
+      <a class="back" href="../">← Xem tất cả thuật ngữ</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

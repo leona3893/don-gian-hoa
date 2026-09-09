@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mock và Stub khác nhau thế nào? — IT nói tiếng người</title>
+  <meta name="description" content="Stub trả sẵn một câu cố định. Mock cũng trả sẵn, nhưng còn nhớ nó đã bị gọi mấy lần và với tham số gì — để test kiểm tra được đúng điều…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-sanh/mock-va-stub/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Mock và Stub khác nhau thế nào?" />
+  <meta property="og:description" content="Stub trả sẵn một câu cố định. Mock cũng trả sẵn, nhưng còn nhớ nó đã bị gọi mấy lần và với tham số gì — để test kiểm tra được đúng điều…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-sanh/mock-va-stub/" />
+  <meta name="twitter:card" content="summary" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Mock và Stub cái nào dùng nhiều hơn?","acceptedAnswer":{"@type":"Answer","text":"Stub dùng nhiều hơn trong thực tế vì đơn giản và ít làm test dễ vỡ. Mock chỉ nên dùng khi việc kiểm tra cách gọi hàm thật sự quan trọng."}},{"@type":"Question","name":"Fake khác gì Mock và Stub?","acceptedAnswer":{"@type":"Answer","text":"Fake là bản giả có logic thật thu nhỏ, ví dụ một database chạy trong bộ nhớ. Nó phức tạp hơn stub nhưng chạy thật hơn. Ở giai đoạn đầu chỉ cần nhớ stub và mock là đủ."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"So sánh","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/"},{"@type":"ListItem","position":3,"name":"Mock và Stub khác nhau thế nào?","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/mock-va-stub/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">So sánh</a> › Mock và Stub khác nhau thế nào?</nav>
+    <article class="article">
+      <span class="tag">Kiểm thử</span>
+      <h1>Mock và Stub khác nhau thế nào?</h1>
+      <div class="tldr"><b>Trả lời ngắn</b>Stub trả sẵn một câu cố định. Mock cũng trả sẵn, nhưng <strong>còn nhớ nó đã bị gọi mấy lần và với tham số gì</strong> — để test kiểm tra được đúng điều đó.</div>
+
+      <h2>Bảng so sánh</h2>
+      <div class="bang-wrap"><table class="bang">
+        <thead><tr><th></th><th>Stub</th><th>Mock</th></tr></thead>
+        <tbody><tr><th scope="row">Việc chính</th><td>Cung cấp dữ liệu để code chạy tiếp</td><td>Cung cấp dữ liệu <em>và</em> ghi lại cách nó bị gọi</td></tr><tr><th scope="row">Có trí nhớ không</th><td>Không</td><td>Có</td></tr><tr><th scope="row">Test kiểm tra gì</th><td>Kết quả cuối cùng đúng chưa</td><td>Kết quả, <em>và</em> hàm kia có được gọi đúng cách không</td></tr><tr><th scope="row">Test dính vào cài đặt</th><td>Ít — đổi cách viết code, test vẫn xanh</td><td>Nhiều — đổi cách gọi hàm là test đỏ dù hành vi không đổi</td></tr><tr><th scope="row">Nên chọn khi</th><td>Chỉ cần có dữ liệu để chạy</td><td>Việc “có gọi hay không” chính là thứ cần kiểm</td></tr></tbody>
+      </table></div>
+
+      <div class="nho"><h4>💡 Cách nhớ</h4>Bạn có cần kiểm tra <em>“hàm đó có được gọi không”</em> không? <strong>Có → mock. Không → stub.</strong></div>
+
+      <h2>Chọn cái nào?</h2>
+      <ul class="chon"><li><b>Nếu Cần tỉ giá giả để tính tiền chạy tiếp</b><span>→ Stub — trả về 25000 là xong</span></li><li><b>Nếu Cần chắc chắn hàm gửi mail được gọi đúng một lần</b><span>→ Mock — chỉ mock mới kiểm được</span></li><li><b>Nếu Không chắc</b><span>→ Bắt đầu bằng stub. Nâng lên mock khi thật sự cần kiểm cách gọi</span></li></ul>
+
+      <div class="leak"><h4>⚠ Bẫy thường gặp</h4><p>Dùng mock ở mọi chỗ là cái bẫy phổ biến nhất. Nó khiến test dính chặt vào <em>cách code được viết</em> chứ không phải <em>code làm được gì</em>. Kết quả: dọn dẹp code mà không đổi hành vi thì hàng loạt test vẫn đỏ, và dần dần không ai dám sửa code nữa.</p></div>
+
+      <h2>Câu hỏi hay gặp</h2>
+      <dl class="faq"><dt>Mock và Stub cái nào dùng nhiều hơn?</dt><dd>Stub dùng nhiều hơn trong thực tế vì đơn giản và ít làm test dễ vỡ. Mock chỉ nên dùng khi việc kiểm tra cách gọi hàm thật sự quan trọng.</dd><dt>Fake khác gì Mock và Stub?</dt><dd>Fake là bản giả có logic thật thu nhỏ, ví dụ một database chạy trong bộ nhớ. Nó phức tạp hơn stub nhưng chạy thật hơn. Ở giai đoạn đầu chỉ cần nhớ stub và mock là đủ.</dd></dl>
+
+      <h2>Đọc kỹ từng thuật ngữ</h2>
+      <div class="related"><a href="../../thuat-ngu/mock/">Mock</a><a href="../../thuat-ngu/stub/">Stub</a></div>
+
+      <a class="back" href="../">← Xem các bảng so sánh khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>
