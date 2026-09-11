@@ -4,9 +4,15 @@
   "type": "module",
   "scripts": {
     "build": "node build.mjs",
+    "test": "playwright test",
+    "report": "playwright show-report",
     "indexnow": "node indexnow.mjs"
   },
   "dependencies": {
     "@resvg/resvg-js": "^2.6.2"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.63.0",
+    "serve": "^14.2.6"
   }
 }

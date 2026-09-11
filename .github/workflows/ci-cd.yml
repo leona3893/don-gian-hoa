@@ -1,0 +1,91 @@
+# Pipeline CI/CD của site.
+#
+#   push / PR  →  [test]  build → kiểm tra đã build chưa → Playwright
+#                    │
+#                    └─ xanh, và là push lên main  →  [deploy]  đưa lên GitHub Pages
+#
+# Test đỏ thì job deploy không chạy → site đang chạy giữ nguyên bản cũ.
+name: CI/CD
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:        # cho phép bấm "Run workflow" bằng tay trên tab Actions
+
+permissions:
+  contents: read
+  pages: write              # cần cho deploy-pages
+  id-token: write           # cần cho deploy-pages
+
+# Không cho hai lần deploy chạy chồng lên nhau.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  test:
+    name: Build + test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Lấy code
+        uses: actions/checkout@v4
+
+      - name: Cài Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Cài thư viện (theo đúng package-lock)
+        run: npm ci
+
+      - name: Dựng lại site từ terms.js / chi-tiet.js / so-sanh.js
+        run: npm run build
+
+      # Nếu sửa dữ liệu mà quên chạy build trước khi commit, HTML trong repo sẽ
+      # lệch với HTML vừa sinh → bước này đỏ. Bỏ qua thư mục og/ vì ảnh render
+      # bằng font hệ điều hành, Linux và Windows cho ra pixel khác nhau.
+      - name: Kiểm tra HTML trong repo khớp với bản build
+        run: git diff --exit-code --stat -- . ':!og'
+
+      - name: Cài trình duyệt cho Playwright
+        run: npx playwright install --with-deps chromium
+
+      - name: Chạy Playwright
+        run: npm test
+
+      # Lưu báo cáo HTML kể cả khi test đỏ để tải về xem trace/screenshot.
+      - name: Lưu báo cáo test
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+          retention-days: 14
+
+  deploy:
+    name: Deploy lên GitHub Pages
+    needs: test                                   # chỉ chạy khi job test xanh
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Lấy code
+        uses: actions/checkout@v4
+
+      - name: Cấu hình Pages
+        uses: actions/configure-pages@v5
+
+      # Site là file tĩnh đã commit sẵn nên upload nguyên thư mục repo
+      # (action tự bỏ .git và .github; checkout mới không có node_modules).
+      - name: Đóng gói site
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: .
+
+      - name: Deploy
+        id: deployment
+        uses: actions/deploy-pages@v4
