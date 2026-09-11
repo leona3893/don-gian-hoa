@@ -5,9 +5,18 @@ import path from 'path';
 import { TERMS, slugify } from './terms.js';
 import { TRACKS, CHI_TIET } from './chi-tiet.js';
 import { SO_SANH } from './so-sanh.js';
+import { renderOG } from './og.mjs';
+import { HINH } from './hinh.js';
 
 const SITE = 'https://leona3893.github.io/don-gian-hoa/';
 const OUT = 'thuat-ngu';
+
+// Thẻ meta ảnh chia sẻ. Ảnh do og.mjs sinh ra, nằm trong thư mục og/.
+const ogMeta = file => `<meta property="og:image" content="${SITE}${file}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="${SITE}${file}" />`;
 
 const esc = s => String(s).replace(/[&<>"']/g, c =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -132,7 +141,7 @@ const page = t => {
   <meta property="og:title" content="${esc(title)}" />
   <meta property="og:description" content="${esc(desc)}" />
   <meta property="og:url" content="${url}" />
-  <meta name="twitter:card" content="summary" />
+  ${ogMeta('og/' + slug + '.png')}
   <link rel="stylesheet" href="../../styles.css" />
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
   <script type="application/ld+json">${JSON.stringify(crumbs)}</script>
@@ -186,7 +195,7 @@ const trangLoTrinh = () => {
   <meta property="og:title" content="Lộ trình — bạn đang ở mốc nào?" />
   <meta property="og:description" content="Ba mốc học cho từng nhóm, đo bằng việc bạn làm được chứ không phải thời gian đã học." />
   <meta property="og:url" content="${url}" />
-  <meta name="twitter:card" content="summary" />
+  ${ogMeta('og/lo-trinh.png')}
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
@@ -246,7 +255,7 @@ const trangSoSanh = s => {
   <meta property="og:title" content="${esc(s.h1)}" />
   <meta property="og:description" content="${esc(desc)}" />
   <meta property="og:url" content="${url}" />
-  <meta name="twitter:card" content="summary" />
+  ${ogMeta('og/so-sanh-' + s.slug + '.png')}
   <link rel="stylesheet" href="../../styles.css" />
   <script type="application/ld+json">${JSON.stringify(faqLd)}</script>
   <script type="application/ld+json">${JSON.stringify(crumbs)}</script>
@@ -312,7 +321,7 @@ const trangSoSanhIndex = () => {
   <meta property="og:title" content="So sánh — những thuật ngữ hay bị nhầm lẫn" />
   <meta property="og:description" content="Bảng so sánh trả lời thẳng, kèm cách nhớ và bẫy thường gặp." />
   <meta property="og:url" content="${url}" />
-  <meta name="twitter:card" content="summary" />
+  ${ogMeta('og/so-sanh.png')}
   <link rel="stylesheet" href="../styles.css" />
 </head>
 <body>
@@ -356,6 +365,22 @@ for (const s of SO_SANH) {
   fs.writeFileSync(path.join('so-sanh', s.slug, 'index.html'), trangSoSanh(s), 'utf8');
 }
 
+// --- Ảnh chia sẻ ---
+const stripHtml = s => String(s).replace(/<[^>]+>/g, '');
+fs.mkdirSync('og', { recursive: true });
+const anh = [
+  { file: 'home.png', title: 'IT không khó. Chỉ cần được giải thích đúng.', sub: `${TERMS.length} thuật ngữ công nghệ giải thích bằng ví dụ đời thường.`, hinhKey: '_home' },
+  { file: 'lo-trinh.png', title: 'Bạn đang ở mốc nào?', sub: 'Ba mốc học, đo bằng việc bạn làm được chứ không phải thời gian.', hinhKey: '_lo-trinh' },
+  { file: 'so-sanh.png', title: 'Hay bị nhầm lẫn', sub: 'Mock hay Stub? Smoke hay Sanity? Trả lời thẳng trong một câu.', hinhKey: '_so-sanh' },
+  ...TERMS.map(t => ({ file: `${slugify(t.name)}.png`, title: `${t.name} là gì?`, sub: t.brief, hinhKey: t.name })),
+  ...SO_SANH.map(s => ({ file: `so-sanh-${s.slug}.png`, title: s.h1, sub: stripHtml(s.tldr), hinhKey: '_so-sanh' }))
+];
+let thieuHinh = 0;
+for (const a of anh) {
+  if (!(a.hinhKey in HINH)) { thieuHinh++; console.warn('  chưa có hình cho:', a.hinhKey); }
+  fs.writeFileSync(path.join('og', a.file), renderOG(a));
+}
+
 // --- Sitemap ---
 const today = new Date().toISOString().slice(0, 10);
 const urls = [
@@ -373,3 +398,4 @@ fs.writeFileSync('sitemap.xml',
 fs.writeFileSync('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE}sitemap.xml\n`, 'utf8');
 
 console.log(`Đã sinh ${written} trang thuật ngữ (${coChiTiet} bản 4 tầng, ${written - coChiTiet} bản gọn) + trang lộ trình, sitemap ${urls.length} URL.`);
+console.log(`Ảnh chia sẻ: ${anh.length} ảnh trong og/${thieuHinh ? `, ${thieuHinh} ảnh dùng hình mặc định` : ''}.`);

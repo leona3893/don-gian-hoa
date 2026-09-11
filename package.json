@@ -1,0 +1,12 @@
+{
+  "name": "don-gian-hoa",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node build.mjs",
+    "indexnow": "node indexnow.mjs"
+  },
+  "dependencies": {
+    "@resvg/resvg-js": "^2.6.2"
+  }
+}
