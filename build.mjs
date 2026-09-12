@@ -142,7 +142,7 @@ const page = t => {
   <meta property="og:description" content="${esc(desc)}" />
   <meta property="og:url" content="${url}" />
   ${ogMeta('og/' + slug + '.png')}
-  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../styles.css?v=3" />
   <script type="application/ld+json">${JSON.stringify(ld)}</script>
   <script type="application/ld+json">${JSON.stringify(crumbs)}</script>
 </head>
@@ -196,7 +196,7 @@ const trangLoTrinh = () => {
   <meta property="og:description" content="Ba mốc học cho từng nhóm, đo bằng việc bạn làm được chứ không phải thời gian đã học." />
   <meta property="og:url" content="${url}" />
   ${ogMeta('og/lo-trinh.png')}
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../styles.css?v=3" />
 </head>
 <body>
   <main class="wrap">
@@ -256,7 +256,7 @@ const trangSoSanh = s => {
   <meta property="og:description" content="${esc(desc)}" />
   <meta property="og:url" content="${url}" />
   ${ogMeta('og/so-sanh-' + s.slug + '.png')}
-  <link rel="stylesheet" href="../../styles.css" />
+  <link rel="stylesheet" href="../../styles.css?v=3" />
   <script type="application/ld+json">${JSON.stringify(faqLd)}</script>
   <script type="application/ld+json">${JSON.stringify(crumbs)}</script>
 </head>
@@ -322,7 +322,7 @@ const trangSoSanhIndex = () => {
   <meta property="og:description" content="Bảng so sánh trả lời thẳng, kèm cách nhớ và bẫy thường gặp." />
   <meta property="og:url" content="${url}" />
   ${ogMeta('og/so-sanh.png')}
-  <link rel="stylesheet" href="../styles.css" />
+  <link rel="stylesheet" href="../styles.css?v=3" />
 </head>
 <body>
   <main class="wrap">
