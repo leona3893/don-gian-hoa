@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pull Request là gì? Giải thích dễ hiểu — IT nói tiếng người</title>
+  <meta name="description" content="Pull Request là gì? Pull Request (PR) là lời đề nghị “gộp nhánh của tôi vào main”. Nó mở ra một trang để đồng đội đọc từng dòng thay đổi, góp ý, và để CI…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/thuat-ngu/pull-request/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Pull Request là gì? Giải thích dễ hiểu — IT nói tiếng người" />
+  <meta property="og:description" content="Pull Request là gì? Pull Request (PR) là lời đề nghị “gộp nhánh của tôi vào main”. Nó mở ra một trang để đồng đội đọc từng dòng thay đổi, góp ý, và để CI…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/thuat-ngu/pull-request/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/pull-request.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/pull-request.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Pull Request","description":"Pull Request (PR) là lời đề nghị “gộp nhánh của tôi vào main”. Nó mở ra một trang để đồng đội đọc từng dòng thay đổi, góp ý, và để CI chạy test — xanh mới bấm merge.","inLanguage":"vi","url":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/pull-request/","inDefinedTermSet":{"@type":"DefinedTermSet","name":"IT nói tiếng người","url":"https://leona3893.github.io/don-gian-hoa/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"Pull Request","item":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/pull-request/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › Pull Request</nav>
+    <article class="article">
+      <span class="tag">Công cụ</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-2">Mốc 2 · Đọc hiểu được</a>
+      <h1>🙋 Pull Request là gì?</h1>
+      <p class="brief">Xin gộp nhánh, để người khác xem và test chạy trước.</p>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Pull Request (PR) là lời đề nghị “gộp nhánh của tôi vào main”. Nó mở ra một trang để đồng đội đọc từng dòng thay đổi, góp ý, và để CI chạy test — xanh mới bấm merge.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như nộp bản thảo cho biên tập trước khi in. Biên tập đọc, ghi chú bên lề, yêu cầu sửa; duyệt xong mới đưa vào số báo.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Nộp bản thảo cho biên tập — nhưng <span class="punch">Pull Request không phải một tính năng của Git. Nó là của GitHub (GitLab gọi là Merge Request).</span></p>
+<p>Git chỉ biết nhánh và merge. PR là lớp bọc ngoài: một trang web hiện từng dòng thay đổi, chỗ để bình luận, và nơi CI treo kết quả xanh/đỏ. Giá trị thật của PR không nằm ở việc gộp — mà ở chỗ <em>có người thứ hai đọc code trước khi nó vào bản chính</em>.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code"><span class="c"># 1. Làm trên nhánh riêng, push lên</span>
+git switch -c them-nut-danh-gia
+git commit -m <span class="s">"Thêm nút đánh giá bài viết"</span>
+git push -u origin them-nut-danh-gia
+
+<span class="c"># 2. Trên GitHub: bấm "Compare & pull request"
+#    → CI tự chạy test trên nhánh này
+#    → đồng đội đọc, góp ý, bạn sửa và push thêm
+#    → xanh + được duyệt → bấm Merge</span>
+
+<span class="c"># 3. Về máy</span>
+git switch main
+git pull</pre>
+    <p class="cap">Vòng đời một PR: <strong>nhánh → push → mở PR → test + review → merge → xoá nhánh</strong>.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Mọi thay đổi vào main khi làm việc nhóm</li><li>Muốn CI chạy test trước khi code chạm bản chính</li><li>Cần người khác nhìn qua — kể cả khi bạn tự tin</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Làm một mình một dự án cá nhân nhỏ và không cần CI — push thẳng cũng được</li><li>Mở PR 3.000 dòng — không ai đọc nổi, chia nhỏ ra</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> quy tắc bảo vệ nhánh, yêu cầu số người duyệt, CODEOWNERS, draft PR.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự dựng được:</span> Bạn tự đưa được một trang lên mạng, và biết phải sờ vào đâu khi nó không lên.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi có người merge PR chưa ai xem và bạn ước gì GitHub đã chặn lại.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../ci-cd/">CI/CD</a><span>Thứ chạy test trên mỗi PR và hiện dấu tick.</span></li><li><a href="../merge/">Merge</a><span>Cái nút cuối cùng của PR.</span></li><li><a href="../branch/">Branch</a><span>Không có nhánh thì không có PR.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Vào tab <strong>Pull requests</strong> của một dự án mã nguồn mở lớn (React, VS Code…). Mở một PR đã merge: đọc mô tả, cuộn xuống xem bình luận và dấu tick CI. Đó là cách phần lớn phần mềm trên thế giới được thay đổi.</div>
+    
+      <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

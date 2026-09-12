@@ -912,10 +912,146 @@ git log --oneline     <span class="c"># xem lại các mốc đã chụp</span>`
   no:['File nhị phân lớn như video (Git không hợp)','Lưu mật khẩu và khoá bí mật (commit lên là lộ vĩnh viễn)'],
   notYet:{gi:'rebase, cherry-pick, giải quyết xung đột phức tạp, mô hình nhánh', toiMoc:3,
     dauHieu:'Khi bạn cần gộp nhánh của mình với nhánh chung mà hai bên cùng sửa một file.'},
-  next:[{ten:'Deploy', vi:'Bước sau khi code đã vào Git.'},
-        {ten:'CI/CD', vi:'Thứ tự động chạy mỗi khi bạn push.'},
-        {ten:'Bug', vi:'Git giúp tìm ra commit nào làm sinh bug.'}],
+  next:[{ten:'Commit', vi:'Đơn vị nhỏ nhất của cỗ máy thời gian: một ảnh chụp.'},
+        {ten:'Push', vi:'Cách đưa ảnh chụp từ máy bạn lên chỗ chung.'},
+        {ten:'Branch', vi:'Cách thử nghiệm mà không làm hỏng bản chính.'}],
   try:`Vào một repo bất kỳ trên GitHub, bấm vào một file rồi chọn <strong>History</strong>. Bạn đang xem cỗ máy thời gian của người khác — mỗi dòng là một ảnh chụp.`},
+
+'Commit': { moc:2,
+  leak:`<p>Ảnh chụp căn phòng — nhưng <span class="punch">không phải cứ dọn xong là máy tự chụp. Bạn phải chọn thứ gì vào ảnh (<code>git add</code>) rồi mới bấm chụp (<code>git commit</code>).</span></p>
+<p>Đây là chỗ người mới hay vấp: sửa xong 5 file, gõ <code>git commit</code> và Git bảo “không có gì để commit”. Vì chưa <code>add</code>. Bước add tồn tại để bạn có thể chụp <em>một phần</em> thay đổi thôi — ví dụ sửa lỗi và sửa chính tả thành hai commit riêng, sau này dễ tìm.</p>`,
+  code:`git status                      <span class="c"># đang sửa dở những file nào</span>
+git add -A                      <span class="c"># đưa TẤT CẢ thay đổi vào khung hình</span>
+git commit -m <span class="s">"Thêm thuật ngữ Docker"</span>   <span class="c"># bấm chụp, kèm ghi chú</span>
+
+git log --oneline -5            <span class="c"># 5 ảnh gần nhất, mỗi dòng một commit</span>
+<span class="c">a1b2c3d Thêm thuật ngữ Docker
+2595a41 Thêm Playwright test và pipeline CI/CD
+599c4b6 Sinh ảnh chia sẻ cho cả 83 trang</span>`,
+  cap:'Lời commit tốt trả lời câu <strong>“commit này làm gì?”</strong> — không phải “sửa”, “update”, “fix bug”.',
+  yes:['Vừa xong một việc trọn vẹn: một tính năng nhỏ, một lỗi đã sửa','Sắp thử một thứ có thể hỏng — chụp lại trước để có đường lui','Cuối buổi làm việc, dù chưa xong hẳn (ghi rõ “đang dở”)'],
+  no:['Gom cả tuần làm việc vào một commit khổng lồ — hỏng chỗ nào không lần ra được','Commit file chứa mật khẩu, API key — lên rồi là lộ vĩnh viễn dù xoá sau','Commit thư mục node_modules hay file build nặng không cần thiết'],
+  notYet:{gi:'amend, squash, rebase để viết lại lịch sử, ký commit', toiMoc:3,
+    dauHieu:'Khi bạn nhìn lịch sử của mình và thấy 10 commit liên tiếp cùng tên “fix”.'},
+  next:[{ten:'Push', vi:'Commit mới chỉ nằm trên máy bạn. Đây là bước đưa nó lên.'},
+        {ten:'Branch', vi:'Chuỗi commit này đang nằm trên nhánh nào?'},
+        {ten:'Git', vi:'Bức tranh lớn mà commit là viên gạch.'}],
+  try:`Mở bất kỳ repo nào trên GitHub, bấm vào số <strong>“commits”</strong> ngay dưới tên repo. Đọc 10 dòng đầu: bạn phân biệt được commit nào viết tốt, commit nào chỉ ghi “update” không?`},
+
+'Push': { moc:2,
+  leak:`<p>Nộp lên bảng tin — nhưng <span class="punch">bảng tin có thể từ chối nếu ai đó đã dán bài mới lên trước bạn.</span></p>
+<p>Git không cho push đè lên thay đổi của người khác. Nếu kho chung đã có commit bạn chưa có, push bị từ chối (<em>rejected</em>) và bạn phải <code>pull</code> về gộp trước rồi push lại. Đây không phải lỗi — nó là Git đang bảo vệ công sức của đồng đội bạn.</p>`,
+  code:`git push                        <span class="c"># đẩy các commit mới lên</span>
+
+<span class="c"># Bị từ chối vì kho chung đã đi trước:</span>
+<span class="c">! [rejected]  main -> main (fetch first)</span>
+git pull                        <span class="c"># kéo về, gộp</span>
+git push                        <span class="c"># đẩy lại, giờ thì được</span>
+
+<span class="c"># Lần đầu đẩy một nhánh mới lên:</span>
+git push -u origin ten-nhanh`,
+  cap:'<strong>Push là lúc CI bắt đầu chạy.</strong> Commit mà chưa push thì GitHub chưa biết gì.',
+  yes:['Đã commit xong và muốn đồng đội (hoặc CI) thấy','Cuối ngày — code nằm trên máy cá nhân là code có thể mất','Muốn mở Pull Request (phải push nhánh lên trước)'],
+  no:['Push thẳng lên main khi đội đã thống nhất đi qua PR','Dùng <code>push --force</code> lên nhánh chung — xoá mất commit của người khác','Push khi test ở local đang đỏ mà bạn biết rõ'],
+  notYet:{gi:'force-with-lease, push tag, nhiều remote, push một phần commit', toiMoc:3,
+    dauHieu:'Khi bạn lỡ commit sai lên nhánh chung và cần sửa lịch sử mà không phá của người khác.'},
+  next:[{ten:'Pull', vi:'Chiều ngược lại: lấy của người khác về.'},
+        {ten:'CI/CD', vi:'Thứ tự động thức dậy mỗi khi bạn push.'},
+        {ten:'Pull Request', vi:'Push nhánh lên rồi làm gì tiếp.'}],
+  try:`Sửa một dòng bất kỳ trong dự án của bạn, commit rồi <code>git push</code>. Mở tab <strong>Actions</strong> (hoặc trang repo) trên GitHub ngay sau đó — bạn sẽ thấy commit vừa xuất hiện, và nếu có CI thì nó đang chạy.`},
+
+'Pull': { moc:2,
+  leak:`<p>Tải bản mới nhất về — nhưng <span class="punch">pull không chỉ tải, nó còn tự gộp vào bản bạn đang làm dở.</span></p>
+<p>Thực ra <code>git pull</code> = <code>git fetch</code> (tải về, chưa đụng gì) + <code>git merge</code> (gộp vào). Nếu bạn và người kia cùng sửa một dòng, bước gộp dừng lại báo xung đột. Người mới thấy chữ CONFLICT thì hoảng, nhưng đó chỉ là Git hỏi: “hai bên khác nhau, chọn bên nào?”</p>`,
+  code:`git pull                        <span class="c"># lấy commit mới trên kho chung, gộp vào máy bạn</span>
+
+<span class="c"># Kết quả thường thấy:</span>
+<span class="c">Updating 599c4b6..2595a41
+Fast-forward                    ← gộp êm, không ai sửa trùng chỗ</span>
+
+<span class="c"># Hoặc:</span>
+<span class="c">CONFLICT (content): Merge conflict in terms.js
+                                ← mở file, chọn giữ bên nào, rồi add + commit</span>`,
+  cap:'Thói quen tốt: <strong>pull trước khi bắt đầu làm</strong>, để không sửa lên bản đã cũ.',
+  yes:['Bắt đầu một buổi làm việc mới','Push bị từ chối vì kho chung đã có commit mới','Vừa merge một PR trên web, muốn máy mình có bản đó'],
+  no:['Đang sửa dở nhiều file chưa commit — pull có thể trộn lộn xộn; commit hoặc stash trước','Muốn xem có gì mới mà chưa muốn gộp — dùng <code>git fetch</code> rồi xem'],
+  notYet:{gi:'fetch tách riêng, pull --rebase, theo dõi nhiều nhánh remote', toiMoc:3,
+    dauHieu:'Khi lịch sử của bạn đầy những commit tên “Merge branch main…” mà bạn không cố tình tạo.'},
+  next:[{ten:'Merge', vi:'Nửa sau của lệnh pull.'},
+        {ten:'Push', vi:'Chiều ngược lại.'},
+        {ten:'Branch', vi:'Pull lấy về nhánh nào?'}],
+  try:`Trên GitHub, sửa một file ngay trên web (bút chì → Commit changes). Về máy gõ <code>git pull</code>: bạn vừa lấy về một thay đổi được tạo ở “nơi khác” — giống hệt khi đồng đội làm.`},
+
+'Branch': { moc:2,
+  leak:`<p>Photocopy bản thảo ra để viết nháp — nhưng <span class="punch">tạo nhánh trong Git không tốn một giây và không copy file nào cả.</span></p>
+<p>Một nhánh chỉ là cái nhãn trỏ vào một commit. Nên đừng tiếc nhánh: tạo mỗi việc một nhánh, làm xong gộp, xoá. Người mới hay làm tất cả trên main vì “tạo nhánh phiền” — thật ra nó là một lệnh, và nó cứu bạn khỏi việc phá bản đang chạy.</p>`,
+  code:`git switch -c them-nut-danh-gia   <span class="c"># tạo nhánh mới và nhảy sang</span>
+<span class="c"># ... sửa, commit thoải mái, main không bị đụng ...</span>
+
+git branch                        <span class="c"># đang có nhánh nào, dấu * là nhánh đang đứng</span>
+<span class="c">  main
+* them-nut-danh-gia</span>
+
+git switch main                   <span class="c"># quay về bản chính</span>
+git branch -d them-nut-danh-gia   <span class="c"># xoá nhánh sau khi đã gộp xong</span>`,
+  cap:'Đặt tên nhánh theo <strong>việc đang làm</strong>: <code>them-nut-danh-gia</code>, <code>sua-loi-tim-kiem</code> — không phải <code>test</code>, <code>nhanh2</code>.',
+  yes:['Bắt đầu một tính năng hoặc sửa một lỗi','Muốn thử một ý tưởng chưa chắc dùng','Nhiều người cùng làm — mỗi người một nhánh, không giẫm chân'],
+  no:['Sửa lỗi chính tả một dòng khi làm một mình — commit thẳng main cũng được','Để nhánh sống hàng tháng không gộp — càng lâu càng khó gộp'],
+  notYet:{gi:'Git Flow, trunk-based, nhánh release/hotfix, bảo vệ nhánh', toiMoc:3,
+    dauHieu:'Khi đội bạn có 5 người và ai cũng hỏi “giờ nhánh nào là bản mới nhất?”'},
+  next:[{ten:'Pull Request', vi:'Cách đưa nhánh trở lại main một cách có kiểm soát.'},
+        {ten:'Merge', vi:'Thao tác gộp nhánh về đích.'},
+        {ten:'Commit', vi:'Thứ nằm trên nhánh.'}],
+  try:`Trong dự án của bạn: <code>git switch -c thu-nghiem</code>, sửa lung tung một file, rồi <code>git switch main</code>. Mở file đó ra — nó nguyên vẹn. Nhánh chính là bảo hiểm miễn phí.`},
+
+'Merge': { moc:2,
+  leak:`<p>Gộp hai tờ kế hoạch — nhưng <span class="punch">Git gộp rất giỏi khi hai người sửa hai chỗ khác nhau, và hoàn toàn bó tay khi cùng sửa một dòng.</span></p>
+<p>Khi đó nó không đoán, mà dừng lại và ghi cả hai phiên bản vào file, đánh dấu bằng <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> và <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Việc của bạn: mở file, giữ lại phần đúng, xoá mấy dòng đánh dấu, commit. Xung đột không phải tai nạn — nó là hệ quả tự nhiên của việc hai người cùng sửa một thứ.</p>`,
+  code:`git switch main
+git merge them-nut-danh-gia     <span class="c"># đưa các commit của nhánh kia vào main</span>
+
+<span class="c"># Nếu có xung đột, file sẽ trông thế này:</span>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+  brief: <span class="s">'Gộp thay đổi từ nhánh này vào nhánh kia.'</span>
+=======
+  brief: <span class="s">'Trộn hai nhánh làm một.'</span>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; them-nut-danh-gia
+<span class="c"># → giữ một bên, xoá các dòng đánh dấu, rồi: git add -A && git commit</span>`,
+  cap:'Trên thực tế bạn ít gõ <code>git merge</code> tay — thường bấm nút <strong>Merge</strong> trên Pull Request.',
+  yes:['Nhánh đã xong việc, test xanh, đã có người xem','Cần đưa thay đổi mới của main vào nhánh đang làm dở để không lệch quá xa'],
+  no:['Gộp khi test đang đỏ — bạn đang đưa lỗi vào bản chính','Giải quyết xung đột bằng cách chọn bừa một bên mà không đọc'],
+  notYet:{gi:'rebase thay merge, squash merge, fast-forward, chiến lược gộp của đội', toiMoc:3,
+    dauHieu:'Khi lịch sử main trông như mạng nhện và không ai đọc nổi thứ tự thay đổi.'},
+  next:[{ten:'Pull Request', vi:'Nơi merge thường xảy ra ngoài đời.'},
+        {ten:'Branch', vi:'Thứ được gộp.'},
+        {ten:'CI/CD', vi:'Người gác cổng nên đứng trước mỗi lần merge.'}],
+  try:`Tạo hai nhánh từ main, trên mỗi nhánh sửa <em>cùng một dòng</em> thành hai câu khác nhau, commit. Gộp nhánh thứ nhất vào main (êm), rồi gộp nhánh thứ hai — bạn sẽ gặp xung đột đầu tiên trong môi trường an toàn.`},
+
+'Pull Request': { moc:2,
+  leak:`<p>Nộp bản thảo cho biên tập — nhưng <span class="punch">Pull Request không phải một tính năng của Git. Nó là của GitHub (GitLab gọi là Merge Request).</span></p>
+<p>Git chỉ biết nhánh và merge. PR là lớp bọc ngoài: một trang web hiện từng dòng thay đổi, chỗ để bình luận, và nơi CI treo kết quả xanh/đỏ. Giá trị thật của PR không nằm ở việc gộp — mà ở chỗ <em>có người thứ hai đọc code trước khi nó vào bản chính</em>.</p>`,
+  code:`<span class="c"># 1. Làm trên nhánh riêng, push lên</span>
+git switch -c them-nut-danh-gia
+git commit -m <span class="s">"Thêm nút đánh giá bài viết"</span>
+git push -u origin them-nut-danh-gia
+
+<span class="c"># 2. Trên GitHub: bấm "Compare & pull request"
+#    → CI tự chạy test trên nhánh này
+#    → đồng đội đọc, góp ý, bạn sửa và push thêm
+#    → xanh + được duyệt → bấm Merge</span>
+
+<span class="c"># 3. Về máy</span>
+git switch main
+git pull`,
+  cap:'Vòng đời một PR: <strong>nhánh → push → mở PR → test + review → merge → xoá nhánh</strong>.',
+  yes:['Mọi thay đổi vào main khi làm việc nhóm','Muốn CI chạy test trước khi code chạm bản chính','Cần người khác nhìn qua — kể cả khi bạn tự tin'],
+  no:['Làm một mình một dự án cá nhân nhỏ và không cần CI — push thẳng cũng được','Mở PR 3.000 dòng — không ai đọc nổi, chia nhỏ ra'],
+  notYet:{gi:'quy tắc bảo vệ nhánh, yêu cầu số người duyệt, CODEOWNERS, draft PR', toiMoc:3,
+    dauHieu:'Khi có người merge PR chưa ai xem và bạn ước gì GitHub đã chặn lại.'},
+  next:[{ten:'CI/CD', vi:'Thứ chạy test trên mỗi PR và hiện dấu tick.'},
+        {ten:'Merge', vi:'Cái nút cuối cùng của PR.'},
+        {ten:'Branch', vi:'Không có nhánh thì không có PR.'}],
+  try:`Vào tab <strong>Pull requests</strong> của một dự án mã nguồn mở lớn (React, VS Code…). Mở một PR đã merge: đọc mô tả, cuộn xuống xem bình luận và dấu tick CI. Đó là cách phần lớn phần mềm trên thế giới được thay đổi.`},
 
 'Deploy': { moc:2,
   leak:`<p>Đưa món ra quầy — nhưng <span class="punch">deploy không phải một khoảnh khắc, nó là một quá trình có thể hỏng giữa chừng.</span></p>

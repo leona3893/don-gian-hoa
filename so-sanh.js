@@ -159,6 +159,34 @@ export const SO_SANH = [
 },
 
 {
+  slug:'add-commit-va-push', cat:'Nền tảng', terms:['Commit','Push'],
+  h1:'git add, commit và push khác nhau thế nào?',
+  tldr:'Ba bước, ba nơi khác nhau. <strong>add</strong> chọn thay đổi nào sẽ được lưu. <strong>commit</strong> lưu thật, nhưng chỉ trên máy bạn. <strong>push</strong> mới đưa lên GitHub để người khác và CI nhìn thấy. Thiếu bước nào thì bước sau không có gì để làm.',
+  cols:['git add','git commit','git push'],
+  rows:[
+    {k:'Việc chính', v:['Chọn file/thay đổi đưa vào “khung hình”','Chụp ảnh khung hình đó, kèm lời ghi chú','Gửi các ảnh đã chụp lên kho chung']},
+    {k:'Kết quả nằm ở đâu', v:['Vùng chờ (staging) trên máy bạn','Lịch sử Git trên máy bạn','Kho chung trên mạng (GitHub, GitLab…)']},
+    {k:'Người khác thấy chưa', v:['Chưa','Chưa','<strong>Rồi</strong>']},
+    {k:'CI chạy chưa', v:['Chưa','Chưa','<strong>Rồi</strong> — push là tín hiệu để CI thức dậy']},
+    {k:'Làm lại được không', v:['Dễ — <code>git restore --staged</code>','Dễ nếu chưa push — <code>git commit --amend</code>','Khó — đã lên là người khác có thể đã kéo về']},
+    {k:'Quên bước này thì', v:['<code>commit</code> báo “nothing to commit”','<code>push</code> báo “Everything up-to-date”','GitHub vẫn là bản cũ, đồng đội tưởng bạn chưa làm gì']}
+  ],
+  nho:'Nhớ theo trình tự: <strong>add = chọn · commit = chụp · push = nộp.</strong> Chụp mà không nộp thì ảnh vẫn nằm trong máy.',
+  chon:[
+    {neu:'Gõ <code>git commit</code> mà Git bảo “nothing to commit”', thi:'Quên add — chạy <code>git add -A</code> rồi commit lại'},
+    {neu:'Đã commit, mở GitHub không thấy gì', thi:'Quên push — chạy <code>git push</code>'},
+    {neu:'Push bị từ chối (rejected)', thi:'Kho chung đã có commit mới — <code>git pull</code> rồi push lại'},
+    {neu:'Lỡ commit sai lời, chưa push', thi:'<code>git commit --amend -m "lời mới"</code>'}
+  ],
+  bay:'Bẫy phổ biến nhất của người mới: commit đều đặn, cảm giác rất an toàn, nhưng <strong>cả tuần không push</strong>. Ổ cứng hỏng là mất sạch, và đồng đội không hề biết bạn đang làm gì. Commit là bảo hiểm trên máy bạn; push mới là bảo hiểm thật.',
+  faq:[
+    {h:'Tại sao Git không gộp add và commit làm một?', a:'Để bạn chọn được <em>một phần</em> thay đổi cho mỗi commit. Sửa lỗi và đổi tên biến trong cùng buổi làm việc có thể thành hai commit riêng, sau này tìm lỗi dễ hơn. Khi mới học cứ dùng <code>git add -A</code> là đủ.'},
+    {h:'Có cần push sau mỗi commit không?', a:'Không bắt buộc, nhưng nên push ít nhất cuối mỗi buổi làm việc. Nhiều commit nhỏ rồi push một lần cũng bình thường.'},
+    {h:'Push rồi có rút lại được không?', a:'Rút bằng cách tạo commit mới đảo ngược (<code>git revert</code>), không xoá lịch sử. Xoá lịch sử đã push (<code>push --force</code>) chỉ nên làm trên nhánh của riêng bạn.'}
+  ]
+},
+
+{
   slug:'rag-va-fine-tuning', cat:'AI', terms:['RAG','Fine-tuning'],
   h1:'RAG và Fine-tuning — chọn cái nào?',
   tldr:'Cần model <strong>biết thêm dữ liệu</strong> của bạn → RAG. Cần model <strong>cư xử khác</strong>, đúng giọng và đúng định dạng → fine-tuning.',

@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>git add, commit và push khác nhau thế nào? — IT nói tiếng người</title>
+  <meta name="description" content="Ba bước, ba nơi khác nhau. add chọn thay đổi nào sẽ được lưu. commit lưu thật, nhưng chỉ trên máy bạn. push mới đưa lên GitHub để người khác và CI nhìn…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-sanh/add-commit-va-push/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="git add, commit và push khác nhau thế nào?" />
+  <meta property="og:description" content="Ba bước, ba nơi khác nhau. add chọn thay đổi nào sẽ được lưu. commit lưu thật, nhưng chỉ trên máy bạn. push mới đưa lên GitHub để người khác và CI nhìn…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-sanh/add-commit-va-push/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/so-sanh-add-commit-va-push.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/so-sanh-add-commit-va-push.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Tại sao Git không gộp add và commit làm một?","acceptedAnswer":{"@type":"Answer","text":"Để bạn chọn được <em>một phần</em> thay đổi cho mỗi commit. Sửa lỗi và đổi tên biến trong cùng buổi làm việc có thể thành hai commit riêng, sau này tìm lỗi dễ hơn. Khi mới học cứ dùng <code>git add -A</code> là đủ."}},{"@type":"Question","name":"Có cần push sau mỗi commit không?","acceptedAnswer":{"@type":"Answer","text":"Không bắt buộc, nhưng nên push ít nhất cuối mỗi buổi làm việc. Nhiều commit nhỏ rồi push một lần cũng bình thường."}},{"@type":"Question","name":"Push rồi có rút lại được không?","acceptedAnswer":{"@type":"Answer","text":"Rút bằng cách tạo commit mới đảo ngược (<code>git revert</code>), không xoá lịch sử. Xoá lịch sử đã push (<code>push --force</code>) chỉ nên làm trên nhánh của riêng bạn."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"So sánh","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/"},{"@type":"ListItem","position":3,"name":"git add, commit và push khác nhau thế nào?","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/add-commit-va-push/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">So sánh</a> › git add, commit và push khác nhau thế nào?</nav>
+    <article class="article">
+      <span class="tag">Nền tảng</span>
+      <h1>git add, commit và push khác nhau thế nào?</h1>
+      <div class="tldr"><b>Trả lời ngắn</b>Ba bước, ba nơi khác nhau. <strong>add</strong> chọn thay đổi nào sẽ được lưu. <strong>commit</strong> lưu thật, nhưng chỉ trên máy bạn. <strong>push</strong> mới đưa lên GitHub để người khác và CI nhìn thấy. Thiếu bước nào thì bước sau không có gì để làm.</div>
+
+      <h2>Bảng so sánh</h2>
+      <div class="bang-wrap"><table class="bang">
+        <thead><tr><th></th><th>git add</th><th>git commit</th><th>git push</th></tr></thead>
+        <tbody><tr><th scope="row">Việc chính</th><td>Chọn file/thay đổi đưa vào “khung hình”</td><td>Chụp ảnh khung hình đó, kèm lời ghi chú</td><td>Gửi các ảnh đã chụp lên kho chung</td></tr><tr><th scope="row">Kết quả nằm ở đâu</th><td>Vùng chờ (staging) trên máy bạn</td><td>Lịch sử Git trên máy bạn</td><td>Kho chung trên mạng (GitHub, GitLab…)</td></tr><tr><th scope="row">Người khác thấy chưa</th><td>Chưa</td><td>Chưa</td><td><strong>Rồi</strong></td></tr><tr><th scope="row">CI chạy chưa</th><td>Chưa</td><td>Chưa</td><td><strong>Rồi</strong> — push là tín hiệu để CI thức dậy</td></tr><tr><th scope="row">Làm lại được không</th><td>Dễ — <code>git restore --staged</code></td><td>Dễ nếu chưa push — <code>git commit --amend</code></td><td>Khó — đã lên là người khác có thể đã kéo về</td></tr><tr><th scope="row">Quên bước này thì</th><td><code>commit</code> báo “nothing to commit”</td><td><code>push</code> báo “Everything up-to-date”</td><td>GitHub vẫn là bản cũ, đồng đội tưởng bạn chưa làm gì</td></tr></tbody>
+      </table></div>
+
+      <div class="nho"><h4>💡 Cách nhớ</h4>Nhớ theo trình tự: <strong>add = chọn · commit = chụp · push = nộp.</strong> Chụp mà không nộp thì ảnh vẫn nằm trong máy.</div>
+
+      <h2>Chọn cái nào?</h2>
+      <ul class="chon"><li><b>Nếu Gõ <code>git commit</code> mà Git bảo “nothing to commit”</b><span>→ Quên add — chạy <code>git add -A</code> rồi commit lại</span></li><li><b>Nếu Đã commit, mở GitHub không thấy gì</b><span>→ Quên push — chạy <code>git push</code></span></li><li><b>Nếu Push bị từ chối (rejected)</b><span>→ Kho chung đã có commit mới — <code>git pull</code> rồi push lại</span></li><li><b>Nếu Lỡ commit sai lời, chưa push</b><span>→ <code>git commit --amend -m "lời mới"</code></span></li></ul>
+
+      <div class="leak"><h4>⚠ Bẫy thường gặp</h4><p>Bẫy phổ biến nhất của người mới: commit đều đặn, cảm giác rất an toàn, nhưng <strong>cả tuần không push</strong>. Ổ cứng hỏng là mất sạch, và đồng đội không hề biết bạn đang làm gì. Commit là bảo hiểm trên máy bạn; push mới là bảo hiểm thật.</p></div>
+
+      <h2>Câu hỏi hay gặp</h2>
+      <dl class="faq"><dt>Tại sao Git không gộp add và commit làm một?</dt><dd>Để bạn chọn được &lt;em&gt;một phần&lt;/em&gt; thay đổi cho mỗi commit. Sửa lỗi và đổi tên biến trong cùng buổi làm việc có thể thành hai commit riêng, sau này tìm lỗi dễ hơn. Khi mới học cứ dùng &lt;code&gt;git add -A&lt;/code&gt; là đủ.</dd><dt>Có cần push sau mỗi commit không?</dt><dd>Không bắt buộc, nhưng nên push ít nhất cuối mỗi buổi làm việc. Nhiều commit nhỏ rồi push một lần cũng bình thường.</dd><dt>Push rồi có rút lại được không?</dt><dd>Rút bằng cách tạo commit mới đảo ngược (&lt;code&gt;git revert&lt;/code&gt;), không xoá lịch sử. Xoá lịch sử đã push (&lt;code&gt;push --force&lt;/code&gt;) chỉ nên làm trên nhánh của riêng bạn.</dd></dl>
+
+      <h2>Đọc kỹ từng thuật ngữ</h2>
+      <div class="related"><a href="../../thuat-ngu/commit/">Commit</a><a href="../../thuat-ngu/push/">Push</a></div>
+
+      <a class="back" href="../">← Xem các bảng so sánh khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

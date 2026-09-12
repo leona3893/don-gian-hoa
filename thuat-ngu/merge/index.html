@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Merge là gì? Giải thích dễ hiểu — IT nói tiếng người</title>
+  <meta name="description" content="Merge là gì? Merge lấy các commit của một nhánh và đưa vào nhánh khác. Nếu hai bên cùng sửa một chỗ, Git dừng lại hỏi bạn chọn bên nào — gọi là xung đột…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/thuat-ngu/merge/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Merge là gì? Giải thích dễ hiểu — IT nói tiếng người" />
+  <meta property="og:description" content="Merge là gì? Merge lấy các commit của một nhánh và đưa vào nhánh khác. Nếu hai bên cùng sửa một chỗ, Git dừng lại hỏi bạn chọn bên nào — gọi là xung đột…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/thuat-ngu/merge/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/merge.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/merge.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Merge","description":"Merge lấy các commit của một nhánh và đưa vào nhánh khác. Nếu hai bên cùng sửa một chỗ, Git dừng lại hỏi bạn chọn bên nào — gọi là xung đột (conflict).","inLanguage":"vi","url":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/merge/","inDefinedTermSet":{"@type":"DefinedTermSet","name":"IT nói tiếng người","url":"https://leona3893.github.io/don-gian-hoa/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"Merge","item":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/merge/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › Merge</nav>
+    <article class="article">
+      <span class="tag">Công cụ</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-2">Mốc 2 · Đọc hiểu được</a>
+      <h1>🔀 Merge là gì?</h1>
+      <p class="brief">Gộp thay đổi từ nhánh này vào nhánh kia.</p>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Merge lấy các commit của một nhánh và đưa vào nhánh khác. Nếu hai bên cùng sửa một chỗ, Git dừng lại hỏi bạn chọn bên nào — gọi là xung đột (conflict).</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Hai người cùng sửa một bản kế hoạch trên hai tờ giấy. Gộp lại: phần ai sửa chỗ riêng thì giữ cả hai; chỗ cả hai cùng sửa thì phải ngồi lại thống nhất.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Gộp hai tờ kế hoạch — nhưng <span class="punch">Git gộp rất giỏi khi hai người sửa hai chỗ khác nhau, và hoàn toàn bó tay khi cùng sửa một dòng.</span></p>
+<p>Khi đó nó không đoán, mà dừng lại và ghi cả hai phiên bản vào file, đánh dấu bằng <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> và <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Việc của bạn: mở file, giữ lại phần đúng, xoá mấy dòng đánh dấu, commit. Xung đột không phải tai nạn — nó là hệ quả tự nhiên của việc hai người cùng sửa một thứ.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">git switch main
+git merge them-nut-danh-gia     <span class="c"># đưa các commit của nhánh kia vào main</span>
+
+<span class="c"># Nếu có xung đột, file sẽ trông thế này:</span>
+&lt;&lt;&lt;&lt;&lt;&lt;&lt; HEAD
+  brief: <span class="s">'Gộp thay đổi từ nhánh này vào nhánh kia.'</span>
+=======
+  brief: <span class="s">'Trộn hai nhánh làm một.'</span>
+&gt;&gt;&gt;&gt;&gt;&gt;&gt; them-nut-danh-gia
+<span class="c"># → giữ một bên, xoá các dòng đánh dấu, rồi: git add -A && git commit</span></pre>
+    <p class="cap">Trên thực tế bạn ít gõ <code>git merge</code> tay — thường bấm nút <strong>Merge</strong> trên Pull Request.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Nhánh đã xong việc, test xanh, đã có người xem</li><li>Cần đưa thay đổi mới của main vào nhánh đang làm dở để không lệch quá xa</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Gộp khi test đang đỏ — bạn đang đưa lỗi vào bản chính</li><li>Giải quyết xung đột bằng cách chọn bừa một bên mà không đọc</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> rebase thay merge, squash merge, fast-forward, chiến lược gộp của đội.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự dựng được:</span> Bạn tự đưa được một trang lên mạng, và biết phải sờ vào đâu khi nó không lên.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi lịch sử main trông như mạng nhện và không ai đọc nổi thứ tự thay đổi.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../pull-request/">Pull Request</a><span>Nơi merge thường xảy ra ngoài đời.</span></li><li><a href="../branch/">Branch</a><span>Thứ được gộp.</span></li><li><a href="../ci-cd/">CI/CD</a><span>Người gác cổng nên đứng trước mỗi lần merge.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Tạo hai nhánh từ main, trên mỗi nhánh sửa <em>cùng một dòng</em> thành hai câu khác nhau, commit. Gộp nhánh thứ nhất vào main (êm), rồi gộp nhánh thứ hai — bạn sẽ gặp xung đột đầu tiên trong môi trường an toàn.</div>
+    
+      <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

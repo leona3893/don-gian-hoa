@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pull là gì? Giải thích dễ hiểu — IT nói tiếng người</title>
+  <meta name="description" content="Pull là gì? Pull lấy các commit mới trên kho chung về và gộp vào bản trên máy bạn, để bạn làm tiếp trên nền mới nhất." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/thuat-ngu/pull/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Pull là gì? Giải thích dễ hiểu — IT nói tiếng người" />
+  <meta property="og:description" content="Pull là gì? Pull lấy các commit mới trên kho chung về và gộp vào bản trên máy bạn, để bạn làm tiếp trên nền mới nhất." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/thuat-ngu/pull/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/pull.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/pull.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Pull","description":"Pull lấy các commit mới trên kho chung về và gộp vào bản trên máy bạn, để bạn làm tiếp trên nền mới nhất.","inLanguage":"vi","url":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/pull/","inDefinedTermSet":{"@type":"DefinedTermSet","name":"IT nói tiếng người","url":"https://leona3893.github.io/don-gian-hoa/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"Pull","item":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/pull/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › Pull</nav>
+    <article class="article">
+      <span class="tag">Công cụ</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-2">Mốc 2 · Đọc hiểu được</a>
+      <h1>⬇️ Pull là gì?</h1>
+      <p class="brief">Kéo thay đổi của người khác từ chỗ chung về máy mình.</p>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Pull lấy các commit mới trên kho chung về và gộp vào bản trên máy bạn, để bạn làm tiếp trên nền mới nhất.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Trước khi viết tiếp tài liệu chung, bạn tải bản mới nhất về — không thì bạn đang sửa lên một bản cũ mà người khác đã thay.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Tải bản mới nhất về — nhưng <span class="punch">pull không chỉ tải, nó còn tự gộp vào bản bạn đang làm dở.</span></p>
+<p>Thực ra <code>git pull</code> = <code>git fetch</code> (tải về, chưa đụng gì) + <code>git merge</code> (gộp vào). Nếu bạn và người kia cùng sửa một dòng, bước gộp dừng lại báo xung đột. Người mới thấy chữ CONFLICT thì hoảng, nhưng đó chỉ là Git hỏi: “hai bên khác nhau, chọn bên nào?”</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">git pull                        <span class="c"># lấy commit mới trên kho chung, gộp vào máy bạn</span>
+
+<span class="c"># Kết quả thường thấy:</span>
+<span class="c">Updating 599c4b6..2595a41
+Fast-forward                    ← gộp êm, không ai sửa trùng chỗ</span>
+
+<span class="c"># Hoặc:</span>
+<span class="c">CONFLICT (content): Merge conflict in terms.js
+                                ← mở file, chọn giữ bên nào, rồi add + commit</span></pre>
+    <p class="cap">Thói quen tốt: <strong>pull trước khi bắt đầu làm</strong>, để không sửa lên bản đã cũ.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Bắt đầu một buổi làm việc mới</li><li>Push bị từ chối vì kho chung đã có commit mới</li><li>Vừa merge một PR trên web, muốn máy mình có bản đó</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Đang sửa dở nhiều file chưa commit — pull có thể trộn lộn xộn; commit hoặc stash trước</li><li>Muốn xem có gì mới mà chưa muốn gộp — dùng <code>git fetch</code> rồi xem</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> fetch tách riêng, pull --rebase, theo dõi nhiều nhánh remote.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự dựng được:</span> Bạn tự đưa được một trang lên mạng, và biết phải sờ vào đâu khi nó không lên.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi lịch sử của bạn đầy những commit tên “Merge branch main…” mà bạn không cố tình tạo.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../merge/">Merge</a><span>Nửa sau của lệnh pull.</span></li><li><a href="../push/">Push</a><span>Chiều ngược lại.</span></li><li><a href="../branch/">Branch</a><span>Pull lấy về nhánh nào?</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Trên GitHub, sửa một file ngay trên web (bút chì → Commit changes). Về máy gõ <code>git pull</code>: bạn vừa lấy về một thay đổi được tạo ở “nơi khác” — giống hệt khi đồng đội làm.</div>
+    
+      <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

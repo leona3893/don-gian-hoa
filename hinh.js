@@ -32,6 +32,24 @@ export const HINH = {
 // tài liệu có lịch sử quay lại
 'Git': `<rect x="-100" y="-110" width="140" height="180" rx="10"/><line x1="-70" y1="-70" x2="10" y2="-70"/><line x1="-70" y1="-35" x2="10" y2="-35"/><line x1="-70" y1="0" x2="-20" y2="0"/><circle cx="62" cy="62" r="52" fill="${BG}"/><line x1="62" y1="34" x2="62" y2="62"/><line x1="62" y1="62" x2="82" y2="76"/>`,
 
+// máy ảnh — mỗi commit là một ảnh chụp
+'Commit': `<rect x="-120" y="-60" width="240" height="150" rx="16"/><path d="M-50,-60 L-36,-92 L36,-92 L50,-60"/><circle cx="0" cy="15" r="46"/><circle cx="0" cy="15" r="22"/><rect x="72" y="-40" width="26" height="14" rx="4"/>`,
+
+// mũi tên đi lên, rời khỏi khay
+'Push': `<path d="M-110,40 L-110,100 L110,100 L110,40"/><line x1="0" y1="60" x2="0" y2="-110"/><path d="M-50,-60 L0,-110 L50,-60"/>`,
+
+// mũi tên đi xuống, rơi vào khay
+'Pull': `<path d="M-110,40 L-110,100 L110,100 L110,40"/><line x1="0" y1="-110" x2="0" y2="60"/><path d="M-50,10 L0,60 L50,10"/>`,
+
+// thân chính thẳng, một nhánh tách ra
+'Branch': `<line x1="-50" y1="-110" x2="-50" y2="110"/><path d="M-50,-20 Q-50,40 50,40"/><circle cx="-50" cy="-110" r="16" fill="${BG}"/><circle cx="-50" cy="110" r="16" fill="${BG}"/><circle cx="66" cy="40" r="16" fill="${BG}"/>`,
+
+// hai đường chụm về một
+'Merge': `<path d="M-90,-110 L-90,-20 Q-90,40 0,50 L0,110"/><path d="M90,-110 L90,-20 Q90,40 0,50"/><circle cx="-90" cy="-110" r="16" fill="${BG}"/><circle cx="90" cy="-110" r="16" fill="${BG}"/><circle cx="0" cy="110" r="16" fill="${BG}"/>`,
+
+// biểu tượng PR: nhánh bên trái, mũi tên cong sang nhánh phải
+'Pull Request': `<line x1="-80" y1="-90" x2="-80" y2="90"/><circle cx="-80" cy="-110" r="18" fill="${BG}"/><circle cx="-80" cy="110" r="18" fill="${BG}"/><circle cx="80" cy="110" r="18" fill="${BG}"/><path d="M-20,-80 L40,-80 Q80,-80 80,-40 L80,90"/><path d="M6,-104 L-20,-80 L6,-56"/>`,
+
 // đưa món ra quầy — đĩa bốc khói
 'Deploy': `<ellipse cx="0" cy="60" rx="120" ry="30"/><ellipse cx="0" cy="60" rx="80" ry="18"/><path d="M-40,20 Q-55,-10 -40,-40 Q-25,-70 -40,-100"/><path d="M0,20 Q-15,-10 0,-40 Q15,-70 0,-100"/><path d="M40,20 Q25,-10 40,-40 Q55,-70 40,-100"/>`,
 

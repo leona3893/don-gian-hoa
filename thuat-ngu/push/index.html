@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Push là gì? Giải thích dễ hiểu — IT nói tiếng người</title>
+  <meta name="description" content="Push là gì? Push đẩy những commit đang nằm trên máy bạn lên kho chung trên mạng (GitHub, GitLab…) để người khác và máy tự động nhìn thấy." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/thuat-ngu/push/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Push là gì? Giải thích dễ hiểu — IT nói tiếng người" />
+  <meta property="og:description" content="Push là gì? Push đẩy những commit đang nằm trên máy bạn lên kho chung trên mạng (GitHub, GitLab…) để người khác và máy tự động nhìn thấy." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/thuat-ngu/push/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/push.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/push.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Push","description":"Push đẩy những commit đang nằm trên máy bạn lên kho chung trên mạng (GitHub, GitLab…) để người khác và máy tự động nhìn thấy.","inLanguage":"vi","url":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/push/","inDefinedTermSet":{"@type":"DefinedTermSet","name":"IT nói tiếng người","url":"https://leona3893.github.io/don-gian-hoa/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"Push","item":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/push/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › Push</nav>
+    <article class="article">
+      <span class="tag">Công cụ</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-2">Mốc 2 · Đọc hiểu được</a>
+      <h1>⬆️ Push là gì?</h1>
+      <p class="brief">Gửi các commit từ máy bạn lên chỗ chung.</p>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Push đẩy những commit đang nằm trên máy bạn lên kho chung trên mạng (GitHub, GitLab…) để người khác và máy tự động nhìn thấy.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Bạn viết bài ở nhà thì chỉ mình bạn đọc. Push là đem nộp lên bảng tin chung — từ lúc đó cả nhóm mới thấy và CI mới chạy.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Nộp lên bảng tin — nhưng <span class="punch">bảng tin có thể từ chối nếu ai đó đã dán bài mới lên trước bạn.</span></p>
+<p>Git không cho push đè lên thay đổi của người khác. Nếu kho chung đã có commit bạn chưa có, push bị từ chối (<em>rejected</em>) và bạn phải <code>pull</code> về gộp trước rồi push lại. Đây không phải lỗi — nó là Git đang bảo vệ công sức của đồng đội bạn.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">git push                        <span class="c"># đẩy các commit mới lên</span>
+
+<span class="c"># Bị từ chối vì kho chung đã đi trước:</span>
+<span class="c">! [rejected]  main -> main (fetch first)</span>
+git pull                        <span class="c"># kéo về, gộp</span>
+git push                        <span class="c"># đẩy lại, giờ thì được</span>
+
+<span class="c"># Lần đầu đẩy một nhánh mới lên:</span>
+git push -u origin ten-nhanh</pre>
+    <p class="cap"><strong>Push là lúc CI bắt đầu chạy.</strong> Commit mà chưa push thì GitHub chưa biết gì.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Đã commit xong và muốn đồng đội (hoặc CI) thấy</li><li>Cuối ngày — code nằm trên máy cá nhân là code có thể mất</li><li>Muốn mở Pull Request (phải push nhánh lên trước)</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Push thẳng lên main khi đội đã thống nhất đi qua PR</li><li>Dùng <code>push --force</code> lên nhánh chung — xoá mất commit của người khác</li><li>Push khi test ở local đang đỏ mà bạn biết rõ</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> force-with-lease, push tag, nhiều remote, push một phần commit.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự dựng được:</span> Bạn tự đưa được một trang lên mạng, và biết phải sờ vào đâu khi nó không lên.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn lỡ commit sai lên nhánh chung và cần sửa lịch sử mà không phá của người khác.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../pull/">Pull</a><span>Chiều ngược lại: lấy của người khác về.</span></li><li><a href="../ci-cd/">CI/CD</a><span>Thứ tự động thức dậy mỗi khi bạn push.</span></li><li><a href="../pull-request/">Pull Request</a><span>Push nhánh lên rồi làm gì tiếp.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Sửa một dòng bất kỳ trong dự án của bạn, commit rồi <code>git push</code>. Mở tab <strong>Actions</strong> (hoặc trang repo) trên GitHub ngay sau đó — bạn sẽ thấy commit vừa xuất hiện, và nếu có CI thì nó đang chạy.</div>
+    
+    <div class="so-sanh-lien">
+      <h4>⚖ Hay bị nhầm với thuật ngữ khác</h4>
+      <ul class="nextlist"><li><a href="../../so-sanh/add-commit-va-push/">git add, commit và push khác nhau thế nào?</a><span>Commit</span></li></ul>
+    </div>
+      <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

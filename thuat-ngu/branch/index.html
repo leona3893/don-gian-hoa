@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Branch là gì? Giải thích dễ hiểu — IT nói tiếng người</title>
+  <meta name="description" content="Branch là gì? Branch là một dòng phát triển riêng: bạn commit thoải mái trên đó, bản chính (thường tên là main) vẫn nguyên vẹn cho tới khi bạn quyết định…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/thuat-ngu/branch/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Branch là gì? Giải thích dễ hiểu — IT nói tiếng người" />
+  <meta property="og:description" content="Branch là gì? Branch là một dòng phát triển riêng: bạn commit thoải mái trên đó, bản chính (thường tên là main) vẫn nguyên vẹn cho tới khi bạn quyết định…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/thuat-ngu/branch/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/branch.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/branch.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Branch","description":"Branch là một dòng phát triển riêng: bạn commit thoải mái trên đó, bản chính (thường tên là main) vẫn nguyên vẹn cho tới khi bạn quyết định gộp vào.","inLanguage":"vi","url":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/branch/","inDefinedTermSet":{"@type":"DefinedTermSet","name":"IT nói tiếng người","url":"https://leona3893.github.io/don-gian-hoa/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"Branch","item":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/branch/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › Branch</nav>
+    <article class="article">
+      <span class="tag">Công cụ</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-2">Mốc 2 · Đọc hiểu được</a>
+      <h1>🌿 Branch là gì?</h1>
+      <p class="brief">Một bản sao để thử nghiệm, không đụng bản chính.</p>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Branch là một dòng phát triển riêng: bạn commit thoải mái trên đó, bản chính (thường tên là main) vẫn nguyên vẹn cho tới khi bạn quyết định gộp vào.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như photocopy bản thảo ra để viết nháp. Nháp hỏng thì vứt, không ảnh hưởng bản gốc; nháp hay thì chép ngược lại.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Photocopy bản thảo ra để viết nháp — nhưng <span class="punch">tạo nhánh trong Git không tốn một giây và không copy file nào cả.</span></p>
+<p>Một nhánh chỉ là cái nhãn trỏ vào một commit. Nên đừng tiếc nhánh: tạo mỗi việc một nhánh, làm xong gộp, xoá. Người mới hay làm tất cả trên main vì “tạo nhánh phiền” — thật ra nó là một lệnh, và nó cứu bạn khỏi việc phá bản đang chạy.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">git switch -c them-nut-danh-gia   <span class="c"># tạo nhánh mới và nhảy sang</span>
+<span class="c"># ... sửa, commit thoải mái, main không bị đụng ...</span>
+
+git branch                        <span class="c"># đang có nhánh nào, dấu * là nhánh đang đứng</span>
+<span class="c">  main
+* them-nut-danh-gia</span>
+
+git switch main                   <span class="c"># quay về bản chính</span>
+git branch -d them-nut-danh-gia   <span class="c"># xoá nhánh sau khi đã gộp xong</span></pre>
+    <p class="cap">Đặt tên nhánh theo <strong>việc đang làm</strong>: <code>them-nut-danh-gia</code>, <code>sua-loi-tim-kiem</code> — không phải <code>test</code>, <code>nhanh2</code>.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Bắt đầu một tính năng hoặc sửa một lỗi</li><li>Muốn thử một ý tưởng chưa chắc dùng</li><li>Nhiều người cùng làm — mỗi người một nhánh, không giẫm chân</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Sửa lỗi chính tả một dòng khi làm một mình — commit thẳng main cũng được</li><li>Để nhánh sống hàng tháng không gộp — càng lâu càng khó gộp</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> Git Flow, trunk-based, nhánh release/hotfix, bảo vệ nhánh.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự dựng được:</span> Bạn tự đưa được một trang lên mạng, và biết phải sờ vào đâu khi nó không lên.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi đội bạn có 5 người và ai cũng hỏi “giờ nhánh nào là bản mới nhất?”</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../pull-request/">Pull Request</a><span>Cách đưa nhánh trở lại main một cách có kiểm soát.</span></li><li><a href="../merge/">Merge</a><span>Thao tác gộp nhánh về đích.</span></li><li><a href="../commit/">Commit</a><span>Thứ nằm trên nhánh.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Trong dự án của bạn: <code>git switch -c thu-nghiem</code>, sửa lung tung một file, rồi <code>git switch main</code>. Mở file đó ra — nó nguyên vẹn. Nhánh chính là bảo hiểm miễn phí.</div>
+    
+      <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>
