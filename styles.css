@@ -30,10 +30,10 @@ h1 { font-size:clamp(42px, 6vw, 72px); letter-spacing:-.075em; line-height:.96; 
 .search button { border:0; border-radius:var(--r-sm); padding:11px 17px; color:white; font-weight:750; background:var(--green); }
 .suggestions { display:none; position:absolute; z-index:3; top:calc(100% + 8px); left:0; right:0; overflow:hidden; background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); box-shadow:var(--float-md); }.suggestions.show { display:block; }.suggestion { width:100%; display:flex; align-items:center; gap:11px; border:0; border-bottom:1px solid #edf1ed; padding:12px 15px; text-align:left; background:white; color:var(--ink); }.suggestion:last-child { border-bottom:0; }.suggestion:hover,.suggestion.selected { background:var(--tint-green); }.suggestion b { font-size:15px; }.suggestion span { color:var(--muted); font-size:13px; margin-left:auto; }
 .search-result { display:none; position:absolute; z-index:4; top:calc(100% + 8px); left:0; right:0; background:#fff; border:1px solid var(--line); border-radius:var(--r-lg); padding:10px; box-shadow:var(--float-md); }.search-result.show { display:block; }.result-label { color:var(--muted); font-size:12px; font-weight:700; padding:4px 7px 9px; }.result-item { width:100%; display:flex; align-items:center; gap:11px; border:0; border-radius:var(--r-sm); padding:12px 10px; background:#fff; text-align:left; color:var(--ink); }.result-item:hover { background:var(--tint-green); }.result-item b { font-size:15px; }.result-item p { margin:2px 0 0; color:var(--muted); font-size:13px; }.result-empty { color:var(--muted); padding:11px 8px; font-size:14px; }
-.hero-card { background:var(--card); color:var(--ink); border:2px solid var(--green); border-radius:var(--r-xl); padding:28px; box-shadow:var(--pop-lg); transform:rotate(2deg); }
-.hero-card small { color:var(--green-text); font-weight:700; letter-spacing:.06em; text-transform:uppercase; font-size:12px; } .hero-card h2 { margin:8px 0 12px; letter-spacing:-.04em; font-size:30px; } .hero-card p { line-height:1.55; color:#3d5247; margin:0; }
-.hero-card a { color:var(--green); text-decoration-color:var(--lime); text-decoration-thickness:3px; text-underline-offset:4px; }
-.mini-flow { display:flex; gap:8px; align-items:center; margin-top:24px; } .flow-box { background:var(--tint-lime); border:1px solid #cfe0b3; padding:10px 12px; border-radius:var(--r-sm); font-size:12px; font-weight:700; } .arrow { color:var(--green); font-weight:700; }
+.hero-card { background:var(--green-deep); color:white; border-radius:var(--r-xl); padding:28px; box-shadow:var(--pop-lg); transform:rotate(2deg); }
+.hero-card small { color:#b5ccb8; } .hero-card h2 { margin:8px 0 12px; letter-spacing:-.04em; font-size:30px; } .hero-card p { line-height:1.55; color:#dce8df; margin:0; }
+.hero-card a { color:var(--lime); }
+.mini-flow { display:flex; gap:8px; align-items:center; margin-top:24px; } .flow-box { background:#315542; padding:10px 12px; border-radius:var(--r-sm); font-size:12px; font-weight:700; } .arrow { color:var(--lime); }
 .section { padding:36px 0 64px; } .section-head { display:flex; justify-content:space-between; align-items:baseline; gap:18px; margin-bottom:18px; } h3 { margin:0; letter-spacing:-.045em; font-size:28px; } .count { color:var(--muted); font-size:14px; }
 .chips { display:flex; flex-wrap:wrap; gap:9px; margin-bottom:24px; } .chip { background:transparent; border:1px solid var(--line); border-radius:var(--r-pill); padding:8px 13px; color:#526159; font-size:14px; } .chip.active,.chip:hover { color:#123a26; background:var(--lime); border-color:var(--lime); }
 .grid { display:grid; grid-template-columns:repeat(3, 1fr); gap:14px; }
@@ -76,9 +76,9 @@ footer { padding:28px 0 45px; color:#78847d; font-size:14px; border-top:1px soli
 .leak h4 { margin:0 0 10px; font-size:15px; color:var(--sand-text); }
 .leak p { margin:10px 0; }
 .leak .punch { font-weight:700; color:var(--sand-text); }
-pre.code { background:var(--tint-mint); color:var(--ink); border:1px solid var(--line); border-radius:var(--r-md); padding:15px 17px; overflow-x:auto; margin:14px 0; font-size:14px; line-height:1.65; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
-pre.code .c { color:var(--muted); }
-pre.code .s { color:var(--green-text); font-weight:700; }
+pre.code { background:var(--ink); color:#e9f3e6; border-radius:var(--r-md); padding:15px 17px; overflow-x:auto; margin:14px 0; font-size:14px; line-height:1.65; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; }
+pre.code .c { color:#8fb39b; }
+pre.code .s { color:var(--lime); }
 .cap { font-size:14px; color:var(--muted); margin:6px 0 0; line-height:1.55; }
 .two { display:grid; grid-template-columns:1fr 1fr; gap:14px; margin:16px 0; }
 .box { border:1px solid var(--line); border-radius:var(--r-md); padding:15px 17px; background:var(--card); line-height:1.6; }
@@ -123,9 +123,9 @@ pre.code .s { color:var(--green-text); font-weight:700; }
 }
 
 /* ── Trang so sánh ── */
-.tldr { background:var(--tint-lime); color:var(--ink); border:2px solid var(--green); border-radius:var(--r-lg); padding:20px 22px; margin:18px 0 8px; line-height:1.6; font-size:17px; }
-.tldr b { display:block; color:var(--green); font-size:12px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; }
-.tldr strong { color:var(--green-text); }
+.tldr { background:var(--green-deep); color:#eaf3ec; border-radius:var(--r-lg); padding:20px 22px; margin:18px 0 8px; line-height:1.6; font-size:17px; }
+.tldr b { display:block; color:var(--lime); font-size:12px; letter-spacing:.1em; text-transform:uppercase; margin-bottom:8px; }
+.tldr strong { color:#fff; }
 .bang-wrap { overflow-x:auto; margin:14px 0; }
 table.bang { border-collapse:collapse; width:100%; min-width:520px; font-size:15px; }
 table.bang th, table.bang td { border:1px solid var(--line); padding:11px 13px; text-align:left; vertical-align:top; line-height:1.5; }
@@ -144,16 +144,16 @@ dl.faq dt { font-weight:700; margin:16px 0 5px; }
 dl.faq dd { margin:0; color:var(--muted); line-height:1.6; }
 .so-sanh-lien { border:1px solid var(--line); border-radius:var(--r-lg); padding:16px 19px; margin:26px 0 0; background:var(--card); }
 .so-sanh-lien h4 { margin:0; font-size:15px; color:var(--sand-text); }
-.so-sanh-banner { display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; background:var(--tint-purple); color:var(--ink); border:1px solid #dcd3fb; border-radius:var(--r-lg); padding:20px 24px; margin-top:14px; }
-.so-sanh-banner .txt b { display:block; font-size:19px; letter-spacing:-.03em; margin-bottom:4px; }
-.so-sanh-banner .txt span { color:var(--muted); font-size:15px; line-height:1.55; }
-.so-sanh-banner a { flex:none; background:var(--purple); color:#fff; font-weight:700; padding:12px 20px; border-radius:var(--r-pill); text-decoration:none; white-space:nowrap; }
+.so-sanh-banner { display:flex; align-items:center; justify-content:space-between; gap:20px; flex-wrap:wrap; background:var(--green-deep); color:#eaf3ec; border-radius:var(--r-lg); padding:20px 24px; margin-top:14px; }
+.so-sanh-banner .txt b { display:block; font-size:19px; letter-spacing:-.03em; margin-bottom:4px; color:#fff; }
+.so-sanh-banner .txt span { color:#b5ccb8; font-size:15px; line-height:1.55; }
+.so-sanh-banner a { flex:none; background:var(--lime); color:var(--ink); font-weight:700; padding:12px 20px; border-radius:var(--r-pill); text-decoration:none; white-space:nowrap; }
 @media(max-width:760px) { .so-sanh-banner a { width:100%; text-align:center; } }
 
 /* ── Phản hồi tương tác (theo MASTER.md §6) ── */
 .chip, .search button, .close, .related a, .related button, .lotrinh-banner a, .so-sanh-banner a, .full-link, .nav a, .badge-moc { transition:background-color var(--fast) var(--ease), color var(--fast) var(--ease), border-color var(--fast) var(--ease), transform var(--fast) var(--ease); }
-.search button:hover, .lotrinh-banner a:hover { background:var(--green-text); box-shadow:var(--pop-sm); }
-.so-sanh-banner a:hover { background:var(--purple-text); }
+.search button:hover, .lotrinh-banner a:hover { background:#125c38; }
+.so-sanh-banner a:hover { background:#e4f77f; }
 .search button:active, .chip:active, .close:active, .related button:active, .related a:active, .lotrinh-banner a:active, .so-sanh-banner a:active { transform:translateY(1px); }
 :where(a, button, input, [tabindex]):focus-visible { outline:3px solid var(--green); outline-offset:2px; }
 .search:focus-within { border-color:var(--green); }

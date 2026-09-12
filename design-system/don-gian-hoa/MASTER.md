@@ -25,7 +25,7 @@ Một câu mô tả: **"Tươi sáng nhưng không gắt, mọi thứ bo tròn, 
 --card       #ffffff   nền thẻ
 
 --green      #177245   màu chính: nút, link, số thứ tự, focus ring
---green-deep #193629   dự phòng cho chữ rất đậm; KHÔNG dùng làm nền khối
+--green-deep #193629   khối tối (hero card, TL;DR, banner so sánh)
 --green-text #207145   chữ nhấn xanh trên nền sáng
 --lime       #d9f26c   điểm nhấn: bóng pop, marker, chip active. KHÔNG dùng làm nền chữ dài
 --purple     #6c48da   liên kết chéo / "xem thêm" (chỉ 1 vai trò, không lạm dụng)
@@ -38,7 +38,7 @@ Tint (nền nhạt cho hộp ghi chú):
 ```
 
 Quy tắc:
-- **Không có khối nền tối.** Thứ cần nổi bật dùng nền trắng/tint + viền 2px `--green` + bóng lime pop (hero card, TL;DR), không dùng nền sẫm.
+- Tối đa **1 khối `--green-deep` trên một màn hình** — nó là điểm neo, nhiều quá thành nặng.
 - Lime chỉ đi cùng `--ink`/`#123a26` (chữ tối). Không đặt chữ trắng lên lime.
 - Không thêm màu mới; cần trạng thái mới thì tạo tint từ màu sẵn có.
 
@@ -95,14 +95,13 @@ Mỗi trang tối đa **một** phần tử dùng pop-lg.
 | Nút chính | nền green, chữ trắng, weight 750, r-sm (trong form) hoặc pill (CTA) |
 | Nút phụ | nền tint-mint hoặc tint-purple, không viền |
 | Hộp ghi chú | tint + viền trái 4px + r-md; màu viền nói nội dung: lime = ví von, cam = hay nhầm |
-| Khối nhấn (hero card, TL;DR) | card hoặc tint-lime + viền 2px green + pop-lg/sm, nhãn green uppercase 12px |
-| Khối code | tint-mint, viền line, chữ ink; comment muted, string green-text |
+| Khối tối | green-deep, chữ #eaf3ec, nhãn lime uppercase 12px |
 | Panel nổi | card, line, r-lg, float-md, offset 8px dưới trigger |
 
 ## 8. Tránh
 
 - Emoji làm icon chức năng (emoji trong `.term .icon` là minh hoạ, không phải nút).
-- Gradient, blur nền, viền đen dày, **nền khối màu sẫm** — lệch khỏi tông "tươi sáng, mềm".
+- Gradient, blur nền, viền đen dày — lệch khỏi tông "mềm".
 - Bóng pop cho phần tử nhỏ lặp lại (list item, chip) — bóng pop mất giá trị khi xuất hiện nhiều.
 - Chữ xám trên nền xám (`--muted` chỉ đặt trên `--paper`/`--card`).
 - Hardcode hex trong CSS mới — dùng token; thiếu token thì thêm vào `:root` và ghi vào đây.
