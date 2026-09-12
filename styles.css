@@ -137,3 +137,14 @@ dl.faq dd { margin:0; color:var(--muted); line-height:1.6; }
 .so-sanh-banner .txt span { color:#b5ccb8; font-size:15px; line-height:1.55; }
 .so-sanh-banner a { flex:none; background:var(--lime); color:#18251e; font-weight:700; padding:12px 20px; border-radius:100px; text-decoration:none; white-space:nowrap; }
 @media(max-width:760px) { .so-sanh-banner a { width:100%; text-align:center; } }
+
+/* ---- Sổ tay ---- */
+.so-tay .loi { background:#fdf1ef; border-left:4px solid #d9534f; border-radius:0 12px 12px 0; padding:15px 17px; margin:18px 0 8px; overflow-x:auto; font-size:14px; line-height:1.65; color:#7a2a26; font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace; white-space:pre; }
+.bai-hoc { margin:12px 0 0; padding-left:0; list-style:none; counter-reset:bh; }
+.bai-hoc li { position:relative; padding:12px 0 12px 42px; border-bottom:1px solid var(--line); line-height:1.6; counter-increment:bh; }
+.bai-hoc li:last-child { border-bottom:0; }
+.bai-hoc li:before { content:counter(bh); position:absolute; left:0; top:12px; width:28px; height:28px; border-radius:50%; background:var(--lime); color:#123a26; font-weight:800; font-size:14px; display:grid; place-items:center; }
+.bai-hoc b { color:var(--ink); }
+.bai-hoc code, .lien-quan code { background:#eef4ed; padding:1px 6px; border-radius:6px; font-size:.92em; }
+.lien-quan { margin-top:28px; color:var(--muted); font-size:15px; }
+.lien-quan a { font-weight:700; text-decoration:none; }

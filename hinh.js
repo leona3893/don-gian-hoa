@@ -252,6 +252,9 @@ export const HINH = {
 
 '_lo-trinh': `<line x1="-120" y1="0" x2="120" y2="0"/><circle cx="-100" cy="0" r="18" fill="${LIME}"/><circle cx="0" cy="0" r="18" fill="${BG}"/><circle cx="100" cy="0" r="18" fill="${BG}"/><path d="M-100,-18 L-100,-80 L-50,-65 L-100,-50"/>`,
 
+// sổ tay gáy lò xo, một dòng đã tick
+'_so-tay': `<rect x="-84" y="-110" width="168" height="220" rx="14"/><line x1="-84" y1="-62" x2="84" y2="-62"/><circle cx="-60" cy="-110" r="9" fill="${BG}"/><circle cx="-20" cy="-110" r="9" fill="${BG}"/><circle cx="20" cy="-110" r="9" fill="${BG}"/><circle cx="60" cy="-110" r="9" fill="${BG}"/><path d="M-50,-10 L-30,10 L2,-24" stroke-width="10"/><line x1="18" y1="-6" x2="60" y2="-6"/><line x1="-50" y1="44" x2="60" y2="44"/><line x1="-50" y1="80" x2="30" y2="80"/>`,
+
 '_so-sanh': `<line x1="0" y1="-104" x2="0" y2="92"/><line x1="-64" y1="92" x2="64" y2="92"/><line x1="-114" y1="-78" x2="114" y2="-78"/><line x1="-114" y1="-78" x2="-114" y2="-14"/><path d="M-158,-14 Q-114,26 -70,-14"/><line x1="114" y1="-78" x2="114" y2="-14"/><path d="M70,-14 Q114,26 158,-14"/>`
 
 };

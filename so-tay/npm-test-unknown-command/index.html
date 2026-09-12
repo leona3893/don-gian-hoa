@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gõ npm test thì báo &quot;unknown command test&quot; — IT nói tiếng người</title>
+  <meta name="description" content="Nhìn dòng nhắc trước khi gõ · Clone mới = cài lại thư viện · cd .. lùi ra, cd tên-folder đi vào" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-tay/npm-test-unknown-command/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Gõ npm test thì báo &quot;unknown command test&quot;" />
+  <meta property="og:description" content="Nhìn dòng nhắc trước khi gõ · Clone mới = cài lại thư viện · cd .. lùi ra, cd tên-folder đi vào" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-tay/npm-test-unknown-command/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/so-tay-npm-test-unknown-command.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/so-tay-npm-test-unknown-command.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"Sổ tay","item":"https://leona3893.github.io/don-gian-hoa/so-tay/"},{"@type":"ListItem","position":3,"name":"Gõ npm test thì báo \"unknown command test\"","item":"https://leona3893.github.io/don-gian-hoa/so-tay/npm-test-unknown-command/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">Sổ tay</a> › Gõ npm test thì báo &quot;unknown command test&quot;</nav>
+    <article class="article so-tay">
+      <span class="tag">Kiểm thử</span>
+      <h1>Gõ npm test thì báo &quot;unknown command test&quot;</h1>
+      <pre class="loi">PS D:\thu-nghiem\don-gian-hoa\tests&gt; npm test
+error: unknown command &#39;test&#39;</pre>
+
+      <h2>Sửa</h2>
+      <pre class="code">cd D:\thu-nghiem\don-gian-hoa
+npm install
+npx playwright install chromium
+npm test</pre>
+
+      <h2>Vì sao &amp; nhớ gì</h2>
+      <ol class="bai-hoc"><li><b>Nhìn dòng nhắc trước khi gõ</b> — Dòng <code>PS D:\...&gt;</code> cho biết bạn đang đứng ở đâu. Mọi lệnh <code>npm</code>/<code>npx</code> phải gõ ở gốc dự án — chỗ có <code>package.json</code>.</li><li><b>Clone mới = cài lại thư viện</b> — <code>node_modules</code> không nằm trong Git (xem <code>.gitignore</code>), nên mỗi bản clone phải tự <code>npm install</code>. Thiếu nó, máy gọi nhầm một <code>playwright</code> khác cài sẵn — bản đó không có lệnh <code>test</code>.</li><li><b>cd .. lùi ra, cd tên-folder đi vào</b> — Muốn sang folder ngang hàng thì lùi ra trước rồi mới đi vào.</li></ol>
+
+      <p class="lien-quan">Liên quan: <a href="../../thuat-ngu/git/">Git</a> · <a href="../../thuat-ngu/playwright/">Playwright</a> · <a href="../../thuat-ngu/test-runner/">Test Runner</a></p>
+
+      <a class="back" href="../">← Xem các ghi chú khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

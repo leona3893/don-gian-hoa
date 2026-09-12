@@ -1,10 +1,11 @@
-// Sinh trang tĩnh cho từng thuật ngữ + trang lộ trình + sitemap.
+// Sinh trang tĩnh cho từng thuật ngữ + trang lộ trình + so sánh + sổ tay + sitemap.
 // Chạy lại mỗi khi sửa terms.js hoặc chi-tiet.js:   node build.mjs
 import fs from 'fs';
 import path from 'path';
 import { TERMS, slugify } from './terms.js';
 import { TRACKS, CHI_TIET } from './chi-tiet.js';
 import { SO_SANH } from './so-sanh.js';
+import { SO_TAY } from './so-tay.js';
 import { renderOG } from './og.mjs';
 import { HINH } from './hinh.js';
 
@@ -148,7 +149,7 @@ const page = t => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a></div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › ${esc(t.name)}</nav>
     <article class="article">
       <span class="tag">${esc(t.cat)}</span>${badge}
@@ -200,7 +201,7 @@ const trangLoTrinh = () => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../lo-trinh/">Lộ trình</a><a href="../so-sanh/">So sánh</a></div></header>
+    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../lo-trinh/">Lộ trình</a><a href="../so-sanh/">So sánh</a><a href="../so-tay/">Sổ tay</a></div></header>
     <nav class="crumb"><a href="../">Trang chủ</a> › Lộ trình</nav>
     <article class="article">
       <h1>Bạn đang ở mốc nào?</h1>
@@ -262,7 +263,7 @@ const trangSoSanh = s => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a></div></header>
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a></div></header>
     <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">So sánh</a> › ${esc(s.h1)}</nav>
     <article class="article">
       <span class="tag">${esc(s.cat)}</span>
@@ -326,7 +327,7 @@ const trangSoSanhIndex = () => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../lo-trinh/">Lộ trình</a><a href="../so-sanh/">So sánh</a></div></header>
+    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../lo-trinh/">Lộ trình</a><a href="../so-sanh/">So sánh</a><a href="../so-tay/">Sổ tay</a></div></header>
     <nav class="crumb"><a href="../">Trang chủ</a> › So sánh</nav>
     <article class="article">
       <h1>Hay bị nhầm lẫn</h1>
@@ -335,6 +336,110 @@ const trangSoSanhIndex = () => {
       <h2>${esc(c)}</h2>
       <ul class="nextlist">${SO_SANH.filter(s => s.cat === c).map(s =>
         `<li><a href="${s.slug}/">${esc(s.h1)}</a><span>${s.tldr.replace(/<[^>]+>/g, '')}</span></li>`
+      ).join('')}</ul>`).join('')}
+      <a class="back" href="../">← Xem tất cả thuật ngữ</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>
+`;
+};
+
+const trangSoTay = n => {
+  const url = `${SITE}so-tay/${n.slug}/`;
+  const title = `${n.h1} — IT nói tiếng người`;
+  const desc = n.baiHoc.map(b => b.ten).join(' · ').slice(0, 155);
+  const linkTerm = t => TERMS.some(x => x.name === t)
+    ? `<a href="../../thuat-ngu/${slugify(t)}/">${esc(t)}</a>` : esc(t);
+  const crumbs = {
+    '@context': 'https://schema.org', '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Trang chủ', item: SITE },
+      { '@type': 'ListItem', position: 2, name: 'Sổ tay', item: `${SITE}so-tay/` },
+      { '@type': 'ListItem', position: 3, name: n.h1, item: url }
+    ]
+  };
+
+  return `<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${esc(title)}</title>
+  <meta name="description" content="${esc(desc)}" />
+  <link rel="canonical" href="${url}" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="${esc(n.h1)}" />
+  <meta property="og:description" content="${esc(desc)}" />
+  <meta property="og:url" content="${url}" />
+  ${ogMeta('og/so-tay-' + n.slug + '.png')}
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">${JSON.stringify(crumbs)}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">Sổ tay</a> › ${esc(n.h1)}</nav>
+    <article class="article so-tay">
+      <span class="tag">${esc(n.cat)}</span>
+      <h1>${esc(n.h1)}</h1>
+      <pre class="loi">${esc(n.loi)}</pre>
+
+      <h2>Sửa</h2>
+      <pre class="code">${n.sua.map(esc).join('\n')}</pre>
+
+      <h2>Vì sao &amp; nhớ gì</h2>
+      <ol class="bai-hoc">${n.baiHoc.map(b =>
+        `<li><b>${esc(b.ten)}</b> — ${b.y}</li>`
+      ).join('')}</ol>
+
+      <p class="lien-quan">Liên quan: ${n.terms.map(linkTerm).join(' · ')}</p>
+
+      <a class="back" href="../">← Xem các ghi chú khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>
+`;
+};
+
+const trangSoTayIndex = () => {
+  const url = `${SITE}so-tay/`;
+  const nhom = [...new Set(SO_TAY.map(n => n.cat))];
+  return `<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sổ tay — lỗi thật gặp khi thực hành · IT nói tiếng người</title>
+  <meta name="description" content="Ghi chép những lỗi thật gặp khi thực hành: máy báo gì, gõ gì để sửa, và nhớ gì cho lần sau." />
+  <link rel="canonical" href="${url}" />
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Sổ tay — lỗi thật gặp khi thực hành" />
+  <meta property="og:description" content="Máy báo gì, gõ gì để sửa, và nhớ gì cho lần sau." />
+  <meta property="og:url" content="${url}" />
+  ${ogMeta('og/so-tay.png')}
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../lo-trinh/">Lộ trình</a><a href="../so-sanh/">So sánh</a><a href="../so-tay/">Sổ tay</a></div></header>
+    <nav class="crumb"><a href="../">Trang chủ</a> › Sổ tay</nav>
+    <article class="article">
+      <h1>Sổ tay</h1>
+      <p class="plain">Lỗi thật, gặp khi tự tay thực hành. Mỗi ghi chú chỉ có ba phần: <strong>máy báo gì</strong>, <strong>gõ gì để sửa</strong>, và <strong>nhớ gì cho lần sau</strong>.</p>
+      ${nhom.map(c => `
+      <h2>${esc(c)}</h2>
+      <ul class="nextlist">${SO_TAY.filter(n => n.cat === c).map(n =>
+        `<li><a href="${n.slug}/">${esc(n.h1)}</a><span>${n.baiHoc.map(b => esc(b.ten)).join(' · ')}</span></li>`
       ).join('')}</ul>`).join('')}
       <a class="back" href="../">← Xem tất cả thuật ngữ</a>
     </article>
@@ -365,6 +470,13 @@ for (const s of SO_SANH) {
   fs.writeFileSync(path.join('so-sanh', s.slug, 'index.html'), trangSoSanh(s), 'utf8');
 }
 
+fs.mkdirSync('so-tay', { recursive: true });
+fs.writeFileSync(path.join('so-tay', 'index.html'), trangSoTayIndex(), 'utf8');
+for (const n of SO_TAY) {
+  fs.mkdirSync(path.join('so-tay', n.slug), { recursive: true });
+  fs.writeFileSync(path.join('so-tay', n.slug, 'index.html'), trangSoTay(n), 'utf8');
+}
+
 // --- Ảnh chia sẻ ---
 const stripHtml = s => String(s).replace(/<[^>]+>/g, '');
 fs.mkdirSync('og', { recursive: true });
@@ -373,7 +485,9 @@ const anh = [
   { file: 'lo-trinh.png', title: 'Bạn đang ở mốc nào?', sub: 'Ba mốc học, đo bằng việc bạn làm được chứ không phải thời gian.', hinhKey: '_lo-trinh' },
   { file: 'so-sanh.png', title: 'Hay bị nhầm lẫn', sub: 'Mock hay Stub? Smoke hay Sanity? Trả lời thẳng trong một câu.', hinhKey: '_so-sanh' },
   ...TERMS.map(t => ({ file: `${slugify(t.name)}.png`, title: `${t.name} là gì?`, sub: t.brief, hinhKey: t.name })),
-  ...SO_SANH.map(s => ({ file: `so-sanh-${s.slug}.png`, title: s.h1, sub: stripHtml(s.tldr), hinhKey: '_so-sanh' }))
+  ...SO_SANH.map(s => ({ file: `so-sanh-${s.slug}.png`, title: s.h1, sub: stripHtml(s.tldr), hinhKey: '_so-sanh' })),
+  { file: 'so-tay.png', title: 'Sổ tay', sub: 'Lỗi thật gặp khi thực hành: máy báo gì, sửa thế nào, nhớ gì.', hinhKey: '_so-tay' },
+  ...SO_TAY.map(n => ({ file: `so-tay-${n.slug}.png`, title: n.h1, sub: n.baiHoc.map(b => b.ten).join(' · '), hinhKey: '_so-tay' }))
 ];
 let thieuHinh = 0;
 for (const a of anh) {
@@ -388,6 +502,8 @@ const urls = [
   `${SITE}lo-trinh/`,
   `${SITE}so-sanh/`,
   ...SO_SANH.map(s => `${SITE}so-sanh/${s.slug}/`),
+  `${SITE}so-tay/`,
+  ...SO_TAY.map(n => `${SITE}so-tay/${n.slug}/`),
   ...TERMS.map(t => `${SITE}${OUT}/${slugify(t.name)}/`)
 ];
 fs.writeFileSync('sitemap.xml',
@@ -397,5 +513,5 @@ fs.writeFileSync('sitemap.xml',
 
 fs.writeFileSync('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE}sitemap.xml\n`, 'utf8');
 
-console.log(`Đã sinh ${written} trang thuật ngữ (${coChiTiet} bản 4 tầng, ${written - coChiTiet} bản gọn) + trang lộ trình, sitemap ${urls.length} URL.`);
+console.log(`Đã sinh ${written} trang thuật ngữ (${coChiTiet} bản 4 tầng, ${written - coChiTiet} bản gọn) + lộ trình + ${SO_SANH.length} so sánh + ${SO_TAY.length} sổ tay, sitemap ${urls.length} URL.`);
 console.log(`Ảnh chia sẻ: ${anh.length} ảnh trong og/${thieuHinh ? `, ${thieuHinh} ảnh dùng hình mặc định` : ''}.`);
