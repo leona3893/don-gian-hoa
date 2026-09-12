@@ -145,6 +145,7 @@ dl.faq dd { margin:0; color:var(--muted); line-height:1.6; }
 .bai-hoc li:last-child { border-bottom:0; }
 .bai-hoc li:before { content:counter(bh); position:absolute; left:0; top:12px; width:28px; height:28px; border-radius:50%; background:var(--lime); color:#123a26; font-weight:800; font-size:14px; display:grid; place-items:center; }
 .bai-hoc b { color:var(--ink); }
+.bai-hoc b code { font-weight:700; }
 .bai-hoc code, .lien-quan code { background:#eef4ed; padding:1px 6px; border-radius:6px; font-size:.92em; }
 .lien-quan { margin-top:28px; color:var(--muted); font-size:15px; }
 .lien-quan a { font-weight:700; text-decoration:none; }

@@ -349,7 +349,7 @@ const trangSoSanhIndex = () => {
 const trangSoTay = n => {
   const url = `${SITE}so-tay/${n.slug}/`;
   const title = `${n.h1} — IT nói tiếng người`;
-  const desc = n.baiHoc.map(b => b.ten).join(' · ').slice(0, 155);
+  const desc = n.baiHoc.map(b => b.ten.replace(/<[^>]+>/g, '')).join(' · ').slice(0, 155);
   const linkTerm = t => TERMS.some(x => x.name === t)
     ? `<a href="../../thuat-ngu/${slugify(t)}/">${esc(t)}</a>` : esc(t);
   const crumbs = {
@@ -394,7 +394,7 @@ const trangSoTay = n => {
 
       <h2>Vì sao &amp; nhớ gì</h2>
       <ol class="bai-hoc">${n.baiHoc.map(b =>
-        `<li><b>${esc(b.ten)}</b> — ${b.y}</li>`
+        `<li><b>${b.ten}</b> — ${b.y}</li>`
       ).join('')}</ol>
 
       <p class="lien-quan">Liên quan: ${n.terms.map(linkTerm).join(' · ')}</p>
@@ -439,7 +439,7 @@ const trangSoTayIndex = () => {
       ${nhom.map(c => `
       <h2>${esc(c)}</h2>
       <ul class="nextlist">${SO_TAY.filter(n => n.cat === c).map(n =>
-        `<li><a href="${n.slug}/">${esc(n.h1)}</a><span>${n.baiHoc.map(b => esc(b.ten)).join(' · ')}</span></li>`
+        `<li><a href="${n.slug}/">${esc(n.h1)}</a><span>${n.baiHoc.map(b => esc(b.ten.replace(/<[^>]+>/g, ''))).join(' · ')}</span></li>`
       ).join('')}</ul>`).join('')}
       <a class="back" href="../">← Xem tất cả thuật ngữ</a>
     </article>
@@ -487,7 +487,7 @@ const anh = [
   ...TERMS.map(t => ({ file: `${slugify(t.name)}.png`, title: `${t.name} là gì?`, sub: t.brief, hinhKey: t.name })),
   ...SO_SANH.map(s => ({ file: `so-sanh-${s.slug}.png`, title: s.h1, sub: stripHtml(s.tldr), hinhKey: '_so-sanh' })),
   { file: 'so-tay.png', title: 'Sổ tay', sub: 'Lỗi thật gặp khi thực hành: máy báo gì, sửa thế nào, nhớ gì.', hinhKey: '_so-tay' },
-  ...SO_TAY.map(n => ({ file: `so-tay-${n.slug}.png`, title: n.h1, sub: n.baiHoc.map(b => b.ten).join(' · '), hinhKey: '_so-tay' }))
+  ...SO_TAY.map(n => ({ file: `so-tay-${n.slug}.png`, title: n.h1, sub: n.baiHoc.map(b => stripHtml(b.ten)).join(' · '), hinhKey: '_so-tay' }))
 ];
 let thieuHinh = 0;
 for (const a of anh) {

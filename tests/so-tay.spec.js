@@ -18,7 +18,7 @@ test('mỗi ghi chú có đủ khối lỗi, lệnh sửa và đúng số bài h
     await expect(page.locator('pre.loi')).toContainText(n.loi.split('\n')[0]);
     await expect(page.locator('pre.code')).toContainText(n.sua[0]);
     await expect(page.locator('.bai-hoc li')).toHaveCount(n.baiHoc.length);
-    await expect(page.locator('.bai-hoc li b').first()).toHaveText(n.baiHoc[0].ten);
+    await expect(page.locator('.bai-hoc li b').first()).toHaveText(n.baiHoc[0].ten.replace(/<[^>]+>/g, ''));
   }
 });
 

@@ -38,7 +38,7 @@ npx playwright install chromium
 npm test</pre>
 
       <h2>Vì sao &amp; nhớ gì</h2>
-      <ol class="bai-hoc"><li><b>Nhìn dòng nhắc trước khi gõ</b> — Dòng <code>PS D:\...&gt;</code> cho biết bạn đang đứng ở đâu. Mọi lệnh <code>npm</code>/<code>npx</code> phải gõ ở gốc dự án — chỗ có <code>package.json</code>.</li><li><b>Clone mới = cài lại thư viện</b> — <code>node_modules</code> không nằm trong Git (xem <code>.gitignore</code>), nên mỗi bản clone phải tự <code>npm install</code>. Thiếu nó, máy gọi nhầm một <code>playwright</code> khác cài sẵn — bản đó không có lệnh <code>test</code>.</li><li><b>cd .. lùi ra, cd tên-folder đi vào</b> — Muốn sang folder ngang hàng thì lùi ra trước rồi mới đi vào.</li></ol>
+      <ol class="bai-hoc"><li><b>Nhìn dòng nhắc trước khi gõ</b> — Dòng <code>PS D:\...&gt;</code> cho biết bạn đang đứng ở đâu. Mọi lệnh <code>npm</code>/<code>npx</code> phải gõ ở gốc dự án — chỗ có <code>package.json</code>.</li><li><b>Clone mới = cài lại thư viện</b> — <code>node_modules</code> không nằm trong Git (xem <code>.gitignore</code>), nên mỗi bản clone phải tự <code>npm install</code>. Thiếu nó, máy gọi nhầm một <code>playwright</code> khác cài sẵn — bản đó không có lệnh <code>test</code>.</li><li><b><code>cd ..</code> lùi ra, <code>cd tên-folder</code> đi vào</b> — Muốn sang folder ngang hàng thì lùi ra trước rồi mới đi vào.</li></ol>
 
       <p class="lien-quan">Liên quan: <a href="../../thuat-ngu/git/">Git</a> · <a href="../../thuat-ngu/playwright/">Playwright</a> · <a href="../../thuat-ngu/test-runner/">Test Runner</a></p>
 
