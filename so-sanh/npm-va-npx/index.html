@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>npm và npx khác nhau thế nào? — IT nói tiếng người</title>
+  <meta name="description" content="npm là người quản kho: tải thư viện về và bấm những nút đã đặt tên sẵn. npx là chạy thẳng một chương trình trong kho đó, tự thêm tuỳ chọn tuỳ…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-sanh/npm-va-npx/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="npm và npx khác nhau thế nào?" />
+  <meta property="og:description" content="npm là người quản kho: tải thư viện về và bấm những nút đã đặt tên sẵn. npx là chạy thẳng một chương trình trong kho đó, tự thêm tuỳ chọn tuỳ…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-sanh/npm-va-npx/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/so-sanh-npm-va-npx.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/so-sanh-npm-va-npx.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"npm run report và npx playwright show-report có khác gì không?","acceptedAnswer":{"@type":"Answer","text":"Không. Mở package.json sẽ thấy dòng \"report\": \"playwright show-report\" — npm run report chỉ là phím tắt tra bảng rồi chạy đúng lệnh đó."}},{"@type":"Question","name":"Vì sao npm test không cần chữ run?","acceptedAnswer":{"@type":"Answer","text":"test và start là hai tên đặc biệt npm cho gõ tắt. Các tên khác như build, report vẫn phải có run."}},{"@type":"Question","name":"Có cần cài npx riêng không?","acceptedAnswer":{"@type":"Answer","text":"Không. npx đi kèm npm từ phiên bản 5.2, cài Node.js là có cả hai."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"So sánh","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/"},{"@type":"ListItem","position":3,"name":"npm và npx khác nhau thế nào?","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/npm-va-npx/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">So sánh</a> › npm và npx khác nhau thế nào?</nav>
+    <article class="article">
+      <span class="tag">Nền tảng</span>
+      <h1>npm và npx khác nhau thế nào?</h1>
+      <div class="tldr"><b>Trả lời ngắn</b>npm là <strong>người quản kho</strong>: tải thư viện về và bấm những nút đã đặt tên sẵn. npx là <strong>chạy thẳng một chương trình trong kho đó</strong>, tự thêm tuỳ chọn tuỳ ý.</div>
+
+      <h2>Bảng so sánh</h2>
+      <div class="bang-wrap"><table class="bang">
+        <thead><tr><th></th><th>npm</th><th>npx</th></tr></thead>
+        <tbody><tr><th scope="row">Việc chính</th><td>Tải thư viện (<code>npm install</code>) và chạy nút có tên trong <code>package.json</code> (<code>npm run …</code>)</td><td>Chạy trực tiếp một chương trình nằm trong <code>node_modules</code></td></tr><tr><th scope="row">Lệnh đi sau nó</th><td>Tên nút do dự án đặt: <code>build</code>, <code>test</code>, <code>report</code></td><td>Tên chương trình thật: <code>playwright</code>, <code>serve</code></td></tr><tr><th scope="row">Thêm tuỳ chọn</th><td>Không tiện — nút ghi sao chạy vậy</td><td>Thoải mái: <code>--headed</code>, <code>--debug</code>, một file cụ thể</td></tr><tr><th scope="row">Nếu chưa cài</th><td>Báo lỗi hoặc gọi nhầm bản khác trên máy</td><td>Tự tải tạm về chạy rồi vứt</td></tr><tr><th scope="row">Ví dụ cùng một việc</th><td><code>npm run report</code></td><td><code>npx playwright show-report</code></td></tr></tbody>
+      </table></div>
+
+      <div class="nho"><h4>💡 Cách nhớ</h4><strong>npm = bấm nút có sẵn. npx = cầm dụng cụ lên dùng trực tiếp.</strong> Nút thì ai bấm cũng giống nhau; cầm trực tiếp thì tự chỉnh được.</div>
+
+      <h2>Chọn cái nào?</h2>
+      <ul class="chon"><li><b>Nếu Việc lặp lại hàng ngày, dự án đã đặt tên sẵn (build, test)</b><span>→ npm run — ngắn và cả team gõ giống nhau</span></li><li><b>Nếu Cần chạy 1 file test hoặc bật <code>--headed</code> để nhìn trình duyệt</b><span>→ npx playwright test … — nút không có tuỳ chọn này</span></li><li><b>Nếu Muốn thử một công cụ một lần</b><span>→ npx — không phải cài toàn máy</span></li></ul>
+
+      <div class="leak"><h4>⚠ Bẫy thường gặp</h4><p><code>npx</code> ở một folder <strong>chưa</strong> <code>npm install</code> sẽ âm thầm tải bản mới nhất về chạy — có thể khác phiên bản dự án đang dùng. Test đỏ mà lý do chẳng liên quan gì tới code. Luôn <code>npm install</code> trước, rồi mới npx.</p></div>
+
+      <h2>Câu hỏi hay gặp</h2>
+      <dl class="faq"><dt>npm run report và npx playwright show-report có khác gì không?</dt><dd>Không. Mở package.json sẽ thấy dòng &quot;report&quot;: &quot;playwright show-report&quot; — npm run report chỉ là phím tắt tra bảng rồi chạy đúng lệnh đó.</dd><dt>Vì sao npm test không cần chữ run?</dt><dd>test và start là hai tên đặc biệt npm cho gõ tắt. Các tên khác như build, report vẫn phải có run.</dd><dt>Có cần cài npx riêng không?</dt><dd>Không. npx đi kèm npm từ phiên bản 5.2, cài Node.js là có cả hai.</dd></dl>
+
+      <h2>Đọc kỹ từng thuật ngữ</h2>
+      <div class="related"><a href="../../thuat-ngu/npm/">npm</a><a href="../../thuat-ngu/npx/">npx</a></div>
+
+      <a class="back" href="../">← Xem các bảng so sánh khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

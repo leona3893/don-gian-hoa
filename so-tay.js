@@ -1,5 +1,6 @@
 // Sổ tay: ghi lại LỖI THẬT gặp khi thực hành, theo đúng một khuôn —
 // máy báo gì → gõ gì để sửa → vì sao & nhớ gì cho lần sau.
+// Khối đầu là `loi` (máy báo gì, nguyên văn) hoặc `hoi` (câu hỏi) — chọn một.
 // Mỗi ghi chú tối đa 4 bài học; nhiều hơn thì tách thành ghi chú mới.
 // Lệnh, tên file, đoạn code trong `ten` và `y` bọc bằng <code>…</code> để nổi bật.
 // Lưu ý: đường dẫn Windows phải viết \\ (hai dấu) trong chuỗi JS, không thì \t thành tab.
@@ -23,6 +24,22 @@ error: unknown command 'test'`,
     {ten:'<code>cd ..</code> lùi ra, <code>cd tên-folder</code> đi vào', y:'Muốn sang folder ngang hàng thì lùi ra trước rồi mới đi vào.'}
   ],
   terms:['Git','Playwright','Test Runner']
+},
+
+{
+  slug:'npm-run-report-va-npx-playwright-show-report', cat:'Kiểm thử',
+  h1:'npm run report và npx playwright show-report khác nhau gì?',
+  hoi:'Hai lệnh này đều mở báo cáo test. Gõ cái nào cũng được, hay có khác gì?',
+  sua:[
+    'npm run report',
+    'npx playwright show-report'
+  ],
+  baiHoc:[
+    {ten:'Hai lệnh làm cùng một việc', y:'Mở <code>package.json</code>, mục <code>scripts</code> có dòng <code>"report": "playwright show-report"</code>. <code>npm run report</code> chỉ là phím tắt: npm tra bảng đó rồi chạy đúng lệnh bên phải hộ bạn.'},
+    {ten:'<code>npm</code> = quản kho + bấm nút có sẵn', y:'<code>npm install</code> tải thư viện về <code>node_modules</code>; <code>npm run &lt;tên&gt;</code> bấm nút đã đặt tên trong <code>scripts</code>. Riêng <code>npm test</code> và <code>npm start</code> được gõ tắt, không cần chữ <code>run</code>.'},
+    {ten:'<code>npx</code> = chạy thẳng một chương trình trong kho', y:'Khi cần thêm tuỳ chọn mà nút không có — chạy 1 file, bật <code>--headed</code> — thì dùng <code>npx playwright test …</code>. Việc lặp lại hàng ngày thì dùng nút <code>npm run</code> để cả team gõ giống nhau.'}
+  ],
+  terms:['npm','npx','Playwright','Test Report']
 }
 
 ];

@@ -1053,6 +1053,46 @@ git pull`,
         {ten:'Branch', vi:'Không có nhánh thì không có PR.'}],
   try:`Vào tab <strong>Pull requests</strong> của một dự án mã nguồn mở lớn (React, VS Code…). Mở một PR đã merge: đọc mô tả, cuộn xuống xem bình luận và dấu tick CI. Đó là cách phần lớn phần mềm trên thế giới được thay đổi.`},
 
+'npm': { moc:1,
+  leak:`<p>Sổ đi chợ — nhưng <span class="punch">đồ mua về (<code>node_modules</code>) không đi theo dự án khi bạn clone. Chỉ có sổ đi chợ (<code>package.json</code>) được lưu trong Git.</span></p>
+<p>Vì thế bản clone mới nào cũng phải <code>npm install</code> lại từ đầu. Đây là nguồn của lỗi kinh điển “gõ lệnh mà máy không hiểu”: thư viện chưa được tải về nên lệnh không tồn tại, hoặc máy vớ nhầm một bản khác đang cài sẵn.</p>`,
+  code:`npm install              <span class="c"># đọc package.json, tải thư viện vào node_modules</span>
+npm run build            <span class="c"># bấm "nút" tên build trong mục scripts</span>
+npm test                 <span class="c"># viết tắt của npm run test</span>
+
+<span class="c"># Trong package.json, mục scripts chính là bảng tên các nút:</span>
+<span class="c">"scripts": {
+  "build":  "node build.mjs",
+  "test":   "playwright test",
+  "report": "playwright show-report"
+}</span>`,
+  cap:'<strong>npm run &lt;tên&gt;</strong> chỉ là phím tắt: npm tra bảng scripts rồi chạy lệnh bên phải hộ bạn.',
+  yes:['Vừa clone dự án về — chạy <code>npm install</code> trước khi làm gì khác','Việc lặp lại hàng ngày mà dự án đã đặt tên sẵn (build, test, report)','Muốn cả team gõ cùng một lệnh ra cùng một kết quả'],
+  no:['Cần thêm tuỳ chọn mà nút không có sẵn (ví dụ chạy 1 file test) — dùng npx','Sửa tay <code>package-lock.json</code> — file này npm tự sinh'],
+  notYet:{gi:'workspaces, publish thư viện, semver, npm ci vs npm install', toiMoc:3,
+    dauHieu:'Khi CI đỏ vì “lock file lệch với package.json” mà ở máy bạn vẫn xanh.'},
+  next:[{ten:'npx', vi:'Chạy thẳng một chương trình trong kho, không qua nút.'},
+        {ten:'Git', vi:'Vì sao node_modules không đi theo khi clone.'},
+        {ten:'Playwright', vi:'Thư viện test mà npm tải về cho dự án này.'}],
+  try:`Mở <code>package.json</code> của bất kỳ dự án nào, tìm mục <strong>scripts</strong>. Mỗi dòng bên trái là một nút bạn bấm được bằng <code>npm run &lt;tên&gt;</code> — bạn vừa đọc được “bảng điều khiển” của dự án đó.`},
+
+'npx': { moc:1,
+  leak:`<p>Lấy đúng cái tua vít của dự án — nhưng <span class="punch">nếu trong tủ chưa có, npx sẽ ra tiệm tải tạm một cái về dùng rồi vứt.</span></p>
+<p>Tiện khi muốn thử nhanh một công cụ. Nhưng cũng là bẫy: bạn gõ <code>npx playwright test</code> ở một folder chưa <code>npm install</code>, npx tải tạm bản mới nhất về — có thể khác phiên bản dự án đang dùng, và test đỏ vì lý do chẳng liên quan gì tới code.</p>`,
+  code:`npx playwright test --headed          <span class="c"># chạy bản playwright trong node_modules, thêm tuỳ chọn</span>
+npx playwright test tests/so-tay.spec.js   <span class="c"># chỉ chạy một file</span>
+npx playwright show-report           <span class="c"># y hệt npm run report, chỉ là gõ trực tiếp</span>
+npx serve .                          <span class="c"># bật web tĩnh ở folder hiện tại</span>`,
+  cap:'Cùng một chương trình: <strong>npm run</strong> bấm nút có sẵn, <strong>npx</strong> gọi thẳng và tự thêm tuỳ chọn.',
+  yes:['Cần thêm tuỳ chọn mà nút trong scripts không có (<code>--headed</code>, <code>--debug</code>, một file cụ thể)','Chạy công cụ một lần, không đáng đặt thành nút (<code>codegen</code>, <code>serve</code>)','Không muốn cài công cụ toàn máy chỉ để thử'],
+  no:['Việc cả team làm hàng ngày — đặt thành nút npm run để ai cũng gõ giống nhau','Chạy npx ở folder chưa npm install rồi tin vào kết quả'],
+  notYet:{gi:'npx với phiên bản cụ thể (<code>npx playwright@1.50</code>), cờ --no-install, npm exec', toiMoc:3,
+    dauHieu:'Khi CI và máy bạn cho kết quả khác nhau dù cùng một lệnh npx.'},
+  next:[{ten:'npm', vi:'Người quản kho — npx chỉ lấy đồ trong kho đó.'},
+        {ten:'Test Runner', vi:'Thứ npx playwright test thực sự gọi lên.'},
+        {ten:'Headless', vi:'Tuỳ chọn --headed bật/tắt cái gì.'}],
+  try:`Ở gốc một dự án đã <code>npm install</code>, gõ <code>npx playwright --version</code>. Rồi vào một folder trống bất kỳ, gõ lại đúng lệnh đó. Lần thứ hai npx phải ra tiệm tải — bạn vừa thấy tận mắt sự khác nhau giữa “có trong tủ” và “chưa có”.`},
+
 'Deploy': { moc:2,
   leak:`<p>Đưa món ra quầy — nhưng <span class="punch">deploy không phải một khoảnh khắc, nó là một quá trình có thể hỏng giữa chừng.</span></p>
 <p>Trong lúc chuyển đổi, một số người dùng nhận bản mới, số khác vẫn bản cũ. Nếu bản mới đổi cấu trúc database thì bản cũ có thể vỡ ngay lập tức. Đó là lý do có blue-green, canary, và vì sao “deploy xong rồi” chưa có nghĩa là an toàn.</p>`,

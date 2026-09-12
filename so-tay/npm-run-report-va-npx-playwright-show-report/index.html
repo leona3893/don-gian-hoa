@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>npm run report và npx playwright show-report khác nhau gì? — IT nói tiếng người</title>
+  <meta name="description" content="Hai lệnh làm cùng một việc · npm = quản kho + bấm nút có sẵn · npx = chạy thẳng một chương trình trong kho" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-tay/npm-run-report-va-npx-playwright-show-report/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="npm run report và npx playwright show-report khác nhau gì?" />
+  <meta property="og:description" content="Hai lệnh làm cùng một việc · npm = quản kho + bấm nút có sẵn · npx = chạy thẳng một chương trình trong kho" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-tay/npm-run-report-va-npx-playwright-show-report/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/so-tay-npm-run-report-va-npx-playwright-show-report.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/so-tay-npm-run-report-va-npx-playwright-show-report.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"Sổ tay","item":"https://leona3893.github.io/don-gian-hoa/so-tay/"},{"@type":"ListItem","position":3,"name":"npm run report và npx playwright show-report khác nhau gì?","item":"https://leona3893.github.io/don-gian-hoa/so-tay/npm-run-report-va-npx-playwright-show-report/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">Sổ tay</a> › npm run report và npx playwright show-report khác nhau gì?</nav>
+    <article class="article so-tay">
+      <span class="tag">Kiểm thử</span>
+      <h1>npm run report và npx playwright show-report khác nhau gì?</h1>
+      <p class="hoi">Hai lệnh này đều mở báo cáo test. Gõ cái nào cũng được, hay có khác gì?</p>
+
+      <h2>Gõ thử</h2>
+      <pre class="code">npm run report
+npx playwright show-report</pre>
+
+      <h2>Vì sao &amp; nhớ gì</h2>
+      <ol class="bai-hoc"><li><b>Hai lệnh làm cùng một việc</b> — Mở <code>package.json</code>, mục <code>scripts</code> có dòng <code>"report": "playwright show-report"</code>. <code>npm run report</code> chỉ là phím tắt: npm tra bảng đó rồi chạy đúng lệnh bên phải hộ bạn.</li><li><b><code>npm</code> = quản kho + bấm nút có sẵn</b> — <code>npm install</code> tải thư viện về <code>node_modules</code>; <code>npm run &lt;tên&gt;</code> bấm nút đã đặt tên trong <code>scripts</code>. Riêng <code>npm test</code> và <code>npm start</code> được gõ tắt, không cần chữ <code>run</code>.</li><li><b><code>npx</code> = chạy thẳng một chương trình trong kho</b> — Khi cần thêm tuỳ chọn mà nút không có — chạy 1 file, bật <code>--headed</code> — thì dùng <code>npx playwright test …</code>. Việc lặp lại hàng ngày thì dùng nút <code>npm run</code> để cả team gõ giống nhau.</li></ol>
+
+      <p class="lien-quan">Liên quan: <a href="../../thuat-ngu/npm/">npm</a> · <a href="../../thuat-ngu/npx/">npx</a> · <a href="../../thuat-ngu/playwright/">Playwright</a> · <a href="../../thuat-ngu/test-report/">Test Report</a></p>
+
+      <a class="back" href="../">← Xem các ghi chú khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

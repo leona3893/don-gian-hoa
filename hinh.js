@@ -51,6 +51,12 @@ export const HINH = {
 'Pull Request': `<line x1="-80" y1="-90" x2="-80" y2="90"/><circle cx="-80" cy="-110" r="18" fill="${BG}"/><circle cx="-80" cy="110" r="18" fill="${BG}"/><circle cx="80" cy="110" r="18" fill="${BG}"/><path d="M-20,-80 L40,-80 Q80,-80 80,-40 L80,90"/><path d="M6,-104 L-20,-80 L6,-56"/>`,
 
 // đưa món ra quầy — đĩa bốc khói
+// thùng hàng kho — hộp có nắp mở, sổ đi chợ bên cạnh
+'npm': `<path d="M-120,-30 L0,-90 L120,-30 L120,80 L0,120 L-120,80 Z"/><line x1="-120" y1="-30" x2="0" y2="30"/><line x1="0" y1="30" x2="120" y2="-30"/><line x1="0" y1="30" x2="0" y2="120"/><line x1="-60" y1="-60" x2="60" y2="0"/>`,
+
+// mũi tên cắm đúng tâm bia
+'npx': `<circle cx="-20" cy="20" r="100"/><circle cx="-20" cy="20" r="60"/><circle cx="-20" cy="20" r="20" fill="${LIME}"/><line x1="-20" y1="20" x2="110" y2="-110"/><path d="M110,-110 L70,-105 M110,-110 L105,-70"/>`,
+
 'Deploy': `<ellipse cx="0" cy="60" rx="120" ry="30"/><ellipse cx="0" cy="60" rx="80" ry="18"/><path d="M-40,20 Q-55,-10 -40,-40 Q-25,-70 -40,-100"/><path d="M0,20 Q-15,-10 0,-40 Q15,-70 0,-100"/><path d="M40,20 Q25,-10 40,-40 Q55,-70 40,-100"/>`,
 
 // công thức ghi nhầm — bát và muỗng

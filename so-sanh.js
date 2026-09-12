@@ -237,6 +237,32 @@ export const SO_SANH = [
     {h:'ChatGPT thuộc loại nào?', a:'Cả ba. Nó là một ứng dụng AI, xây bằng Machine Learning, cụ thể là Deep Learning với kiến trúc mạng nơ-ron nhiều tầng.'},
     {h:'Deep Learning có luôn tốt hơn Machine Learning không?', a:'Không. Với dữ liệu dạng bảng và lượng vừa phải, các mô hình cổ điển thường chính xác hơn, chạy nhanh hơn và giải thích được — trong khi deep learning cần rất nhiều dữ liệu và máy mạnh.'}
   ]
+},
+
+{
+  slug:'npm-va-npx', cat:'Nền tảng', terms:['npm','npx'],
+  h1:'npm và npx khác nhau thế nào?',
+  tldr:'npm là <strong>người quản kho</strong>: tải thư viện về và bấm những nút đã đặt tên sẵn. npx là <strong>chạy thẳng một chương trình trong kho đó</strong>, tự thêm tuỳ chọn tuỳ ý.',
+  cols:['npm','npx'],
+  rows:[
+    {k:'Việc chính', v:['Tải thư viện (<code>npm install</code>) và chạy nút có tên trong <code>package.json</code> (<code>npm run …</code>)','Chạy trực tiếp một chương trình nằm trong <code>node_modules</code>']},
+    {k:'Lệnh đi sau nó', v:['Tên nút do dự án đặt: <code>build</code>, <code>test</code>, <code>report</code>','Tên chương trình thật: <code>playwright</code>, <code>serve</code>']},
+    {k:'Thêm tuỳ chọn', v:['Không tiện — nút ghi sao chạy vậy','Thoải mái: <code>--headed</code>, <code>--debug</code>, một file cụ thể']},
+    {k:'Nếu chưa cài', v:['Báo lỗi hoặc gọi nhầm bản khác trên máy','Tự tải tạm về chạy rồi vứt']},
+    {k:'Ví dụ cùng một việc', v:['<code>npm run report</code>','<code>npx playwright show-report</code>']}
+  ],
+  nho:'<strong>npm = bấm nút có sẵn. npx = cầm dụng cụ lên dùng trực tiếp.</strong> Nút thì ai bấm cũng giống nhau; cầm trực tiếp thì tự chỉnh được.',
+  chon:[
+    {neu:'Việc lặp lại hàng ngày, dự án đã đặt tên sẵn (build, test)', thi:'npm run — ngắn và cả team gõ giống nhau'},
+    {neu:'Cần chạy 1 file test hoặc bật <code>--headed</code> để nhìn trình duyệt', thi:'npx playwright test … — nút không có tuỳ chọn này'},
+    {neu:'Muốn thử một công cụ một lần', thi:'npx — không phải cài toàn máy'}
+  ],
+  bay:'<code>npx</code> ở một folder <strong>chưa</strong> <code>npm install</code> sẽ âm thầm tải bản mới nhất về chạy — có thể khác phiên bản dự án đang dùng. Test đỏ mà lý do chẳng liên quan gì tới code. Luôn <code>npm install</code> trước, rồi mới npx.',
+  faq:[
+    {h:'npm run report và npx playwright show-report có khác gì không?', a:'Không. Mở package.json sẽ thấy dòng "report": "playwright show-report" — npm run report chỉ là phím tắt tra bảng rồi chạy đúng lệnh đó.'},
+    {h:'Vì sao npm test không cần chữ run?', a:'test và start là hai tên đặc biệt npm cho gõ tắt. Các tên khác như build, report vẫn phải có run.'},
+    {h:'Có cần cài npx riêng không?', a:'Không. npx đi kèm npm từ phiên bản 5.2, cài Node.js là có cả hai.'}
+  ]
 }
 
 ];

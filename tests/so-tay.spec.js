@@ -11,11 +11,13 @@ test('trang danh sách có link tới đúng mọi ghi chú', async ({ page }) =
   expect([...slugs].sort()).toEqual(SO_TAY.map(n => n.slug).sort());
 });
 
-test('mỗi ghi chú có đủ khối lỗi, lệnh sửa và đúng số bài học', async ({ page }) => {
+test('mỗi ghi chú có đủ khối lỗi/câu hỏi, lệnh và đúng số bài học', async ({ page }) => {
   for (const n of SO_TAY) {
     await page.goto(`/so-tay/${n.slug}/`);
     await expect(page.getByRole('heading', { level: 1 })).toHaveText(n.h1);
-    await expect(page.locator('pre.loi')).toContainText(n.loi.split('\n')[0]);
+    // Khối đầu: lỗi nguyên văn (pre.loi) hoặc câu hỏi (.hoi) — tuỳ ghi chú.
+    if (n.loi) await expect(page.locator('pre.loi')).toContainText(n.loi.split('\n')[0]);
+    else await expect(page.locator('.hoi')).toBeVisible();
     await expect(page.locator('pre.code')).toContainText(n.sua[0]);
     await expect(page.locator('.bai-hoc li')).toHaveCount(n.baiHoc.length);
     await expect(page.locator('.bai-hoc li b').first()).toHaveText(n.baiHoc[0].ten.replace(/<[^>]+>/g, ''));

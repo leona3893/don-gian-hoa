@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>npm là gì? Giải thích dễ hiểu — IT nói tiếng người</title>
+  <meta name="description" content="npm là gì? npm tải các thư viện dự án cần về máy (npm install) và bấm những “nút” đã đặt tên sẵn trong package.json (npm run build, npm test…)." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/thuat-ngu/npm/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="npm là gì? Giải thích dễ hiểu — IT nói tiếng người" />
+  <meta property="og:description" content="npm là gì? npm tải các thư viện dự án cần về máy (npm install) và bấm những “nút” đã đặt tên sẵn trong package.json (npm run build, npm test…)." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/thuat-ngu/npm/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/npm.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/npm.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"npm","description":"npm tải các thư viện dự án cần về máy (npm install) và bấm những “nút” đã đặt tên sẵn trong package.json (npm run build, npm test…).","inLanguage":"vi","url":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/npm/","inDefinedTermSet":{"@type":"DefinedTermSet","name":"IT nói tiếng người","url":"https://leona3893.github.io/don-gian-hoa/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"npm","item":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/npm/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › npm</nav>
+    <article class="article">
+      <span class="tag">Công cụ</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-1">Mốc 1 · Nói chuyện được</a>
+      <h1>📦 npm là gì?</h1>
+      <p class="brief">Kho thư viện kèm người quản kho cho JavaScript.</p>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">npm tải các thư viện dự án cần về máy (npm install) và bấm những “nút” đã đặt tên sẵn trong package.json (npm run build, npm test…).</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như đi siêu thị với sổ đi chợ: package.json là danh sách cần mua, npm install đi mua về xếp vào tủ node_modules. Còn npm run là bấm nút có sẵn trên máy giặt — ai bấm cũng ra cùng kết quả.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Sổ đi chợ — nhưng <span class="punch">đồ mua về (<code>node_modules</code>) không đi theo dự án khi bạn clone. Chỉ có sổ đi chợ (<code>package.json</code>) được lưu trong Git.</span></p>
+<p>Vì thế bản clone mới nào cũng phải <code>npm install</code> lại từ đầu. Đây là nguồn của lỗi kinh điển “gõ lệnh mà máy không hiểu”: thư viện chưa được tải về nên lệnh không tồn tại, hoặc máy vớ nhầm một bản khác đang cài sẵn.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">npm install              <span class="c"># đọc package.json, tải thư viện vào node_modules</span>
+npm run build            <span class="c"># bấm "nút" tên build trong mục scripts</span>
+npm test                 <span class="c"># viết tắt của npm run test</span>
+
+<span class="c"># Trong package.json, mục scripts chính là bảng tên các nút:</span>
+<span class="c">"scripts": {
+  "build":  "node build.mjs",
+  "test":   "playwright test",
+  "report": "playwright show-report"
+}</span></pre>
+    <p class="cap"><strong>npm run &lt;tên&gt;</strong> chỉ là phím tắt: npm tra bảng scripts rồi chạy lệnh bên phải hộ bạn.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Vừa clone dự án về — chạy <code>npm install</code> trước khi làm gì khác</li><li>Việc lặp lại hàng ngày mà dự án đã đặt tên sẵn (build, test, report)</li><li>Muốn cả team gõ cùng một lệnh ra cùng một kết quả</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Cần thêm tuỳ chọn mà nút không có sẵn (ví dụ chạy 1 file test) — dùng npx</li><li>Sửa tay <code>package-lock.json</code> — file này npm tự sinh</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> workspaces, publish thư viện, semver, npm ci vs npm install.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự dựng được:</span> Bạn tự đưa được một trang lên mạng, và biết phải sờ vào đâu khi nó không lên.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi CI đỏ vì “lock file lệch với package.json” mà ở máy bạn vẫn xanh.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../npx/">npx</a><span>Chạy thẳng một chương trình trong kho, không qua nút.</span></li><li><a href="../git/">Git</a><span>Vì sao node_modules không đi theo khi clone.</span></li><li><a href="../playwright/">Playwright</a><span>Thư viện test mà npm tải về cho dự án này.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Mở <code>package.json</code> của bất kỳ dự án nào, tìm mục <strong>scripts</strong>. Mỗi dòng bên trái là một nút bạn bấm được bằng <code>npm run &lt;tên&gt;</code> — bạn vừa đọc được “bảng điều khiển” của dự án đó.</div>
+    
+    <div class="so-sanh-lien">
+      <h4>⚖ Hay bị nhầm với thuật ngữ khác</h4>
+      <ul class="nextlist"><li><a href="../../so-sanh/npm-va-npx/">npm và npx khác nhau thế nào?</a><span>npx</span></li></ul>
+    </div>
+      <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

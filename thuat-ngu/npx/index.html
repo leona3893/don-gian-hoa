@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>npx là gì? Giải thích dễ hiểu — IT nói tiếng người</title>
+  <meta name="description" content="npx là gì? npx tìm chương trình trong node_modules của dự án rồi chạy nó — không cần cài toàn máy, không sợ gọi nhầm một bản khác đang có sẵn trên máy." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/thuat-ngu/npx/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="npx là gì? Giải thích dễ hiểu — IT nói tiếng người" />
+  <meta property="og:description" content="npx là gì? npx tìm chương trình trong node_modules của dự án rồi chạy nó — không cần cài toàn máy, không sợ gọi nhầm một bản khác đang có sẵn trên máy." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/thuat-ngu/npx/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/npx.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/npx.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"npx","description":"npx tìm chương trình trong node_modules của dự án rồi chạy nó — không cần cài toàn máy, không sợ gọi nhầm một bản khác đang có sẵn trên máy.","inLanguage":"vi","url":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/npx/","inDefinedTermSet":{"@type":"DefinedTermSet","name":"IT nói tiếng người","url":"https://leona3893.github.io/don-gian-hoa/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"npx","item":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/npx/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › npx</nav>
+    <article class="article">
+      <span class="tag">Công cụ</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-1">Mốc 1 · Nói chuyện được</a>
+      <h1>🎯 npx là gì?</h1>
+      <p class="brief">Chạy đúng chương trình nằm trong kho của dự án.</p>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">npx tìm chương trình trong node_modules của dự án rồi chạy nó — không cần cài toàn máy, không sợ gọi nhầm một bản khác đang có sẵn trên máy.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Trong nhà có nhiều tua vít cũ mới lẫn lộn. npx là người giúp việc lấy đúng cái tua vít dự án này đã mua, không vớ nhầm cái của hàng xóm.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Lấy đúng cái tua vít của dự án — nhưng <span class="punch">nếu trong tủ chưa có, npx sẽ ra tiệm tải tạm một cái về dùng rồi vứt.</span></p>
+<p>Tiện khi muốn thử nhanh một công cụ. Nhưng cũng là bẫy: bạn gõ <code>npx playwright test</code> ở một folder chưa <code>npm install</code>, npx tải tạm bản mới nhất về — có thể khác phiên bản dự án đang dùng, và test đỏ vì lý do chẳng liên quan gì tới code.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">npx playwright test --headed          <span class="c"># chạy bản playwright trong node_modules, thêm tuỳ chọn</span>
+npx playwright test tests/so-tay.spec.js   <span class="c"># chỉ chạy một file</span>
+npx playwright show-report           <span class="c"># y hệt npm run report, chỉ là gõ trực tiếp</span>
+npx serve .                          <span class="c"># bật web tĩnh ở folder hiện tại</span></pre>
+    <p class="cap">Cùng một chương trình: <strong>npm run</strong> bấm nút có sẵn, <strong>npx</strong> gọi thẳng và tự thêm tuỳ chọn.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Cần thêm tuỳ chọn mà nút trong scripts không có (<code>--headed</code>, <code>--debug</code>, một file cụ thể)</li><li>Chạy công cụ một lần, không đáng đặt thành nút (<code>codegen</code>, <code>serve</code>)</li><li>Không muốn cài công cụ toàn máy chỉ để thử</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li>Việc cả team làm hàng ngày — đặt thành nút npm run để ai cũng gõ giống nhau</li><li>Chạy npx ở folder chưa npm install rồi tin vào kết quả</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> npx với phiên bản cụ thể (<code>npx playwright@1.50</code>), cờ --no-install, npm exec.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự dựng được:</span> Bạn tự đưa được một trang lên mạng, và biết phải sờ vào đâu khi nó không lên.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi CI và máy bạn cho kết quả khác nhau dù cùng một lệnh npx.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../npm/">npm</a><span>Người quản kho — npx chỉ lấy đồ trong kho đó.</span></li><li><a href="../test-runner/">Test Runner</a><span>Thứ npx playwright test thực sự gọi lên.</span></li><li><a href="../headless/">Headless</a><span>Tuỳ chọn --headed bật/tắt cái gì.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Ở gốc một dự án đã <code>npm install</code>, gõ <code>npx playwright --version</code>. Rồi vào một folder trống bất kỳ, gõ lại đúng lệnh đó. Lần thứ hai npx phải ra tiệm tải — bạn vừa thấy tận mắt sự khác nhau giữa “có trong tủ” và “chưa có”.</div>
+    
+    <div class="so-sanh-lien">
+      <h4>⚖ Hay bị nhầm với thuật ngữ khác</h4>
+      <ul class="nextlist"><li><a href="../../so-sanh/npm-va-npx/">npm và npx khác nhau thế nào?</a><span>npm</span></li></ul>
+    </div>
+      <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

@@ -387,9 +387,9 @@ const trangSoTay = n => {
     <article class="article so-tay">
       <span class="tag">${esc(n.cat)}</span>
       <h1>${esc(n.h1)}</h1>
-      <pre class="loi">${esc(n.loi)}</pre>
+      ${n.loi ? `<pre class="loi">${esc(n.loi)}</pre>` : `<p class="hoi">${n.hoi}</p>`}
 
-      <h2>Sửa</h2>
+      <h2>${n.loi ? 'Sửa' : 'Gõ thử'}</h2>
       <pre class="code">${n.sua.map(esc).join('\n')}</pre>
 
       <h2>Vì sao &amp; nhớ gì</h2>
