@@ -13,7 +13,7 @@ test('hiện đủ toàn bộ thuật ngữ khi chưa lọc gì', async ({ page 
 });
 
 test('gõ vào ô tìm kiếm thì hiện gợi ý và lọc lưới', async ({ page }) => {
-  const input = page.getByRole('combobox', { name: 'Tìm thuật ngữ mong muon' });
+  const input = page.getByRole('combobox', { name: 'Tìm thuật ngữ' });
   await input.fill('api');
 
   const suggestions = page.locator('#suggestions .suggestion');
