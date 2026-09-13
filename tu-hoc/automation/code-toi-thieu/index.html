@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 10 — Code tối thiểu cần biết · IT nói tiếng người</title>
+  <meta name="description" content="Tám thứ JavaScript đủ dùng: biến, chuỗi, số, mảng, object, hàm, async/await, import." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/code-toi-thieu/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 10 — Code tối thiểu cần biết" />
+  <meta property="og:description" content="Tám thứ JavaScript đủ dùng: biến, chuỗi, số, mảng, object, hàm, async/await, import." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/code-toi-thieu/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-code-toi-thieu.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-code-toi-thieu.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 10</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 10 / 13</span>
+      <h1>Code tối thiểu cần biết</h1>
+      <p class="brief">Tám thứ JavaScript đủ dùng: biến, chuỗi, số, mảng, object, hàm, async/await, import.</p>
+      <div class="md"><p>Bạn KHÔNG cần học hết JavaScript. Chỉ cần 8 thứ này, đều đã xuất hiện trong test của repo.</p>
+<h2>10.1 Biến — đặt tên cho một thứ để dùng lại</h2>
+<pre><code class="language-js">const input = page.getByRole(&#39;combobox&#39;, { name: &#39;Tìm thuật ngữ&#39; });
+//    ▲ tên   ▲ giá trị
+// const = không đổi giá trị sau này (dùng 95% thời gian)
+// let   = sẽ đổi
+</code></pre>
+<h2>10.2 Chuỗi (string) — chữ</h2>
+<pre><code class="language-js">&#39;api&#39;                 // nháy đơn
+&quot;api&quot;                 // nháy kép — như nhau
+`${TERMS.length} thuật ngữ`   // nháy ngược: chèn biến vào giữa bằng ${...}
+name.toLowerCase()    // đổi về chữ thường
+name.trim()           // bỏ khoảng trắng đầu/cuối
+</code></pre>
+<h2>10.3 Số &amp; so sánh</h2>
+<pre><code class="language-js">5, 83, TERMS.length
+a === b     // bằng (dùng 3 dấu =)
+a !== b     // khác
+a &gt; b, a &lt;= b
+</code></pre>
+<h2>10.4 Mảng (array) — danh sách</h2>
+<pre><code class="language-js">const names = [&#39;API&#39;, &#39;Bug&#39;, &#39;Cache&#39;];
+names.length          // 3
+names[0]              // &#39;API&#39; (đếm từ 0!)
+names.filter(n =&gt; n.startsWith(&#39;B&#39;))   // [&#39;Bug&#39;] — lọc
+for (const name of names) { ... }      // lặp qua từng cái
+</code></pre>
+<h2>10.5 Đối tượng (object) — thứ có nhiều thuộc tính</h2>
+<pre><code class="language-js">const term = { name: &#39;API&#39;, cat: &#39;Backend&#39; };
+term.name             // &#39;API&#39;
+term.cat              // &#39;Backend&#39;
+// TERMS trong terms.js là mảng các object như thế
+TERMS.filter(t =&gt; t.cat === &#39;Kiểm thử&#39;).length   // đếm thuật ngữ nhóm Kiểm thử
+</code></pre>
+<h2>10.6 Hàm (function) — gói việc để gọi lại</h2>
+<pre><code class="language-js">// Dạng mũi tên, gặp suốt trong test:
+async ({ page }) =&gt; { ... }
+//    ▲ nhận vào page   ▲ thân hàm
+t =&gt; t.cat === &#39;Kiểm thử&#39;     // hàm 1 dòng: nhận t, trả về true/false
+</code></pre>
+<h2>10.7 <code>async</code> / <code>await</code> — thứ khó hiểu nhất, giải thích đời thường</h2>
+<p>Trình duyệt làm việc <strong>chậm</strong> (mở trang mất 1 giây, bấm nút mất 0.2 giây). Code chạy <strong>nhanh</strong>. Nếu không &quot;chờ&quot;, code sẽ bấm nút khi trang chưa load xong.</p>
+<ul>
+<li><code>await</code> = &quot;<strong>chờ việc này xong rồi mới xuống dòng tiếp</strong>&quot;.</li>
+<li>Hàm nào có <code>await</code> bên trong thì phải khai <code>async</code> ở đầu.</li>
+</ul>
+<p><strong>Quy tắc thực dụng:</strong> mọi lệnh có <code>page.</code> hoặc <code>expect(...).toXxx()</code> → đặt <code>await</code> phía trước. Quên <code>await</code> là lỗi số 1 của người mới — test sẽ xanh giả tạo hoặc đỏ lung tung.</p>
+<h2>10.8 <code>import</code> — mượn đồ</h2>
+<pre><code class="language-js">import { test, expect } from &#39;@playwright/test&#39;;   // từ thư viện
+import { TERMS } from &#39;../terms.js&#39;;               // từ file trong dự án
+// &#39;../&#39; = lùi lên 1 folder (từ tests/ lên gốc)
+</code></pre>
+<h2>Cách học 8 thứ này</h2>
+<p>Không học lý thuyết. Mở <code>tests/trang-chu.spec.js</code>, với mỗi dòng tự hỏi &quot;dòng này thuộc mục nào trong 10.1–10.8&quot;. Làm 2 file là thuộc.</p>
+<p>Nếu muốn nền: khoá &quot;JavaScript for Testers&quot; trên Test Automation University (miễn phí, tiếng Anh, ~3 giờ). Chỉ học tới phần async/await là dừng.</p>
+<hr>
+</div>
+      
+      <nav class="bai-nav">
+        <a class="truoc" href="../khi-test-do/"><small>← Bài 9</small>Khi test đỏ: cách đọc lỗi và sửa</a>
+        <a class="sau" href="../lo-trinh-12-tuan/"><small>Bài 11 →</small>Lộ trình 12 tuần</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

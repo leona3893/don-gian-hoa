@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 0 — Đổi tư duy trước khi bắt đầu · IT nói tiếng người</title>
+  <meta name="description" content="Automation là gì nói kiểu không màu mè, vì sao không giỏi code không phải rào cản, và ba câu thần chú." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/doi-tu-duy/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 0 — Đổi tư duy trước khi bắt đầu" />
+  <meta property="og:description" content="Automation là gì nói kiểu không màu mè, vì sao không giỏi code không phải rào cản, và ba câu thần chú." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/doi-tu-duy/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-doi-tu-duy.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-doi-tu-duy.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 0</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 0 / 13</span>
+      <h1>Đổi tư duy trước khi bắt đầu</h1>
+      <p class="brief">Automation là gì nói kiểu không màu mè, vì sao không giỏi code không phải rào cản, và ba câu thần chú.</p>
+      <div class="md"><h2>0.1 Automation là gì, nói kiểu không màu mè</h2>
+<p>Bạn đang test tay: mở web → gõ &quot;api&quot; vào ô tìm → nhìn xem có gợi ý không → bấm → xem modal mở đúng chưa.</p>
+<p>Automation là: <strong>viết cái kịch bản đó ra thành chữ để máy tự làm</strong>, và máy tự <strong>so sánh</strong> kết quả với cái bạn mong đợi. Xong máy báo: xanh (đúng) hoặc đỏ (sai).</p>
+<p>Chỉ có vậy. Mỗi test tự động = 3 phần:</p>
+<table>
+<thead>
+<tr>
+<th>Phần</th>
+<th>Test tay bạn đang làm</th>
+<th>Test tự động</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Đi tới đâu</strong></td>
+<td>Mở trình duyệt, vào trang chủ</td>
+<td><code>page.goto(&#39;/&#39;)</code></td>
+</tr>
+<tr>
+<td><strong>Làm gì</strong></td>
+<td>Gõ &quot;api&quot; vào ô tìm kiếm</td>
+<td><code>input.fill(&#39;api&#39;)</code></td>
+</tr>
+<tr>
+<td><strong>Mong gì</strong></td>
+<td>Nhìn thấy dropdown gợi ý hiện ra</td>
+<td><code>expect(suggestions.first()).toBeVisible()</code></td>
+</tr>
+</tbody></table>
+<h2>0.2 &quot;Không giỏi code&quot; không phải rào cản như bạn nghĩ</h2>
+<p>Sự thật quan trọng nhất: <strong>90% việc viết automation test là đọc – copy – sửa</strong>, không phải sáng tác từ trang giấy trắng.</p>
+<ul>
+<li>Bạn không cần biết viết thuật toán.</li>
+<li>Bạn cần biết: đọc hiểu 1 file test có sẵn, copy 1 test giống nhất với việc bạn muốn, sửa vài chữ.</li>
+<li>Kỹ năng quan trọng hơn code: <strong>tư duy test case</strong> (cái này bạn đã có từ test tay) và <strong>kiên nhẫn đọc lỗi</strong>.</li>
+</ul>
+<h2>0.3 Ba câu thần chú</h2>
+<ol>
+<li><strong>&quot;Chạy được trước, hiểu sau.&quot;</strong> Đừng cố hiểu hết rồi mới chạy. Chạy cái có sẵn, thấy nó xanh, rồi mới mổ xẻ.</li>
+<li><strong>&quot;Sửa một chữ, chạy lại.&quot;</strong> Mỗi lần chỉ thay đổi một thứ nhỏ. Đỏ thì biết ngay do chỗ nào.</li>
+<li><strong>&quot;Lỗi là bản đồ, không phải bản án.&quot;</strong> Dòng lỗi màu đỏ chính là chỉ dẫn. Học đọc nó (Bài 9).</li>
+</ol>
+<hr>
+</div>
+      
+      <nav class="bai-nav">
+        <span></span>
+        <a class="sau" href="../chuan-bi-may/"><small>Bài 1 →</small>Chuẩn bị máy (làm 1 lần)</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

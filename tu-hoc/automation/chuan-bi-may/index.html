@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 1 — Chuẩn bị máy (làm 1 lần) · IT nói tiếng người</title>
+  <meta name="description" content="Cài VS Code, Node, Git — và lệnh kiểm tra từng thứ đã đúng chưa." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/chuan-bi-may/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 1 — Chuẩn bị máy (làm 1 lần)" />
+  <meta property="og:description" content="Cài VS Code, Node, Git — và lệnh kiểm tra từng thứ đã đúng chưa." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/chuan-bi-may/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-chuan-bi-may.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-chuan-bi-may.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 1</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 1 / 13</span>
+      <h1>Chuẩn bị máy (làm 1 lần)</h1>
+      <p class="brief">Cài VS Code, Node, Git — và lệnh kiểm tra từng thứ đã đúng chưa.</p>
+      <div class="md"><p>Hướng dẫn viết cho Windows; Mac/Linux thay PowerShell bằng Terminal, lệnh giống nhau. Kiểm tra từng thứ bằng cách mở <strong>PowerShell</strong> (bấm phím Windows, gõ <code>powershell</code>, Enter) và gõ lệnh.</p>
+<h2>1.1 Danh sách cần có</h2>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>Công cụ</th>
+<th>Để làm gì</th>
+<th>Lệnh kiểm tra</th>
+<th>Kết quả mong đợi</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>VS Code</strong></td>
+<td>Nơi mở và sửa file code</td>
+<td>Mở Start menu tìm &quot;Visual Studio Code&quot;</td>
+<td>Có ứng dụng</td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Node.js</strong></td>
+<td>&quot;Động cơ&quot; chạy JavaScript ngoài trình duyệt; Playwright cần nó</td>
+<td><code>node -v</code></td>
+<td>In ra số kiểu <code>v24.x.x</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>npm</strong></td>
+<td>Đi kèm Node; tải và chạy thư viện</td>
+<td><code>npm -v</code></td>
+<td>In ra số kiểu <code>10.x.x</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Git</strong></td>
+<td>Quản lý phiên bản code, nói chuyện với GitHub</td>
+<td><code>git --version</code></td>
+<td><code>git version 2.x</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Tài khoản GitHub</strong></td>
+<td>Nơi code của dự án nằm</td>
+<td>Vào github.com đăng nhập</td>
+<td>Tạo miễn phí tại github.com nếu chưa có</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Trình duyệt Chrome/Edge</strong></td>
+<td>Xem web, dùng DevTools (F12)</td>
+<td>—</td>
+<td>Có sẵn</td>
+</tr>
+</tbody></table>
+<p>Nếu thiếu cái nào: tải từ trang chủ (code.visualstudio.com, nodejs.org bản LTS, git-scm.com), cài kiểu Next-Next-Finish, rồi <strong>đóng và mở lại PowerShell</strong> để lệnh kiểm tra nhận.</p>
+<h2>1.2 Cài extension VS Code (giúp rất nhiều)</h2>
+<p>Mở VS Code → bấm <code>Ctrl+Shift+X</code> → tìm và cài:</p>
+<ul>
+<li><strong>Playwright Test for VSCode</strong> (của Microsoft) — cho nút ▶ bấm chạy từng test, có nút &quot;Record new test&quot; tự sinh code khi bạn bấm chuột trên web.</li>
+<li><strong>GitLens</strong> — nhìn được ai sửa dòng nào, khi nào.</li>
+<li><strong>Error Lens</strong> — hiện lỗi thẳng cạnh dòng code thay vì phải mò.</li>
+</ul>
+<h2>1.3 Cấu hình Git 1 lần (nếu máy mới)</h2>
+<pre><code class="language-powershell">git config --global user.name &quot;ten-cua-ban&quot;
+git config --global user.email &quot;email-ban-dung-tren-github&quot;
+</code></pre>
+<blockquote>
+<p>✅ <strong>Làm ngay:</strong> chạy 4 lệnh kiểm tra ở bảng 1.1. Chụp màn hình kết quả để sau này so.</p>
+</blockquote>
+<hr>
+</div>
+      
+      <nav class="bai-nav">
+        <a class="truoc" href="../doi-tu-duy/"><small>← Bài 0</small>Đổi tư duy trước khi bắt đầu</a>
+        <a class="sau" href="../ngay-dau-vao-du-an/"><small>Bài 2 →</small>Ngày đầu tiên vào một dự án</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

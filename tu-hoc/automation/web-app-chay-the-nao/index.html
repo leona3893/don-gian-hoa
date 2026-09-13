@@ -1,0 +1,119 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 5 — Web / app chạy như thế nào · IT nói tiếng người</title>
+  <meta name="description" content="Frontend, backend, localhost, port, ba môi trường, build vs deploy, và dùng F12." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/web-app-chay-the-nao/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 5 — Web / app chạy như thế nào" />
+  <meta property="og:description" content="Frontend, backend, localhost, port, ba môi trường, build vs deploy, và dùng F12." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/web-app-chay-the-nao/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-web-app-chay-the-nao.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-web-app-chay-the-nao.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 5</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 5 / 13</span>
+      <h1>Web / app chạy như thế nào</h1>
+      <p class="brief">Frontend, backend, localhost, port, ba môi trường, build vs deploy, và dùng F12.</p>
+      <div class="md"><h2>5.1 Bức tranh tổng thể</h2>
+<pre><code>   Người dùng                    Máy chủ (server)
+ ┌───────────┐   HTTP request   ┌────────────┐   query   ┌──────────┐
+ │ Trình duyệt│ ───────────────▶ │  Backend   │ ────────▶ │ Database │
+ │ (Frontend) │ ◀─────────────── │  (API)     │ ◀──────── │          │
+ └───────────┘   HTML/JSON      └────────────┘           └──────────┘
+</code></pre>
+<ul>
+<li><strong>Frontend</strong>: thứ hiện lên trên trình duyệt — HTML (khung), CSS (áo), JavaScript (hành vi bấm/gõ).</li>
+<li><strong>Backend / API</strong>: máy chủ nhận yêu cầu, xử lý, trả dữ liệu (thường dạng JSON).</li>
+<li><strong>Database</strong>: nơi cất dữ liệu.</li>
+</ul>
+<p><strong>Repo này là site tĩnh</strong>: chỉ có frontend, không backend, không database. Dữ liệu nằm sẵn trong <code>terms.js</code>. Nên nó rất dễ để học: chỉ cần &quot;bật file lên&quot; là chạy.</p>
+<h2>5.2 <code>localhost</code> và <code>port</code> là gì</h2>
+<ul>
+<li><code>localhost</code> = &quot;chính máy này&quot;. <code>http://localhost:4173</code> = &quot;web đang chạy trên máy tôi, cổng 4173&quot;.</li>
+<li><strong>Port</strong> = số cửa. Một máy có nhiều cửa, mỗi app chiếm 1 cửa. Quy ước hay gặp: 3000, 4173, 5173, 8080.</li>
+<li>Khi dev nói &quot;chạy local lên&quot; nghĩa là: bật server trên máy → mở <code>localhost:&lt;port&gt;</code>.</li>
+</ul>
+<h2>5.3 Ba môi trường bạn sẽ nghe suốt</h2>
+<table>
+<thead>
+<tr>
+<th>Môi trường</th>
+<th>Là gì</th>
+<th>URL kiểu</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Local</strong></td>
+<td>Trên máy bạn</td>
+<td><code>http://localhost:4173</code></td>
+</tr>
+<tr>
+<td><strong>Staging / Test / Dev</strong></td>
+<td>Máy chủ nội bộ để test trước</td>
+<td><code>https://staging.congty.com</code></td>
+</tr>
+<tr>
+<td><strong>Production (Prod)</strong></td>
+<td>Thật, khách đang dùng</td>
+<td><code>https://congty.com</code></td>
+</tr>
+</tbody></table>
+<p>Automation thường chạy trên <strong>local</strong> (khi dev) và <strong>staging</strong> (trên CI). Rất hiếm khi chạy test phá hoại trên prod.</p>
+<p>Trong repo này, <a href="https://github.com/leona3893/don-gian-hoa/blob/main/playwright.config.js"><code>playwright.config.js</code></a> chỉ định môi trường:</p>
+<pre><code class="language-js">use: {
+  baseURL: `http://localhost:4173`,   ← mọi page.goto(&#39;/&#39;) sẽ thành localhost:4173/
+},
+webServer: {
+  command: `npx serve -l 4173 --no-clipboard .`,   ← Playwright TỰ bật server trước khi test
+  url: `http://localhost:4173/`,
+},
+</code></pre>
+<p>Nghĩa là bạn chỉ cần <code>npm test</code>, Playwright tự bật web, tự test, tự tắt. Ở dự án khác không có <code>webServer</code>, bạn phải tự bật web ở 1 cửa sổ PowerShell rồi chạy test ở cửa sổ khác.</p>
+<h2>5.4 &quot;Build&quot; và &quot;Deploy&quot; là gì</h2>
+<ul>
+<li><strong>Build</strong> = biến code nguồn thành thứ chạy được / thứ đưa lên server. Repo này: <code>npm run build</code> đọc <code>terms.js</code> và sinh ra 83 file HTML trong <code>thuat-ngu/</code>.</li>
+<li><strong>Deploy</strong> = đưa bản build lên server cho người dùng. Repo này: job <code>deploy</code> trong Actions đẩy lên GitHub Pages.</li>
+</ul>
+<h2>5.5 Dùng DevTools (F12) — công cụ số 1 của tester automation</h2>
+<p>Mở <code>http://localhost:4173</code>, bấm <code>F12</code>:</p>
+<ul>
+<li>Tab <strong>Elements</strong>: xem HTML. Bấm icon mũi tên góc trên trái (hoặc <code>Ctrl+Shift+C</code>) rồi rê chuột vào ô tìm kiếm → thấy HTML của nó, ví dụ <code>&lt;input id=&quot;q&quot; role=&quot;combobox&quot; aria-label=&quot;Tìm thuật ngữ&quot;&gt;</code>. Đây là cách bạn <strong>tìm &quot;địa chỉ&quot; của phần tử</strong> để test bấm vào.</li>
+<li>Tab <strong>Console</strong>: lỗi JavaScript hiện ở đây.</li>
+<li>Tab <strong>Network</strong>: mọi yêu cầu web gửi đi (API call). Rất cần khi test API.</li>
+</ul>
+<blockquote>
+<p>✅ <strong>Làm ngay:</strong> bật web local, F12, dùng mũi tên chọn: (1) ô tìm kiếm, (2) một thẻ thuật ngữ, (3) nút chip &quot;Kiểm thử&quot;. Ghi lại <code>id</code>, <code>class</code>, <code>role</code>, <code>aria-label</code> của từng cái.</p>
+</blockquote>
+<h2>5.6 App mobile khác gì?</h2>
+<ul>
+<li>Web: trình duyệt hiển thị HTML → Playwright/Cypress/Selenium.</li>
+<li>Mobile app (Android/iOS): app cài trên máy, không có HTML → dùng <strong>Appium</strong> (cần Android Studio + máy ảo). Khó hơn web nhiều. <strong>Học web trước</strong>, 3–6 tháng sau mới sang mobile.</li>
+<li>API: không có giao diện, gọi thẳng backend → Postman (bấm tay) hoặc Playwright <code>request</code> (tự động). Học ngay sau web.</li>
+</ul>
+<hr>
+</div>
+      
+      <nav class="bai-nav">
+        <a class="truoc" href="../github-cua-du-an/"><small>← Bài 4</small>GitHub của dự án hoạt động thế nào</a>
+        <a class="sau" href="../automation-ap-dung-vao-dau/"><small>Bài 6 →</small>Automation nên áp dụng vào đâu</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

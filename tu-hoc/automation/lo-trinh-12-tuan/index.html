@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 11 — Lộ trình 12 tuần · IT nói tiếng người</title>
+  <meta name="description" content="Mỗi tuần một chủ đề, một việc cụ thể, một bằng chứng phải có mới sang tuần sau." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/lo-trinh-12-tuan/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 11 — Lộ trình 12 tuần" />
+  <meta property="og:description" content="Mỗi tuần một chủ đề, một việc cụ thể, một bằng chứng phải có mới sang tuần sau." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/lo-trinh-12-tuan/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-lo-trinh-12-tuan.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-lo-trinh-12-tuan.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 11</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 11 / 13</span>
+      <h1>Lộ trình 12 tuần</h1>
+      <p class="brief">Mỗi tuần một chủ đề, một việc cụ thể, một bằng chứng phải có mới sang tuần sau.</p>
+      <div class="md"><p>Mỗi tuần ~5–7 giờ. Cột &quot;Bằng chứng&quot; là thứ bạn phải có trong tay cuối tuần — không có thì chưa qua tuần.</p>
+<table>
+<thead>
+<tr>
+<th>Tuần</th>
+<th>Chủ đề</th>
+<th>Việc cụ thể</th>
+<th>Bằng chứng</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Môi trường + chạy được</strong></td>
+<td>Bài 1, 2. Clone, cài, <code>npm test</code> xanh, <code>--headed</code> nhìn trình duyệt chạy</td>
+<td>Ảnh chụp <code>25 passed</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Đọc hiểu</strong></td>
+<td>Bài 3, 7. Đọc 4 file test, viết ghi chú từng test kiểm tra gì. F12 lấy locator 10 phần tử</td>
+<td>File ghi chú 20+ dòng</td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Viết test đầu tiên</strong></td>
+<td>Bài 8. <code>lo-trinh.spec.js</code> 3 test xanh</td>
+<td>File test + commit trên nhánh riêng</td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Git + PR</strong></td>
+<td>Bài 4. Luyện vòng lặp branch → commit → push → PR → Actions xanh. Làm 3 lần</td>
+<td>3 PR (có thể đóng không merge)</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Locator sâu</strong></td>
+<td>Bài 6.5. Viết lại 5 locator dạng <code>.class</code> trong test cũ thành <code>getByRole</code>. Dùng <code>codegen</code> để so sánh</td>
+<td>Diff 5 chỗ sửa</td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Assertion + dữ liệu</strong></td>
+<td>Test vòng lặp qua <code>TERMS</code> (bài nâng dần #4). Test so sánh số đếm với dữ liệu</td>
+<td>2 test dùng vòng lặp</td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Debug</strong></td>
+<td>Bài 9. Cố ý làm hỏng 3 test (sửa locator sai), đọc lỗi, dùng trace viewer sửa lại</td>
+<td>Ghi chú 3 lỗi + cách sửa</td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Page Object</strong></td>
+<td>Bài 6.6. Tạo <code>tests/pages/TrangChu.js</code>, chuyển 3 test sang dùng nó</td>
+<td>File Page Object + 3 test đã refactor</td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>CI/CD</strong></td>
+<td>Đọc kỹ <code>ci-cd.yml</code>. Thêm 1 bước mới (ví dụ in ra số test). Xem Actions</td>
+<td>1 commit sửa workflow chạy xanh</td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>API test cơ bản</strong></td>
+<td>Dùng <code>request</code> của Playwright gọi <code>GET /sitemap.xml</code>, <code>GET /thuat-ngu/api/</code>, kiểm tra status 200 + nội dung</td>
+<td>File <code>api.spec.js</code> 3 test</td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Áp vào dự án lạ</strong></td>
+<td>Chọn 1 web public (ví dụ demo site <code>the-internet.herokuapp.com</code> hoặc <code>saucedemo.com</code>), làm lại Bài 2 + viết 5 test</td>
+<td>Repo mới trên GitHub có test + Actions</td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Tổng kết + CV</strong></td>
+<td>Viết README cho repo test tuần 11: cách chạy, cấu trúc, kết quả. Chuẩn bị nói 5 phút về nó</td>
+<td>README + link repo</td>
+</tr>
+</tbody></table>
+<p>Sau 12 tuần bạn có: 2 repo có test tự động chạy trên CI, hiểu Git, đọc được cấu trúc dự án, tự viết và debug test. Đủ để nhận việc automation junior hoặc tự động hoá cho team hiện tại.</p>
+<p><strong>Sau đó (tháng 4–6):</strong> TypeScript cơ bản, test API sâu hơn, fixtures/dữ liệu test, chạy song song nhiều trình duyệt, báo cáo Allure, và tùy nhu cầu: Appium cho mobile.</p>
+<hr>
+</div>
+      
+      <nav class="bai-nav">
+        <a class="truoc" href="../code-toi-thieu/"><small>← Bài 10</small>Code tối thiểu cần biết</a>
+        <a class="sau" href="../cau-hoi-hay-gap/"><small>Bài 12 →</small>Câu hỏi hay gặp</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

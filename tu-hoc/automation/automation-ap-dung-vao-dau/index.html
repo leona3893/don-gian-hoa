@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 6 — Automation nên áp dụng vào đâu · IT nói tiếng người</title>
+  <meta name="description" content="Cái gì nên và không nên tự động, thứ tự ưu tiên, biến test case tay thành test tự động, chọn locator." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/automation-ap-dung-vao-dau/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 6 — Automation nên áp dụng vào đâu" />
+  <meta property="og:description" content="Cái gì nên và không nên tự động, thứ tự ưu tiên, biến test case tay thành test tự động, chọn locator." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/automation-ap-dung-vao-dau/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-automation-ap-dung-vao-dau.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-automation-ap-dung-vao-dau.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 6</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 6 / 13</span>
+      <h1>Automation nên áp dụng vào đâu</h1>
+      <p class="brief">Cái gì nên và không nên tự động, thứ tự ưu tiên, biến test case tay thành test tự động, chọn locator.</p>
+      <div class="md"><h2>6.1 Cái gì NÊN và KHÔNG NÊN tự động hoá</h2>
+<table>
+<thead>
+<tr>
+<th>NÊN tự động</th>
+<th>KHÔNG nên (test tay tốt hơn)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Luồng lặp lại mỗi lần release (đăng nhập, tìm kiếm, thanh toán)</td>
+<td>Tính năng mới, đang thay đổi giao diện hàng ngày</td>
+</tr>
+<tr>
+<td>Smoke test: &quot;web có mở được không, trang chính có hiện không&quot;</td>
+<td>Đánh giá &quot;đẹp/xấu&quot;, UX, cảm giác</td>
+</tr>
+<tr>
+<td>Kiểm tra dữ liệu số lượng lớn (83 trang thuật ngữ đều mở được?)</td>
+<td>Test khám phá (exploratory)</td>
+</tr>
+<tr>
+<td>Regression: sửa chỗ này có làm hỏng chỗ kia không</td>
+<td>Test 1 lần rồi thôi</td>
+</tr>
+<tr>
+<td>Cross-browser cơ bản</td>
+<td>Captcha, OTP thật, thanh toán thật</td>
+</tr>
+</tbody></table>
+<p>Nguyên tắc: <strong>tự động hoá cái nhàm chán, lặp lại, ổn định</strong>. Giữ sức người cho cái cần óc.</p>
+<h2>6.2 Bắt đầu từ đâu trong một dự án thật — thứ tự ưu tiên</h2>
+<ol>
+<li><strong>Smoke test (tuần đầu)</strong>: 3–5 test kiểm tra &quot;trang mở được, không lỗi, thấy đúng tiêu đề&quot;. Ví dụ trong repo: <a href="https://github.com/leona3893/don-gian-hoa/blob/main/tests/lien-ket.spec.js"><code>tests/lien-ket.spec.js</code></a> kiểm tra tất cả link không bị 404.</li>
+<li><strong>Luồng chính (happy path)</strong>: mỗi tính năng lớn 1 test đi đúng đường. Ví dụ: tìm &quot;api&quot; → có gợi ý → bấm → mở modal.</li>
+<li><strong>Trường hợp biên &amp; lỗi</strong>: tìm chuỗi vô nghĩa → thấy &quot;Chưa có kết quả&quot;.</li>
+<li><strong>Regression theo bug</strong>: mỗi bug từng xảy ra → 1 test đảm bảo không tái phát.</li>
+</ol>
+<h2>6.3 Kim tự tháp test (chỉ cần biết để hiểu dev nói gì)</h2>
+<pre><code>        /\        E2E (Playwright) — ít, chậm, giống người dùng nhất  ← BẠN Ở ĐÂY
+       /  \
+      /----\      Integration / API — vừa                            ← bước tiếp theo
+     /      \
+    /--------\    Unit — nhiều, nhanh, dev viết                       ← không phải việc bạn
+</code></pre>
+<h2>6.4 Quy trình biến 1 test case tay thành 1 test tự động</h2>
+<p>Lấy test case tay bạn hay viết:</p>
+<blockquote>
+<p><strong>TC-05</strong>: Bấm chip &quot;Kiểm thử&quot; → chỉ hiện thuật ngữ nhóm Kiểm thử, số đếm đúng.</p>
+</blockquote>
+<p>Biến thành tự động qua 5 bước:</p>
+<table>
+<thead>
+<tr>
+<th>Bước</th>
+<th>Câu hỏi</th>
+<th>Trả lời cho TC-05</th>
+<th>Code</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Bắt đầu ở trang nào?</td>
+<td>Trang chủ</td>
+<td><code>await page.goto(&#39;/&#39;)</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td>Phần tử cần bấm &quot;địa chỉ&quot; là gì? (F12)</td>
+<td>chip có class <code>.chip</code> và chữ &quot;Kiểm thử&quot;</td>
+<td><code>page.locator(&#39;#chips .chip&#39;, { hasText: &#39;Kiểm thử&#39; })</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td>Hành động?</td>
+<td>Click</td>
+<td><code>.click()</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td>Mong đợi gì?</td>
+<td>Chip sáng lên; lưới chỉ còn N thẻ</td>
+<td><code>expect(...).toHaveText(&#39;Kiểm thử&#39;)</code>, <code>expect(...).toHaveCount(N)</code></td>
+</tr>
+<tr>
+<td>5</td>
+<td>N là bao nhiêu?</td>
+<td>Đếm từ <code>terms.js</code></td>
+<td><code>TERMS.filter(t =&gt; t.cat === &#39;Kiểm thử&#39;).length</code></td>
+</tr>
+</tbody></table>
+<p>Test này <strong>đã có sẵn</strong> trong <a href="https://github.com/leona3893/don-gian-hoa/blob/main/tests/trang-chu.spec.js"><code>tests/trang-chu.spec.js</code></a> — test tên &quot;chip lọc nhóm chỉ hiện thuật ngữ thuộc nhóm đó&quot;. Bài 7 sẽ mổ xẻ nó.</p>
+<h2>6.5 Cách tìm &quot;địa chỉ&quot; phần tử (locator) — thứ tự ưu tiên</h2>
+<p>Đây là kỹ năng cốt lõi nhất của automation web. Ưu tiên từ trên xuống:</p>
+<table>
+<thead>
+<tr>
+<th>Ưu tiên</th>
+<th>Cách</th>
+<th>Ví dụ</th>
+<th>Vì sao</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>Theo <strong>vai trò + tên</strong> (cái người dùng thấy)</td>
+<td><code>page.getByRole(&#39;button&#39;, { name: &#39;Tìm hiểu&#39; })</code></td>
+<td>Dev đổi CSS không ảnh hưởng</td>
+</tr>
+<tr>
+<td>2</td>
+<td>Theo <strong>chữ hiển thị</strong></td>
+<td><code>page.getByText(&#39;Chưa có kết quả&#39;)</code></td>
+<td>Dễ đọc</td>
+</tr>
+<tr>
+<td>3</td>
+<td>Theo <strong>label / placeholder</strong></td>
+<td><code>page.getByLabel(&#39;Tìm thuật ngữ&#39;)</code></td>
+<td>Ổn định</td>
+</tr>
+<tr>
+<td>4</td>
+<td>Theo <strong><code>data-testid</code></strong> (nhờ dev gắn)</td>
+<td><code>page.getByTestId(&#39;search-input&#39;)</code></td>
+<td>Dành riêng cho test</td>
+</tr>
+<tr>
+<td>5</td>
+<td>Theo <strong>id</strong></td>
+<td><code>page.locator(&#39;#grid&#39;)</code></td>
+<td>Khá ổn</td>
+</tr>
+<tr>
+<td>6</td>
+<td>Theo <strong>class CSS</strong></td>
+<td><code>page.locator(&#39;.term&#39;)</code></td>
+<td>Dễ đổi khi dev chỉnh giao diện</td>
+</tr>
+<tr>
+<td>❌</td>
+<td>XPath dài ngoằng</td>
+<td><code>//div[2]/div[1]/span[3]</code></td>
+<td>Vỡ ngay khi dev thêm 1 thẻ</td>
+</tr>
+</tbody></table>
+<p>Công cụ trợ giúp: chạy <code>npx playwright codegen http://localhost:4173</code> → mở trình duyệt, bạn bấm gì nó sinh code nấy. <strong>Dùng nó để học, không dùng nó để copy nguyên xi</strong> (code sinh ra thường xấu).</p>
+<h2>6.6 Page Object — khi test bắt đầu nhiều</h2>
+<p>Khi có &gt; 10 file test, bạn sẽ thấy <code>page.getByRole(&#39;combobox&#39;, { name: &#39;Tìm thuật ngữ&#39; })</code> lặp lại ở 15 chỗ. Dev đổi tên → sửa 15 chỗ. Giải pháp: gom &quot;địa chỉ&quot; và hành động của 1 trang vào 1 file:</p>
+<pre><code class="language-js">// tests/pages/TrangChu.js
+export class TrangChu {
+  constructor(page) {
+    this.page = page;
+    this.oTim = page.getByRole(&#39;combobox&#39;, { name: &#39;Tìm thuật ngữ&#39; });
+    this.luoi = page.locator(&#39;#grid .term&#39;);
+  }
+  async mo() { await this.page.goto(&#39;/&#39;); }
+  async tim(tuKhoa) { await this.oTim.fill(tuKhoa); }
+}
+</code></pre>
+<p>Rồi test chỉ còn:</p>
+<pre><code class="language-js">const trangChu = new TrangChu(page);
+await trangChu.mo();
+await trangChu.tim(&#39;api&#39;);
+</code></pre>
+<p>Chưa cần làm bây giờ. Tuần 7–8 trong lộ trình mới đụng.</p>
+<hr>
+</div>
+      
+      <nav class="bai-nav">
+        <a class="truoc" href="../web-app-chay-the-nao/"><small>← Bài 5</small>Web / app chạy như thế nào</a>
+        <a class="sau" href="../doc-hieu-mot-file-test/"><small>Bài 7 →</small>Đọc hiểu một file test thật, từng dòng một</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

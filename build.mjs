@@ -8,6 +8,7 @@ import { SO_SANH } from './so-sanh.js';
 import { SO_TAY } from './so-tay.js';
 import { renderOG } from './og.mjs';
 import { HINH } from './hinh.js';
+import { marked } from 'marked';
 
 const SITE = 'https://leona3893.github.io/don-gian-hoa/';
 const OUT = 'thuat-ngu';
@@ -21,6 +22,9 @@ const ogMeta = file => `<meta property="og:image" content="${SITE}${file}" />
 
 const esc = s => String(s).replace(/[&<>"']/g, c =>
   ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+
+// Menu đầu trang, dùng chung mọi trang. `up` = đường lên gốc site ('../', '../../'…).
+const menu = up => `<header><a class="brand" href="${up}"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="${up}lo-trinh/">Lộ trình</a><a href="${up}so-sanh/">So sánh</a><a href="${up}so-tay/">Sổ tay</a><a href="${up}tu-hoc/">Tự học</a></div></header>`;
 
 // Nhóm nào dùng bộ mốc nào. Không khai báo riêng thì rơi về bộ nền tảng.
 const trackOf = cat => TRACKS[cat] || TRACKS._default;
@@ -149,7 +153,7 @@ const page = t => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a></div></header>
+    ${menu('../../')}
     <nav class="crumb"><a href="../../">Trang chủ</a> › ${esc(t.name)}</nav>
     <article class="article">
       <span class="tag">${esc(t.cat)}</span>${badge}
@@ -201,7 +205,7 @@ const trangLoTrinh = () => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../lo-trinh/">Lộ trình</a><a href="../so-sanh/">So sánh</a><a href="../so-tay/">Sổ tay</a></div></header>
+    ${menu('../')}
     <nav class="crumb"><a href="../">Trang chủ</a> › Lộ trình</nav>
     <article class="article">
       <h1>Bạn đang ở mốc nào?</h1>
@@ -263,7 +267,7 @@ const trangSoSanh = s => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a></div></header>
+    ${menu('../../')}
     <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">So sánh</a> › ${esc(s.h1)}</nav>
     <article class="article">
       <span class="tag">${esc(s.cat)}</span>
@@ -327,7 +331,7 @@ const trangSoSanhIndex = () => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../lo-trinh/">Lộ trình</a><a href="../so-sanh/">So sánh</a><a href="../so-tay/">Sổ tay</a></div></header>
+    ${menu('../')}
     <nav class="crumb"><a href="../">Trang chủ</a> › So sánh</nav>
     <article class="article">
       <h1>Hay bị nhầm lẫn</h1>
@@ -382,7 +386,7 @@ const trangSoTay = n => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a></div></header>
+    ${menu('../../')}
     <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">Sổ tay</a> › ${esc(n.h1)}</nav>
     <article class="article so-tay">
       <span class="tag">${esc(n.cat)}</span>
@@ -431,7 +435,7 @@ const trangSoTayIndex = () => {
 </head>
 <body>
   <main class="wrap">
-    <header><a class="brand" href="../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../lo-trinh/">Lộ trình</a><a href="../so-sanh/">So sánh</a><a href="../so-tay/">Sổ tay</a></div></header>
+    ${menu('../')}
     <nav class="crumb"><a href="../">Trang chủ</a> › Sổ tay</nav>
     <article class="article">
       <h1>Sổ tay</h1>
@@ -444,6 +448,153 @@ const trangSoTayIndex = () => {
       <a class="back" href="../">← Xem tất cả thuật ngữ</a>
     </article>
     <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>
+`;
+};
+
+// ---- Tự học: bài viết dài, nguồn là Markdown trong noi-dung/tu-hoc/ ----
+// Mỗi file .md có frontmatter (title, mota, so, moRong, bai) rồi tới nội dung.
+const docMd = file => {
+  const raw = fs.readFileSync(file, 'utf8');
+  const m = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n([\s\S]*)$/);
+  const meta = {};
+  for (const line of m[1].split(/\r?\n/)) {
+    const i = line.indexOf(':');
+    if (i > 0) meta[line.slice(0, i).trim()] = line.slice(i + 1).trim();
+  }
+  return { ...meta, html: marked.parse(m[2]) };
+};
+const TU_HOC_DIR = 'noi-dung/tu-hoc';
+const SERIES = { slug: 'automation', ten: 'Automation cho người không giỏi code',
+  mota: 'Từ ngày đầu vào dự án tới lúc tự viết và tự sửa được test — từng bước nhỏ nhất, ví dụ lấy từ chính mã nguồn site này.' };
+const BAI = fs.readdirSync(`${TU_HOC_DIR}/automation`).filter(f => f.endsWith('.md')).sort()
+  .map(f => ({ ...docMd(`${TU_HOC_DIR}/automation/${f}`), slug: f.replace(/^\d+-/, '').replace(/\.md$/, '') }));
+const MO_RONG = fs.readdirSync(`${TU_HOC_DIR}/mo-rong`).filter(f => f.endsWith('.md')).sort()
+  .map(f => ({ ...docMd(`${TU_HOC_DIR}/mo-rong/${f}`), slug: f.replace(/\.md$/, '') }));
+const nhanBai = b => Number(b.so) >= 13 ? 'Phụ lục' : `Bài ${b.so}`;
+
+const headTuHoc = (up, { title, desc, url, og, type = 'article' }) => `<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>${esc(title)} · IT nói tiếng người</title>
+  <meta name="description" content="${esc(desc)}" />
+  <link rel="canonical" href="${url}" />
+  <link rel="icon" href="${up}favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="${type}" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="${esc(title)}" />
+  <meta property="og:description" content="${esc(desc)}" />
+  <meta property="og:url" content="${url}" />
+  ${ogMeta(og)}
+  <link rel="stylesheet" href="${up}styles.css" />
+</head>`;
+
+const footer = `<footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>`;
+
+const trangBai = (b, i) => {
+  const up = '../../../';
+  const url = `${SITE}tu-hoc/automation/${b.slug}/`;
+  const truoc = BAI[i - 1], sau = BAI[i + 1];
+  const moRong = (b.moRong || '').split(',').map(x => x.trim()).filter(Boolean)
+    .map(sl => MO_RONG.find(m => m.slug === sl)).filter(Boolean);
+  return `${headTuHoc(up, { title: `${nhanBai(b)} — ${b.title}`, desc: b.mota, url, og: `og/tu-hoc-${b.slug}.png` })}
+<body>
+  <main class="wrap">
+    ${menu(up)}
+    <nav class="crumb"><a href="${up}">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">${esc(SERIES.ten)}</a> › ${nhanBai(b)}</nav>
+    <article class="article tu-hoc">
+      <span class="tag">${nhanBai(b)} / ${BAI.length - 1}</span>
+      <h1>${esc(b.title)}</h1>
+      <p class="brief">${esc(b.mota)}</p>
+      <div class="md">${b.html}</div>
+      ${moRong.length ? `<div class="mo-rong"><h4>📎 Mở rộng — đọc sau, không bắt buộc</h4><ul>${moRong.map(m =>
+        `<li><a href="../../mo-rong/${m.slug}/">${esc(m.title)}</a><span>${esc(m.mota)}</span></li>`).join('')}</ul></div>` : ''}
+      <nav class="bai-nav">
+        ${truoc ? `<a class="truoc" href="../${truoc.slug}/"><small>← ${nhanBai(truoc)}</small>${esc(truoc.title)}</a>` : '<span></span>'}
+        ${sau ? `<a class="sau" href="../${sau.slug}/"><small>${nhanBai(sau)} →</small>${esc(sau.title)}</a>` : '<span></span>'}
+      </nav>
+      <a class="back" href="../">← Mục lục ${esc(SERIES.ten)}</a>
+    </article>
+    ${footer}
+  </main>
+</body>
+</html>
+`;
+};
+
+const trangMoRong = m => {
+  const up = '../../../';
+  const url = `${SITE}tu-hoc/mo-rong/${m.slug}/`;
+  const bai = BAI.find(b => b.slug === m.bai);
+  return `${headTuHoc(up, { title: m.title, desc: m.mota, url, og: `og/tu-hoc-mo-rong-${m.slug}.png` })}
+<body>
+  <main class="wrap">
+    ${menu(up)}
+    <nav class="crumb"><a href="${up}">Trang chủ</a> › <a href="../../">Tự học</a> › Mở rộng</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Mở rộng${bai ? ` · ${nhanBai(bai)}` : ''}</span>
+      <h1>${esc(m.title)}</h1>
+      <p class="brief">${esc(m.mota)}</p>
+      ${bai ? `<p class="doc-khi">Đọc khi đã xong <a href="../../automation/${bai.slug}/">${nhanBai(bai)} — ${esc(bai.title)}</a>. Không cần đọc ở lần đầu.</p>` : ''}
+      <div class="md">${m.html}</div>
+      ${bai ? `<a class="back" href="../../automation/${bai.slug}/">← Quay lại ${nhanBai(bai)}</a>` : `<a class="back" href="../../">← Tự học</a>`}
+    </article>
+    ${footer}
+  </main>
+</body>
+</html>
+`;
+};
+
+const trangSeries = () => {
+  const up = '../../';
+  const url = `${SITE}tu-hoc/automation/`;
+  return `${headTuHoc(up, { title: SERIES.ten, desc: SERIES.mota, url, og: 'og/tu-hoc-automation.png', type: 'website' })}
+<body>
+  <main class="wrap">
+    ${menu(up)}
+    <nav class="crumb"><a href="${up}">Trang chủ</a> › <a href="../">Tự học</a> › ${esc(SERIES.ten)}</nav>
+    <article class="article">
+      <h1>${esc(SERIES.ten)}</h1>
+      <p class="plain">${esc(SERIES.mota)}</p>
+      <p class="brief">Đọc <strong>Bài 0</strong> trước để đổi tư duy, rồi làm theo đúng thứ tự. Mỗi bài có ô <strong>✅ Làm ngay</strong> — việc phải tự tay làm trên máy, không chỉ đọc. Vướng lỗi thì tra <a href="${up}so-tay/">Sổ tay</a>.</p>
+      <ol class="muc-luc">${BAI.map(b =>
+        `<li><a href="${b.slug}/"><small>${nhanBai(b)}</small>${esc(b.title)}</a><span>${esc(b.mota)}</span></li>`).join('')}</ol>
+      <h2>Mở rộng</h2>
+      <p class="brief">Đọc sau khi đã qua bài tương ứng. Trả lời câu “khi thấy thứ này trong dự án lạ, tester cần biết gì để không hoảng?”</p>
+      <ul class="nextlist">${MO_RONG.map(m =>
+        `<li><a href="../mo-rong/${m.slug}/">${esc(m.title)}</a><span>${esc(m.mota)}</span></li>`).join('')}</ul>
+      <a class="back" href="../">← Tự học</a>
+    </article>
+    ${footer}
+  </main>
+</body>
+</html>
+`;
+};
+
+const trangTuHocIndex = () => {
+  const up = '../';
+  const url = `${SITE}tu-hoc/`;
+  return `${headTuHoc(up, { title: 'Tự học — lộ trình từng bước, từ số 0', desc: 'Lộ trình trả lời “tôi đang ở đâu”. Tự học trả lời “tôi làm gì tiếp” — từng bước nhỏ nhất, có việc để làm ngay.', url, og: 'og/tu-hoc.png', type: 'website' })}
+<body>
+  <main class="wrap">
+    ${menu(up)}
+    <nav class="crumb"><a href="${up}">Trang chủ</a> › Tự học</nav>
+    <article class="article">
+      <h1>Tự học</h1>
+      <p class="plain"><a href="${up}lo-trinh/">Lộ trình</a> trả lời <strong>“tôi đang ở đâu”</strong>. Tự học trả lời <strong>“tôi làm gì tiếp”</strong> — từng bước nhỏ nhất, mỗi bài có việc để làm ngay, ví dụ lấy từ dự án thật.</p>
+      <ul class="nextlist series">
+        <li><a href="${SERIES.slug}/">${esc(SERIES.ten)}</a><span>${esc(SERIES.mota)}</span><small>${BAI.length - 1} bài + phụ lục · ${MO_RONG.length} trang mở rộng</small></li>
+      </ul>
+      <a class="back" href="${up}">← Xem tất cả thuật ngữ</a>
+    </article>
+    ${footer}
   </main>
 </body>
 </html>
@@ -470,6 +621,19 @@ for (const s of SO_SANH) {
   fs.writeFileSync(path.join('so-sanh', s.slug, 'index.html'), trangSoSanh(s), 'utf8');
 }
 
+fs.mkdirSync('tu-hoc/automation', { recursive: true });
+fs.mkdirSync('tu-hoc/mo-rong', { recursive: true });
+fs.writeFileSync(path.join('tu-hoc', 'index.html'), trangTuHocIndex(), 'utf8');
+fs.writeFileSync(path.join('tu-hoc', 'automation', 'index.html'), trangSeries(), 'utf8');
+BAI.forEach((b, i) => {
+  fs.mkdirSync(path.join('tu-hoc', 'automation', b.slug), { recursive: true });
+  fs.writeFileSync(path.join('tu-hoc', 'automation', b.slug, 'index.html'), trangBai(b, i), 'utf8');
+});
+for (const m of MO_RONG) {
+  fs.mkdirSync(path.join('tu-hoc', 'mo-rong', m.slug), { recursive: true });
+  fs.writeFileSync(path.join('tu-hoc', 'mo-rong', m.slug, 'index.html'), trangMoRong(m), 'utf8');
+}
+
 fs.mkdirSync('so-tay', { recursive: true });
 fs.writeFileSync(path.join('so-tay', 'index.html'), trangSoTayIndex(), 'utf8');
 for (const n of SO_TAY) {
@@ -487,7 +651,11 @@ const anh = [
   ...TERMS.map(t => ({ file: `${slugify(t.name)}.png`, title: `${t.name} là gì?`, sub: t.brief, hinhKey: t.name })),
   ...SO_SANH.map(s => ({ file: `so-sanh-${s.slug}.png`, title: s.h1, sub: stripHtml(s.tldr), hinhKey: '_so-sanh' })),
   { file: 'so-tay.png', title: 'Sổ tay', sub: 'Lỗi thật gặp khi thực hành: máy báo gì, sửa thế nào, nhớ gì.', hinhKey: '_so-tay' },
-  ...SO_TAY.map(n => ({ file: `so-tay-${n.slug}.png`, title: n.h1, sub: n.baiHoc.map(b => stripHtml(b.ten)).join(' · '), hinhKey: '_so-tay' }))
+  ...SO_TAY.map(n => ({ file: `so-tay-${n.slug}.png`, title: n.h1, sub: n.baiHoc.map(b => stripHtml(b.ten)).join(' · '), hinhKey: '_so-tay' })),
+  { file: 'tu-hoc.png', title: 'Tự học', sub: 'Lộ trình từng bước, từ số 0, có việc để làm ngay.', hinhKey: '_tu-hoc' },
+  { file: 'tu-hoc-automation.png', title: SERIES.ten, sub: SERIES.mota, hinhKey: '_tu-hoc' },
+  ...BAI.map(b => ({ file: `tu-hoc-${b.slug}.png`, title: `${nhanBai(b)} — ${b.title}`, sub: b.mota, hinhKey: '_tu-hoc' })),
+  ...MO_RONG.map(m => ({ file: `tu-hoc-mo-rong-${m.slug}.png`, title: m.title, sub: m.mota, hinhKey: '_tu-hoc' }))
 ];
 let thieuHinh = 0;
 for (const a of anh) {
@@ -502,6 +670,10 @@ const urls = [
   `${SITE}lo-trinh/`,
   `${SITE}so-sanh/`,
   ...SO_SANH.map(s => `${SITE}so-sanh/${s.slug}/`),
+  `${SITE}tu-hoc/`,
+  `${SITE}tu-hoc/automation/`,
+  ...BAI.map(b => `${SITE}tu-hoc/automation/${b.slug}/`),
+  ...MO_RONG.map(m => `${SITE}tu-hoc/mo-rong/${m.slug}/`),
   `${SITE}so-tay/`,
   ...SO_TAY.map(n => `${SITE}so-tay/${n.slug}/`),
   ...TERMS.map(t => `${SITE}${OUT}/${slugify(t.name)}/`)
@@ -513,5 +685,5 @@ fs.writeFileSync('sitemap.xml',
 
 fs.writeFileSync('robots.txt', `User-agent: *\nAllow: /\n\nSitemap: ${SITE}sitemap.xml\n`, 'utf8');
 
-console.log(`Đã sinh ${written} trang thuật ngữ (${coChiTiet} bản 4 tầng, ${written - coChiTiet} bản gọn) + lộ trình + ${SO_SANH.length} so sánh + ${SO_TAY.length} sổ tay, sitemap ${urls.length} URL.`);
+console.log(`Đã sinh ${written} trang thuật ngữ (${coChiTiet} bản 4 tầng, ${written - coChiTiet} bản gọn) + lộ trình + ${SO_SANH.length} so sánh + ${SO_TAY.length} sổ tay + ${BAI.length} bài tự học + ${MO_RONG.length} mở rộng, sitemap ${urls.length} URL.`);
 console.log(`Ảnh chia sẻ: ${anh.length} ảnh trong og/${thieuHinh ? `, ${thieuHinh} ảnh dùng hình mặc định` : ''}.`);

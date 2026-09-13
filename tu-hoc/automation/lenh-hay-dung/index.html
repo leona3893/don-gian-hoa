@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Phụ lục — Phụ lục — Lệnh hay dùng · IT nói tiếng người</title>
+  <meta name="description" content="Toàn bộ lệnh trong lộ trình gom một chỗ, dán vào ghi chú." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/lenh-hay-dung/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Phụ lục — Phụ lục — Lệnh hay dùng" />
+  <meta property="og:description" content="Toàn bộ lệnh trong lộ trình gom một chỗ, dán vào ghi chú." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/lenh-hay-dung/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-lenh-hay-dung.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-lenh-hay-dung.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Phụ lục</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Phụ lục / 13</span>
+      <h1>Phụ lục — Lệnh hay dùng</h1>
+      <p class="brief">Toàn bộ lệnh trong lộ trình gom một chỗ, dán vào ghi chú.</p>
+      <div class="md"><pre><code class="language-powershell"># Cài đặt (1 lần / khi mới clone)
+npm install
+npx playwright install chromium
+
+# Chạy web local
+npx serve -l 4173 .
+
+# Chạy test
+npm test                                          # tất cả
+npx playwright test tests/lo-trinh.spec.js        # 1 file
+npx playwright test -g &quot;tiêu đề&quot;                  # test có tên chứa chữ
+npx playwright test --headed                      # nhìn thấy trình duyệt
+npx playwright test --debug                       # dừng từng bước
+npx playwright test --trace on                    # ghi trace
+npm run report                                    # mở báo cáo
+npx playwright codegen http://localhost:4173      # ghi thao tác thành code
+
+# Git hàng ngày
+git checkout main; git pull
+git checkout -b test/ten-viec
+git status; git diff
+git add &lt;file&gt;; git commit -m &quot;...&quot;
+git push -u origin test/ten-viec
+git log --oneline
+</code></pre>
+</div>
+      
+      <nav class="bai-nav">
+        <a class="truoc" href="../cau-hoi-hay-gap/"><small>← Bài 12</small>Câu hỏi hay gặp</a>
+        <span></span>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

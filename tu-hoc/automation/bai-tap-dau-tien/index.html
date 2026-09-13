@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 8 — Bài tập đầu tiên: tự viết 1 test · IT nói tiếng người</title>
+  <meta name="description" content="Viết 4 test cho trang Lộ trình từ nhìn trang → lấy địa chỉ → viết → chạy → commit." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/bai-tap-dau-tien/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 8 — Bài tập đầu tiên: tự viết 1 test" />
+  <meta property="og:description" content="Viết 4 test cho trang Lộ trình từ nhìn trang → lấy địa chỉ → viết → chạy → commit." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/bai-tap-dau-tien/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-bai-tap-dau-tien.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-bai-tap-dau-tien.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 8</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 8 / 13</span>
+      <h1>Bài tập đầu tiên: tự viết 1 test</h1>
+      <p class="brief">Viết 4 test cho trang Lộ trình từ nhìn trang → lấy địa chỉ → viết → chạy → commit.</p>
+      <div class="md"><p>Mục tiêu: viết test cho trang <strong>Lộ trình</strong> (<code>/lo-trinh/</code>) — trang này hiện chưa có test.</p>
+<h2>Bước 1 — Xem trang bằng mắt</h2>
+<pre><code class="language-powershell">npx serve -l 4173 .
+</code></pre>
+<p>Mở <code>http://localhost:4173/lo-trinh/</code>. Nhìn: tiêu đề là gì? Có những mục gì? Có link nào?</p>
+<h2>Bước 2 — Lấy &quot;địa chỉ&quot; bằng F12</h2>
+<p>Bấm F12 → <code>Ctrl+Shift+C</code> → rê vào tiêu đề chính. Ghi lại: thẻ gì (<code>h1</code>?), chữ gì.</p>
+<h2>Bước 3 — Viết test case tay trước (trên giấy)</h2>
+<pre><code>TC-LT-01: Mở /lo-trinh/ → title tab có chữ &quot;Lộ trình&quot;, h1 là &quot;Bạn đang ở mốc nào?&quot;
+TC-LT-02: Có đúng 3 nhóm (h3): &quot;Kiểm thử&quot;, &quot;AI&quot;, &quot;Nền tảng&quot;
+TC-LT-03: Nhóm &quot;Kiểm thử&quot; có 3 mốc, mốc 2 chứa chữ &quot;Tự viết được cái đầu tiên&quot;
+TC-LT-04: Bấm link &quot;So sánh&quot; trên menu → URL đổi sang /so-sanh/
+</code></pre>
+<p>(Tôi đã xem trang này trước: nó KHÔNG có link tới từng thuật ngữ, chỉ có 3 nhóm mốc và menu. Bài học đầu tiên: <strong>luôn nhìn trang thật trước khi viết test</strong>, đừng đoán.)</p>
+<h2>Bước 4 — Tạo file test</h2>
+<p>Tạo file mới <code>tests/lo-trinh.spec.js</code> (chuột phải folder <code>tests</code> → New File). Dán:</p>
+<pre><code class="language-js">// Trang lộ trình: tiêu đề, 3 nhóm mốc, menu.
+import { test, expect } from &#39;@playwright/test&#39;;
+
+test.beforeEach(async ({ page }) =&gt; {
+  await page.goto(&#39;/lo-trinh/&#39;);
+});
+
+test(&#39;mở được trang và có tiêu đề đúng&#39;, async ({ page }) =&gt; {
+  await expect(page).toHaveTitle(/Lộ trình/);
+  await expect(page.getByRole(&#39;heading&#39;, { level: 1 })).toHaveText(&#39;Bạn đang ở mốc nào?&#39;);
+});
+
+test(&#39;có đúng 3 nhóm lộ trình&#39;, async ({ page }) =&gt; {
+  const nhom = page.getByRole(&#39;heading&#39;, { level: 3 });
+  await expect(nhom).toHaveCount(3);
+  await expect(nhom).toHaveText([&#39;Kiểm thử&#39;, &#39;AI&#39;, &#39;Nền tảng&#39;]);
+});
+
+test(&#39;nhóm Kiểm thử có mốc &quot;Tự viết được cái đầu tiên&quot;&#39;, async ({ page }) =&gt; {
+  await expect(page.getByText(&#39;Tự viết được cái đầu tiên&#39;)).toBeVisible();
+});
+
+test(&#39;bấm &quot;So sánh&quot; trên menu thì sang trang so sánh&#39;, async ({ page }) =&gt; {
+  await page.getByRole(&#39;link&#39;, { name: &#39;So sánh&#39; }).first().click();
+  await expect(page).toHaveURL(/\/so-sanh\/$/);
+});
+</code></pre>
+<p>Test thứ 3 tôi cố tình để &quot;lỏng&quot; (chỉ kiểm tra chữ có hiện). Khi chạy xanh rồi, bạn tự nâng cấp: dùng F12 tìm xem mỗi mốc nằm trong thẻ gì, rồi đếm đúng 3 mốc trong nhóm Kiểm thử. Đó là bài tập thật sự.</p>
+<h2>Bước 5 — Chạy đúng file này thôi</h2>
+<pre><code class="language-powershell">npx playwright test tests/lo-trinh.spec.js --headed
+</code></pre>
+<p><code>--headed</code> để nhìn thấy trình duyệt. Xanh cả 4 → chúc mừng, bạn vừa viết automation test đầu tiên.</p>
+<p>Đỏ → sang Bài 9. Khả năng cao nhất: test 4 báo <code>strict mode violation</code> vì có nhiều link &quot;So sánh&quot; (menu + footer) — đó là lý do tôi thêm <code>.first()</code>. Thử <strong>bỏ <code>.first()</code> đi chạy lại</strong> để tận mắt thấy lỗi này, rồi thêm lại. <strong>Đó là bình thường</strong> — bạn đoán, chạy, sửa theo thực tế.</p>
+<h2>Bước 6 — Chạy toàn bộ để chắc không hỏng cái khác</h2>
+<pre><code class="language-powershell">npm test
+</code></pre>
+<h2>Bước 7 — Commit lên nhánh riêng (chưa merge, chưa lên web)</h2>
+<pre><code class="language-powershell">git checkout -b test/them-test-lo-trinh
+git add tests/lo-trinh.spec.js
+git commit -m &quot;Thêm test cho trang lộ trình&quot;
+git push -u origin test/them-test-lo-trinh
+</code></pre>
+<p>Lên GitHub mở PR → xem Actions chạy. Vì bạn dặn chưa update web: <strong>chỉ mở PR, đừng merge</strong>. Job deploy chỉ chạy khi push lên <code>main</code>, nên nhánh riêng an toàn tuyệt đối.</p>
+<h2>Bài tập nâng dần (làm sau khi xong bài trên)</h2>
+<ol>
+<li>Viết test cho trang so sánh <code>/so-sanh/</code> (đã có 1 file — đọc rồi thêm 1 test mới).</li>
+<li>Viết test: mở <code>/thuat-ngu/api/</code> → bấm link &quot;Liên quan&quot; đầu tiên → URL đổi.</li>
+<li>Viết test: trang chủ, gõ &quot;GIT&quot; (chữ hoa) → gợi ý vẫn hiện (test không phân biệt hoa thường).</li>
+<li>Viết test chạy vòng lặp qua 5 thuật ngữ đầu trong <code>TERMS</code>, mỗi cái mở trang riêng và kiểm tra <code>h1</code> = tên.</li>
+</ol>
+<hr>
+</div>
+      
+      <nav class="bai-nav">
+        <a class="truoc" href="../doc-hieu-mot-file-test/"><small>← Bài 7</small>Đọc hiểu một file test thật, từng dòng một</a>
+        <a class="sau" href="../khi-test-do/"><small>Bài 9 →</small>Khi test đỏ: cách đọc lỗi và sửa</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

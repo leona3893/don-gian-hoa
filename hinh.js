@@ -50,13 +50,13 @@ export const HINH = {
 // biểu tượng PR: nhánh bên trái, mũi tên cong sang nhánh phải
 'Pull Request': `<line x1="-80" y1="-90" x2="-80" y2="90"/><circle cx="-80" cy="-110" r="18" fill="${BG}"/><circle cx="-80" cy="110" r="18" fill="${BG}"/><circle cx="80" cy="110" r="18" fill="${BG}"/><path d="M-20,-80 L40,-80 Q80,-80 80,-40 L80,90"/><path d="M6,-104 L-20,-80 L6,-56"/>`,
 
-// đưa món ra quầy — đĩa bốc khói
 // thùng hàng kho — hộp có nắp mở, sổ đi chợ bên cạnh
 'npm': `<path d="M-120,-30 L0,-90 L120,-30 L120,80 L0,120 L-120,80 Z"/><line x1="-120" y1="-30" x2="0" y2="30"/><line x1="0" y1="30" x2="120" y2="-30"/><line x1="0" y1="30" x2="0" y2="120"/><line x1="-60" y1="-60" x2="60" y2="0"/>`,
 
 // mũi tên cắm đúng tâm bia
 'npx': `<circle cx="-20" cy="20" r="100"/><circle cx="-20" cy="20" r="60"/><circle cx="-20" cy="20" r="20" fill="${LIME}"/><line x1="-20" y1="20" x2="110" y2="-110"/><path d="M110,-110 L70,-105 M110,-110 L105,-70"/>`,
 
+// đưa món ra quầy — đĩa bốc khói
 'Deploy': `<ellipse cx="0" cy="60" rx="120" ry="30"/><ellipse cx="0" cy="60" rx="80" ry="18"/><path d="M-40,20 Q-55,-10 -40,-40 Q-25,-70 -40,-100"/><path d="M0,20 Q-15,-10 0,-40 Q15,-70 0,-100"/><path d="M40,20 Q25,-10 40,-40 Q55,-70 40,-100"/>`,
 
 // công thức ghi nhầm — bát và muỗng
@@ -260,6 +260,9 @@ export const HINH = {
 
 // sổ tay gáy lò xo, một dòng đã tick
 '_so-tay': `<rect x="-84" y="-110" width="168" height="220" rx="14"/><line x1="-84" y1="-62" x2="84" y2="-62"/><circle cx="-60" cy="-110" r="9" fill="${BG}"/><circle cx="-20" cy="-110" r="9" fill="${BG}"/><circle cx="20" cy="-110" r="9" fill="${BG}"/><circle cx="60" cy="-110" r="9" fill="${BG}"/><path d="M-50,-10 L-30,10 L2,-24" stroke-width="10"/><line x1="18" y1="-6" x2="60" y2="-6"/><line x1="-50" y1="44" x2="60" y2="44"/><line x1="-50" y1="80" x2="30" y2="80"/>`,
+
+// bậc thang đi lên, có người đứng ở bậc đầu
+'_tu-hoc': `<path d="M-130,110 L-130,50 L-70,50 L-70,-10 L-10,-10 L-10,-70 L50,-70 L50,-130 L130,-130"/><circle cx="-100" cy="0" r="14" fill="${LIME}" stroke="none"/><line x1="-100" y1="14" x2="-100" y2="40"/><path d="M-100,22 L-116,34 M-100,22 L-84,34"/>`,
 
 '_so-sanh': `<line x1="0" y1="-104" x2="0" y2="92"/><line x1="-64" y1="92" x2="64" y2="92"/><line x1="-114" y1="-78" x2="114" y2="-78"/><line x1="-114" y1="-78" x2="-114" y2="-14"/><path d="M-158,-14 Q-114,26 -70,-14"/><line x1="114" y1="-78" x2="114" y2="-14"/><path d="M70,-14 Q114,26 158,-14"/>`
 

@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 12 — Câu hỏi hay gặp · IT nói tiếng người</title>
+  <meta name="description" content="Playwright hay Selenium? Học ngôn ngữ nào? Bao nhiêu test là đủ? Bao lâu thì giỏi?" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/cau-hoi-hay-gap/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 12 — Câu hỏi hay gặp" />
+  <meta property="og:description" content="Playwright hay Selenium? Học ngôn ngữ nào? Bao nhiêu test là đủ? Bao lâu thì giỏi?" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/cau-hoi-hay-gap/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-cau-hoi-hay-gap.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-cau-hoi-hay-gap.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 12</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 12 / 13</span>
+      <h1>Câu hỏi hay gặp</h1>
+      <p class="brief">Playwright hay Selenium? Học ngôn ngữ nào? Bao nhiêu test là đủ? Bao lâu thì giỏi?</p>
+      <div class="md"><p><strong>&quot;Playwright, Selenium, Cypress — học cái nào?&quot;</strong>
+Playwright. Mới nhất, cài dễ nhất, tài liệu tốt, tự chờ phần tử (ít lỗi flaky), có codegen và trace viewer. Selenium cũ, nhiều việc nhưng cấu hình mệt. Cypress ổn nhưng giới hạn nhiều trình duyệt. Học Playwright xong, sang cái khác chỉ mất 1 tuần vì tư duy y hệt.</p>
+<p><strong>&quot;Học JavaScript hay Python hay Java?&quot;</strong>
+Dự án bạn đang có là JavaScript → JavaScript. Ngôn ngữ chỉ là cú pháp, tư duy test mới quan trọng. Chuyển ngôn ngữ sau này dễ hơn bạn tưởng.</p>
+<p><strong>&quot;Vào dự án dev nói toàn từ lạ, làm sao?&quot;</strong>
+Ghi lại từng từ, tối tra trên chính site <code>don-gian-hoa</code> của bạn. Không hiểu thì hỏi: &quot;Anh giải thích giúp em X là gì trong dự án mình?&quot; — không ai chê người hỏi ngày đầu.</p>
+<p><strong>&quot;Test tự động có thay được test tay không?&quot;</strong>
+Không. Nó thay phần <strong>lặp lại</strong>. Bạn vẫn test tay tính năng mới, rồi cái nào ổn định thì chuyển thành tự động.</p>
+<p><strong>&quot;Bao nhiêu test là đủ?&quot;</strong>
+Bắt đầu 5 smoke test. Mỗi sprint thêm 3–5 test cho tính năng vừa ổn định. Không đua số lượng; 20 test chạy ổn định giá trị hơn 200 test lúc đỏ lúc xanh.</p>
+<p><strong>&quot;Tôi sợ làm hỏng code dev.&quot;</strong>
+Không thể. Bạn làm trên <strong>nhánh riêng</strong>, chỉ sửa trong <code>tests/</code>. Muốn vào <code>main</code> phải qua PR, có người review. Git giữ lịch sử, xoá nhầm cũng khôi phục được.</p>
+<p><strong>&quot;Nên ghi test bằng codegen rồi dùng luôn không?&quot;</strong>
+Không. Codegen để <strong>học cách gọi tên phần tử</strong>. Code nó sinh thường dùng locator xấu, không có assertion có ý nghĩa. Ghi xong, đọc, viết lại tay theo Bài 6.5.</p>
+<p><strong>&quot;Bao lâu thì &#39;giỏi&#39;?&quot;</strong>
+12 tuần để tự tin. 6 tháng để được tin giao việc. 1 năm để thiết kế framework cho team. Người test tay chuyển sang thường nhanh hơn dev chuyển sang, vì tư duy &quot;cái gì có thể sai&quot; quan trọng hơn &quot;viết code đẹp&quot;.</p>
+<hr>
+</div>
+      
+      <nav class="bai-nav">
+        <a class="truoc" href="../lo-trinh-12-tuan/"><small>← Bài 11</small>Lộ trình 12 tuần</a>
+        <a class="sau" href="../lenh-hay-dung/"><small>Phụ lục →</small>Phụ lục — Lệnh hay dùng</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 3 — Giải phẫu folder dự án · IT nói tiếng người</title>
+  <meta name="description" content="File nào để làm gì, tester có cần đụng không, và cách định vị trong dự án lạ trong 10 phút." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/giai-phau-folder-du-an/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 3 — Giải phẫu folder dự án" />
+  <meta property="og:description" content="File nào để làm gì, tester có cần đụng không, và cách định vị trong dự án lạ trong 10 phút." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/giai-phau-folder-du-an/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-giai-phau-folder-du-an.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-giai-phau-folder-du-an.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 3</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 3 / 13</span>
+      <h1>Giải phẫu folder dự án</h1>
+      <p class="brief">File nào để làm gì, tester có cần đụng không, và cách định vị trong dự án lạ trong 10 phút.</p>
+      <div class="md"><h2>3.1 Bảng &quot;file này để làm gì&quot; — repo <code>don-gian-hoa</code></h2>
+<p>Mở folder trong VS Code và đối chiếu:</p>
+<table>
+<thead>
+<tr>
+<th>Tên</th>
+<th>Loại</th>
+<th>Nó là gì</th>
+<th>Bạn (tester) có cần đụng không?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>index.html</code></td>
+<td>Trang web</td>
+<td>Trang chủ, cái người dùng nhìn thấy</td>
+<td>Đọc để tìm id/tên nút cho test</td>
+</tr>
+<tr>
+<td><code>styles.css</code></td>
+<td>Giao diện</td>
+<td>Màu sắc, font, khoảng cách</td>
+<td>Không</td>
+</tr>
+<tr>
+<td><code>terms.js</code></td>
+<td>Dữ liệu</td>
+<td>Danh sách thuật ngữ (tên, mô tả, nhóm)</td>
+<td>Đọc — test dùng nó để biết &quot;có bao nhiêu thuật ngữ&quot;</td>
+</tr>
+<tr>
+<td><code>chi-tiet.js</code>, <code>so-sanh.js</code>, <code>hinh.js</code></td>
+<td>Dữ liệu + logic</td>
+<td>Nội dung chi tiết, trang so sánh, hình vẽ</td>
+<td>Không</td>
+</tr>
+<tr>
+<td><code>build.mjs</code></td>
+<td>Script</td>
+<td>Chạy <code>npm run build</code> → đọc dữ liệu, <strong>sinh ra</strong> các folder <code>thuat-ngu/</code>, <code>so-sanh/</code>, <code>og/</code></td>
+<td>Không</td>
+</tr>
+<tr>
+<td><code>thuat-ngu/</code>, <code>so-sanh/</code>, <code>lo-trinh/</code></td>
+<td>HTML sinh ra</td>
+<td>Mỗi thuật ngữ 1 folder có <code>index.html</code></td>
+<td>Không sửa tay (build sinh lại)</td>
+</tr>
+<tr>
+<td><code>og/</code></td>
+<td>Ảnh</td>
+<td>Ảnh chia sẻ khi gửi link lên Facebook/Zalo</td>
+<td>Không</td>
+</tr>
+<tr>
+<td><strong><code>tests/</code></strong></td>
+<td><strong>Test</strong></td>
+<td><strong>4 file test Playwright — sân chơi của bạn</strong></td>
+<td><strong>CÓ — đây là nhà của bạn</strong></td>
+</tr>
+<tr>
+<td><strong><code>playwright.config.js</code></strong></td>
+<td><strong>Cấu hình test</strong></td>
+<td>URL, trình duyệt, chụp ảnh khi lỗi...</td>
+<td><strong>Đọc kỹ, thỉnh thoảng sửa</strong></td>
+</tr>
+<tr>
+<td><code>playwright-report/</code></td>
+<td>Kết quả</td>
+<td>Báo cáo HTML sau khi chạy test</td>
+<td>Xem, không sửa</td>
+</tr>
+<tr>
+<td><code>test-results/</code></td>
+<td>Kết quả</td>
+<td>Ảnh chụp, trace khi test đỏ</td>
+<td>Xem, không sửa</td>
+</tr>
+<tr>
+<td><code>.github/workflows/ci-cd.yml</code></td>
+<td>CI/CD</td>
+<td>Kịch bản GitHub tự chạy test + deploy</td>
+<td>Đọc hiểu, sau này sửa</td>
+</tr>
+<tr>
+<td><code>package.json</code></td>
+<td>Cấu hình dự án</td>
+<td>Tên, &quot;nút bấm&quot; (scripts), thư viện</td>
+<td>Đọc <code>scripts</code></td>
+</tr>
+<tr>
+<td><code>package-lock.json</code></td>
+<td>Tự sinh</td>
+<td>Khoá chính xác phiên bản thư viện</td>
+<td>Không bao giờ sửa tay</td>
+</tr>
+<tr>
+<td><code>node_modules/</code></td>
+<td>Tự sinh</td>
+<td>Thư viện tải về, rất nặng</td>
+<td>Không đụng, không commit</td>
+</tr>
+<tr>
+<td><code>.gitignore</code></td>
+<td>Git</td>
+<td>Danh sách thứ KHÔNG đưa lên GitHub</td>
+<td>Đọc để biết vì sao <code>node_modules</code> không lên</td>
+</tr>
+<tr>
+<td><code>robots.txt</code>, <code>sitemap.xml</code>, <code>favicon.svg</code></td>
+<td>SEO/web</td>
+<td>Cho Google, icon tab</td>
+<td>Không</td>
+</tr>
+<tr>
+<td><code>design-system/</code></td>
+<td>Tài liệu</td>
+<td>Quy ước màu/chữ</td>
+<td>Không</td>
+</tr>
+</tbody></table>
+<h2>3.2 Pattern chung cho MỌI dự án</h2>
+<p>Repo này nhỏ nên mọi thứ nằm ở gốc. Dự án công ty thường có cấu trúc thế này — bạn học cách <strong>nhận diện</strong>:</p>
+<pre><code>ten-du-an/
+├── README.md              ← ĐỌC ĐẦU TIÊN. Cách cài, cách chạy.
+├── package.json           ← (JS) danh sách nút bấm + thư viện
+│   pom.xml / build.gradle ← (Java) tương đương
+│   requirements.txt       ← (Python) tương đương
+├── .env.example           ← mẫu biến môi trường (URL, mật khẩu test...) — copy thành .env
+├── .gitignore
+├── .github/workflows/     ← CI/CD (GitHub Actions)
+│   hoặc .gitlab-ci.yml, Jenkinsfile
+├── src/                   ← CODE CHÍNH của app (dev làm ở đây)
+│   ├── components/        ← (frontend) các mảnh giao diện
+│   ├── pages/             ← các trang
+│   ├── api/ hoặc services/← gọi backend
+│   └── ...
+├── public/ hoặc static/   ← ảnh, font, file tĩnh
+├── tests/ hoặc test/ hoặc e2e/ hoặc __tests__/   ← TEST — nhà của bạn
+│   ├── e2e/               ← test giả lập người dùng (Playwright/Cypress)
+│   ├── unit/              ← test hàm nhỏ (dev viết)
+│   ├── fixtures/          ← dữ liệu mẫu cho test
+│   └── pages/ hoặc pom/   ← Page Object (xem Bài 6.5)
+├── playwright.config.*    ← cấu hình test (hoặc cypress.config, jest.config...)
+└── docs/                  ← tài liệu
+</code></pre>
+<h2>3.3 Cách &quot;định vị&quot; trong dự án lạ trong 10 phút</h2>
+<ol>
+<li>Tìm <code>README.md</code> → đọc phần &quot;Getting started&quot; / &quot;Cài đặt&quot; / &quot;Chạy&quot;.</li>
+<li>Tìm file khai báo thư viện (<code>package.json</code> / <code>pom.xml</code> / <code>requirements.txt</code>) → biết ngôn ngữ + framework test.</li>
+<li>Tìm folder có chữ <code>test</code> / <code>spec</code> / <code>e2e</code> → biết test đang ở đâu, viết bằng gì.</li>
+<li>Tìm file <code>*.config.*</code> → biết test chạy trên URL nào.</li>
+<li>Tìm <code>.github/workflows</code> hoặc <code>Jenkinsfile</code> / <code>.gitlab-ci.yml</code> → biết CI chạy gì.</li>
+<li>Tìm <code>.env.example</code> → biết cần biến môi trường gì (URL staging, tài khoản test).</li>
+</ol>
+<p>Mẹo VS Code: bấm <code>Ctrl+P</code> gõ tên file để nhảy tới; bấm <code>Ctrl+Shift+F</code> để tìm chữ trong toàn dự án.</p>
+<blockquote>
+<p>✅ <strong>Làm ngay:</strong> mở từng file trong bảng 3.1, mỗi file nhìn 30 giây. Không cần hiểu, chỉ cần &quot;đã thấy mặt&quot;.</p>
+</blockquote>
+<blockquote>
+<p>📎 <strong>Mở rộng:</strong> dự án JS ngoài đời có nhiều folder/file hơn repo này — cái nào cứng, cái nào tuỳ dự án, xem <a href="../../../tu-hoc/mo-rong/cau-truc-du-an-js/">Mở rộng 3</a>. Đọc trước khi clone repo lạ.</p>
+</blockquote>
+<hr>
+</div>
+      <div class="mo-rong"><h4>📎 Mở rộng — đọc sau, không bắt buộc</h4><ul><li><a href="../../mo-rong/cau-truc-du-an-js/">Dự án JavaScript có những folder/file nào?</a><span>Ba mức cứng — hay gặp — tuỳ dự án, mỗi thứ một dòng “thấy nó = biết gì”, và bên trong folder test.</span></li></ul></div>
+      <nav class="bai-nav">
+        <a class="truoc" href="../ngay-dau-vao-du-an/"><small>← Bài 2</small>Ngày đầu tiên vào một dự án</a>
+        <a class="sau" href="../github-cua-du-an/"><small>Bài 4 →</small>GitHub của dự án hoạt động thế nào</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

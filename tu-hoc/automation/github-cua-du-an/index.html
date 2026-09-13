@@ -1,0 +1,295 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 4 — GitHub của dự án hoạt động thế nào · IT nói tiếng người</title>
+  <meta name="description" content="Repo, nhánh, commit, PR — vòng lặp 7 lệnh mỗi ngày, và đọc kết quả Actions từng bước bằng chuột." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/github-cua-du-an/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 4 — GitHub của dự án hoạt động thế nào" />
+  <meta property="og:description" content="Repo, nhánh, commit, PR — vòng lặp 7 lệnh mỗi ngày, và đọc kết quả Actions từng bước bằng chuột." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/github-cua-du-an/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-github-cua-du-an.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-github-cua-du-an.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 4</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 4 / 13</span>
+      <h1>GitHub của dự án hoạt động thế nào</h1>
+      <p class="brief">Repo, nhánh, commit, PR — vòng lặp 7 lệnh mỗi ngày, và đọc kết quả Actions từng bước bằng chuột.</p>
+      <div class="md"><h2>4.1 Các khái niệm, giải thích kiểu đời thường</h2>
+<table>
+<thead>
+<tr>
+<th>Từ</th>
+<th>Hiểu đơn giản</th>
+<th>Trên repo này</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Repository (repo)</strong></td>
+<td>Cái tủ chứa toàn bộ code + lịch sử sửa đổi</td>
+<td><code>don-gian-hoa</code></td>
+</tr>
+<tr>
+<td><strong>Clone</strong></td>
+<td>Photo cả cái tủ về máy mình</td>
+<td><code>git clone ...</code></td>
+</tr>
+<tr>
+<td><strong>Commit</strong></td>
+<td>Một &quot;điểm lưu game&quot; có ghi chú</td>
+<td><code>aba48f5 Sáng hoá giao diện...</code></td>
+</tr>
+<tr>
+<td><strong>Branch (nhánh)</strong></td>
+<td>Bản sao để làm việc riêng, không ảnh hưởng bản chính</td>
+<td><code>main</code> là bản chính; bạn sẽ tạo <code>test/them-test-lo-trinh</code></td>
+</tr>
+<tr>
+<td><strong>Push</strong></td>
+<td>Đẩy điểm lưu từ máy mình lên GitHub</td>
+<td><code>git push</code></td>
+</tr>
+<tr>
+<td><strong>Pull</strong></td>
+<td>Kéo thay đổi mới nhất của người khác về máy</td>
+<td><code>git pull</code></td>
+</tr>
+<tr>
+<td><strong>Pull Request (PR)</strong></td>
+<td>&quot;Xin phép&quot; gộp nhánh của mình vào <code>main</code>, người khác review</td>
+<td>Tab Pull requests trên GitHub</td>
+</tr>
+<tr>
+<td><strong>Merge</strong></td>
+<td>Gộp thật sau khi PR được duyệt</td>
+<td>Nút &quot;Merge pull request&quot;</td>
+</tr>
+<tr>
+<td><strong>Actions</strong></td>
+<td>Robot của GitHub, tự chạy test/deploy mỗi khi có push/PR</td>
+<td>Tab Actions</td>
+</tr>
+<tr>
+<td><strong>Issues</strong></td>
+<td>Danh sách việc / bug</td>
+<td>Tab Issues</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>Site này có trang riêng cho từng từ: <a href="../../../thuat-ngu/commit/">Commit</a>, <a href="../../../thuat-ngu/branch/">Branch</a>, <a href="../../../thuat-ngu/pull-request/">Pull Request</a>, và bảng so sánh <a href="../../../so-sanh/add-commit-va-push/">add vs commit vs push</a>.</p>
+</blockquote>
+<h2>4.2 Quy trình làm việc hàng ngày (nhớ thuộc lòng)</h2>
+<p>Đây là vòng lặp bạn làm <strong>mỗi ngày</strong> trong dự án thật. Copy 7 lệnh này dán vào ghi chú:</p>
+<pre><code class="language-powershell"># 1. Sáng vào: đứng ở main, lấy code mới nhất
+git checkout main
+git pull
+
+# 2. Tạo nhánh riêng cho việc hôm nay (đặt tên có ý nghĩa)
+git checkout -b test/them-test-trang-lo-trinh
+
+# 3. ... sửa file, viết test, chạy npm test cho xanh ...
+
+# 4. Xem mình đã sửa gì
+git status          # file nào đổi
+git diff            # đổi dòng nào
+
+# 5. Đóng gói thay đổi thành 1 commit
+git add tests/lo-trinh.spec.js
+git commit -m &quot;Thêm test cho trang lộ trình&quot;
+
+# 6. Đẩy nhánh lên GitHub
+git push -u origin test/them-test-trang-lo-trinh
+
+# 7. Lên GitHub → bấm &quot;Compare &amp; pull request&quot; → điền mô tả → Create
+#    Chờ Actions chạy xanh → nhờ người review → Merge
+</code></pre>
+<p>Lần push sau trên cùng nhánh chỉ cần <code>git push</code>.</p>
+<h2>4.3 GitHub Actions — robot tự chạy test khi nào, và đọc kết quả ở đâu</h2>
+<p><strong>Actions là gì, nói đơn giản:</strong> GitHub cho bạn thuê một máy tính ảo. Bạn viết sẵn một kịch bản (&quot;lấy code → cài Node → chạy test&quot;), và bảo GitHub &quot;mỗi khi có người push, hãy chạy kịch bản này trên máy ảo đó&quot;. Kịch bản nằm trong file <code>.github/workflows/*.yml</code>. Máy ảo chạy xong thì báo xanh/đỏ ngay trên PR.</p>
+<p>Nghĩa là: <strong>test bạn viết ở Bài 8 không chỉ chạy trên máy bạn.</strong> Từ lúc push lên, nó chạy tự động mỗi lần bất kỳ ai thay đổi code — kể cả dev không biết test của bạn tồn tại.</p>
+<h2>4.3.1 Đọc file kịch bản — từng khối một</h2>
+<p>Mở <a href="https://github.com/leona3893/don-gian-hoa/blob/main/.github/workflows/ci-cd.yml"><code>.github/workflows/ci-cd.yml</code></a>. Một file workflow luôn có 3 khối: <strong>khi nào chạy</strong> (<code>on</code>), <strong>chạy trên máy gì</strong> (<code>runs-on</code>), <strong>làm những bước gì</strong> (<code>steps</code>).</p>
+<p><strong>Khối 1 — <code>on</code>: khi nào robot thức dậy</strong></p>
+<pre><code class="language-yaml">on:
+  push:
+    branches: [main]     # có ai push lên nhánh main → chạy
+  pull_request:          # có ai mở PR (hoặc push thêm vào PR đang mở) → chạy
+  workflow_dispatch:     # hoặc bạn tự bấm nút &quot;Run workflow&quot; trên tab Actions
+</code></pre>
+<p>Với bạn: push nhánh <code>test/…</code> lên <strong>chưa</strong> kích hoạt gì (vì không phải <code>main</code>). Mở PR mới kích hoạt. Đó là lý do bước 7 trong vòng lặp hàng ngày là &quot;mở PR rồi chờ Actions&quot;.</p>
+<p><strong>Khối 2 — <code>jobs</code>: các &quot;việc lớn&quot;</strong></p>
+<p>File này có 2 job: <code>test</code> và <code>deploy</code>.</p>
+<pre><code class="language-yaml">jobs:
+  test:
+    name: Build + test
+    runs-on: ubuntu-latest        # máy ảo Linux — KHÔNG phải Windows như máy bạn
+    steps:
+      - name: Lấy code
+        uses: actions/checkout@v4          # clone repo vào máy ảo
+      - name: Cài Node
+        uses: actions/setup-node@v4        # cài Node.js bản 24
+        with:
+          node-version: 24
+      - name: Cài thư viện (theo đúng package-lock)
+        run: npm ci                        # như npm install nhưng cài đúng y lock file
+      - name: Dựng lại site
+        run: npm run build
+      - name: Kiểm tra HTML trong repo khớp với bản build
+        run: git diff --exit-code --stat -- . &#39;:!og&#39;
+      - name: Cài trình duyệt cho Playwright
+        run: npx playwright install --with-deps chromium
+      - name: Chạy Playwright
+        run: npm test                      # ← test của bạn chạy ở đây
+      - name: Lưu báo cáo test
+        if: always()                       # kể cả khi bước trên đỏ
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report
+          path: playwright-report/
+</code></pre>
+<p>Đọc <code>steps</code> từ trên xuống, bạn thấy nó <strong>y hệt 12 bước ngày đầu của Bài 2</strong>: lấy code → cài Node → cài thư viện → build → cài trình duyệt → chạy test. Robot làm đúng những gì bạn làm bằng tay, chỉ là trên máy sạch mỗi lần.</p>
+<p>Hai kiểu bước:</p>
+<ul>
+<li><code>uses:</code> — mượn một &quot;bước có sẵn&quot; người khác viết (checkout, setup-node, upload-artifact).</li>
+<li><code>run:</code> — gõ đúng lệnh như bạn gõ trong PowerShell.</li>
+</ul>
+<p>Bước &quot;Kiểm tra HTML khớp với bản build&quot; đáng chú ý: nếu ai sửa <code>terms.js</code> mà quên chạy <code>npm run build</code> trước khi commit, HTML trong repo lệch với HTML vừa sinh → bước này đỏ. Đây là một loại test không cần Playwright.</p>
+<p><strong>Job <code>deploy</code>:</strong></p>
+<pre><code class="language-yaml">  deploy:
+    needs: test                                   # chỉ chạy khi job test xanh
+    if: github.event_name == &#39;push&#39; &amp;&amp; github.ref == &#39;refs/heads/main&#39;
+    steps:
+      … đưa toàn bộ folder lên GitHub Pages
+</code></pre>
+<p>Hai dòng <code>needs</code> và <code>if</code> là <strong>cái chốt an toàn</strong>: deploy chỉ chạy khi (1) test xanh <strong>và</strong> (2) là push lên <code>main</code>. PR của bạn dù xanh cũng không deploy. Test đỏ trên <code>main</code> thì site đang chạy giữ nguyên bản cũ.</p>
+<p>Sơ đồ:</p>
+<pre><code>push nhánh test/…  → không có gì xảy ra
+mở PR              → [test] chạy → xanh ✓ / đỏ ✗ hiện trên PR   (không deploy)
+merge PR vào main  → [test] chạy → xanh → [deploy] → site cập nhật
+                                 → đỏ   → dừng, site giữ bản cũ
+</code></pre>
+<h2>4.3.2 Xem kết quả — đi từng bước bằng chuột</h2>
+<p><strong>Trên trang PR:</strong></p>
+<ol>
+<li>Kéo xuống cuối PR, trên nút Merge có khung &quot;checks&quot;. Đang chạy: vòng tròn vàng 🟡. Xong: ✅ hoặc ❌.</li>
+<li>Bấm chữ <strong>Details</strong> bên phải dòng &quot;Build + test&quot; → nhảy thẳng vào log.</li>
+</ol>
+<p><strong>Trên tab Actions (xem mọi lần chạy):</strong></p>
+<ol>
+<li>GitHub → tab <strong>Actions</strong> (cạnh Pull requests).</li>
+<li>Cột trái: danh sách workflow — bấm <strong>CI/CD</strong>.</li>
+<li>Giữa màn hình: mỗi dòng là 1 lần chạy, ghi tên commit + nhánh + ai push + mất bao lâu. Bấm vào dòng cần xem.</li>
+<li>Màn hình lần chạy: sơ đồ 2 ô <code>Build + test</code> → <code>Deploy</code>. Bấm ô <strong>Build + test</strong>.</li>
+<li>Danh sách các bước, mỗi bước 1 dòng ✅/❌ kèm thời gian. <strong>Bước đỏ đầu tiên</strong> là chỗ hỏng — bấm vào để xổ log.</li>
+<li>Trong log của bước &quot;Chạy Playwright&quot;, tìm dòng bắt đầu bằng <code>Error:</code> hoặc <code>✘</code> — đó là chính thông báo lỗi bạn học đọc ở Bài 9, chỉ khác là in trên GitHub.</li>
+</ol>
+<p><strong>Tải báo cáo HTML về (khi test đỏ trên CI):</strong></p>
+<ol>
+<li>Ở màn hình lần chạy (bước 4 ở trên), kéo xuống <strong>cuối trang</strong>, mục <strong>Artifacts</strong>.</li>
+<li>Bấm <code>playwright-report</code> → tải file <code>.zip</code>.</li>
+<li>Giải nén → mở <code>index.html</code> bằng trình duyệt → y hệt <code>npm run report</code> ở máy bạn, có ảnh chụp lúc lỗi và trace.</li>
+</ol>
+<p>Mẹo: nếu thấy dòng <code>Annotations</code> màu đỏ ngay trên sơ đồ job — đó là GitHub tóm tắt lỗi cho bạn, đọc trước khi mở log.</p>
+<h2>4.3.3 Ba tình huống hay gặp và cách xử lý</h2>
+<table>
+<thead>
+<tr>
+<th>Tình huống</th>
+<th>Nghĩa là</th>
+<th>Làm gì</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Đỏ trên CI, xanh ở máy bạn</strong></td>
+<td>Khác môi trường: CI là Linux, máy bạn Windows; CI clone sạch (không có <code>.env</code>, không có <code>node_modules</code> cũ); CI chậm hơn → timeout</td>
+<td>Tải artifact xem ảnh chụp. Hay gặp nhất: đường dẫn viết <code>\</code> (Windows) thay vì <code>/</code>; hoặc chờ chưa đủ — dùng <code>await expect(...)</code> thay vì <code>expect(await ...)</code></td>
+</tr>
+<tr>
+<td><strong>Đỏ ở bước <code>npm ci</code></strong></td>
+<td><code>package-lock.json</code> lệch với <code>package.json</code> — ai đó sửa tay hoặc cài thư viện mà không commit lock</td>
+<td>Chạy <code>npm install</code> ở máy, commit cả <code>package-lock.json</code></td>
+</tr>
+<tr>
+<td><strong>Đỏ ở bước &quot;Kiểm tra HTML khớp&quot;</strong></td>
+<td>Sửa dữ liệu mà quên <code>npm run build</code></td>
+<td>Chạy <code>npm run build</code>, commit các file HTML sinh ra, push lại</td>
+</tr>
+<tr>
+<td><strong>Đỏ do mạng chập chờn</strong> (tải trình duyệt lỗi)</td>
+<td>Không phải lỗi của bạn</td>
+<td>Vào lần chạy → nút <strong>Re-run failed jobs</strong> góc trên phải. File config đã đặt <code>retries: 1</code> trên CI cho trường hợp này</td>
+</tr>
+<tr>
+<td><strong>Xanh mà site không đổi</strong></td>
+<td>Đang xem PR — deploy chỉ chạy khi merge vào <code>main</code></td>
+<td>Merge rồi chờ job Deploy xanh, <code>Ctrl+F5</code> trình duyệt</td>
+</tr>
+</tbody></table>
+<h2>4.3.4 Thử một lần cho biết</h2>
+<ol>
+<li>Sửa một test cho sai cố ý — ví dụ trong <code>tests/trang-chu.spec.js</code> đổi <code>&#39;Tìm thuật ngữ&#39;</code> thành <code>&#39;Tìm thuật ngữ XYZ&#39;</code>.</li>
+<li>Commit lên nhánh riêng, push, mở PR.</li>
+<li>Chờ ~2 phút. Thấy ❌ trên PR → bấm Details → tìm bước đỏ → đọc dòng <code>Error:</code>.</li>
+<li>Tải artifact về, mở báo cáo, xem ảnh chụp.</li>
+<li>Sửa lại cho đúng, push thêm 1 commit vào cùng nhánh → Actions tự chạy lại → ✅.</li>
+<li>Đóng PR không merge, xoá nhánh.</li>
+</ol>
+<p>Làm xong bước này, bạn đã tự tay trải qua đúng vòng đời &quot;test đỏ trên CI → tìm → sửa → xanh&quot; — mốc 3 trong trang Lộ trình.</p>
+<h2>4.4 Những lỗi Git người mới hay gặp</h2>
+<table>
+<thead>
+<tr>
+<th>Tình huống</th>
+<th>Cách xử lý</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Quên tạo nhánh, lỡ sửa trên <code>main</code></td>
+<td><code>git stash</code> → <code>git checkout -b ten-nhanh</code> → <code>git stash pop</code></td>
+</tr>
+<tr>
+<td><code>git push</code> báo <code>rejected</code></td>
+<td>Người khác đã push trước. <code>git pull</code> rồi push lại</td>
+</tr>
+<tr>
+<td>Có chữ <code>CONFLICT</code></td>
+<td>Mở file, tìm <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> và <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>, chọn giữ phần nào, xoá dấu, <code>git add</code>, <code>git commit</code></td>
+</tr>
+<tr>
+<td>Muốn huỷ hết sửa đổi chưa commit</td>
+<td><code>git checkout -- .</code> (cẩn thận: mất thật)</td>
+</tr>
+<tr>
+<td>Muốn xem lịch sử</td>
+<td><code>git log --oneline</code></td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>✅ <strong>Làm ngay:</strong> tạo nhánh <code>thu-nghiem/git</code>, tạo file <code>ghi-chu.txt</code> bất kỳ, commit, push, mở PR trên GitHub, xem Actions chạy, rồi <strong>đóng PR không merge</strong> và xoá nhánh. Chỉ để luyện tay.</p>
+</blockquote>
+<hr>
+</div>
+      
+      <nav class="bai-nav">
+        <a class="truoc" href="../giai-phau-folder-du-an/"><small>← Bài 3</small>Giải phẫu folder dự án</a>
+        <a class="sau" href="../web-app-chay-the-nao/"><small>Bài 5 →</small>Web / app chạy như thế nào</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

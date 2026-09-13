@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>package.json còn những mục gì? · IT nói tiếng người</title>
+  <meta name="description" content="Cả file của repo mẫu, dependencies vs devDependencies, số phiên bản, và bảng các mục dự án khác hay có." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/mo-rong/package-json/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="package.json còn những mục gì?" />
+  <meta property="og:description" content="Cả file của repo mẫu, dependencies vs devDependencies, số phiên bản, và bảng các mục dự án khác hay có." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/mo-rong/package-json/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-mo-rong-package-json.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-mo-rong-package-json.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › Mở rộng</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Mở rộng · Bài 2</span>
+      <h1>package.json còn những mục gì?</h1>
+      <p class="brief">Cả file của repo mẫu, dependencies vs devDependencies, số phiên bản, và bảng các mục dự án khác hay có.</p>
+      <p class="doc-khi">Đọc khi đã xong <a href="../../automation/ngay-dau-vao-du-an/">Bài 2 — Ngày đầu tiên vào một dự án</a>. Không cần đọc ở lần đầu.</p>
+      <div class="md"><h2>Toàn bộ file của repo này</h2>
+<p>Trong Bài 2 bạn mới nhìn mục <code>scripts</code>. Đây là <strong>cả file</strong>, chỉ có 6 mục:</p>
+<pre><code class="language-json">{
+  &quot;name&quot;: &quot;don-gian-hoa&quot;,          ← tên dự án
+  &quot;private&quot;: true,                 ← không cho lỡ tay đăng lên kho npm công khai
+  &quot;type&quot;: &quot;module&quot;,                ← cho phép viết import … from (thay vì require)
+  &quot;scripts&quot;: { … },                ← bảng nút bấm (đã học)
+  &quot;dependencies&quot;: {                ← thư viện cần khi CHẠY THẬT
+    &quot;@resvg/resvg-js&quot;: &quot;^2.6.2&quot;
+  },
+  &quot;devDependencies&quot;: {             ← thư viện chỉ cần khi DEV / TEST
+    &quot;@playwright/test&quot;: &quot;^1.63.0&quot;,
+    &quot;serve&quot;: &quot;^14.2.6&quot;
+  }
+}
+</code></pre>
+<p>Hai mục quan trọng nhất với tester là <code>scripts</code> và <code>devDependencies</code>. Phần còn lại đọc để biết, không phải để sửa.</p>
+<h2><code>dependencies</code> và <code>devDependencies</code> khác gì?</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>dependencies</code></th>
+<th><code>devDependencies</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cần khi nào</td>
+<td>Khi app chạy thật cho người dùng</td>
+<td>Chỉ khi dev viết code hoặc chạy test</td>
+</tr>
+<tr>
+<td>Ví dụ</td>
+<td>React, Express, thư viện vẽ ảnh</td>
+<td>Playwright, Jest, ESLint, Prettier</td>
+</tr>
+<tr>
+<td>Tester nhìn vào để</td>
+<td>Biết app xây bằng gì</td>
+<td><strong>Biết dự án test bằng gì</strong> — Playwright hay Cypress, Jest hay Vitest</td>
+</tr>
+<tr>
+<td>Cài thêm bằng</td>
+<td><code>npm install ten-thu-vien</code></td>
+<td><code>npm install -D ten-thu-vien</code> (D = dev)</td>
+</tr>
+</tbody></table>
+<p>Cách nhớ: <strong>dev</strong> = chỉ dùng trong lúc làm; không có chữ dev = phải có mới chạy được.</p>
+<h2>Số phiên bản <code>^1.63.0</code> nghĩa là gì?</h2>
+<ul>
+<li><code>1.63.0</code> = phiên bản đúng lúc cài.</li>
+<li>Dấu <code>^</code> = &quot;được phép lên bản mới hơn <strong>cùng số đầu</strong>&quot; — <code>1.64</code>, <code>1.70</code> OK, <code>2.0</code> không.</li>
+<li>Không có dấu gì (<code>1.63.0</code>) = khoá cứng đúng bản này.</li>
+<li><code>~1.63.0</code> = chỉ được lên số cuối: <code>1.63.1</code>, <code>1.63.9</code>.</li>
+</ul>
+<p>Với tester: nếu test đỏ &quot;tự nhiên&quot; sau khi ai đó <code>npm install</code>, khả năng là thư viện nhảy bản trong khoảng <code>^</code> cho phép. Đó là lý do có <code>package-lock.json</code> (bên dưới).</p>
+<h2>Dự án khác thường có thêm</h2>
+<table>
+<thead>
+<tr>
+<th>Mục</th>
+<th>Nghĩa</th>
+<th>Tester có cần đụng?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&quot;version&quot;: &quot;1.4.2&quot;</code></td>
+<td>Phiên bản của chính dự án</td>
+<td>Không. Chỉ có ý nghĩa với thư viện đem đi đăng</td>
+</tr>
+<tr>
+<td><code>&quot;description&quot;</code>, <code>&quot;author&quot;</code>, <code>&quot;license&quot;</code>, <code>&quot;repository&quot;</code></td>
+<td>Thông tin mô tả</td>
+<td>Không</td>
+</tr>
+<tr>
+<td><code>&quot;main&quot;</code> / <code>&quot;exports&quot;</code></td>
+<td>File đầu vào khi dự án được import như thư viện</td>
+<td>Không</td>
+</tr>
+<tr>
+<td><code>&quot;engines&quot;: { &quot;node&quot;: &quot;&gt;=20&quot; }</code></td>
+<td>Đòi Node tối thiểu</td>
+<td><strong>Đọc</strong> — máy bạn Node cũ hơn số này là lỗi lạ. <code>node -v</code> để so</td>
+</tr>
+<tr>
+<td><code>&quot;packageManager&quot;: &quot;pnpm@9.1.0&quot;</code></td>
+<td>Dự án dùng pnpm/yarn thay vì npm</td>
+<td><strong>Đọc</strong> — thấy dòng này thì gõ <code>pnpm install</code> / <code>yarn</code>, không <code>npm install</code></td>
+</tr>
+<tr>
+<td><code>&quot;workspaces&quot;: [&quot;packages/*&quot;]</code></td>
+<td>Một repo chứa nhiều dự án con (monorepo)</td>
+<td>Đọc — test có thể nằm trong từng <code>packages/&lt;tên&gt;/</code></td>
+</tr>
+<tr>
+<td><code>&quot;browserslist&quot;</code></td>
+<td>Danh sách trình duyệt app hỗ trợ</td>
+<td>Đọc lướt — gợi ý bạn nên test trình duyệt nào</td>
+</tr>
+<tr>
+<td><code>&quot;lint-staged&quot;</code>, <code>&quot;husky&quot;</code></td>
+<td>Tự kiểm tra code trước mỗi commit</td>
+<td>Đọc — giải thích vì sao <code>git commit</code> bỗng chạy cái gì đó rồi từ chối</td>
+</tr>
+<tr>
+<td><code>&quot;jest&quot;</code>, <code>&quot;prettier&quot;</code>, <code>&quot;eslintConfig&quot;</code></td>
+<td>Cấu hình công cụ nhét thẳng vào đây thay vì file riêng</td>
+<td>Đọc nếu dự án dùng Jest — còn Playwright luôn có file <code>playwright.config</code> riêng</td>
+</tr>
+<tr>
+<td><code>&quot;overrides&quot;</code> / <code>&quot;resolutions&quot;</code></td>
+<td>Ép một thư viện con dùng đúng bản chỉ định</td>
+<td>Không</td>
+</tr>
+<tr>
+<td><code>&quot;peerDependencies&quot;</code>, <code>&quot;optionalDependencies&quot;</code></td>
+<td>Kiểu phụ thuộc dành cho người viết thư viện</td>
+<td>Không</td>
+</tr>
+</tbody></table>
+<h2>Hai file đi kèm</h2>
+<p><strong><code>package-lock.json</code></strong> — npm tự sinh, ghi <strong>chính xác</strong> bản của từng thư viện (kể cả thư viện của thư viện) đã cài. <code>package.json</code> nói &quot;^1.63&quot;, lock nói &quot;1.63.2, tải từ link này, checksum này&quot;.</p>
+<ul>
+<li>Có commit lên Git: <strong>có</strong>, luôn luôn.</li>
+<li>Sửa tay: <strong>không bao giờ</strong>.</li>
+<li>Trên CI dùng <code>npm ci</code> thay vì <code>npm install</code>: <code>ci</code> cài đúng y lock, nhanh hơn, và <strong>báo lỗi nếu lock lệch với package.json</strong> — chính là dòng <code>npm ci</code> trong file <code>ci-cd.yml</code> của repo này.</li>
+</ul>
+<p><strong><code>node_modules/</code></strong> — chỗ chứa thư viện tải về. Nặng (hàng trăm MB), nằm trong <code>.gitignore</code>, mỗi bản clone tự tải lại. Hỏng gì khó hiểu thì xoá cả folder rồi <code>npm install</code> lại — chữa được 30% lỗi &quot;trên máy tôi chạy được mà&quot;.</p>
+<h2>Khi vào dự án lạ, đọc <code>package.json</code> theo thứ tự này</h2>
+<ol>
+<li><code>packageManager</code> / <code>engines</code> — biết dùng npm hay pnpm, Node bản nào.</li>
+<li><code>scripts</code> — biết có nút <code>test</code>, <code>test:e2e</code>, <code>dev</code>, <code>build</code> không.</li>
+<li><code>devDependencies</code> — biết test bằng gì.</li>
+<li>Còn lại: bỏ qua.</li>
+</ol>
+<hr>
+</div>
+      <a class="back" href="../../automation/ngay-dau-vao-du-an/">← Quay lại Bài 2</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

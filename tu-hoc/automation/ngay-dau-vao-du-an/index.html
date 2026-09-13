@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 2 — Ngày đầu tiên vào một dự án · IT nói tiếng người</title>
+  <meta name="description" content="Checklist 12 bước đúng thứ tự: clone, đọc package.json, cài, chạy web, chạy test có sẵn." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/ngay-dau-vao-du-an/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 2 — Ngày đầu tiên vào một dự án" />
+  <meta property="og:description" content="Checklist 12 bước đúng thứ tự: clone, đọc package.json, cài, chạy web, chạy test có sẵn." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/ngay-dau-vao-du-an/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-ngay-dau-vao-du-an.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-ngay-dau-vao-du-an.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 2</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 2 / 13</span>
+      <h1>Ngày đầu tiên vào một dự án</h1>
+      <p class="brief">Checklist 12 bước đúng thứ tự: clone, đọc package.json, cài, chạy web, chạy test có sẵn.</p>
+      <div class="md"><p>Đây là phần bạn hỏi nhiều nhất: &quot;vào dự án thì bắt đầu từ đâu?&quot;. Dưới đây là checklist <strong>đúng thứ tự</strong>, áp dụng cho mọi dự án. Cột phải là ví dụ với repo <code>don-gian-hoa</code>.</p>
+<h2>2.1 Checklist 12 bước ngày đầu</h2>
+<table>
+<thead>
+<tr>
+<th>Bước</th>
+<th>Việc</th>
+<th>Vì sao</th>
+<th>Ví dụ với repo này</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><strong>Xin link GitHub repo</strong> và được thêm quyền (collaborator)</td>
+<td>Không có quyền thì không clone/push được</td>
+<td><code>github.com/leona3893/don-gian-hoa</code></td>
+</tr>
+<tr>
+<td>2</td>
+<td><strong>Clone về máy</strong> (tải code về)</td>
+<td>Cần bản copy ở local để chạy</td>
+<td><code>git clone &lt;link&gt;</code> vào <code>D:\du-an\</code></td>
+</tr>
+<tr>
+<td>3</td>
+<td><strong>Mở folder bằng VS Code</strong></td>
+<td>Nhìn toàn cảnh</td>
+<td>File → Open Folder → chọn <code>don-gian-hoa</code></td>
+</tr>
+<tr>
+<td>4</td>
+<td><strong>Đọc <code>README.md</code></strong> (nếu có)</td>
+<td>Là &quot;hướng dẫn sử dụng&quot; của dự án</td>
+<td>Repo này chưa có README — thực tế nhiều dự án cũng vậy, đừng hoảng</td>
+</tr>
+<tr>
+<td>5</td>
+<td><strong>Mở <code>package.json</code></strong> — nhìn mục <code>scripts</code></td>
+<td>Đây là danh sách &quot;nút bấm&quot; của dự án</td>
+<td>Thấy 4 nút: <code>build</code>, <code>test</code>, <code>report</code>, <code>indexnow</code></td>
+</tr>
+<tr>
+<td>6</td>
+<td><strong>Chạy <code>npm install</code></strong></td>
+<td>Tải toàn bộ thư viện dự án cần</td>
+<td>Tạo ra folder <code>node_modules</code></td>
+</tr>
+<tr>
+<td>7</td>
+<td><strong>Chạy dự án lên xem</strong></td>
+<td>Phải thấy web/app chạy trước khi test gì</td>
+<td><code>npx serve .</code> → mở <code>http://localhost:3000</code></td>
+</tr>
+<tr>
+<td>8</td>
+<td><strong>Tìm folder test có sẵn</strong></td>
+<td>Xem dự án đã automation tới đâu</td>
+<td>Folder <code>tests/</code> có 4 file <code>.spec.js</code></td>
+</tr>
+<tr>
+<td>9</td>
+<td><strong>Chạy test có sẵn</strong></td>
+<td>Xác nhận môi trường OK</td>
+<td><code>npm test</code> → thấy toàn xanh. Báo <code>unknown command</code> thì xem <a href="../../../so-tay/npm-test-unknown-command/">Sổ tay</a></td>
+</tr>
+<tr>
+<td>10</td>
+<td><strong>Mở file cấu hình test</strong></td>
+<td>Biết test chạy trên URL nào, trình duyệt nào</td>
+<td><code>playwright.config.js</code></td>
+</tr>
+<tr>
+<td>11</td>
+<td><strong>Xem tab Actions trên GitHub</strong></td>
+<td>Biết dự án có CI/CD chưa, test chạy tự động khi nào</td>
+<td>Có file <code>.github/workflows/ci-cd.yml</code></td>
+</tr>
+<tr>
+<td>12</td>
+<td><strong>Ghi lại 5 câu hỏi</strong> để hỏi dev/lead</td>
+<td>Ngày đầu không ai bắt bạn biết hết</td>
+<td>Ví dụ: &quot;Test chạy trên môi trường nào? staging hay local?&quot;</td>
+</tr>
+</tbody></table>
+<h2>2.2 Chi tiết từng bước với lệnh cụ thể</h2>
+<p><strong>Bước 2 — Clone:</strong></p>
+<pre><code class="language-powershell">cd D:\du-an
+git clone https://github.com/leona3893/don-gian-hoa.git
+cd don-gian-hoa
+</code></pre>
+<blockquote>
+<p>Repo <code>don-gian-hoa</code> là mã nguồn của chính site này, công khai — ai cũng clone được. Nó là sân tập cho cả lộ trình.</p>
+</blockquote>
+<p><strong>Bước 5 — Đọc <code>package.json</code>:</strong></p>
+<p>Mở file, tìm mục <code>&quot;scripts&quot;</code>:</p>
+<pre><code class="language-json">&quot;scripts&quot;: {
+  &quot;build&quot;: &quot;node build.mjs&quot;,        ← npm run build  → sinh lại HTML từ dữ liệu
+  &quot;test&quot;: &quot;playwright test&quot;,        ← npm test       → chạy toàn bộ test
+  &quot;report&quot;: &quot;playwright show-report&quot;, ← npm run report → mở báo cáo HTML
+  &quot;indexnow&quot;: &quot;node indexnow.mjs&quot;   ← npm run indexnow → báo Google/Bing có trang mới
+}
+</code></pre>
+<p>Quy tắc: tên bên trái là &quot;nút&quot;, bạn bấm bằng <code>npm run &lt;tên&gt;</code> (riêng <code>test</code> và <code>start</code> được gõ tắt <code>npm test</code> / <code>npm start</code>).</p>
+<p>Mục <code>&quot;devDependencies&quot;</code> cho biết dự án dùng <strong>Playwright</strong> để test (<code>@playwright/test</code>) và <code>serve</code> để bật web local. Nhìn vào đây bạn biết ngay &quot;dự án này automation bằng Playwright, không phải Selenium/Cypress&quot;.</p>
+<blockquote>
+<p>📎 <strong>Mở rộng:</strong> <code>package.json</code> của dự án khác còn nhiều mục hơn — xem <a href="../../../tu-hoc/mo-rong/package-json/">Mở rộng 2</a>. Chưa cần đọc ở lần đầu.</p>
+</blockquote>
+<p><strong>Bước 6 — Cài thư viện:</strong></p>
+<pre><code class="language-powershell">npm install
+npx playwright install chromium
+</code></pre>
+<p>Lệnh thứ hai tải trình duyệt Chromium riêng cho Playwright (khoảng 150MB, chỉ tải 1 lần).</p>
+<p><strong>Bước 7 — Chạy web lên:</strong></p>
+<pre><code class="language-powershell">npx serve -l 4173 .
+</code></pre>
+<p>Mở trình duyệt vào <code>http://localhost:4173</code>. Thấy trang &quot;Đơn giản hoá&quot; hiện lên = thành công. Bấm <code>Ctrl+C</code> trong PowerShell để tắt.</p>
+<p><strong>Bước 9 — Chạy test:</strong></p>
+<pre><code class="language-powershell">npm test
+</code></pre>
+<p>Bạn sẽ thấy dòng chữ chạy, cuối cùng kiểu <code>25 passed (30s)</code>. Chưa cần hiểu, chỉ cần thấy xanh.</p>
+<p>Muốn <strong>nhìn thấy trình duyệt</strong> tự bấm (rất nên xem lần đầu, cảm giác rất đã):</p>
+<pre><code class="language-powershell">npx playwright test --headed
+</code></pre>
+<p>Muốn xem báo cáo đẹp:</p>
+<pre><code class="language-powershell">npm run report
+</code></pre>
+<blockquote>
+<p>✅ <strong>Làm ngay:</strong> làm hết 12 bước với repo này. Bước nào lỗi, ghi lại thông báo lỗi nguyên văn.</p>
+</blockquote>
+<hr>
+</div>
+      <div class="mo-rong"><h4>📎 Mở rộng — đọc sau, không bắt buộc</h4><ul><li><a href="../../mo-rong/package-json/">package.json còn những mục gì?</a><span>Cả file của repo mẫu, dependencies vs devDependencies, số phiên bản, và bảng các mục dự án khác hay có.</span></li></ul></div>
+      <nav class="bai-nav">
+        <a class="truoc" href="../chuan-bi-may/"><small>← Bài 1</small>Chuẩn bị máy (làm 1 lần)</a>
+        <a class="sau" href="../giai-phau-folder-du-an/"><small>Bài 3 →</small>Giải phẫu folder dự án</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

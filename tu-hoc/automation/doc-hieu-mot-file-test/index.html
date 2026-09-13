@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 7 — Đọc hiểu một file test thật, từng dòng một · IT nói tiếng người</title>
+  <meta name="description" content="Dịch từng dòng của tests/trang-chu.spec.js, và từ điển các động từ dùng 90% thời gian." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/doc-hieu-mot-file-test/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 7 — Đọc hiểu một file test thật, từng dòng một" />
+  <meta property="og:description" content="Dịch từng dòng của tests/trang-chu.spec.js, và từ điển các động từ dùng 90% thời gian." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/doc-hieu-mot-file-test/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-doc-hieu-mot-file-test.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-doc-hieu-mot-file-test.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 7</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 7 / 13</span>
+      <h1>Đọc hiểu một file test thật, từng dòng một</h1>
+      <p class="brief">Dịch từng dòng của tests/trang-chu.spec.js, và từ điển các động từ dùng 90% thời gian.</p>
+      <div class="md"><p>Mở <a href="https://github.com/leona3893/don-gian-hoa/blob/main/tests/trang-chu.spec.js"><code>tests/trang-chu.spec.js</code></a>. Đây là bản dịch từng dòng:</p>
+<pre><code class="language-js">// Dòng 1: ghi chú, máy bỏ qua. Dấu // = ghi chú.
+// Trang chủ: lưới thuật ngữ, ô tìm kiếm có gợi ý, chip lọc nhóm, modal chi tiết.
+
+// Dòng 2: &quot;mượn&quot; 2 công cụ từ thư viện Playwright.
+//   test   = để khai báo 1 test
+//   expect = để nói &quot;tôi mong đợi...&quot;
+import { test, expect } from &#39;@playwright/test&#39;;
+
+// Dòng 3: mượn danh sách thuật ngữ từ file terms.js (cùng dữ liệu web đang dùng)
+// để biết chính xác có bao nhiêu thuật ngữ, khỏi hard-code số 83.
+import { TERMS } from &#39;../terms.js&#39;;
+
+// &quot;Trước MỖI test, làm việc này&quot;: mở trang chủ.
+// async/await: xem Bài 10. Tạm hiểu: &quot;await&quot; = &quot;chờ việc này xong rồi mới đi tiếp&quot;.
+test.beforeEach(async ({ page }) =&gt; {
+  await page.goto(&#39;/&#39;);          // &#39;/&#39; + baseURL trong config = http://localhost:4173/
+});
+
+// Khai báo 1 test. Chuỗi trong ngoặc là TÊN test, viết tiếng Việt thoải mái.
+// { page } = cái trình duyệt Playwright đưa cho bạn.
+test(&#39;hiện đủ toàn bộ thuật ngữ khi chưa lọc gì&#39;, async ({ page }) =&gt; {
+  // Mong: số thẻ .term trong #grid = số phần tử trong TERMS
+  await expect(page.locator(&#39;#grid .term&#39;)).toHaveCount(TERMS.length);
+  // Mong: chữ trong #count là &quot;83 thuật ngữ&quot; (TERMS.length tự điền số)
+  await expect(page.locator(&#39;#count&#39;)).toHaveText(`${TERMS.length} thuật ngữ`);
+  // Mong: khung &quot;không có kết quả&quot; đang ẩn
+  await expect(page.locator(&#39;#empty&#39;)).toBeHidden();
+});
+</code></pre>
+<p>Tiếp:</p>
+<pre><code class="language-js">test(&#39;gõ vào ô tìm kiếm thì hiện gợi ý và lọc lưới&#39;, async ({ page }) =&gt; {
+  // Tìm ô input theo vai trò &quot;combobox&quot; và tên &quot;Tìm thuật ngữ&quot;. Gán vào biến input để dùng lại.
+  const input = page.getByRole(&#39;combobox&#39;, { name: &#39;Tìm thuật ngữ&#39; });
+  // Gõ chữ &quot;api&quot; vào (fill = xoá sạch rồi gõ)
+  await input.fill(&#39;api&#39;);
+
+  // Tìm các dòng gợi ý
+  const suggestions = page.locator(&#39;#suggestions .suggestion&#39;);
+  // Mong: dòng gợi ý đầu tiên hiện ra
+  await expect(suggestions.first()).toBeVisible();
+  // Mong: số gợi ý ≤ 5
+  expect(await suggestions.count()).toBeLessThanOrEqual(5);
+  // Mong: gợi ý đầu có chứa chữ &quot;API&quot;
+  await expect(suggestions.first()).toContainText(&#39;API&#39;);
+
+  // Lấy toàn bộ tên thuật ngữ đang hiện trong lưới (thành 1 danh sách chuỗi)
+  const names = await page.locator(&#39;#grid .term h4&#39;).allTextContents();
+  // Mong: còn ít nhất 1 thẻ
+  expect(names.length).toBeGreaterThan(0);
+  // Với TỪNG tên: đổi về chữ thường, mong nó chứa &quot;api&quot;
+  for (const name of names) expect(name.toLowerCase()).toContain(&#39;api&#39;);
+});
+</code></pre>
+<h2>7.1 Từ điển các &quot;động từ&quot; bạn sẽ dùng 90% thời gian</h2>
+<p><strong>Đi:</strong></p>
+<ul>
+<li><code>page.goto(&#39;/duong-dan&#39;)</code> — mở trang.</li>
+</ul>
+<p><strong>Tìm phần tử (locator):</strong></p>
+<ul>
+<li><code>page.getByRole(&#39;button&#39;, { name: &#39;Tìm hiểu&#39; })</code> — theo vai trò + tên.</li>
+<li><code>page.getByText(&#39;chữ&#39;)</code> — theo chữ.</li>
+<li><code>page.getByLabel(&#39;nhãn&#39;)</code> — theo nhãn.</li>
+<li><code>page.locator(&#39;#id&#39;)</code>, <code>page.locator(&#39;.class&#39;)</code> — theo CSS.</li>
+<li><code>.first()</code>, <code>.nth(2)</code>, <code>.last()</code> — chọn cái thứ mấy khi có nhiều.</li>
+<li><code>.filter({ hasText: &#39;x&#39; })</code> — lọc.</li>
+</ul>
+<p><strong>Làm:</strong></p>
+<ul>
+<li><code>.click()</code> — bấm.</li>
+<li><code>.fill(&#39;chữ&#39;)</code> — gõ vào ô.</li>
+<li><code>.press(&#39;Enter&#39;)</code> — bấm phím.</li>
+<li><code>.check()</code> — tick checkbox.</li>
+<li><code>.selectOption(&#39;gia-tri&#39;)</code> — chọn dropdown.</li>
+<li><code>.hover()</code> — rê chuột.</li>
+</ul>
+<p><strong>Mong đợi (assertion):</strong></p>
+<ul>
+<li><code>toBeVisible()</code> / <code>toBeHidden()</code> — hiện / ẩn.</li>
+<li><code>toHaveText(&#39;chữ&#39;)</code> — chữ đúng y hệt.</li>
+<li><code>toContainText(&#39;chữ&#39;)</code> — có chứa chữ.</li>
+<li><code>toHaveCount(5)</code> — có đúng 5 cái.</li>
+<li><code>toHaveURL(/regex/)</code> — URL đúng.</li>
+<li><code>toHaveTitle(/regex/)</code> — title tab đúng.</li>
+<li><code>toHaveAttribute(&#39;href&#39;, &#39;/x&#39;)</code> — thuộc tính đúng.</li>
+<li><code>toBeEnabled()</code> / <code>toBeDisabled()</code> — nút bấm được / bị mờ.</li>
+</ul>
+<p>Quy tắc: <strong>locator → hành động → expect</strong>. Ba khối, mọi test đều thế.</p>
+<blockquote>
+<p>✅ <strong>Làm ngay:</strong> đọc hết 4 file trong <code>tests/</code>. Với mỗi test, viết 1 dòng tiếng Việt &quot;test này kiểm tra cái gì&quot; vào file ghi chú riêng. Bạn sẽ thấy 80% là lặp lại cùng pattern.</p>
+</blockquote>
+<hr>
+</div>
+      
+      <nav class="bai-nav">
+        <a class="truoc" href="../automation-ap-dung-vao-dau/"><small>← Bài 6</small>Automation nên áp dụng vào đâu</a>
+        <a class="sau" href="../bai-tap-dau-tien/"><small>Bài 8 →</small>Bài tập đầu tiên: tự viết 1 test</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

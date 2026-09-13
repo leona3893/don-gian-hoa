@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dự án JavaScript có những folder/file nào? · IT nói tiếng người</title>
+  <meta name="description" content="Ba mức cứng — hay gặp — tuỳ dự án, mỗi thứ một dòng “thấy nó = biết gì”, và bên trong folder test." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/mo-rong/cau-truc-du-an-js/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Dự án JavaScript có những folder/file nào?" />
+  <meta property="og:description" content="Ba mức cứng — hay gặp — tuỳ dự án, mỗi thứ một dòng “thấy nó = biết gì”, và bên trong folder test." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/mo-rong/cau-truc-du-an-js/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-mo-rong-cau-truc-du-an-js.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-mo-rong-cau-truc-du-an-js.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › Mở rộng</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Mở rộng · Bài 3</span>
+      <h1>Dự án JavaScript có những folder/file nào?</h1>
+      <p class="brief">Ba mức cứng — hay gặp — tuỳ dự án, mỗi thứ một dòng “thấy nó = biết gì”, và bên trong folder test.</p>
+      <p class="doc-khi">Đọc khi đã xong <a href="../../automation/giai-phau-folder-du-an/">Bài 3 — Giải phẫu folder dự án</a>. Không cần đọc ở lần đầu.</p>
+      <div class="md"><h2>Ba mức: cứng — hay gặp — tuỳ dự án</h2>
+<pre><code>du-an/
+│
+│  ── CỨNG: repo JS nào cũng có ──────────────────────────
+├── package.json            bảng nút bấm + danh sách thư viện
+├── package-lock.json       khoá chính xác phiên bản (tự sinh)
+├── node_modules/           thư viện tải về (không có trong Git)
+├── .gitignore              danh sách thứ KHÔNG đưa lên Git
+│
+│  ── HAY GẶP: 8/10 dự án có ─────────────────────────────
+├── README.md               hướng dẫn cài &amp; chạy — đọc đầu tiên
+├── src/                    code chính của app (dev làm ở đây)
+├── public/  hoặc  static/  ảnh, font, file tĩnh
+├── tests/  hoặc  e2e/  hoặc  __tests__/   ← nhà của bạn
+├── .github/workflows/      CI: robot tự chạy test
+├── *.config.js / *.config.ts   cấu hình công cụ (playwright, vite, jest…)
+│
+│  ── TUỲ DỰ ÁN: thấy thì biết, không thấy cũng bình thường ──
+├── .env  /  .env.example   biến môi trường: URL, tài khoản test
+├── tsconfig.json           dự án dùng TypeScript
+├── .eslintrc*  /  eslint.config.js   kiểm tra lỗi code tự động
+├── .prettierrc             quy tắc format code
+├── .nvmrc  /  .node-version   Node bản nào
+├── Dockerfile  /  docker-compose.yml   đóng gói chạy trong container
+├── .vscode/                cài đặt VS Code chung cho team
+├── dist/  /  build/  /  .next/  /  out/   kết quả build (thường bị gitignore)
+└── docs/                   tài liệu
+</code></pre>
+<h2>Giải thích từng thứ — và tester có cần đụng không</h2>
+<p><strong>Nhóm CỨNG</strong></p>
+<table>
+<thead>
+<tr>
+<th>Thấy</th>
+<th>Biết gì</th>
+<th>Tester có cần đụng?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>package.json</code></td>
+<td>Xem <a href="../../../tu-hoc/mo-rong/package-json/">Mở rộng 2</a></td>
+<td>Đọc <code>scripts</code> và <code>devDependencies</code></td>
+</tr>
+<tr>
+<td><code>package-lock.json</code></td>
+<td>Tự sinh</td>
+<td>Không sửa. Nếu thấy nó thay đổi trong <code>git status</code> mà bạn không cài gì → hỏi</td>
+</tr>
+<tr>
+<td><code>node_modules/</code></td>
+<td>Thư viện</td>
+<td>Không mở, không commit. Lỗi lạ → xoá rồi <code>npm install</code></td>
+</tr>
+<tr>
+<td><code>.gitignore</code></td>
+<td>Mỗi dòng là 1 thứ Git bỏ qua</td>
+<td>Đọc 1 lần để biết vì sao <code>node_modules</code>, <code>test-results</code>, <code>.env</code> không lên GitHub</td>
+</tr>
+</tbody></table>
+<p><strong>Nhóm HAY GẶP</strong></p>
+<table>
+<thead>
+<tr>
+<th>Thấy</th>
+<th>Biết gì</th>
+<th>Tester có cần đụng?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>README.md</code></td>
+<td>Hướng dẫn của dự án</td>
+<td><strong>Đọc đầu tiên.</strong> Tìm mục &quot;Getting started&quot;, &quot;Setup&quot;, &quot;Testing&quot;</td>
+</tr>
+<tr>
+<td><code>src/</code></td>
+<td>Code app. Bên trong thường có <code>components/</code>, <code>pages/</code>, <code>services/</code> hoặc <code>api/</code>, <code>utils/</code></td>
+<td>Đọc khi cần tìm <code>id</code>/<code>data-testid</code> của một nút; không sửa</td>
+</tr>
+<tr>
+<td><code>public/</code></td>
+<td>File tĩnh</td>
+<td>Không</td>
+</tr>
+<tr>
+<td><code>tests/</code> / <code>e2e/</code> / <code>__tests__/</code></td>
+<td>Test. <code>e2e/</code> = test giả lập người dùng; <code>__tests__/</code> hoặc <code>*.test.js</code> nằm cạnh code = unit test của dev</td>
+<td><strong>Nhà của bạn.</strong> E2E là việc bạn; unit test là của dev</td>
+</tr>
+<tr>
+<td><code>.github/workflows/*.yml</code></td>
+<td>Mỗi file là 1 pipeline</td>
+<td>Đọc để biết test chạy khi nào, trên môi trường nào</td>
+</tr>
+<tr>
+<td><code>playwright.config.*</code></td>
+<td>URL, trình duyệt, timeout, chụp ảnh khi lỗi</td>
+<td><strong>Đọc kỹ</strong>, thỉnh thoảng sửa</td>
+</tr>
+<tr>
+<td><code>vite.config.*</code>, <code>next.config.*</code>, <code>webpack.config.*</code></td>
+<td>Cấu hình build/dev server của app</td>
+<td>Không sửa. Chỉ nhìn để biết port dev server (thường 5173 / 3000 / 8080)</td>
+</tr>
+<tr>
+<td><code>jest.config.*</code>, <code>vitest.config.*</code></td>
+<td>Cấu hình unit test</td>
+<td>Không, trừ khi bạn được giao unit test</td>
+</tr>
+</tbody></table>
+<p><strong>Nhóm TUỲ DỰ ÁN</strong></p>
+<table>
+<thead>
+<tr>
+<th>Thấy</th>
+<th>Biết gì</th>
+<th>Tester có cần đụng?</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.env.example</code></td>
+<td>Mẫu biến môi trường. Bạn <strong>copy thành <code>.env</code></strong> rồi điền giá trị thật</td>
+<td><strong>Có</strong> — bước cài đặt hay bị quên nhất. <code>.env</code> thật không bao giờ commit</td>
+</tr>
+<tr>
+<td><code>tsconfig.json</code></td>
+<td>Dự án dùng TypeScript: file <code>.ts</code> thay vì <code>.js</code></td>
+<td>Đọc test <code>.ts</code> cũng như <code>.js</code>, chỉ thêm vài chỗ ghi kiểu (<code>: string</code>). Không sợ</td>
+</tr>
+<tr>
+<td><code>.eslintrc*</code> / <code>eslint.config.js</code></td>
+<td>Có kiểm tra code tự động; VS Code sẽ gạch đỏ</td>
+<td>Không sửa. Nếu commit bị chặn vì lint → chạy <code>npm run lint</code> xem lỗi gì</td>
+</tr>
+<tr>
+<td><code>.prettierrc</code></td>
+<td>Quy tắc format (dấu nháy, thụt lề)</td>
+<td>Không. Cài extension Prettier để VS Code tự format lúc lưu</td>
+</tr>
+<tr>
+<td><code>.nvmrc</code> / <code>.node-version</code></td>
+<td>Node bản nào</td>
+<td>Đọc — <code>node -v</code> so với số trong file</td>
+</tr>
+<tr>
+<td><code>Dockerfile</code> / <code>docker-compose.yml</code></td>
+<td>App (hoặc DB) chạy trong container</td>
+<td>Chưa cần. Nếu README bảo <code>docker compose up</code> thì làm theo, hỏi khi kẹt</td>
+</tr>
+<tr>
+<td><code>.vscode/settings.json</code>, <code>extensions.json</code></td>
+<td>Team chia sẻ cài đặt VS Code</td>
+<td>Mở VS Code sẽ được gợi ý cài extension — bấm đồng ý</td>
+</tr>
+<tr>
+<td><code>dist/</code>, <code>build/</code>, <code>.next/</code>, <code>out/</code></td>
+<td>Kết quả build, tự sinh</td>
+<td>Không đụng, không commit</td>
+</tr>
+<tr>
+<td><code>docs/</code></td>
+<td>Tài liệu</td>
+<td>Đọc nếu có</td>
+</tr>
+<tr>
+<td><code>.husky/</code></td>
+<td>Script tự chạy trước commit/push (lint, test nhanh)</td>
+<td>Đọc — giải thích vì sao <code>git commit</code> lâu hoặc bị từ chối</td>
+</tr>
+<tr>
+<td><code>coverage/</code></td>
+<td>Báo cáo độ phủ test, tự sinh</td>
+<td>Xem, không commit</td>
+</tr>
+</tbody></table>
+<h2>Bên trong folder test — khi dự án đã automation lâu</h2>
+<pre><code>tests/  (hoặc e2e/)
+├── *.spec.ts               các file test — mỗi file một trang / một tính năng
+├── pages/  hoặc  pom/      Page Object: &quot;địa chỉ&quot; và hành động của từng trang
+├── fixtures/               dữ liệu mẫu, tài khoản test, hàm setup dùng chung
+├── utils/  hoặc  helpers/  hàm tiện ích: đăng nhập nhanh, sinh dữ liệu
+├── data/                   file JSON/CSV dữ liệu test
+└── .auth/                  trạng thái đăng nhập lưu sẵn (thường bị gitignore)
+
+playwright.config.ts        ở gốc dự án, không nằm trong tests/
+playwright-report/          báo cáo HTML sau khi chạy (gitignore)
+test-results/               ảnh chụp, trace khi test đỏ (gitignore)
+</code></pre>
+<p>Repo <code>don-gian-hoa</code> mới có <code>tests/*.spec.js</code> và <code>playwright.config.js</code>. Tuần 8 trong lộ trình bạn sẽ tự tạo <code>tests/pages/</code> — lúc đó folder của bạn bắt đầu giống dự án thật.</p>
+<h2>Định vị trong 10 phút — bản đầy đủ</h2>
+<ol>
+<li><code>README.md</code> → mục cài đặt &amp; chạy.</li>
+<li><code>package.json</code> → <code>packageManager</code>, <code>engines</code>, <code>scripts</code>, <code>devDependencies</code>.</li>
+<li><code>.env.example</code> → có thì copy thành <code>.env</code>, hỏi giá trị thật.</li>
+<li><code>tests/</code> hoặc <code>e2e/</code> → test viết bằng gì, có Page Object chưa.</li>
+<li><code>playwright.config.*</code> → baseURL, trình duyệt, có <code>webServer</code> tự bật app không.</li>
+<li><code>.github/workflows/</code> → CI chạy test khi nào.</li>
+<li><code>src/</code> → chỉ mở khi cần tìm địa chỉ phần tử.</li>
+</ol>
+<p>Mọi thứ khác: <strong>thấy thì biết, không mở</strong>.</p>
+<hr>
+</div>
+      <a class="back" href="../../automation/giai-phau-folder-du-an/">← Quay lại Bài 3</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

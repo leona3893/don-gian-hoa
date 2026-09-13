@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bài 9 — Khi test đỏ: cách đọc lỗi và sửa · IT nói tiếng người</title>
+  <meta name="description" content="Cấu trúc một thông báo lỗi Playwright, bảng tra lỗi thường gặp, ba công cụ debug." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/khi-test-do/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Bài 9 — Khi test đỏ: cách đọc lỗi và sửa" />
+  <meta property="og:description" content="Cấu trúc một thông báo lỗi Playwright, bảng tra lỗi thường gặp, ba công cụ debug." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/automation/khi-test-do/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-khi-test-do.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-khi-test-do.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › <a href="../">Automation cho người không giỏi code</a> › Bài 9</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Bài 9 / 13</span>
+      <h1>Khi test đỏ: cách đọc lỗi và sửa</h1>
+      <p class="brief">Cấu trúc một thông báo lỗi Playwright, bảng tra lỗi thường gặp, ba công cụ debug.</p>
+      <div class="md"><h2>9.1 Cấu trúc một thông báo lỗi Playwright</h2>
+<pre><code>  1) tests/lo-trinh.spec.js:9:1 › mở được trang và có tiêu đề
+                    ▲ file      ▲ dòng   ▲ tên test
+
+    Error: Timed out 5000ms waiting for expect(locator).toBeVisible()
+           ▲ chờ 5 giây mà không thấy
+
+    Locator: getByRole(&#39;heading&#39;, { level: 1 })
+             ▲ &quot;địa chỉ&quot; bạn viết
+    Expected: visible
+    Received: &lt;element(s) not found&gt;
+              ▲ KHÔNG TÌM THẤY phần tử nào khớp địa chỉ
+
+      11 |   await expect(page.getByRole(&#39;heading&#39;, { level: 1 })).toBeVisible();
+         |                                                          ^
+                                                                    ▲ dòng bị lỗi
+</code></pre>
+<p>Đọc từ trên xuống: <strong>file nào → test nào → lỗi gì → địa chỉ nào → mong gì → nhận gì → dòng nào</strong>.</p>
+<h2>9.2 Bảng tra lỗi thường gặp</h2>
+<table>
+<thead>
+<tr>
+<th>Thấy chữ</th>
+<th>Nghĩa</th>
+<th>Sửa</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>element(s) not found</code></td>
+<td>Địa chỉ sai, phần tử không tồn tại</td>
+<td>F12 xem lại, sửa locator</td>
+</tr>
+<tr>
+<td><code>strict mode violation: ... resolved to 3 elements</code></td>
+<td>Địa chỉ trúng 3 cái, Playwright không biết bấm cái nào</td>
+<td>Thêm <code>.first()</code> hoặc lọc cụ thể hơn</td>
+</tr>
+<tr>
+<td><code>Timed out ... waiting for</code></td>
+<td>Chờ mãi không thấy</td>
+<td>Phần tử ẩn / chưa load / địa chỉ sai</td>
+</tr>
+<tr>
+<td><code>Expected: &quot;83 thuật ngữ&quot; Received: &quot;84 thuật ngữ&quot;</code></td>
+<td>Dữ liệu đổi</td>
+<td>Test đúng, có thể web đổi thật → báo dev hoặc cập nhật test</td>
+</tr>
+<tr>
+<td><code>net::ERR_CONNECTION_REFUSED</code></td>
+<td>Web chưa bật</td>
+<td>Kiểm tra server / <code>webServer</code> trong config</td>
+</tr>
+<tr>
+<td><code>SyntaxError: Unexpected token</code></td>
+<td>Gõ sai cú pháp (thiếu ngoặc, dấu phẩy)</td>
+<td>Nhìn dòng báo, đếm ngoặc <code>( ) { }</code></td>
+</tr>
+<tr>
+<td><code>Cannot find module</code></td>
+<td>Import sai đường dẫn</td>
+<td>Kiểm tra <code>&#39;../terms.js&#39;</code> có đúng vị trí</td>
+</tr>
+</tbody></table>
+<h2>9.3 Ba công cụ debug theo thứ tự nên dùng</h2>
+<ol>
+<li><strong><code>--headed</code></strong>: nhìn trình duyệt làm gì.<pre><code class="language-powershell">npx playwright test tests/lo-trinh.spec.js --headed
+</code></pre>
+</li>
+<li><strong><code>--debug</code></strong>: dừng từng bước, bạn bấm Next như xem phim chậm.<pre><code class="language-powershell">npx playwright test tests/lo-trinh.spec.js --debug
+</code></pre>
+</li>
+<li><strong>Trace viewer</strong> (mạnh nhất): ghi lại toàn bộ, xem lại như video có thể tua.<pre><code class="language-powershell">npx playwright test --trace on
+npx playwright show-trace test-results/&lt;folder&gt;/trace.zip
+</code></pre>
+Hoặc mở <code>npm run report</code> → bấm vào test đỏ → có ảnh chụp + trace.</li>
+</ol>
+<p>Trên CI: tải artifact <code>playwright-report</code> về, mở <code>index.html</code>, y hệt.</p>
+<h2>9.4 Quy trình khi đỏ (áp dụng máy móc)</h2>
+<ol>
+<li>Đọc dòng <code>Error:</code> — hiểu nó thuộc loại nào trong bảng 9.2.</li>
+<li>Chạy lại đúng 1 test đó với <code>--headed</code>.</li>
+<li>Nếu là locator: F12, tìm lại, sửa, chạy lại.</li>
+<li>Nếu web đổi thật: hỏi dev &quot;đây là cố ý hay bug?&quot;. Cố ý → sửa test. Bug → báo bug, giữ nguyên test (test đỏ là đúng).</li>
+<li>Nếu lúc xanh lúc đỏ (flaky): thường do chờ chưa đủ → đảm bảo dùng <code>await expect(...)</code> thay vì <code>expect(await ...)</code> khi kiểm tra trạng thái.</li>
+</ol>
+<hr>
+</div>
+      
+      <nav class="bai-nav">
+        <a class="truoc" href="../bai-tap-dau-tien/"><small>← Bài 8</small>Bài tập đầu tiên: tự viết 1 test</a>
+        <a class="sau" href="../code-toi-thieu/"><small>Bài 10 →</small>Code tối thiểu cần biết</a>
+      </nav>
+      <a class="back" href="../">← Mục lục Automation cho người không giỏi code</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>
