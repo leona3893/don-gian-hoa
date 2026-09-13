@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout là gì? Giải thích dễ hiểu — IT nói tiếng người</title>
+  <meta name="description" content="Checkout là gì? Checkout là lệnh chuyển sang một nhánh (hoặc một commit) khác. Sau khi checkout, mọi file trong folder dự án biến thành đúng trạng thái…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/thuat-ngu/checkout/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Checkout là gì? Giải thích dễ hiểu — IT nói tiếng người" />
+  <meta property="og:description" content="Checkout là gì? Checkout là lệnh chuyển sang một nhánh (hoặc một commit) khác. Sau khi checkout, mọi file trong folder dự án biến thành đúng trạng thái…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/thuat-ngu/checkout/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/checkout.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/checkout.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"DefinedTerm","name":"Checkout","description":"Checkout là lệnh chuyển sang một nhánh (hoặc một commit) khác. Sau khi checkout, mọi file trong folder dự án biến thành đúng trạng thái của nhánh đó.","inLanguage":"vi","url":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/checkout/","inDefinedTermSet":{"@type":"DefinedTermSet","name":"IT nói tiếng người","url":"https://leona3893.github.io/don-gian-hoa/"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"Checkout","item":"https://leona3893.github.io/don-gian-hoa/thuat-ngu/checkout/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a><a href="../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › Checkout</nav>
+    <article class="article">
+      <span class="tag">Công cụ</span><a class="badge-moc" href="../../lo-trinh/#nen-tang-2">Mốc 2 · Đọc hiểu được</a>
+      <h1>🚪 Checkout là gì?</h1>
+      <p class="brief">Bước sang nhánh khác — cả folder đổi theo.</p>
+    <div class="layer"><div class="layer-no">1</div><div class="layer-name">Hiểu nó là gì</div><div class="layer-line"></div></div>
+    <p class="plain">Checkout là lệnh chuyển sang một nhánh (hoặc một commit) khác. Sau khi checkout, mọi file trong folder dự án biến thành đúng trạng thái của nhánh đó.</p>
+    <div class="analogy"><strong>Nói theo đời thường:</strong><br>Như bước từ phòng này sang phòng kia trong cùng căn nhà: đồ đạc bạn thấy đổi hết, nhưng phòng cũ vẫn còn nguyên, quay lại lúc nào cũng được.</div>
+    <div class="leak"><h4>⚠ Chỗ ẩn dụ này hỏng</h4><p>Bước sang phòng khác — nhưng <span class="punch">đồ đang cầm trên tay (file sửa dở, chưa commit) đi theo bạn sang phòng mới.</span></p>
+<p>Đây vừa là điểm hay vừa là bẫy. Hay: lỡ sửa trên <code>main</code> mà chưa commit, gõ <code>git checkout -b nhanh-moi</code> là thay đổi được mang sang nhánh mới, <code>main</code> sạch trở lại. Bẫy: bạn tưởng đã “để lại” thay đổi ở nhánh cũ, hoá ra không. Và nếu thay đổi dở dang đụng đúng file mà nhánh đích cũng khác, Git từ chối checkout để không làm mất công của bạn — lúc đó commit trước hoặc <code>git stash</code> cất tạm.</p></div>
+
+    <div class="layer"><div class="layer-no">2</div><div class="layer-name">Code trông thế nào</div><div class="layer-line"></div></div>
+    <pre class="code">git checkout main               <span class="c"># về nhánh chính</span>
+git checkout -b thu-nghiem/ci-do <span class="c"># tạo nhánh mới VÀ chuyển sang luôn (-b = branch)</span>
+git checkout thu-nghiem/ci-do    <span class="c"># chuyển sang nhánh đã có</span>
+
+git branch                       <span class="c"># đang đứng ở đâu? dấu * là nhánh hiện tại</span>
+<span class="c">  main
+* thu-nghiem/ci-do</span>
+
+git checkout -- tests/a.spec.js  <span class="c"># nghĩa KHÁC: huỷ sửa đổi của 1 file, về bản đã commit (mất thật)</span></pre>
+    <p class="cap">Hai lệnh <strong>checkout</strong> và <strong>branch</strong> đi cặp: <code>branch</code> để nhìn, <code>checkout</code> để bước sang.</p>
+
+    <div class="layer"><div class="layer-no">3</div><div class="layer-name">Khi nào bạn dùng nó</div><div class="layer-line"></div></div>
+    <div class="two">
+      <div class="box yes"><h4>✓ Dùng khi</h4><ul><li>Bắt đầu một việc mới: <code>checkout -b</code> từ <code>main</code> mới nhất</li><li>Quay về <code>main</code> để lấy code mới hoặc tạo nhánh khác</li><li>Lỡ sửa trên <code>main</code> chưa commit — <code>checkout -b</code> mang sang nhánh riêng</li></ul></div>
+      <div class="box no"><h4>✗ Đừng dùng khi</h4><ul><li><code>checkout -- .</code> khi chưa chắc muốn vứt toàn bộ sửa đổi — không có undo</li><li>Checkout sang nhánh khác giữa chừng khi đang có file sửa dở mà chưa hiểu nó sẽ đi theo</li></ul></div>
+    </div>
+    <div class="notyet">
+      <div class="row"><span class="k">Chưa cần biết:</span> <code>git switch</code> / <code>git restore</code> (hai lệnh mới tách vai trò của checkout), detached HEAD, checkout một commit cũ.</div>
+      <div class="row"><span class="k">Để dành tới Mốc 3 — Tự dựng được:</span> Bạn tự đưa được một trang lên mạng, và biết phải sờ vào đâu khi nó không lên.</div>
+      <div class="row sign"><span class="k">Dấu hiệu bạn đã cần học nó:</span> Khi bạn thấy dòng “You are in detached HEAD state” và không hiểu mình đang ở đâu.</div>
+    </div>
+
+    <div class="layer"><div class="layer-no">4</div><div class="layer-name">Đi đâu tiếp</div><div class="layer-line"></div></div>
+    <ul class="nextlist"><li><a href="../branch/">Branch</a><span>Thứ mà checkout bước sang.</span></li><li><a href="../commit/">Commit</a><span>Cất đồ trước khi đổi phòng thì không sợ mang nhầm.</span></li><li><a href="../pull-request/">Pull Request</a><span>Nhánh vừa checkout -b rồi làm gì tiếp.</span></li></ul>
+
+    <div class="try"><h4>🧪 Thử 2 phút, không cần cài gì</h4>Trong một repo bất kỳ: <code>git branch</code> xem mình đang ở đâu, <code>git checkout -b thu</code>, <code>git branch</code> lại — dấu <code>*</code> đã nhảy. Rồi <code>git checkout main</code> và <code>git branch -d thu</code> để dọn. Mất 1 phút, và từ giờ bạn không còn sợ lệnh này.</div>
+    
+      <a class="back" href="../../">← Xem tất cả thuật ngữ</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

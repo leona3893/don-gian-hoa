@@ -1004,6 +1004,28 @@ git branch -d them-nut-danh-gia   <span class="c"># xoá nhánh sau khi đã g�
         {ten:'Commit', vi:'Thứ nằm trên nhánh.'}],
   try:`Trong dự án của bạn: <code>git switch -c thu-nghiem</code>, sửa lung tung một file, rồi <code>git switch main</code>. Mở file đó ra — nó nguyên vẹn. Nhánh chính là bảo hiểm miễn phí.`},
 
+'Checkout': { moc:2,
+  leak:`<p>Bước sang phòng khác — nhưng <span class="punch">đồ đang cầm trên tay (file sửa dở, chưa commit) đi theo bạn sang phòng mới.</span></p>
+<p>Đây vừa là điểm hay vừa là bẫy. Hay: lỡ sửa trên <code>main</code> mà chưa commit, gõ <code>git checkout -b nhanh-moi</code> là thay đổi được mang sang nhánh mới, <code>main</code> sạch trở lại. Bẫy: bạn tưởng đã “để lại” thay đổi ở nhánh cũ, hoá ra không. Và nếu thay đổi dở dang đụng đúng file mà nhánh đích cũng khác, Git từ chối checkout để không làm mất công của bạn — lúc đó commit trước hoặc <code>git stash</code> cất tạm.</p>`,
+  code:`git checkout main               <span class="c"># về nhánh chính</span>
+git checkout -b thu-nghiem/ci-do <span class="c"># tạo nhánh mới VÀ chuyển sang luôn (-b = branch)</span>
+git checkout thu-nghiem/ci-do    <span class="c"># chuyển sang nhánh đã có</span>
+
+git branch                       <span class="c"># đang đứng ở đâu? dấu * là nhánh hiện tại</span>
+<span class="c">  main
+* thu-nghiem/ci-do</span>
+
+git checkout -- tests/a.spec.js  <span class="c"># nghĩa KHÁC: huỷ sửa đổi của 1 file, về bản đã commit (mất thật)</span>`,
+  cap:'Hai lệnh <strong>checkout</strong> và <strong>branch</strong> đi cặp: <code>branch</code> để nhìn, <code>checkout</code> để bước sang.',
+  yes:['Bắt đầu một việc mới: <code>checkout -b</code> từ <code>main</code> mới nhất','Quay về <code>main</code> để lấy code mới hoặc tạo nhánh khác','Lỡ sửa trên <code>main</code> chưa commit — <code>checkout -b</code> mang sang nhánh riêng'],
+  no:['<code>checkout -- .</code> khi chưa chắc muốn vứt toàn bộ sửa đổi — không có undo','Checkout sang nhánh khác giữa chừng khi đang có file sửa dở mà chưa hiểu nó sẽ đi theo'],
+  notYet:{gi:'<code>git switch</code> / <code>git restore</code> (hai lệnh mới tách vai trò của checkout), detached HEAD, checkout một commit cũ', toiMoc:3,
+    dauHieu:'Khi bạn thấy dòng “You are in detached HEAD state” và không hiểu mình đang ở đâu.'},
+  next:[{ten:'Branch', vi:'Thứ mà checkout bước sang.'},
+        {ten:'Commit', vi:'Cất đồ trước khi đổi phòng thì không sợ mang nhầm.'},
+        {ten:'Pull Request', vi:'Nhánh vừa checkout -b rồi làm gì tiếp.'}],
+  try:`Trong một repo bất kỳ: <code>git branch</code> xem mình đang ở đâu, <code>git checkout -b thu</code>, <code>git branch</code> lại — dấu <code>*</code> đã nhảy. Rồi <code>git checkout main</code> và <code>git branch -d thu</code> để dọn. Mất 1 phút, và từ giờ bạn không còn sợ lệnh này.`},
+
 'Merge': { moc:2,
   leak:`<p>Gộp hai tờ kế hoạch — nhưng <span class="punch">Git gộp rất giỏi khi hai người sửa hai chỗ khác nhau, và hoàn toàn bó tay khi cùng sửa một dòng.</span></p>
 <p>Khi đó nó không đoán, mà dừng lại và ghi cả hai phiên bản vào file, đánh dấu bằng <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code> và <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code>. Việc của bạn: mở file, giữ lại phần đúng, xoá mấy dòng đánh dấu, commit. Xung đột không phải tai nạn — nó là hệ quả tự nhiên của việc hai người cùng sửa một thứ.</p>`,

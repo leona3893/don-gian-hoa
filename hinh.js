@@ -44,6 +44,9 @@ export const HINH = {
 // thân chính thẳng, một nhánh tách ra
 'Branch': `<line x1="-50" y1="-110" x2="-50" y2="110"/><path d="M-50,-20 Q-50,40 50,40"/><circle cx="-50" cy="-110" r="16" fill="${BG}"/><circle cx="-50" cy="110" r="16" fill="${BG}"/><circle cx="66" cy="40" r="16" fill="${BG}"/>`,
 
+// cánh cửa mở, mũi tên bước từ phòng này sang phòng kia
+'Checkout': `<rect x="-130" y="-100" width="120" height="200"/><rect x="10" y="-100" width="120" height="200"/><path d="M10,-100 L60,-80 L60,80 L10,100"/><circle cx="46" cy="0" r="6" fill="${LIME}" stroke="none"/><line x1="-100" y1="0" x2="-20" y2="0"/><path d="M-44,-22 L-20,0 L-44,22"/>`,
+
 // hai đường chụm về một
 'Merge': `<path d="M-90,-110 L-90,-20 Q-90,40 0,50 L0,110"/><path d="M90,-110 L90,-20 Q90,40 0,50"/><circle cx="-90" cy="-110" r="16" fill="${BG}"/><circle cx="90" cy="-110" r="16" fill="${BG}"/><circle cx="0" cy="110" r="16" fill="${BG}"/>`,
 
