@@ -173,14 +173,68 @@ Mẹo: nếu thấy dòng `Annotations` màu đỏ ngay trên sơ đồ job — 
 
 ## 4.3.4 Thử một lần cho biết
 
-1. Sửa một test cho sai cố ý — ví dụ trong `tests/trang-chu.spec.js` đổi `'Tìm thuật ngữ'` thành `'Tìm thuật ngữ XYZ'`.
-2. Commit lên nhánh riêng, push, mở PR.
-3. Chờ ~2 phút. Thấy ❌ trên PR → bấm Details → tìm bước đỏ → đọc dòng `Error:`.
-4. Tải artifact về, mở báo cáo, xem ảnh chụp.
-5. Sửa lại cho đúng, push thêm 1 commit vào cùng nhánh → Actions tự chạy lại → ✅.
-6. Đóng PR không merge, xoá nhánh.
+Toàn bộ bài này làm **trên một nhánh riêng** — không bao giờ sửa trực tiếp trên `main`.
 
-Làm xong bước này, bạn đã tự tay trải qua đúng vòng đời "test đỏ trên CI → tìm → sửa → xanh" — mốc 3 trong trang Lộ trình.
+**Bước 0 — Tạo nhánh trước khi sửa bất cứ gì**
+
+```powershell
+git checkout main
+git pull
+git checkout -b thu-nghiem/ci-do
+```
+
+> Lỡ sửa trên `main` rồi (chưa commit)? Cứ gõ `git checkout -b thu-nghiem/ci-do` — Git mang thay đổi sang nhánh mới, `main` trở lại sạch.
+
+**Bước 1 — Làm hỏng một test cố ý**
+
+Mở `tests/trang-chu.spec.js`, tìm dòng `page.getByRole('combobox', { name: 'Tìm thuật ngữ' })` đầu tiên, đổi `'Tìm thuật ngữ'` thành `'Tìm thuật ngữ XYZ'`. Lưu.
+
+**Bước 2 — Thấy đỏ ở local trước**
+
+```powershell
+npx playwright test tests/trang-chu.spec.js -g "gõ vào ô tìm kiếm"
+```
+
+Mong đợi `1 failed` và dòng `Error: Timed out … 'Tìm thuật ngữ XYZ'`. Nhớ mặt dòng này — lát nữa gặp lại trên GitHub.
+
+**Bước 3 — Commit, push nhánh**
+
+```powershell
+git add tests/trang-chu.spec.js
+git commit -m "Thử: cố ý làm hỏng test để xem CI đỏ"
+git push -u origin thu-nghiem/ci-do
+```
+
+PowerShell in ra link `…/pull/new/thu-nghiem/ci-do` — mở link đó.
+
+**Bước 4 — Mở PR**: kiểm tra `base: main` ← `compare: thu-nghiem/ci-do`, mô tả "Thử nghiệm — không merge", bấm **Create pull request**.
+
+**Bước 5 — Xem robot đỏ**: khung checks dưới PR quay vàng 🟡 ~1–2 phút → ❌. Bấm **Details** → bước ❌ **Chạy Playwright** → tìm dòng `Error: Timed out`. Bấm **Summary** → cuối trang có **Annotations** và **Artifacts**.
+
+**Bước 6 — Tải báo cáo**: bấm `playwright-report` → giải nén `.zip` → mở `index.html` → bấm test đỏ → xem ảnh chụp lúc lỗi.
+
+**Bước 7 — Sửa lại, push thêm commit vào cùng nhánh**
+
+Đổi lại thành `'Tìm thuật ngữ'`, rồi:
+
+```powershell
+npx playwright test tests/trang-chu.spec.js     # xanh ở local trước
+git add tests/trang-chu.spec.js
+git commit -m "Sửa lại locator cho đúng"
+git push
+```
+
+**Bước 8 — Thấy xanh**: về tab PR, F5 → checks quay vàng → ✅. Không cần mở PR mới — robot tự chạy lại mỗi khi có push vào nhánh của PR.
+
+**Bước 9 — Dọn**: trên PR bấm **Close pull request** (nút xám, không phải Merge) → **Delete branch**. Về máy:
+
+```powershell
+git checkout main
+git branch -D thu-nghiem/ci-do
+git status        # phải sạch
+```
+
+Cái cần rút ra: lỗi trên CI đọc **y hệt** lỗi ở máy bạn — cùng dòng `Error:`, cùng tên test, cùng số dòng. Khác duy nhất là chỗ tìm nó và cách xem ảnh. Làm xong là bạn đã qua mốc 3 trong trang Lộ trình bằng tay mình.
 
 ## 4.4 Những lỗi Git người mới hay gặp
 

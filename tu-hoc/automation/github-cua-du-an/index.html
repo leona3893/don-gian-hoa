@@ -239,15 +239,44 @@ merge PR vào main  → [test] chạy → xanh → [deploy] → site cập nhậ
 </tr>
 </tbody></table>
 <h2>4.3.4 Thử một lần cho biết</h2>
-<ol>
-<li>Sửa một test cho sai cố ý — ví dụ trong <code>tests/trang-chu.spec.js</code> đổi <code>&#39;Tìm thuật ngữ&#39;</code> thành <code>&#39;Tìm thuật ngữ XYZ&#39;</code>.</li>
-<li>Commit lên nhánh riêng, push, mở PR.</li>
-<li>Chờ ~2 phút. Thấy ❌ trên PR → bấm Details → tìm bước đỏ → đọc dòng <code>Error:</code>.</li>
-<li>Tải artifact về, mở báo cáo, xem ảnh chụp.</li>
-<li>Sửa lại cho đúng, push thêm 1 commit vào cùng nhánh → Actions tự chạy lại → ✅.</li>
-<li>Đóng PR không merge, xoá nhánh.</li>
-</ol>
-<p>Làm xong bước này, bạn đã tự tay trải qua đúng vòng đời &quot;test đỏ trên CI → tìm → sửa → xanh&quot; — mốc 3 trong trang Lộ trình.</p>
+<p>Toàn bộ bài này làm <strong>trên một nhánh riêng</strong> — không bao giờ sửa trực tiếp trên <code>main</code>.</p>
+<p><strong>Bước 0 — Tạo nhánh trước khi sửa bất cứ gì</strong></p>
+<pre><code class="language-powershell">git checkout main
+git pull
+git checkout -b thu-nghiem/ci-do
+</code></pre>
+<blockquote>
+<p>Lỡ sửa trên <code>main</code> rồi (chưa commit)? Cứ gõ <code>git checkout -b thu-nghiem/ci-do</code> — Git mang thay đổi sang nhánh mới, <code>main</code> trở lại sạch.</p>
+</blockquote>
+<p><strong>Bước 1 — Làm hỏng một test cố ý</strong></p>
+<p>Mở <code>tests/trang-chu.spec.js</code>, tìm dòng <code>page.getByRole(&#39;combobox&#39;, { name: &#39;Tìm thuật ngữ&#39; })</code> đầu tiên, đổi <code>&#39;Tìm thuật ngữ&#39;</code> thành <code>&#39;Tìm thuật ngữ XYZ&#39;</code>. Lưu.</p>
+<p><strong>Bước 2 — Thấy đỏ ở local trước</strong></p>
+<pre><code class="language-powershell">npx playwright test tests/trang-chu.spec.js -g &quot;gõ vào ô tìm kiếm&quot;
+</code></pre>
+<p>Mong đợi <code>1 failed</code> và dòng <code>Error: Timed out … &#39;Tìm thuật ngữ XYZ&#39;</code>. Nhớ mặt dòng này — lát nữa gặp lại trên GitHub.</p>
+<p><strong>Bước 3 — Commit, push nhánh</strong></p>
+<pre><code class="language-powershell">git add tests/trang-chu.spec.js
+git commit -m &quot;Thử: cố ý làm hỏng test để xem CI đỏ&quot;
+git push -u origin thu-nghiem/ci-do
+</code></pre>
+<p>PowerShell in ra link <code>…/pull/new/thu-nghiem/ci-do</code> — mở link đó.</p>
+<p><strong>Bước 4 — Mở PR</strong>: kiểm tra <code>base: main</code> ← <code>compare: thu-nghiem/ci-do</code>, mô tả &quot;Thử nghiệm — không merge&quot;, bấm <strong>Create pull request</strong>.</p>
+<p><strong>Bước 5 — Xem robot đỏ</strong>: khung checks dưới PR quay vàng 🟡 ~1–2 phút → ❌. Bấm <strong>Details</strong> → bước ❌ <strong>Chạy Playwright</strong> → tìm dòng <code>Error: Timed out</code>. Bấm <strong>Summary</strong> → cuối trang có <strong>Annotations</strong> và <strong>Artifacts</strong>.</p>
+<p><strong>Bước 6 — Tải báo cáo</strong>: bấm <code>playwright-report</code> → giải nén <code>.zip</code> → mở <code>index.html</code> → bấm test đỏ → xem ảnh chụp lúc lỗi.</p>
+<p><strong>Bước 7 — Sửa lại, push thêm commit vào cùng nhánh</strong></p>
+<p>Đổi lại thành <code>&#39;Tìm thuật ngữ&#39;</code>, rồi:</p>
+<pre><code class="language-powershell">npx playwright test tests/trang-chu.spec.js     # xanh ở local trước
+git add tests/trang-chu.spec.js
+git commit -m &quot;Sửa lại locator cho đúng&quot;
+git push
+</code></pre>
+<p><strong>Bước 8 — Thấy xanh</strong>: về tab PR, F5 → checks quay vàng → ✅. Không cần mở PR mới — robot tự chạy lại mỗi khi có push vào nhánh của PR.</p>
+<p><strong>Bước 9 — Dọn</strong>: trên PR bấm <strong>Close pull request</strong> (nút xám, không phải Merge) → <strong>Delete branch</strong>. Về máy:</p>
+<pre><code class="language-powershell">git checkout main
+git branch -D thu-nghiem/ci-do
+git status        # phải sạch
+</code></pre>
+<p>Cái cần rút ra: lỗi trên CI đọc <strong>y hệt</strong> lỗi ở máy bạn — cùng dòng <code>Error:</code>, cùng tên test, cùng số dòng. Khác duy nhất là chỗ tìm nó và cách xem ảnh. Làm xong là bạn đã qua mốc 3 trong trang Lộ trình bằng tay mình.</p>
 <h2>4.4 Những lỗi Git người mới hay gặp</h2>
 <table>
 <thead>
