@@ -45,9 +45,11 @@ jobs:
 
       # Nếu sửa dữ liệu mà quên chạy build trước khi commit, HTML trong repo sẽ
       # lệch với HTML vừa sinh → bước này đỏ. Bỏ qua thư mục og/ vì ảnh render
-      # bằng font hệ điều hành, Linux và Windows cho ra pixel khác nhau.
+      # bằng font hệ điều hành, Linux và Windows cho ra pixel khác nhau; bỏ qua
+      # sitemap.xml vì <lastmod> là ngày chạy build, commit hôm nay mà CI chạy
+      # ngày mai là lệch.
       - name: Kiểm tra HTML trong repo khớp với bản build
-        run: git diff --exit-code --stat -- . ':!og'
+        run: git diff --exit-code --stat -- . ':!og' ':!sitemap.xml'
 
       - name: Cài trình duyệt cho Playwright
         run: npx playwright install --with-deps chromium
