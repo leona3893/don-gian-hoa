@@ -1,6 +1,6 @@
 // Trang chủ: lưới thuật ngữ, ô tìm kiếm có gợi ý, chip lọc nhóm, modal chi tiết.
 import { test, expect } from '@playwright/test';
-import { TERMS } from '../terms.js';
+import { TERMS, slugify, thuatNguHomNay } from '../terms.js';
 
 test.beforeEach(async ({ page }) => {
   await page.goto('/');
@@ -87,4 +87,26 @@ test('link "Liên quan" trong modal chuyển sang thuật ngữ khác', async ({
 
   await related.click();
   await expect(modal.getByRole('heading', { level: 2 })).toContainText(name);
+});
+
+test('thẻ "Hôm nay hiểu nhanh" hiện đúng thuật ngữ của ngày và link về trang tĩnh', async ({ page }) => {
+  const t = thuatNguHomNay();
+  const card = page.locator('#heroCard');
+  await expect(card.locator('#heroLink')).toHaveText(`${t.name} là gì?`);
+  await expect(card.locator('#heroLink')).toHaveAttribute('href', new RegExp(`/thuat-ngu/${slugify(t.name)}/$`));
+  await expect(card.locator('#heroText')).toHaveText(t.analogy);
+  // Sơ đồ mũi tên chỉ hiện với thuật ngữ có sẵn flow.
+  if (t.flow) await expect(card.locator('#heroFlow .flow-box')).toHaveText(t.flow);
+  else await expect(card.locator('#heroFlow')).toBeHidden();
+});
+
+test('thuatNguHomNay xoay qua toàn bộ thuật ngữ, mỗi ngày một cái, không lặp trong một vòng', async () => {
+  const goc = new Date(2026, 0, 1, 12);
+  const thay = new Set();
+  for (let i = 0; i < TERMS.length; i++) {
+    thay.add(thuatNguHomNay(new Date(goc.getTime() + i * 86400000)).name);
+  }
+  expect(thay.size).toBe(TERMS.length);
+  // Cùng một ngày, sáng hay tối đều ra một thuật ngữ.
+  expect(thuatNguHomNay(new Date(2026, 5, 10, 0, 5)).name).toBe(thuatNguHomNay(new Date(2026, 5, 10, 23, 55)).name);
 });

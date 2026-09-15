@@ -5,7 +5,7 @@ export const slugify = s => String(s)
   .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
 
 export const TERMS = [
-  {name:'API', icon:'🍽️', cat:'Web', brief:'Người phục vụ giúp hai phần mềm nói chuyện.', plain:'API là cánh cửa có quy tắc để một ứng dụng yêu cầu dữ liệu hoặc việc gì đó từ ứng dụng khác.', analogy:'Hãy hình dung bạn không vào bếp tự nấu: bạn gọi món với người phục vụ. Họ chuyển đúng yêu cầu vào bếp và mang kết quả ra.', related:['Frontend','Backend','Server']},
+  {name:'API', icon:'🍽️', cat:'Web', brief:'Người phục vụ giúp hai phần mềm nói chuyện.', plain:'API là cánh cửa có quy tắc để một ứng dụng yêu cầu dữ liệu hoặc việc gì đó từ ứng dụng khác.', analogy:'Hãy hình dung bạn không vào bếp tự nấu: bạn gọi món với người phục vụ. Họ chuyển đúng yêu cầu vào bếp và mang kết quả ra.', related:['Frontend','Backend','Server'], flow:['Bạn gọi món','Người phục vụ','Nhà bếp']},
   {name:'Database', icon:'🗄️', cat:'Dữ liệu', brief:'Tủ hồ sơ được sắp xếp để tìm lại thật nhanh.', plain:'Database là nơi lưu trữ dữ liệu có tổ chức: tài khoản, sản phẩm, đơn hàng, bài viết…', analogy:'Nó như kho hồ sơ của thư viện: mỗi thứ có vị trí riêng, nên cần là tìm được thay vì lục tung mọi thứ.', related:['Server','Backend','Cache']},
   {name:'Server', icon:'🏢', cat:'Web', brief:'Nơi luôn trực để trả lời yêu cầu từ người dùng.', plain:'Server là máy tính hoặc chương trình cung cấp dữ liệu, xử lý yêu cầu và gửi kết quả về cho thiết bị của bạn.', analogy:'Giống quầy bếp luôn mở: bạn đặt món từ điện thoại, quầy bếp nhận đơn, làm món rồi gửi lại.', related:['API','Cloud','Database']},
   {name:'Frontend', icon:'🪟', cat:'Phát triển', brief:'Phần bạn nhìn và trực tiếp bấm vào.', plain:'Frontend là giao diện website hoặc ứng dụng chạy trước mắt người dùng.', analogy:'Đây là sảnh, menu và nút bấm của một cửa hàng — thứ khách thấy và tương tác.', related:['Backend','UI/UX','API']},
@@ -143,4 +143,12 @@ export const ALIASES = {
   'Load Test':'kiem thu tai kiem thu hieu nang stress test',
   'Visual Testing':'kiem thu giao dien so sanh anh visual regression',
   'QA':'dam bao chat luong quality assurance tester'
+};
+
+// Thẻ "Hôm nay hiểu nhanh" trên trang chủ xoay vòng qua toàn bộ thuật ngữ,
+// mỗi ngày (theo giờ máy người xem) một cái, ai vào cùng ngày cũng thấy giống nhau.
+// Số ngày tính từ ngày địa phương để nửa đêm đổi thẻ đúng lúc, không lệch theo UTC.
+export const thuatNguHomNay = (date = new Date()) => {
+  const ngay = Math.floor((date.getTime() - date.getTimezoneOffset() * 60000) / 86400000);
+  return TERMS[((ngay % TERMS.length) + TERMS.length) % TERMS.length];
 };
