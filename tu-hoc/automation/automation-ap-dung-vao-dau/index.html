@@ -65,6 +65,20 @@
 <li><strong>Trường hợp biên &amp; lỗi</strong>: tìm chuỗi vô nghĩa → thấy &quot;Chưa có kết quả&quot;.</li>
 <li><strong>Regression theo bug</strong>: mỗi bug từng xảy ra → 1 test đảm bảo không tái phát.</li>
 </ol>
+<blockquote>
+<p>✅ <strong>Làm ngay — lập kế hoạch automation cho chính site này.</strong> Đây là kỹ năng <em>quyết định</em>, không phải kỹ năng gõ code, nên bài tập là <strong>lập kế hoạch trên giấy trước, code sau</strong>.</p>
+<p><strong>Bước 1 — Đi dạo 10 phút</strong> trên site như người dùng. Rồi mở file <code>ke-hoach.md</code> (hoặc giấy), viết 4 nhóm theo đúng thứ tự trên, mỗi dòng dạng <em>&quot;Ở đâu → làm gì → mong gì&quot;</em>, <strong>không viết code</strong>:</p>
+<ol>
+<li><strong>Smoke</strong> (3–5 dòng) — &quot;site còn sống không?&quot;. Ví dụ: <em>trang chủ → mở → thấy lưới thuật ngữ</em>.</li>
+<li><strong>Happy path</strong> (mỗi tính năng 1 dòng) — tìm kiếm, lọc chip, mở modal, so sánh, sổ tay, tự học…</li>
+<li><strong>Biên &amp; lỗi</strong> (3–5 dòng) — tìm chuỗi không có; gõ chữ hoa; mở URL sai <code>/thuat-ngu/khong-ton-tai/</code>…</li>
+<li><strong>Regression theo bug</strong> — để trống. Điền khi gặp bug đầu tiên.</li>
+</ol>
+<p><strong>Bước 2 — Đối chiếu với thực tế.</strong> Mở folder <a href="https://github.com/leona3893/don-gian-hoa/tree/main/tests"><code>tests/</code></a>, đọc <strong>tên</strong> các test đang có. Đánh dấu vào kế hoạch: dòng nào <em>đã có</em> test, dòng nào <em>chưa</em>. Bạn sẽ thấy ngay bộ test hiện tại thiếu smoke cho trang nào, thiếu case biên nào — và bạn tự tìm ra, không ai chỉ.</p>
+<p><strong>Bước 3 — Chọn 1 dòng &quot;chưa có&quot; ở nhóm smoke hoặc happy path</strong>, viết thành test (Bài 8 dạy cách viết). Đừng chọn case biên — ưu tiên đúng thứ tự.</p>
+<p><strong>Bước 4 — Tự hỏi:</strong> trong kế hoạch có dòng nào thuộc cột &quot;KHÔNG nên tự động&quot; ở bảng 6.1 không? Gạch đi. Gạch được ít nhất 1 dòng là bạn đã hiểu 6.1.</p>
+<p>Bước 2 là phần quan trọng nhất: ngay cả một site có sẵn CI và hơn 20 test vẫn có lỗ hổng. Việc ngày đầu ở dự án thật không phải là viết test — mà là <strong>nhìn ra test nào đang thiếu</strong>.</p>
+</blockquote>
 <h2>6.3 Kim tự tháp test (chỉ cần biết để hiểu dev nói gì)</h2>
 <pre><code>        /\        E2E (Playwright) — ít, chậm, giống người dùng nhất  ← BẠN Ở ĐÂY
        /  \

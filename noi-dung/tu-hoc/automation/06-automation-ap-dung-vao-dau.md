@@ -23,6 +23,22 @@ Nguyên tắc: **tự động hoá cái nhàm chán, lặp lại, ổn định**
 3. **Trường hợp biên & lỗi**: tìm chuỗi vô nghĩa → thấy "Chưa có kết quả".
 4. **Regression theo bug**: mỗi bug từng xảy ra → 1 test đảm bảo không tái phát.
 
+> ✅ **Làm ngay — lập kế hoạch automation cho chính site này.** Đây là kỹ năng *quyết định*, không phải kỹ năng gõ code, nên bài tập là **lập kế hoạch trên giấy trước, code sau**.
+>
+> **Bước 1 — Đi dạo 10 phút** trên site như người dùng. Rồi mở file `ke-hoach.md` (hoặc giấy), viết 4 nhóm theo đúng thứ tự trên, mỗi dòng dạng *"Ở đâu → làm gì → mong gì"*, **không viết code**:
+> 1. **Smoke** (3–5 dòng) — "site còn sống không?". Ví dụ: *trang chủ → mở → thấy lưới thuật ngữ*.
+> 2. **Happy path** (mỗi tính năng 1 dòng) — tìm kiếm, lọc chip, mở modal, so sánh, sổ tay, tự học…
+> 3. **Biên & lỗi** (3–5 dòng) — tìm chuỗi không có; gõ chữ hoa; mở URL sai `/thuat-ngu/khong-ton-tai/`…
+> 4. **Regression theo bug** — để trống. Điền khi gặp bug đầu tiên.
+>
+> **Bước 2 — Đối chiếu với thực tế.** Mở folder [`tests/`](https://github.com/leona3893/don-gian-hoa/tree/main/tests), đọc **tên** các test đang có. Đánh dấu vào kế hoạch: dòng nào *đã có* test, dòng nào *chưa*. Bạn sẽ thấy ngay bộ test hiện tại thiếu smoke cho trang nào, thiếu case biên nào — và bạn tự tìm ra, không ai chỉ.
+>
+> **Bước 3 — Chọn 1 dòng "chưa có" ở nhóm smoke hoặc happy path**, viết thành test (Bài 8 dạy cách viết). Đừng chọn case biên — ưu tiên đúng thứ tự.
+>
+> **Bước 4 — Tự hỏi:** trong kế hoạch có dòng nào thuộc cột "KHÔNG nên tự động" ở bảng 6.1 không? Gạch đi. Gạch được ít nhất 1 dòng là bạn đã hiểu 6.1.
+>
+> Bước 2 là phần quan trọng nhất: ngay cả một site có sẵn CI và hơn 20 test vẫn có lỗ hổng. Việc ngày đầu ở dự án thật không phải là viết test — mà là **nhìn ra test nào đang thiếu**.
+
 ## 6.3 Kim tự tháp test (chỉ cần biết để hiểu dev nói gì)
 
 ```
