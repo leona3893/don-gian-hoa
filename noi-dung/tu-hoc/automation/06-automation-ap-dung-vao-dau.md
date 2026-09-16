@@ -81,7 +81,62 @@ Test này **đã có sẵn** trong [`tests/trang-chu.spec.js`](https://github.co
 | 6 | Theo **class CSS** | `page.locator('.term')` | Dễ đổi khi dev chỉnh giao diện |
 | ❌ | XPath dài ngoằng | `//div[2]/div[1]/span[3]` | Vỡ ngay khi dev thêm 1 thẻ |
 
-Công cụ trợ giúp: chạy `npx playwright codegen http://localhost:4173` → mở trình duyệt, bạn bấm gì nó sinh code nấy. **Dùng nó để học, không dùng nó để copy nguyên xi** (code sinh ra thường xấu).
+### Tìm bằng F12 — không cần tool gì thêm
+
+Đây là cách nên học **trước**, vì mọi công cụ khác chỉ là F12 được tự động hoá.
+
+**Cách 1 — Rê chuột (khi chưa biết phần tử tên gì)**
+
+`F12` → bấm icon mũi tên góc trên trái của DevTools (hoặc `Ctrl+Shift+C`) → rê lên phần tử → bấm. Tab **Elements** nhảy tới đúng dòng HTML, ví dụ ô tìm kiếm của site này:
+
+```html
+<input id="q" role="combobox" aria-label="Tìm thuật ngữ" placeholder="Gõ một thuật ngữ…">
+```
+
+Đọc thuộc tính theo đúng bảng ưu tiên ở trên: có `role` + tên → `getByRole('combobox', { name: 'Tìm thuật ngữ' })`. Xong. Chưa có mới lùi dần xuống `placeholder` → `data-testid` → `id` → `class`.
+
+Nhược điểm của rê chuột: nó bắt thẻ **nhỏ nhất** dưới con trỏ (một `<span>` trong `<button>`), bạn phải lần ngược lên thẻ cha.
+
+**Cách 2 — `Ctrl+F` trong tab Elements (khi đã biết mình tìm gì) — nên dùng hơn**
+
+Bấm vào tab Elements rồi `Ctrl+F`. Ô tìm này nhận **3 kiểu**:
+
+| Bạn gõ | DevTools hiểu là | Ví dụ |
+|---|---|---|
+| Chữ thường | Tìm trong chữ hiển thị **và** giá trị thuộc tính | `Tìm thuật ngữ`, `Kiểm thử` |
+| CSS selector | Y hệt `page.locator('…')` | `#grid .term`, `[role="combobox"]`, `.chip` |
+| XPath (bắt đầu bằng `/`) | Đường dẫn XPath | `//button[text()="Tìm hiểu"]` |
+
+Góc phải ô tìm hiện **1 of N**. Enter để nhảy tới cái tiếp theo — dòng HTML được tô sáng và phần tử trên trang cũng được viền lên. **N = 1** → locator đủ chính xác. **N > 1** → cần thu hẹp (thêm cha: `#grid .term h4`) hoặc chấp nhận `.first()`. Đây chính là cách bắt lỗi *strict mode violation* (Bài 9) trước khi viết một dòng code nào.
+
+Quy trình không cần chuột:
+
+1. Nhìn màn hình, ghi lại **chữ** người dùng thấy trên phần tử (tên nút, nhãn ô nhập).
+2. `Ctrl+F` → gõ chữ đó → xem dòng HTML: thẻ gì, có `role` / `aria-label` / `id` / `data-testid` không.
+3. Gõ lại dưới dạng CSS selector định dùng → xem N.
+4. Chuyển thành locator Playwright theo bảng ưu tiên.
+
+Thẻ nào có `role` sẵn mà không cần ghi: `<button>` = button, `<a href>` = link, `<input type="text">` = textbox, `<input type="checkbox">` = checkbox, `<h1>`–`<h6>` = heading, `<select>` = combobox, `<dialog>` = dialog.
+
+**Hai thứ phụ trong Elements đáng biết**
+
+- **Chuột phải lên dòng HTML → Copy → Copy selector**: DevTools tự sinh CSS selector. Thường ra kiểu `#grid > a:nth-child(3) > h4` — dễ vỡ, chỉ để tham khảo rồi tự rút gọn.
+- **Tab Accessibility** (cạnh Styles, có thể phải bấm `»`): chọn phần tử, nó hiện đúng **Role** và **Name** mà `getByRole` dùng. Chắc chắn nhất khi không biết `name` nên điền gì.
+
+**Kiểm tra nhanh trong tab Console** (không cần chạy test):
+
+```js
+$$('#grid .term').length          // đếm số phần tử khớp CSS selector
+$$('[role="combobox"]')           // in ra danh sách thẻ khớp
+```
+
+**Phần tử biến mất khi rời chuột** (dropdown gợi ý, menu hover): gõ chữ cho dropdown hiện → sang Elements → **không rê chuột nữa**, dùng `Ctrl+F` tìm chữ trong dropdown. Hoặc Console gõ `setTimeout(() => { debugger }, 3000)` rồi mở dropdown — 3 giây sau trang đóng băng, tha hồ soi.
+
+> ✅ **Làm ngay:** trên trang chủ, tìm locator cho 3 thứ bằng `Ctrl+F` (không rê chuột): chip "Kiểm thử", thẻ thuật ngữ "API", nút đóng modal. Ghi lại N của mỗi cái. Rồi mở [`tests/trang-chu.spec.js`](https://github.com/leona3893/don-gian-hoa/blob/main/tests/trang-chu.spec.js) so với cách file đó viết.
+
+### Codegen — F12 được tự động hoá
+
+Chạy `npx playwright codegen http://localhost:4173` → mở trình duyệt, bạn bấm gì nó sinh code nấy, gợi ý locator theo cùng thứ tự ưu tiên. Dùng để **đối chiếu**: tự tìm bằng F12 trước, rồi bật codegen bấm cùng phần tử, so hai kết quả — khớp là bạn đã đọc HTML đúng. **Không copy nguyên xi** code nó sinh ra (thường xấu, không có assertion có ý nghĩa).
 
 ## 6.6 Page Object — khi test bắt đầu nhiều
 

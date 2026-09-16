@@ -187,7 +187,64 @@
 <td>Vỡ ngay khi dev thêm 1 thẻ</td>
 </tr>
 </tbody></table>
-<p>Công cụ trợ giúp: chạy <code>npx playwright codegen http://localhost:4173</code> → mở trình duyệt, bạn bấm gì nó sinh code nấy. <strong>Dùng nó để học, không dùng nó để copy nguyên xi</strong> (code sinh ra thường xấu).</p>
+<h3>Tìm bằng F12 — không cần tool gì thêm</h3>
+<p>Đây là cách nên học <strong>trước</strong>, vì mọi công cụ khác chỉ là F12 được tự động hoá.</p>
+<p><strong>Cách 1 — Rê chuột (khi chưa biết phần tử tên gì)</strong></p>
+<p><code>F12</code> → bấm icon mũi tên góc trên trái của DevTools (hoặc <code>Ctrl+Shift+C</code>) → rê lên phần tử → bấm. Tab <strong>Elements</strong> nhảy tới đúng dòng HTML, ví dụ ô tìm kiếm của site này:</p>
+<pre><code class="language-html">&lt;input id=&quot;q&quot; role=&quot;combobox&quot; aria-label=&quot;Tìm thuật ngữ&quot; placeholder=&quot;Gõ một thuật ngữ…&quot;&gt;
+</code></pre>
+<p>Đọc thuộc tính theo đúng bảng ưu tiên ở trên: có <code>role</code> + tên → <code>getByRole(&#39;combobox&#39;, { name: &#39;Tìm thuật ngữ&#39; })</code>. Xong. Chưa có mới lùi dần xuống <code>placeholder</code> → <code>data-testid</code> → <code>id</code> → <code>class</code>.</p>
+<p>Nhược điểm của rê chuột: nó bắt thẻ <strong>nhỏ nhất</strong> dưới con trỏ (một <code>&lt;span&gt;</code> trong <code>&lt;button&gt;</code>), bạn phải lần ngược lên thẻ cha.</p>
+<p><strong>Cách 2 — <code>Ctrl+F</code> trong tab Elements (khi đã biết mình tìm gì) — nên dùng hơn</strong></p>
+<p>Bấm vào tab Elements rồi <code>Ctrl+F</code>. Ô tìm này nhận <strong>3 kiểu</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>Bạn gõ</th>
+<th>DevTools hiểu là</th>
+<th>Ví dụ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chữ thường</td>
+<td>Tìm trong chữ hiển thị <strong>và</strong> giá trị thuộc tính</td>
+<td><code>Tìm thuật ngữ</code>, <code>Kiểm thử</code></td>
+</tr>
+<tr>
+<td>CSS selector</td>
+<td>Y hệt <code>page.locator(&#39;…&#39;)</code></td>
+<td><code>#grid .term</code>, <code>[role=&quot;combobox&quot;]</code>, <code>.chip</code></td>
+</tr>
+<tr>
+<td>XPath (bắt đầu bằng <code>/</code>)</td>
+<td>Đường dẫn XPath</td>
+<td><code>//button[text()=&quot;Tìm hiểu&quot;]</code></td>
+</tr>
+</tbody></table>
+<p>Góc phải ô tìm hiện <strong>1 of N</strong>. Enter để nhảy tới cái tiếp theo — dòng HTML được tô sáng và phần tử trên trang cũng được viền lên. <strong>N = 1</strong> → locator đủ chính xác. <strong>N &gt; 1</strong> → cần thu hẹp (thêm cha: <code>#grid .term h4</code>) hoặc chấp nhận <code>.first()</code>. Đây chính là cách bắt lỗi <em>strict mode violation</em> (Bài 9) trước khi viết một dòng code nào.</p>
+<p>Quy trình không cần chuột:</p>
+<ol>
+<li>Nhìn màn hình, ghi lại <strong>chữ</strong> người dùng thấy trên phần tử (tên nút, nhãn ô nhập).</li>
+<li><code>Ctrl+F</code> → gõ chữ đó → xem dòng HTML: thẻ gì, có <code>role</code> / <code>aria-label</code> / <code>id</code> / <code>data-testid</code> không.</li>
+<li>Gõ lại dưới dạng CSS selector định dùng → xem N.</li>
+<li>Chuyển thành locator Playwright theo bảng ưu tiên.</li>
+</ol>
+<p>Thẻ nào có <code>role</code> sẵn mà không cần ghi: <code>&lt;button&gt;</code> = button, <code>&lt;a href&gt;</code> = link, <code>&lt;input type=&quot;text&quot;&gt;</code> = textbox, <code>&lt;input type=&quot;checkbox&quot;&gt;</code> = checkbox, <code>&lt;h1&gt;</code>–<code>&lt;h6&gt;</code> = heading, <code>&lt;select&gt;</code> = combobox, <code>&lt;dialog&gt;</code> = dialog.</p>
+<p><strong>Hai thứ phụ trong Elements đáng biết</strong></p>
+<ul>
+<li><strong>Chuột phải lên dòng HTML → Copy → Copy selector</strong>: DevTools tự sinh CSS selector. Thường ra kiểu <code>#grid &gt; a:nth-child(3) &gt; h4</code> — dễ vỡ, chỉ để tham khảo rồi tự rút gọn.</li>
+<li><strong>Tab Accessibility</strong> (cạnh Styles, có thể phải bấm <code>»</code>): chọn phần tử, nó hiện đúng <strong>Role</strong> và <strong>Name</strong> mà <code>getByRole</code> dùng. Chắc chắn nhất khi không biết <code>name</code> nên điền gì.</li>
+</ul>
+<p><strong>Kiểm tra nhanh trong tab Console</strong> (không cần chạy test):</p>
+<pre><code class="language-js">$$(&#39;#grid .term&#39;).length          // đếm số phần tử khớp CSS selector
+$$(&#39;[role=&quot;combobox&quot;]&#39;)           // in ra danh sách thẻ khớp
+</code></pre>
+<p><strong>Phần tử biến mất khi rời chuột</strong> (dropdown gợi ý, menu hover): gõ chữ cho dropdown hiện → sang Elements → <strong>không rê chuột nữa</strong>, dùng <code>Ctrl+F</code> tìm chữ trong dropdown. Hoặc Console gõ <code>setTimeout(() =&gt; { debugger }, 3000)</code> rồi mở dropdown — 3 giây sau trang đóng băng, tha hồ soi.</p>
+<blockquote>
+<p>✅ <strong>Làm ngay:</strong> trên trang chủ, tìm locator cho 3 thứ bằng <code>Ctrl+F</code> (không rê chuột): chip &quot;Kiểm thử&quot;, thẻ thuật ngữ &quot;API&quot;, nút đóng modal. Ghi lại N của mỗi cái. Rồi mở <a href="https://github.com/leona3893/don-gian-hoa/blob/main/tests/trang-chu.spec.js"><code>tests/trang-chu.spec.js</code></a> so với cách file đó viết.</p>
+</blockquote>
+<h3>Codegen — F12 được tự động hoá</h3>
+<p>Chạy <code>npx playwright codegen http://localhost:4173</code> → mở trình duyệt, bạn bấm gì nó sinh code nấy, gợi ý locator theo cùng thứ tự ưu tiên. Dùng để <strong>đối chiếu</strong>: tự tìm bằng F12 trước, rồi bật codegen bấm cùng phần tử, so hai kết quả — khớp là bạn đã đọc HTML đúng. <strong>Không copy nguyên xi</strong> code nó sinh ra (thường xấu, không có assertion có ý nghĩa).</p>
 <h2>6.6 Page Object — khi test bắt đầu nhiều</h2>
 <p>Khi có &gt; 10 file test, bạn sẽ thấy <code>page.getByRole(&#39;combobox&#39;, { name: &#39;Tìm thuật ngữ&#39; })</code> lặp lại ở 15 chỗ. Dev đổi tên → sửa 15 chỗ. Giải pháp: gom &quot;địa chỉ&quot; và hành động của 1 trang vào 1 file:</p>
 <pre><code class="language-js">// tests/pages/TrangChu.js
