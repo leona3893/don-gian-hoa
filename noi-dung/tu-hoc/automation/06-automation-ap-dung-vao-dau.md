@@ -138,6 +138,92 @@ $$('[role="combobox"]')           // in ra danh sách thẻ khớp
 
 Chạy `npx playwright codegen http://localhost:4173` → mở trình duyệt, bạn bấm gì nó sinh code nấy, gợi ý locator theo cùng thứ tự ưu tiên. Dùng để **đối chiếu**: tự tìm bằng F12 trước, rồi bật codegen bấm cùng phần tử, so hai kết quả — khớp là bạn đã đọc HTML đúng. **Không copy nguyên xi** code nó sinh ra (thường xấu, không có assertion có ý nghĩa).
 
+### Locator có mấy loại?
+
+Nhiều, nhưng chỉ cần nhớ **3 cách chia**.
+
+**Chia theo "bám vào cái gì"** — quyết định locator bền hay dễ vỡ:
+
+| Nhóm | Bám vào | Ví dụ | Vỡ khi |
+|---|---|---|---|
+| **A. Thứ người dùng thấy** | vai trò, chữ, nhãn | `getByRole`, `getByText`, `getByLabel`, `getByPlaceholder` | Giao diện đổi thật — lúc đó test *nên* vỡ |
+| **B. Dấu riêng cho test** | `data-testid` | `getByTestId('luu')` | Dev xoá dấu (hiếm) |
+| **C. Cấu trúc HTML** | id, class, đường dẫn | `locator('#q')`, `.term`, XPath | Dev đổi CSS hay thêm một thẻ bọc |
+
+Ưu tiên A → B → C.
+
+**Chia theo "ra một hay nhiều"** — locator luôn trả về một *tập*. Nhiều hơn 1 thì chọn:
+
+```js
+page.locator('.term').first()    // cái đầu
+page.locator('.term').nth(2)     // cái thứ 3 (đếm từ 0)
+```
+
+**Chia theo cách ghép** — thay cho XPath dài ngoằng:
+
+```js
+page.locator('#chips').getByText('Kiểm thử')          // tìm TRONG vùng #chips
+page.locator('.term').filter({ hasText: 'API' })      // lọc theo chữ
+```
+
+### "Locator động" là gì?
+
+Không phải thuật ngữ chính thức — người ta gộp **3 chuyện khác nhau** vào một cái tên:
+
+| Người ta nói | Thực chất | Cách xử lý |
+|---|---|---|
+| Locator động | Một khuôn, điền giá trị khác nhau | Viết thành hàm |
+| Locator động | `id="mui-4823"` — đổi mỗi lần tải trang | Đừng bám vào nó. Bám role/chữ, hoặc xin dev gắn `data-testid` |
+| Locator động | Banner, popup, quảng cáo hiện bất chợt | Không phải chuyện locator — xem mục dưới |
+
+Loại đầu trông thế này:
+
+```js
+const the = ten => page.locator('#grid .term').filter({ hasText: ten });
+await the('API').click();
+await the('Checkout').click();
+```
+
+### Popup, thông báo, quảng cáo
+
+Gọi chung là **overlay** — thứ phủ lên trên trang. Bắt **y hệt** element bình thường, chỉ cần biết `role` của nó:
+
+| Tên thường gọi | `role` |
+|---|---|
+| Modal, popup | `dialog` |
+| Hộp "Bạn chắc chứ?" | `alertdialog` |
+| Thông báo bay lên rồi tắt (toast) | `status` hoặc `alert` |
+| Quảng cáo | Không có — thường nằm trong `<iframe>` |
+
+**Khác element thường ở 3 chỗ:**
+
+1. **Nằm cuối `<body>`**, dù nhìn thấy giữa màn hình. Nên đừng tìm nó trong `page.locator('main')` — tìm từ `page`.
+2. **Lúc có lúc không.** Toast tự tắt sau vài giây — phải bắt ngay sau khi bấm.
+3. **Quảng cáo trong `<iframe>`** — locator thường không nhìn xuyên vào. Phải bước vào trước:
+
+```js
+page.frameLocator('#ad-slot').getByRole('button', { name: 'Close' })
+```
+
+**Nó là kẻ địch hay là kết quả?** Tự hỏi: *popup này có phải phản hồi cho việc tôi vừa làm không?*
+
+- **Có** → kiểm tra nó. Bấm "Lưu" mà không hiện "Lưu thành công" là tính năng hỏng:
+
+```js
+await page.getByRole('button', { name: 'Lưu' }).click();
+await expect(page.getByRole('alert')).toHaveText('Lưu thành công');
+```
+
+- **Không** (quảng cáo, banner cookie) → làm nó **không xuất hiện** thay vì chạy đua đóng nó:
+
+```js
+await page.route('**/*ads*', r => r.abort());   // chặn quảng cáo từ gốc
+```
+
+Không chặn được thì hỏi dev có môi trường test không quảng cáo. Đóng bằng `if (await x.isVisible())` là cách cuối — nó không chờ, nên test vẫn lúc xanh lúc đỏ.
+
+Còn banner **chạy** (slide tự trượt)? Playwright tự chờ phần tử đứng yên rồi mới bấm. Bạn không phải làm gì.
+
 ## 6.6 Page Object — khi test bắt đầu nhiều
 
 Khi có > 10 file test, bạn sẽ thấy `page.getByRole('combobox', { name: 'Tìm thuật ngữ' })` lặp lại ở 15 chỗ. Dev đổi tên → sửa 15 chỗ. Giải pháp: gom "địa chỉ" và hành động của 1 trang vào 1 file:

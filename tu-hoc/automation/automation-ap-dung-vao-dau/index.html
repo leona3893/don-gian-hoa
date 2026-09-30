@@ -245,6 +245,125 @@ $$(&#39;[role=&quot;combobox&quot;]&#39;)           // in ra danh sách thẻ kh
 </blockquote>
 <h3>Codegen — F12 được tự động hoá</h3>
 <p>Chạy <code>npx playwright codegen http://localhost:4173</code> → mở trình duyệt, bạn bấm gì nó sinh code nấy, gợi ý locator theo cùng thứ tự ưu tiên. Dùng để <strong>đối chiếu</strong>: tự tìm bằng F12 trước, rồi bật codegen bấm cùng phần tử, so hai kết quả — khớp là bạn đã đọc HTML đúng. <strong>Không copy nguyên xi</strong> code nó sinh ra (thường xấu, không có assertion có ý nghĩa).</p>
+<h3>Locator có mấy loại?</h3>
+<p>Nhiều, nhưng chỉ cần nhớ <strong>3 cách chia</strong>.</p>
+<p><strong>Chia theo &quot;bám vào cái gì&quot;</strong> — quyết định locator bền hay dễ vỡ:</p>
+<table>
+<thead>
+<tr>
+<th>Nhóm</th>
+<th>Bám vào</th>
+<th>Ví dụ</th>
+<th>Vỡ khi</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>A. Thứ người dùng thấy</strong></td>
+<td>vai trò, chữ, nhãn</td>
+<td><code>getByRole</code>, <code>getByText</code>, <code>getByLabel</code>, <code>getByPlaceholder</code></td>
+<td>Giao diện đổi thật — lúc đó test <em>nên</em> vỡ</td>
+</tr>
+<tr>
+<td><strong>B. Dấu riêng cho test</strong></td>
+<td><code>data-testid</code></td>
+<td><code>getByTestId(&#39;luu&#39;)</code></td>
+<td>Dev xoá dấu (hiếm)</td>
+</tr>
+<tr>
+<td><strong>C. Cấu trúc HTML</strong></td>
+<td>id, class, đường dẫn</td>
+<td><code>locator(&#39;#q&#39;)</code>, <code>.term</code>, XPath</td>
+<td>Dev đổi CSS hay thêm một thẻ bọc</td>
+</tr>
+</tbody></table>
+<p>Ưu tiên A → B → C.</p>
+<p><strong>Chia theo &quot;ra một hay nhiều&quot;</strong> — locator luôn trả về một <em>tập</em>. Nhiều hơn 1 thì chọn:</p>
+<pre><code class="language-js">page.locator(&#39;.term&#39;).first()    // cái đầu
+page.locator(&#39;.term&#39;).nth(2)     // cái thứ 3 (đếm từ 0)
+</code></pre>
+<p><strong>Chia theo cách ghép</strong> — thay cho XPath dài ngoằng:</p>
+<pre><code class="language-js">page.locator(&#39;#chips&#39;).getByText(&#39;Kiểm thử&#39;)          // tìm TRONG vùng #chips
+page.locator(&#39;.term&#39;).filter({ hasText: &#39;API&#39; })      // lọc theo chữ
+</code></pre>
+<h3>&quot;Locator động&quot; là gì?</h3>
+<p>Không phải thuật ngữ chính thức — người ta gộp <strong>3 chuyện khác nhau</strong> vào một cái tên:</p>
+<table>
+<thead>
+<tr>
+<th>Người ta nói</th>
+<th>Thực chất</th>
+<th>Cách xử lý</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Locator động</td>
+<td>Một khuôn, điền giá trị khác nhau</td>
+<td>Viết thành hàm</td>
+</tr>
+<tr>
+<td>Locator động</td>
+<td><code>id=&quot;mui-4823&quot;</code> — đổi mỗi lần tải trang</td>
+<td>Đừng bám vào nó. Bám role/chữ, hoặc xin dev gắn <code>data-testid</code></td>
+</tr>
+<tr>
+<td>Locator động</td>
+<td>Banner, popup, quảng cáo hiện bất chợt</td>
+<td>Không phải chuyện locator — xem mục dưới</td>
+</tr>
+</tbody></table>
+<p>Loại đầu trông thế này:</p>
+<pre><code class="language-js">const the = ten =&gt; page.locator(&#39;#grid .term&#39;).filter({ hasText: ten });
+await the(&#39;API&#39;).click();
+await the(&#39;Checkout&#39;).click();
+</code></pre>
+<h3>Popup, thông báo, quảng cáo</h3>
+<p>Gọi chung là <strong>overlay</strong> — thứ phủ lên trên trang. Bắt <strong>y hệt</strong> element bình thường, chỉ cần biết <code>role</code> của nó:</p>
+<table>
+<thead>
+<tr>
+<th>Tên thường gọi</th>
+<th><code>role</code></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Modal, popup</td>
+<td><code>dialog</code></td>
+</tr>
+<tr>
+<td>Hộp &quot;Bạn chắc chứ?&quot;</td>
+<td><code>alertdialog</code></td>
+</tr>
+<tr>
+<td>Thông báo bay lên rồi tắt (toast)</td>
+<td><code>status</code> hoặc <code>alert</code></td>
+</tr>
+<tr>
+<td>Quảng cáo</td>
+<td>Không có — thường nằm trong <code>&lt;iframe&gt;</code></td>
+</tr>
+</tbody></table>
+<p><strong>Khác element thường ở 3 chỗ:</strong></p>
+<ol>
+<li><strong>Nằm cuối <code>&lt;body&gt;</code></strong>, dù nhìn thấy giữa màn hình. Nên đừng tìm nó trong <code>page.locator(&#39;main&#39;)</code> — tìm từ <code>page</code>.</li>
+<li><strong>Lúc có lúc không.</strong> Toast tự tắt sau vài giây — phải bắt ngay sau khi bấm.</li>
+<li><strong>Quảng cáo trong <code>&lt;iframe&gt;</code></strong> — locator thường không nhìn xuyên vào. Phải bước vào trước:</li>
+</ol>
+<pre><code class="language-js">page.frameLocator(&#39;#ad-slot&#39;).getByRole(&#39;button&#39;, { name: &#39;Close&#39; })
+</code></pre>
+<p><strong>Nó là kẻ địch hay là kết quả?</strong> Tự hỏi: <em>popup này có phải phản hồi cho việc tôi vừa làm không?</em></p>
+<ul>
+<li><strong>Có</strong> → kiểm tra nó. Bấm &quot;Lưu&quot; mà không hiện &quot;Lưu thành công&quot; là tính năng hỏng:</li>
+</ul>
+<pre><code class="language-js">await page.getByRole(&#39;button&#39;, { name: &#39;Lưu&#39; }).click();
+await expect(page.getByRole(&#39;alert&#39;)).toHaveText(&#39;Lưu thành công&#39;);
+</code></pre>
+<ul>
+<li><strong>Không</strong> (quảng cáo, banner cookie) → làm nó <strong>không xuất hiện</strong> thay vì chạy đua đóng nó:</li>
+</ul>
+<pre><code class="language-js">await page.route(&#39;**/*ads*&#39;, r =&gt; r.abort());   // chặn quảng cáo từ gốc
+</code></pre>
+<p>Không chặn được thì hỏi dev có môi trường test không quảng cáo. Đóng bằng <code>if (await x.isVisible())</code> là cách cuối — nó không chờ, nên test vẫn lúc xanh lúc đỏ.</p>
+<p>Còn banner <strong>chạy</strong> (slide tự trượt)? Playwright tự chờ phần tử đứng yên rồi mới bấm. Bạn không phải làm gì.</p>
 <h2>6.6 Page Object — khi test bắt đầu nhiều</h2>
 <p>Khi có &gt; 10 file test, bạn sẽ thấy <code>page.getByRole(&#39;combobox&#39;, { name: &#39;Tìm thuật ngữ&#39; })</code> lặp lại ở 15 chỗ. Dev đổi tên → sửa 15 chỗ. Giải pháp: gom &quot;địa chỉ&quot; và hành động của 1 trang vào 1 file:</p>
 <pre><code class="language-js">// tests/pages/TrangChu.js
