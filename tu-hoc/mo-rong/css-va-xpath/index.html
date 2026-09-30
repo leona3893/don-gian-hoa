@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gõ gì vào ô tìm element? Quy tắc CSS và XPath · IT nói tiếng người</title>
+  <meta name="description" content="Mọi element có cùng một hình dạng — học cách dịch từng phần sang ký hiệu CSS, XPath, rồi sang Playwright." />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/tu-hoc/mo-rong/css-va-xpath/" />
+  <link rel="icon" href="../../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="Gõ gì vào ô tìm element? Quy tắc CSS và XPath" />
+  <meta property="og:description" content="Mọi element có cùng một hình dạng — học cách dịch từng phần sang ký hiệu CSS, XPath, rồi sang Playwright." />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/tu-hoc/mo-rong/css-va-xpath/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-mo-rong-css-va-xpath.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/tu-hoc-mo-rong-css-va-xpath.png" />
+  <link rel="stylesheet" href="../../../styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../../lo-trinh/">Lộ trình</a><a href="../../../so-sanh/">So sánh</a><a href="../../../so-tay/">Sổ tay</a><a href="../../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../../">Trang chủ</a> › <a href="../../">Tự học</a> › Mở rộng</nav>
+    <article class="article tu-hoc">
+      <span class="tag">Mở rộng · Bài 6</span>
+      <h1>Gõ gì vào ô tìm element? Quy tắc CSS và XPath</h1>
+      <p class="brief">Mọi element có cùng một hình dạng — học cách dịch từng phần sang ký hiệu CSS, XPath, rồi sang Playwright.</p>
+      <p class="doc-khi">Đọc khi đã xong <a href="../../automation/automation-ap-dung-vao-dau/">Bài 6 — Automation nên áp dụng vào đâu</a>. Không cần đọc ở lần đầu.</p>
+      <div class="md"><h2>Ô <code>Ctrl+F</code> hiểu 3 kiểu — và không hiểu kiểu thứ 4</h2>
+<p>Trong tab Elements, ô tìm (<code>Ctrl+F</code>) nhận:</p>
+<table>
+<thead>
+<tr>
+<th>Gõ</th>
+<th>Ví dụ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Chữ thường</td>
+<td><code>Tìm hiểu</code></td>
+</tr>
+<tr>
+<td>CSS selector</td>
+<td><code>#searchInput</code>, <code>button[type=&quot;button&quot;]</code></td>
+</tr>
+<tr>
+<td>XPath (bắt đầu bằng <code>/</code>)</td>
+<td><code>//button[text()=&quot;Tìm hiểu&quot;]</code></td>
+</tr>
+</tbody></table>
+<p>Nó <strong>không</strong> hiểu code Playwright. Gõ <code>page.getByText(&#39;…&#39;)</code> vào đó sẽ luôn ra <em>No matches</em> — DevTools đi tìm nguyên chuỗi chữ đó trong HTML. Muốn thử <code>getBy…</code> thì dùng cửa sổ của Playwright (cuối trang).</p>
+<h2>Mọi element đều có cùng một hình dạng</h2>
+<pre><code>&lt;button   type=&quot;button&quot;   id=&quot;luu&quot;   class=&quot;nut to&quot;   &gt;  Lưu  &lt;/button&gt;
+ ───┬──   ─────┬──────   ───┬───   ──────┬──────        ──┬─
+ tên thẻ   thuộc tính     id           class            chữ hiển thị
+</code></pre>
+<p><code>button</code>, <code>input</code>, <code>a</code>, <code>div</code>, <code>h2</code>, <code>td</code>… đều theo dạng này. Chỉ khác <strong>tên thẻ</strong> và <strong>có thuộc tính nào</strong>. Nên chỉ cần học cách dịch từng phần — áp được cho mọi thẻ.</p>
+<h2>CSS: mỗi phần một ký hiệu</h2>
+<table>
+<thead>
+<tr>
+<th>Phần trong HTML</th>
+<th>Ký hiệu CSS</th>
+<th>Ví dụ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tên thẻ</td>
+<td>Viết thẳng</td>
+<td><code>button</code>, <code>input</code>, <code>h2</code></td>
+</tr>
+<tr>
+<td>Thuộc tính bất kỳ</td>
+<td>Ngoặc vuông <code>[ ]</code></td>
+<td><code>[type=&quot;button&quot;]</code>, <code>[aria-label=&quot;Tìm thuật ngữ&quot;]</code></td>
+</tr>
+<tr>
+<td><code>id</code></td>
+<td>Dấu thăng <code>#</code></td>
+<td><code>#searchInput</code></td>
+</tr>
+<tr>
+<td><code>class</code></td>
+<td>Dấu chấm <code>.</code></td>
+<td><code>.chip</code></td>
+</tr>
+<tr>
+<td>Chữ hiển thị</td>
+<td><strong>Không có</strong></td>
+<td>CSS không tìm được</td>
+</tr>
+</tbody></table>
+<p><code>[ ]</code> chỉ có nghĩa là <strong>&quot;có thuộc tính này&quot;</strong> — thẻ nào cũng dùng được. <code>#</code> và <code>.</code> là viết tắt: <code>#searchInput</code> chính là <code>[id=&quot;searchInput&quot;]</code>.</p>
+<p>Biến thể hay dùng của <code>[ ]</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Viết</th>
+<th>Nghĩa</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>[tên=&quot;giá trị&quot;]</code></td>
+<td>Bằng đúng</td>
+</tr>
+<tr>
+<td><code>[tên^=&quot;giá trị&quot;]</code></td>
+<td>Bắt đầu bằng</td>
+</tr>
+<tr>
+<td><code>[tên*=&quot;giá trị&quot;]</code></td>
+<td>Có chứa</td>
+</tr>
+<tr>
+<td><code>[tên]</code></td>
+<td>Chỉ cần có thuộc tính đó, giá trị gì cũng được</td>
+</tr>
+</tbody></table>
+<h2>Ghép lại: dính liền hay có dấu cách</h2>
+<table>
+<thead>
+<tr>
+<th>Viết</th>
+<th>Nghĩa</th>
+<th>Ví dụ</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Dính liền</strong></td>
+<td>Cùng <strong>một</strong> element có đủ các đặc điểm</td>
+<td><code>button[type=&quot;button&quot;]</code> — một button có type là button</td>
+</tr>
+<tr>
+<td><strong>Có dấu cách</strong></td>
+<td>Cái sau nằm <strong>bên trong</strong> cái trước</td>
+<td><code>#grid .term</code> — thẻ <code>.term</code> nằm trong <code>#grid</code></td>
+</tr>
+</tbody></table>
+<p>Lỗi hay gặp nhất: <code>button [type=&quot;button&quot;]</code> (thừa một dấu cách) nghĩa là <em>&quot;thứ có type=button nằm <strong>bên trong</strong> một button&quot;</em> — khác hẳn.</p>
+<h2>Chọn thuộc tính nào?</h2>
+<p>Đọc thẻ mở, chọn <strong>một</strong> thuộc tính theo thứ tự:</p>
+<table>
+<thead>
+<tr>
+<th>Ưu tiên</th>
+<th>Thuộc tính</th>
+<th>Vì sao</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td><code>data-testid</code>, <code>id</code></td>
+<td>Thường là duy nhất</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>aria-label</code>, <code>name</code>, <code>placeholder</code>, <code>type</code>, <code>href</code>, <code>role</code></td>
+<td>Mô tả <strong>chức năng</strong>, ít đổi</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>class</code></td>
+<td>Cùng đường mới dùng</td>
+</tr>
+</tbody></table>
+<p>Hai cái bẫy:</p>
+<ul>
+<li><strong><code>id</code> tự sinh</strong> như <code>id=&quot;radix-:re:&quot;</code>, <code>id=&quot;mui-4823&quot;</code> — nhìn không ra nghĩa, đổi mỗi lần mở trang. Bỏ qua, dù nó là <code>id</code>. (Dấu <code>:</code> trong đó còn làm CSS báo lỗi.)</li>
+<li><strong>Class để tô màu</strong> như <code>inline-flex items-center h-9 px-6</code> — hàng chục nút khác cũng có y hệt. Tìm theo nó sẽ ra rất nhiều.</li>
+</ul>
+<h2>Đọc số &quot;1 of N&quot;</h2>
+<table>
+<thead>
+<tr>
+<th>Thấy</th>
+<th>Làm gì</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>1 of 1</strong></td>
+<td>Trúng duy nhất — xong</td>
+</tr>
+<tr>
+<td><strong>1 of 5</strong></td>
+<td>Thêm <strong>cha</strong> phía trước (có dấu cách), hoặc thêm một thuộc tính nữa (dính liền). Đôi khi nhiều là đúng — 8 dòng bảng thì 8 nút <code>…</code></td>
+</tr>
+<tr>
+<td><strong>No matches</strong></td>
+<td>Gõ sai: kiểm tra ngoặc kép, dấu cách thừa, giá trị phải khớp từng ký tự</td>
+</tr>
+</tbody></table>
+<p>Ví dụ: gõ <code>h2</code> ra <strong>2 of 2</strong> vì trang có hai tiêu đề <code>h2</code>. Muốn cái nằm trong hộp thoại → <code>[role=&quot;dialog&quot;] h2</code> → <strong>1 of 1</strong>.</p>
+<h2>Dịch thử trên site này</h2>
+<table>
+<thead>
+<tr>
+<th>HTML</th>
+<th>CSS</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>&lt;input id=&quot;searchInput&quot; aria-label=&quot;Tìm thuật ngữ&quot; ...&gt;</code></td>
+<td><code>#searchInput</code> hoặc <code>input[aria-label=&quot;Tìm thuật ngữ&quot;]</code></td>
+</tr>
+<tr>
+<td><code>&lt;button type=&quot;button&quot; id=&quot;searchButton&quot;&gt;Tìm hiểu&lt;/button&gt;</code></td>
+<td><code>#searchButton</code></td>
+</tr>
+<tr>
+<td><code>&lt;div class=&quot;chips&quot; id=&quot;chips&quot;&gt;</code> chứa các nút chip</td>
+<td><code>#chips .chip</code></td>
+</tr>
+<tr>
+<td>Thẻ thuật ngữ trong lưới</td>
+<td><code>#grid .term</code></td>
+</tr>
+<tr>
+<td><code>&lt;div role=&quot;dialog&quot; ...&gt;</code> chứa <code>&lt;h2&gt;</code></td>
+<td><code>[role=&quot;dialog&quot;] h2</code></td>
+</tr>
+</tbody></table>
+<h2>Tìm theo chữ → dùng XPath</h2>
+<p>CSS không tìm được chữ. XPath thì được, và tư duy y hệt — chỉ khác ký hiệu:</p>
+<table>
+<thead>
+<tr>
+<th>Muốn</th>
+<th>CSS</th>
+<th>XPath</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Theo tên thẻ</td>
+<td><code>button</code></td>
+<td><code>//button</code></td>
+</tr>
+<tr>
+<td>Theo thuộc tính</td>
+<td><code>button[type=&quot;button&quot;]</code></td>
+<td><code>//button[@type=&quot;button&quot;]</code></td>
+</tr>
+<tr>
+<td>Nằm bên trong</td>
+<td><code>nav a</code></td>
+<td><code>//nav//a</code></td>
+</tr>
+<tr>
+<td><strong>Theo chữ</strong></td>
+<td>—</td>
+<td><code>//button[text()=&quot;Tìm hiểu&quot;]</code></td>
+</tr>
+<tr>
+<td>Theo chữ, bỏ khoảng trắng thừa</td>
+<td>—</td>
+<td><code>//button[normalize-space()=&quot;Tìm hiểu&quot;]</code></td>
+</tr>
+<tr>
+<td>Chứa chữ</td>
+<td>—</td>
+<td><code>//button[contains(., &quot;Tìm&quot;)]</code></td>
+</tr>
+<tr>
+<td>Dòng có chứa chữ X, lấy nút trong dòng đó</td>
+<td>—</td>
+<td><code>//tr[contains(., &quot;Elaine&quot;)]//button</code></td>
+</tr>
+</tbody></table>
+<p>Khác biệt cần nhớ: XPath bắt đầu bằng <code>//</code>, thuộc tính phải có <code>@</code>.</p>
+<p>Dùng <code>normalize-space()</code> khi <code>text()</code> không ra: chữ trong HTML thường có xuống dòng và thụt lề hai đầu, <code>text()</code> so từng ký tự nên trượt.</p>
+<h2>Từ CSS / XPath sang Playwright</h2>
+<p>Tìm được trong DevTools rồi, viết sang Playwright:</p>
+<table>
+<thead>
+<tr>
+<th>DevTools</th>
+<th>Playwright</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>#searchButton</code></td>
+<td><code>page.locator(&#39;#searchButton&#39;)</code> — hoặc tốt hơn: <code>page.getByRole(&#39;button&#39;, { name: &#39;Tìm hiểu&#39; })</code></td>
+</tr>
+<tr>
+<td><code>[role=&quot;dialog&quot;] h2</code></td>
+<td><code>page.getByRole(&#39;dialog&#39;).getByRole(&#39;heading&#39;)</code></td>
+</tr>
+<tr>
+<td><code>//tr[contains(., &quot;Elaine&quot;)]//button</code></td>
+<td><code>page.getByRole(&#39;row&#39;).filter({ hasText: &#39;Elaine&#39; }).getByRole(&#39;button&#39;)</code></td>
+</tr>
+</tbody></table>
+<p><strong>Một dấu cách trong CSS = một dấu chấm nối trong Playwright.</strong> Mỗi <code>.getBy…()</code> nối thêm là thu hẹp chỗ tìm vào bên trong kết quả trước.</p>
+<p><code>getByRole(&#39;dialog&#39;, { name: &#39;Create a dataset&#39; })</code> và <code>getByRole(&#39;dialog&#39;).getByRole(&#39;heading&#39;, { name: &#39;Create a dataset&#39; })</code> đều đúng, nhưng trỏ vào <strong>hai thứ khác nhau</strong>: cái đầu là cả hộp thoại, cái sau là riêng dòng tiêu đề. Chọn theo việc định làm tiếp.</p>
+<p>CSS/XPath là để <strong>tìm hiểu</strong> trang. Khi viết test, vẫn ưu tiên <code>getByRole</code> / <code>getByText</code> / <code>getByLabel</code> như bảng ưu tiên ở Bài 6.</p>
+<h2>Thử <code>getBy…</code> trực tiếp trên trang</h2>
+<pre><code class="language-powershell">npx playwright codegen http://localhost:4173
+</code></pre>
+<p>Cửa sổ Inspector có tab <strong>Locator</strong>: gõ <code>getByRole(&#39;button&#39;, { name: &#39;Tìm hiểu&#39; })</code>, phần tử khớp được tô sáng trên trang. Nút <strong>Pick locator</strong> làm ngược lại — bấm vào phần tử, nó gợi ý locator.</p>
+<p><strong>Tóm lại:</strong> DevTools thử chữ / CSS / XPath. Playwright Inspector thử <code>getBy…</code>.</p>
+<h2>Bốn câu để nhớ</h2>
+<ol>
+<li>Tên thẻ viết thẳng. Thuộc tính bỏ vào <code>[ ]</code>. <code>id</code> là <code>#</code>, <code>class</code> là <code>.</code>.</li>
+<li>Dính liền là <em>cùng một element</em>. Có dấu cách là <em>nằm bên trong</em>.</li>
+<li>Trúng nhiều thì thêm cha phía trước. Bỏ qua <code>id</code> tự sinh và class tô màu.</li>
+<li>Cần tìm theo chữ thì dùng XPath: <code>//thẻ[normalize-space()=&quot;…&quot;]</code>.</li>
+</ol>
+</div>
+      <a class="back" href="../../automation/automation-ap-dung-vao-dau/">← Quay lại Bài 6</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

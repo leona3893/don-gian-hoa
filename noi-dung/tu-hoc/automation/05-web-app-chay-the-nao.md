@@ -59,7 +59,7 @@ Nghĩa là bạn chỉ cần `npm test`, Playwright tự bật web, tự test, t
 
 Mở `http://localhost:4173`, bấm `F12`:
 
-- Tab **Elements**: xem HTML. Bấm icon mũi tên góc trên trái (hoặc `Ctrl+Shift+C`) rồi rê chuột vào ô tìm kiếm → thấy HTML của nó, ví dụ `<input id="q" role="combobox" aria-label="Tìm thuật ngữ">`. Đây là cách bạn **tìm "địa chỉ" của phần tử** để test bấm vào.
+- Tab **Elements**: xem HTML. Bấm icon mũi tên góc trên trái (hoặc `Ctrl+Shift+C`) rồi rê chuột vào ô tìm kiếm → thấy HTML của nó, ví dụ `<input id="searchInput" role="combobox" aria-label="Tìm thuật ngữ">`. Đây là cách bạn **tìm "địa chỉ" của phần tử** để test bấm vào.
 - Tab **Console**: lỗi JavaScript hiện ở đây.
 - Tab **Network**: mọi yêu cầu web gửi đi (API call). Rất cần khi test API.
 

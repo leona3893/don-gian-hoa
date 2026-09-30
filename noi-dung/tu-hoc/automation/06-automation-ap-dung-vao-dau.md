@@ -2,6 +2,7 @@
 so: 6
 title: Automation nên áp dụng vào đâu
 mota: Cái gì nên và không nên tự động, thứ tự ưu tiên, biến test case tay thành test tự động, chọn locator.
+moRong: css-va-xpath
 ---
 
 ## 6.1 Cái gì NÊN và KHÔNG NÊN tự động hoá
@@ -90,7 +91,7 @@ Test này **đã có sẵn** trong [`tests/trang-chu.spec.js`](https://github.co
 `F12` → bấm icon mũi tên góc trên trái của DevTools (hoặc `Ctrl+Shift+C`) → rê lên phần tử → bấm. Tab **Elements** nhảy tới đúng dòng HTML, ví dụ ô tìm kiếm của site này:
 
 ```html
-<input id="q" role="combobox" aria-label="Tìm thuật ngữ" placeholder="Gõ một thuật ngữ…">
+<input id="searchInput" aria-label="Tìm thuật ngữ" placeholder="Thử tìm: API, cache, database..." role="combobox">
 ```
 
 Đọc thuộc tính theo đúng bảng ưu tiên ở trên: có `role` + tên → `getByRole('combobox', { name: 'Tìm thuật ngữ' })`. Xong. Chưa có mới lùi dần xuống `placeholder` → `data-testid` → `id` → `class`.
@@ -108,6 +109,8 @@ Bấm vào tab Elements rồi `Ctrl+F`. Ô tìm này nhận **3 kiểu**:
 | XPath (bắt đầu bằng `/`) | Đường dẫn XPath | `//button[text()="Tìm hiểu"]` |
 
 Góc phải ô tìm hiện **1 of N**. Enter để nhảy tới cái tiếp theo — dòng HTML được tô sáng và phần tử trên trang cũng được viền lên. **N = 1** → locator đủ chính xác. **N > 1** → cần thu hẹp (thêm cha: `#grid .term h4`) hoặc chấp nhận `.first()`. Đây chính là cách bắt lỗi *strict mode violation* (Bài 9) trước khi viết một dòng code nào.
+
+> 📎 Chưa biết gõ CSS / XPath thế nào cho đúng? Xem [Quy tắc CSS và XPath](../../mo-rong/css-va-xpath/) — mọi element có cùng một hình dạng, học cách dịch từng phần.
 
 Quy trình không cần chuột:
 
@@ -148,7 +151,7 @@ Nhiều, nhưng chỉ cần nhớ **3 cách chia**.
 |---|---|---|---|
 | **A. Thứ người dùng thấy** | vai trò, chữ, nhãn | `getByRole`, `getByText`, `getByLabel`, `getByPlaceholder` | Giao diện đổi thật — lúc đó test *nên* vỡ |
 | **B. Dấu riêng cho test** | `data-testid` | `getByTestId('luu')` | Dev xoá dấu (hiếm) |
-| **C. Cấu trúc HTML** | id, class, đường dẫn | `locator('#q')`, `.term`, XPath | Dev đổi CSS hay thêm một thẻ bọc |
+| **C. Cấu trúc HTML** | id, class, đường dẫn | `locator('#searchInput')`, `.term`, XPath | Dev đổi CSS hay thêm một thẻ bọc |
 
 Ưu tiên A → B → C.
 

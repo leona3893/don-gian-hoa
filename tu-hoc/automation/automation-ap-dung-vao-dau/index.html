@@ -191,7 +191,7 @@
 <p>Đây là cách nên học <strong>trước</strong>, vì mọi công cụ khác chỉ là F12 được tự động hoá.</p>
 <p><strong>Cách 1 — Rê chuột (khi chưa biết phần tử tên gì)</strong></p>
 <p><code>F12</code> → bấm icon mũi tên góc trên trái của DevTools (hoặc <code>Ctrl+Shift+C</code>) → rê lên phần tử → bấm. Tab <strong>Elements</strong> nhảy tới đúng dòng HTML, ví dụ ô tìm kiếm của site này:</p>
-<pre><code class="language-html">&lt;input id=&quot;q&quot; role=&quot;combobox&quot; aria-label=&quot;Tìm thuật ngữ&quot; placeholder=&quot;Gõ một thuật ngữ…&quot;&gt;
+<pre><code class="language-html">&lt;input id=&quot;searchInput&quot; aria-label=&quot;Tìm thuật ngữ&quot; placeholder=&quot;Thử tìm: API, cache, database...&quot; role=&quot;combobox&quot;&gt;
 </code></pre>
 <p>Đọc thuộc tính theo đúng bảng ưu tiên ở trên: có <code>role</code> + tên → <code>getByRole(&#39;combobox&#39;, { name: &#39;Tìm thuật ngữ&#39; })</code>. Xong. Chưa có mới lùi dần xuống <code>placeholder</code> → <code>data-testid</code> → <code>id</code> → <code>class</code>.</p>
 <p>Nhược điểm của rê chuột: nó bắt thẻ <strong>nhỏ nhất</strong> dưới con trỏ (một <code>&lt;span&gt;</code> trong <code>&lt;button&gt;</code>), bạn phải lần ngược lên thẻ cha.</p>
@@ -222,6 +222,9 @@
 </tr>
 </tbody></table>
 <p>Góc phải ô tìm hiện <strong>1 of N</strong>. Enter để nhảy tới cái tiếp theo — dòng HTML được tô sáng và phần tử trên trang cũng được viền lên. <strong>N = 1</strong> → locator đủ chính xác. <strong>N &gt; 1</strong> → cần thu hẹp (thêm cha: <code>#grid .term h4</code>) hoặc chấp nhận <code>.first()</code>. Đây chính là cách bắt lỗi <em>strict mode violation</em> (Bài 9) trước khi viết một dòng code nào.</p>
+<blockquote>
+<p>📎 Chưa biết gõ CSS / XPath thế nào cho đúng? Xem <a href="../../mo-rong/css-va-xpath/">Quy tắc CSS và XPath</a> — mọi element có cùng một hình dạng, học cách dịch từng phần.</p>
+</blockquote>
 <p>Quy trình không cần chuột:</p>
 <ol>
 <li>Nhìn màn hình, ghi lại <strong>chữ</strong> người dùng thấy trên phần tử (tên nút, nhãn ô nhập).</li>
@@ -272,7 +275,7 @@ $$(&#39;[role=&quot;combobox&quot;]&#39;)           // in ra danh sách thẻ kh
 <tr>
 <td><strong>C. Cấu trúc HTML</strong></td>
 <td>id, class, đường dẫn</td>
-<td><code>locator(&#39;#q&#39;)</code>, <code>.term</code>, XPath</td>
+<td><code>locator(&#39;#searchInput&#39;)</code>, <code>.term</code>, XPath</td>
 <td>Dev đổi CSS hay thêm một thẻ bọc</td>
 </tr>
 </tbody></table>
@@ -385,7 +388,7 @@ await trangChu.tim(&#39;api&#39;);
 <p>Chưa cần làm bây giờ. Tuần 7–8 trong lộ trình mới đụng.</p>
 <hr>
 </div>
-      
+      <div class="mo-rong"><h4>📎 Mở rộng — đọc sau, không bắt buộc</h4><ul><li><a href="../../mo-rong/css-va-xpath/">Gõ gì vào ô tìm element? Quy tắc CSS và XPath</a><span>Mọi element có cùng một hình dạng — học cách dịch từng phần sang ký hiệu CSS, XPath, rồi sang Playwright.</span></li></ul></div>
       <nav class="bai-nav">
         <a class="truoc" href="../web-app-chay-the-nao/"><small>← Bài 5</small>Web / app chạy như thế nào</a>
         <a class="sau" href="../doc-hieu-mot-file-test/"><small>Bài 7 →</small>Đọc hiểu một file test thật, từng dòng một</a>
