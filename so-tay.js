@@ -40,6 +40,25 @@ error: unknown command 'test'`,
     {ten:'<code>npx</code> = chạy thẳng một chương trình trong kho', y:'Khi cần thêm tuỳ chọn mà nút không có — chạy 1 file, bật <code>--headed</code> — thì dùng <code>npx playwright test …</code>. Việc lặp lại hàng ngày thì dùng nút <code>npm run</code> để cả team gõ giống nhau.'}
   ],
   terms:['npm','npx','Playwright','Test Report']
+},
+
+{
+  slug:'await-expect-va-expect-await', cat:'Kiểm thử',
+  h1:'await expect(...) và expect(await ...) khác gì nhau?',
+  hoi:'Hai dòng nhìn gần giống nhau, cùng có await, cùng kiểm tra 81 thẻ. Vì sao một dòng ổn định, dòng kia lúc xanh lúc đỏ?',
+  sua:[
+    "await expect(page.locator('#grid .term')).toHaveCount(81);   // ✅ thử lại tới 5 giây",
+    "expect(await page.locator('#grid .term').count()).toBe(81);  // ❌ đếm 1 lần rồi so",
+    "",
+    "await expect.soft(page.locator('#count')).toHaveText('81 thuật ngữ');  // sai vẫn chạy tiếp"
+  ],
+  baiHoc:[
+    {ten:'<code>await expect(locator)</code> thử lại tới 5 giây', y:'Trang vừa mở, JavaScript chưa kịp vẽ xong. Playwright kiểm tra đi kiểm tra lại — 0 thẻ, 40 thẻ, 81 thẻ — đúng thì đi tiếp. Bạn không phải viết lệnh chờ.'},
+    {ten:'<code>expect(await …count())</code> chỉ đếm một lần', y:'<code>await</code> nằm bên trong nên chỉ chờ phép đếm, không chờ trang. Đếm lúc trang chưa xong là ra 0 → đỏ oan. Cách nhận biết viết đúng: <strong>await đứng trước expect</strong>, trong ngoặc của expect là <strong>locator</strong>, không phải một con số.'},
+    {ten:'Sai thì dừng test đó, các test khác vẫn chạy', y:'Hết 5 giây vẫn sai → test đó ❌, các dòng phía dưới không chạy. Test khác chạy bình thường; báo cáo in ra sau khi chạy hết. Khi test đỏ, chỉ cần đọc <strong>dòng đầu tiên bị đỏ</strong>.'},
+    {ten:'Muốn chạy tiếp sau khi sai: <code>expect.soft</code>', y:'Ghi lại lỗi rồi đi tiếp, cuối cùng test vẫn ❌ và báo cáo liệt kê <strong>tất cả</strong> chỗ sai. Dùng khi kiểm tra nhiều thứ độc lập trên một màn hình. Đừng dùng khi bước sau phụ thuộc bước trước.'}
+  ],
+  terms:['await','async','Assertion','Flaky Test']
 }
 
 ];

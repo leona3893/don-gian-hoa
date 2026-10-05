@@ -263,6 +263,32 @@ export const SO_SANH = [
     {h:'Vì sao npm test không cần chữ run?', a:'test và start là hai tên đặc biệt npm cho gõ tắt. Các tên khác như build, report vẫn phải có run.'},
     {h:'Có cần cài npx riêng không?', a:'Không. npx đi kèm npm từ phiên bản 5.2, cài Node.js là có cả hai.'}
   ]
+},
+
+{
+  slug:'async-va-await', cat:'Nền tảng', terms:['async','await'],
+  h1:'async và await khác nhau thế nào?',
+  tldr:'<strong>async</strong> là tấm biển treo ở đầu hàm: “trong này có việc phải chờ”. <strong>await</strong> là người đứng chờ từng việc xong. Có await thì bắt buộc phải có async.',
+  cols:['async','await'],
+  rows:[
+    {k:'Đặt ở đâu', v:['Trước một <strong>hàm</strong>','Trước một <strong>lệnh</strong>']},
+    {k:'Nghĩa', v:['Hàm này có việc phải chờ','Chờ lệnh này xong rồi mới xuống dòng']},
+    {k:'Xuất hiện mấy lần', v:['Một lần, ở đầu hàm','Nhiều lần, trước từng lệnh cần chờ']},
+    {k:'Quên thì sao', v:['Có await bên trong → JavaScript báo lỗi ngay','<strong>Không báo lỗi gì</strong> — code chạy vượt, test xanh giả hoặc chập chờn']},
+    {k:'Trong test Playwright', v:['<code>async ({ page }) =&gt; {</code>','<code>await page.goto(…)</code>, <code>await expect(…)</code>']}
+  ],
+  nho:'<strong>async = treo biển. await = đứng chờ.</strong> Biển treo một lần ở cửa; người chờ thì chờ từng món.',
+  chon:[
+    {neu:'Đang viết hàm test hoặc hàm có thao tác với trình duyệt', thi:'Thêm async ở đầu hàm'},
+    {neu:'Dòng bắt đầu bằng <code>page.</code> hoặc <code>expect(</code>', thi:'Thêm await phía trước'},
+    {neu:'Chỉ tạo locator: <code>const nut = page.getByRole(…)</code>', thi:'Không cần await — chưa đụng tới trình duyệt'}
+  ],
+  bay:'Quên <strong>await</strong> nguy hiểm hơn quên async rất nhiều, vì nó im lặng. Test kết thúc trước khi phép kiểm tra kịp chạy, nên báo xanh trong khi chưa kiểm tra gì. Cách bắt: sửa giá trị mong đợi cho sai cố ý — test vẫn xanh thì chắc chắn đang thiếu await.',
+  faq:[
+    {h:'Có async mà không có await được không?', a:'Được, JavaScript không báo lỗi. Nhưng async lúc đó vô dụng — treo biển “phải chờ” mà chẳng ai chờ gì.'},
+    {h:'await expect(…) và expect(await …) khác gì?', a:'await expect(locator).toHaveCount(81) thử lại tới 5 giây cho tới khi đúng. expect(await locator.count()).toBe(81) đếm đúng một lần rồi so — trang chưa vẽ xong là đỏ. Dùng cách đầu.'},
+    {h:'Vì sao trong Playwright gần như dòng nào cũng có await?', a:'Vì gần như mọi thứ đều đụng tới trình duyệt — mở trang, bấm, gõ, kiểm tra — và trình duyệt luôn chậm hơn code.'}
+  ]
 }
 
 ];

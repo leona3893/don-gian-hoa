@@ -255,6 +255,14 @@ export const HINH = {
 // an toàn thực phẩm — tấm khiên
 'QA': `<path d="M0,-120 L100,-80 L100,0 Q100,80 0,120 Q-100,80 -100,0 L-100,-80 Z"/><path d="M-45,2 L-12,35 L52,-33" stroke-width="10"/>`,
 
+// ═══════════ CODE ═══════════
+
+// tấm biển treo trên cửa
+'async': `<line x1="-70" y1="-120" x2="-70" y2="-60"/><line x1="70" y1="-120" x2="70" y2="-60"/><rect x="-120" y="-60" width="240" height="130" rx="14"/><line x1="-80" y1="-20" x2="80" y2="-20"/><line x1="-80" y1="20" x2="40" y2="20"/>`,
+
+// đồng hồ cát
+'await': `<line x1="-80" y1="-120" x2="80" y2="-120"/><line x1="-80" y1="120" x2="80" y2="120"/><path d="M-66,-120 Q-66,-30 0,0 Q66,-30 66,-120"/><path d="M-66,120 Q-66,30 0,0 Q66,30 66,120"/><path d="M-40,110 Q0,70 40,110 Z" fill="${LIME}" stroke="none"/>`,
+
 // ═══════════ TRANG CHUNG ═══════════
 
 '_home': `<path d="M-112,-78 h224 a22,22 0 0 1 22,22 v96 a22,22 0 0 1 -22,22 h-138 l-46,46 v-46 h-40 a22,22 0 0 1 -22,-22 v-96 a22,22 0 0 1 22,-22 z"/><circle cx="-54" cy="-8" r="9" fill="${LIME}" stroke="none"/><circle cx="0" cy="-8" r="9" fill="${LIME}" stroke="none"/><circle cx="54" cy="-8" r="9" fill="${LIME}" stroke="none"/>`,

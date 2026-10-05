@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>async và await khác nhau thế nào? — IT nói tiếng người</title>
+  <meta name="description" content="async là tấm biển treo ở đầu hàm: “trong này có việc phải chờ”. await là người đứng chờ từng việc xong. Có await thì bắt buộc phải có…" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-sanh/async-va-await/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="async và await khác nhau thế nào?" />
+  <meta property="og:description" content="async là tấm biển treo ở đầu hàm: “trong này có việc phải chờ”. await là người đứng chờ từng việc xong. Có await thì bắt buộc phải có…" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-sanh/async-va-await/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/so-sanh-async-va-await.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/so-sanh-async-va-await.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Có async mà không có await được không?","acceptedAnswer":{"@type":"Answer","text":"Được, JavaScript không báo lỗi. Nhưng async lúc đó vô dụng — treo biển “phải chờ” mà chẳng ai chờ gì."}},{"@type":"Question","name":"await expect(…) và expect(await …) khác gì?","acceptedAnswer":{"@type":"Answer","text":"await expect(locator).toHaveCount(81) thử lại tới 5 giây cho tới khi đúng. expect(await locator.count()).toBe(81) đếm đúng một lần rồi so — trang chưa vẽ xong là đỏ. Dùng cách đầu."}},{"@type":"Question","name":"Vì sao trong Playwright gần như dòng nào cũng có await?","acceptedAnswer":{"@type":"Answer","text":"Vì gần như mọi thứ đều đụng tới trình duyệt — mở trang, bấm, gõ, kiểm tra — và trình duyệt luôn chậm hơn code."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"So sánh","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/"},{"@type":"ListItem","position":3,"name":"async và await khác nhau thế nào?","item":"https://leona3893.github.io/don-gian-hoa/so-sanh/async-va-await/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a><a href="../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">So sánh</a> › async và await khác nhau thế nào?</nav>
+    <article class="article">
+      <span class="tag">Nền tảng</span>
+      <h1>async và await khác nhau thế nào?</h1>
+      <div class="tldr"><b>Trả lời ngắn</b><strong>async</strong> là tấm biển treo ở đầu hàm: “trong này có việc phải chờ”. <strong>await</strong> là người đứng chờ từng việc xong. Có await thì bắt buộc phải có async.</div>
+
+      <h2>Bảng so sánh</h2>
+      <div class="bang-wrap"><table class="bang">
+        <thead><tr><th></th><th>async</th><th>await</th></tr></thead>
+        <tbody><tr><th scope="row">Đặt ở đâu</th><td>Trước một <strong>hàm</strong></td><td>Trước một <strong>lệnh</strong></td></tr><tr><th scope="row">Nghĩa</th><td>Hàm này có việc phải chờ</td><td>Chờ lệnh này xong rồi mới xuống dòng</td></tr><tr><th scope="row">Xuất hiện mấy lần</th><td>Một lần, ở đầu hàm</td><td>Nhiều lần, trước từng lệnh cần chờ</td></tr><tr><th scope="row">Quên thì sao</th><td>Có await bên trong → JavaScript báo lỗi ngay</td><td><strong>Không báo lỗi gì</strong> — code chạy vượt, test xanh giả hoặc chập chờn</td></tr><tr><th scope="row">Trong test Playwright</th><td><code>async ({ page }) =&gt; {</code></td><td><code>await page.goto(…)</code>, <code>await expect(…)</code></td></tr></tbody>
+      </table></div>
+
+      <div class="nho"><h4>💡 Cách nhớ</h4><strong>async = treo biển. await = đứng chờ.</strong> Biển treo một lần ở cửa; người chờ thì chờ từng món.</div>
+
+      <h2>Chọn cái nào?</h2>
+      <ul class="chon"><li><b>Nếu Đang viết hàm test hoặc hàm có thao tác với trình duyệt</b><span>→ Thêm async ở đầu hàm</span></li><li><b>Nếu Dòng bắt đầu bằng <code>page.</code> hoặc <code>expect(</code></b><span>→ Thêm await phía trước</span></li><li><b>Nếu Chỉ tạo locator: <code>const nut = page.getByRole(…)</code></b><span>→ Không cần await — chưa đụng tới trình duyệt</span></li></ul>
+
+      <div class="leak"><h4>⚠ Bẫy thường gặp</h4><p>Quên <strong>await</strong> nguy hiểm hơn quên async rất nhiều, vì nó im lặng. Test kết thúc trước khi phép kiểm tra kịp chạy, nên báo xanh trong khi chưa kiểm tra gì. Cách bắt: sửa giá trị mong đợi cho sai cố ý — test vẫn xanh thì chắc chắn đang thiếu await.</p></div>
+
+      <h2>Câu hỏi hay gặp</h2>
+      <dl class="faq"><dt>Có async mà không có await được không?</dt><dd>Được, JavaScript không báo lỗi. Nhưng async lúc đó vô dụng — treo biển “phải chờ” mà chẳng ai chờ gì.</dd><dt>await expect(…) và expect(await …) khác gì?</dt><dd>await expect(locator).toHaveCount(81) thử lại tới 5 giây cho tới khi đúng. expect(await locator.count()).toBe(81) đếm đúng một lần rồi so — trang chưa vẽ xong là đỏ. Dùng cách đầu.</dd><dt>Vì sao trong Playwright gần như dòng nào cũng có await?</dt><dd>Vì gần như mọi thứ đều đụng tới trình duyệt — mở trang, bấm, gõ, kiểm tra — và trình duyệt luôn chậm hơn code.</dd></dl>
+
+      <h2>Đọc kỹ từng thuật ngữ</h2>
+      <div class="related"><a href="../../thuat-ngu/async/">async</a><a href="../../thuat-ngu/await/">await</a></div>
+
+      <a class="back" href="../">← Xem các bảng so sánh khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>

@@ -759,6 +759,41 @@ Ví dụ việc của QA:
         {ten:'Test Automation', vi:'Cách QA nhân sức mình lên nhiều lần.'}],
   try:`Lần tới trong buổi họp bàn tính năng mới, hỏi đúng một câu: “nếu người dùng làm việc này hai lần liên tiếp thì sao?” Bạn vừa làm đúng công việc của QA, trước khi có dòng code nào.`},
 
+'async': { moc:2,
+  leak:`<p>Tấm biển “có việc phải chờ” — nhưng <span class="punch">treo biển không có nghĩa là có người chờ. Biển là <code>async</code>, còn người đứng chờ là <code>await</code>.</span></p>
+<p>Viết <code>async</code> mà bên trong quên <code>await</code> thì JavaScript không báo lỗi gì. Hàm vẫn chạy, chỉ là không chờ ai — và test của bạn có thể xanh giả. Ngược lại, viết <code>await</code> mà quên <code>async</code> thì JavaScript báo lỗi ngay: <code>await is only valid in async functions</code>.</p>`,
+  code:`test(<span class="s">'tên test'</span>, <strong>async</strong> ({ page }) => {   <span class="c">// ← biển treo ở đầu hàm</span>
+  await page.goto(<span class="s">'/'</span>);
+  await expect(page.locator(<span class="s">'#grid .term'</span>)).toHaveCount(81);
+});`,
+  cap:'Trong Playwright, gần như mọi hàm test đều bắt đầu bằng <strong>async</strong> — vì việc nào với trình duyệt cũng phải chờ.',
+  yes:['Hàm test của Playwright: <code>async ({ page }) =&gt; …</code>','Hàm tự viết có dùng <code>await</code> bên trong (Page Object, hàm đăng nhập)'],
+  no:['Hàm chỉ tính toán thuần, không chờ gì — thêm async vào cũng không sai nhưng thừa'],
+  notYet:{gi:'Promise, Promise.all, then/catch, chạy song song nhiều việc cùng lúc', toiMoc:3,
+    dauHieu:'Khi bạn muốn mở 3 tab cùng lúc thay vì lần lượt từng tab.'},
+  next:[{ten:'await', vi:'Cặp đôi không tách rời — biển và người đứng chờ.'},
+        {ten:'Test Script', vi:'Nơi bạn gặp async nhiều nhất.'},
+        {ten:'Playwright', vi:'Vì sao mọi thứ trong Playwright đều phải chờ.'}],
+  try:`Mở một file test bất kỳ, xoá chữ <code>async</code> ở đầu hàm test rồi chạy. Đọc lỗi JavaScript báo ra — bạn vừa thấy tận mắt luật “có await thì phải có async”. Nhớ gõ lại.`},
+
+'await': { moc:2,
+  leak:`<p>Ngồi chờ món ra — nhưng <span class="punch">quên chờ thì không ai nhắc bạn cả.</span> Thiếu <code>await</code>, JavaScript không báo lỗi; code chỉ lặng lẽ chạy vượt lên.</p>
+<p>Đây là nguồn gốc của hai thứ khó chịu nhất: test <strong>xanh giả</strong> (kết thúc trước khi phép kiểm tra kịp chạy) và test <strong>lúc xanh lúc đỏ</strong>. Còn một bẫy tinh hơn: <code>await expect(x).toHaveCount(81)</code> thử lại tới 5 giây, nhưng <code>expect(await x.count()).toBe(81)</code> chỉ đếm đúng một lần — cùng có await mà kết quả khác hẳn.</p>`,
+  code:`await page.goto(<span class="s">'/'</span>);                                  <span class="c">// chờ trang mở xong</span>
+await page.getByRole(<span class="s">'button'</span>, { name:<span class="s">'Tìm hiểu'</span> }).click();  <span class="c">// chờ bấm xong</span>
+await expect(page.locator(<span class="s">'#empty'</span>)).toBeVisible();      <span class="c">// thử lại tới 5 giây</span>
+
+expect(page.locator(<span class="s">'#empty'</span>)).toBeVisible();            <span class="c">// ❌ quên await: không lỗi, không chờ</span>`,
+  cap:'Quy tắc thực dụng: <strong>dòng nào bắt đầu bằng <code>page.</code> hoặc <code>expect(</code> thì đặt await phía trước.</strong>',
+  yes:['Mọi thao tác với trình duyệt: goto, click, fill, press','Mọi phép kiểm tra <code>expect(locator)…</code>','Gọi hàm tự viết có async (Page Object, đăng nhập)'],
+  no:['Trước <code>page.locator(…)</code> đứng một mình — tạo locator chưa đụng gì tới trình duyệt, chưa cần chờ','Trước phép tính thường: <code>TERMS.length</code>, <code>1 + 1</code>'],
+  notYet:{gi:'await trong vòng lặp vs Promise.all, xử lý lỗi bằng try/catch', toiMoc:3,
+    dauHieu:'Khi test có vòng lặp 50 lần await và chạy chậm tới mức bạn muốn nó làm song song.'},
+  next:[{ten:'async', vi:'Biển treo đầu hàm — có await thì phải có nó.'},
+        {ten:'Assertion', vi:'Nơi await đứng trước nhiều nhất: await expect(…).'},
+        {ten:'Flaky Test', vi:'Hậu quả kinh điển của quên await.'}],
+  try:`Trong một test đang xanh, xoá <code>await</code> trước một dòng <code>expect</code>, sửa giá trị mong đợi cho sai (ví dụ 81 thành 999) rồi chạy. Nếu test vẫn xanh — bạn vừa thấy “xanh giả” bằng mắt mình. Gõ lại await và chạy lần nữa.`},
+
 // ══════════════ NỀN TẢNG ══════════════
 
 'API': { moc:1,

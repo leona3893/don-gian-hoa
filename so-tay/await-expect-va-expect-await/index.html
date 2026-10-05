@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>await expect(...) và expect(await ...) khác gì nhau? — IT nói tiếng người</title>
+  <meta name="description" content="await expect(locator) thử lại tới 5 giây · expect(await …count()) chỉ đếm một lần · Sai thì dừng test đó, các test khác vẫn chạy · Muốn chạy tiếp sau khi s" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-tay/await-expect-va-expect-await/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="await expect(...) và expect(await ...) khác gì nhau?" />
+  <meta property="og:description" content="await expect(locator) thử lại tới 5 giây · expect(await …count()) chỉ đếm một lần · Sai thì dừng test đó, các test khác vẫn chạy · Muốn chạy tiếp sau khi s" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-tay/await-expect-va-expect-await/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/so-tay-await-expect-va-expect-await.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/so-tay-await-expect-va-expect-await.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"Sổ tay","item":"https://leona3893.github.io/don-gian-hoa/so-tay/"},{"@type":"ListItem","position":3,"name":"await expect(...) và expect(await ...) khác gì nhau?","item":"https://leona3893.github.io/don-gian-hoa/so-tay/await-expect-va-expect-await/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a><a href="../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">Sổ tay</a> › await expect(...) và expect(await ...) khác gì nhau?</nav>
+    <article class="article so-tay">
+      <span class="tag">Kiểm thử</span>
+      <h1>await expect(...) và expect(await ...) khác gì nhau?</h1>
+      <p class="hoi">Hai dòng nhìn gần giống nhau, cùng có await, cùng kiểm tra 81 thẻ. Vì sao một dòng ổn định, dòng kia lúc xanh lúc đỏ?</p>
+
+      <h2>Gõ thử</h2>
+      <pre class="code">await expect(page.locator(&#39;#grid .term&#39;)).toHaveCount(81);   // ✅ thử lại tới 5 giây
+expect(await page.locator(&#39;#grid .term&#39;).count()).toBe(81);  // ❌ đếm 1 lần rồi so
+
+await expect.soft(page.locator(&#39;#count&#39;)).toHaveText(&#39;81 thuật ngữ&#39;);  // sai vẫn chạy tiếp</pre>
+
+      <h2>Vì sao &amp; nhớ gì</h2>
+      <ol class="bai-hoc"><li><b><code>await expect(locator)</code> thử lại tới 5 giây</b> — Trang vừa mở, JavaScript chưa kịp vẽ xong. Playwright kiểm tra đi kiểm tra lại — 0 thẻ, 40 thẻ, 81 thẻ — đúng thì đi tiếp. Bạn không phải viết lệnh chờ.</li><li><b><code>expect(await …count())</code> chỉ đếm một lần</b> — <code>await</code> nằm bên trong nên chỉ chờ phép đếm, không chờ trang. Đếm lúc trang chưa xong là ra 0 → đỏ oan. Cách nhận biết viết đúng: <strong>await đứng trước expect</strong>, trong ngoặc của expect là <strong>locator</strong>, không phải một con số.</li><li><b>Sai thì dừng test đó, các test khác vẫn chạy</b> — Hết 5 giây vẫn sai → test đó ❌, các dòng phía dưới không chạy. Test khác chạy bình thường; báo cáo in ra sau khi chạy hết. Khi test đỏ, chỉ cần đọc <strong>dòng đầu tiên bị đỏ</strong>.</li><li><b>Muốn chạy tiếp sau khi sai: <code>expect.soft</code></b> — Ghi lại lỗi rồi đi tiếp, cuối cùng test vẫn ❌ và báo cáo liệt kê <strong>tất cả</strong> chỗ sai. Dùng khi kiểm tra nhiều thứ độc lập trên một màn hình. Đừng dùng khi bước sau phụ thuộc bước trước.</li></ol>
+
+      <p class="lien-quan">Liên quan: <a href="../../thuat-ngu/await/">await</a> · <a href="../../thuat-ngu/async/">async</a> · <a href="../../thuat-ngu/assertion/">Assertion</a> · <a href="../../thuat-ngu/flaky-test/">Flaky Test</a></p>
+
+      <a class="back" href="../">← Xem các ghi chú khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>
