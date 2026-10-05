@@ -59,6 +59,25 @@ error: unknown command 'test'`,
     {ten:'Muốn chạy tiếp sau khi sai: <code>expect.soft</code>', y:'Ghi lại lỗi rồi đi tiếp, cuối cùng test vẫn ❌ và báo cáo liệt kê <strong>tất cả</strong> chỗ sai. Dùng khi kiểm tra nhiều thứ độc lập trên một màn hình. Đừng dùng khi bước sau phụ thuộc bước trước.'}
   ],
   terms:['await','async','Assertion','Flaky Test']
+},
+
+{
+  slug:'getbyrole-input-khong-tim-thay', cat:'Kiểm thử',
+  h1:"getByRole('input') không tìm thấy ô nhập",
+  hoi:'HTML ghi rõ <code>&lt;input aria-label="Tìm thuật ngữ"&gt;</code>, vậy sao <code>getByRole(\'input\', { name: \'Tìm thuật ngữ\' })</code> không tìm thấy gì?',
+  sua:[
+    "page.getByRole('input',    { name: 'Tìm thuật ngữ' })   // ❌ không có role 'input'",
+    "page.getByRole('textbox',  { name: 'Tìm thuật ngữ' })   // ❌ role đã bị ghi đè",
+    "page.getByRole('combobox', { name: 'Tìm thuật ngữ' })   // ✅ đúng",
+    "page.getByLabel('Tìm thuật ngữ')                        // ✅ không cần biết role"
+  ],
+  baiHoc:[
+    {ten:'Role không phải tên thẻ', y:'<code>getByRole</code> nhận <strong>vai trò</strong>: <code>&lt;input type="text"&gt;</code> là <code>textbox</code>, <code>&lt;a&gt;</code> là <code>link</code>, <code>&lt;h1&gt;</code> là <code>heading</code>. Không có role nào tên <code>input</code>.'},
+    {ten:'<code>role="…"</code> ghi thẳng sẽ đè role mặc định', y:'Ô này có <code>role="combobox"</code> vì gõ vào sẽ xổ ra danh sách gợi ý. Nên dù là <code>&lt;input&gt;</code>, role của nó là <code>combobox</code> chứ không phải <code>textbox</code>.'},
+    {ten:'Không chắc thì xem tab Accessibility', y:'F12 → chọn element → tab <strong>Accessibility</strong>: ghi thẳng <strong>Role</strong> và <strong>Name</strong> — đúng hai thứ điền vào <code>getByRole</code>. Đừng đoán từ tên thẻ.'},
+    {ten:'Hoặc dùng hàm không cần role', y:'<code>getByLabel</code> (theo <code>aria-label</code> hay <code>&lt;label&gt;</code>) và <code>getByPlaceholder</code> tìm được ô nhập mà không cần biết role là gì.'}
+  ],
+  terms:['Locator','Playwright','Assertion']
 }
 
 ];

@@ -2,7 +2,7 @@
 so: 6
 title: Automation nên áp dụng vào đâu
 mota: Cái gì nên và không nên tự động, thứ tự ưu tiên, biến test case tay thành test tự động, chọn locator.
-moRong: css-va-xpath
+moRong: css-va-xpath, tu-css-xpath-sang-playwright
 ---
 
 ## 6.1 Cái gì NÊN và KHÔNG NÊN tự động hoá

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>getByRole(&#39;input&#39;) không tìm thấy ô nhập — IT nói tiếng người</title>
+  <meta name="description" content="Role không phải tên thẻ · role=&quot;…&quot; ghi thẳng sẽ đè role mặc định · Không chắc thì xem tab Accessibility · Hoặc dùng hàm không cần role" />
+  <link rel="canonical" href="https://leona3893.github.io/don-gian-hoa/so-tay/getbyrole-input-khong-tim-thay/" />
+  <link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+  <meta property="og:type" content="article" />
+  <meta property="og:site_name" content="IT nói tiếng người" />
+  <meta property="og:locale" content="vi_VN" />
+  <meta property="og:title" content="getByRole(&#39;input&#39;) không tìm thấy ô nhập" />
+  <meta property="og:description" content="Role không phải tên thẻ · role=&quot;…&quot; ghi thẳng sẽ đè role mặc định · Không chắc thì xem tab Accessibility · Hoặc dùng hàm không cần role" />
+  <meta property="og:url" content="https://leona3893.github.io/don-gian-hoa/so-tay/getbyrole-input-khong-tim-thay/" />
+  <meta property="og:image" content="https://leona3893.github.io/don-gian-hoa/og/so-tay-getbyrole-input-khong-tim-thay.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://leona3893.github.io/don-gian-hoa/og/so-tay-getbyrole-input-khong-tim-thay.png" />
+  <link rel="stylesheet" href="../../styles.css" />
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Trang chủ","item":"https://leona3893.github.io/don-gian-hoa/"},{"@type":"ListItem","position":2,"name":"Sổ tay","item":"https://leona3893.github.io/don-gian-hoa/so-tay/"},{"@type":"ListItem","position":3,"name":"getByRole('input') không tìm thấy ô nhập","item":"https://leona3893.github.io/don-gian-hoa/so-tay/getbyrole-input-khong-tim-thay/"}]}</script>
+</head>
+<body>
+  <main class="wrap">
+    <header><a class="brand" href="../../"><div class="mark">⌁</div> IT nói tiếng người</a><div class="nav"><span class="tagline">Không cần biết code vẫn hiểu được công nghệ.</span><a href="../../lo-trinh/">Lộ trình</a><a href="../../so-sanh/">So sánh</a><a href="../../so-tay/">Sổ tay</a><a href="../../tu-hoc/">Tự học</a></div></header>
+    <nav class="crumb"><a href="../../">Trang chủ</a> › <a href="../">Sổ tay</a> › getByRole(&#39;input&#39;) không tìm thấy ô nhập</nav>
+    <article class="article so-tay">
+      <span class="tag">Kiểm thử</span>
+      <h1>getByRole(&#39;input&#39;) không tìm thấy ô nhập</h1>
+      <p class="hoi">HTML ghi rõ <code>&lt;input aria-label="Tìm thuật ngữ"&gt;</code>, vậy sao <code>getByRole('input', { name: 'Tìm thuật ngữ' })</code> không tìm thấy gì?</p>
+
+      <h2>Gõ thử</h2>
+      <pre class="code">page.getByRole(&#39;input&#39;,    { name: &#39;Tìm thuật ngữ&#39; })   // ❌ không có role &#39;input&#39;
+page.getByRole(&#39;textbox&#39;,  { name: &#39;Tìm thuật ngữ&#39; })   // ❌ role đã bị ghi đè
+page.getByRole(&#39;combobox&#39;, { name: &#39;Tìm thuật ngữ&#39; })   // ✅ đúng
+page.getByLabel(&#39;Tìm thuật ngữ&#39;)                        // ✅ không cần biết role</pre>
+
+      <h2>Vì sao &amp; nhớ gì</h2>
+      <ol class="bai-hoc"><li><b>Role không phải tên thẻ</b> — <code>getByRole</code> nhận <strong>vai trò</strong>: <code>&lt;input type="text"&gt;</code> là <code>textbox</code>, <code>&lt;a&gt;</code> là <code>link</code>, <code>&lt;h1&gt;</code> là <code>heading</code>. Không có role nào tên <code>input</code>.</li><li><b><code>role="…"</code> ghi thẳng sẽ đè role mặc định</b> — Ô này có <code>role="combobox"</code> vì gõ vào sẽ xổ ra danh sách gợi ý. Nên dù là <code>&lt;input&gt;</code>, role của nó là <code>combobox</code> chứ không phải <code>textbox</code>.</li><li><b>Không chắc thì xem tab Accessibility</b> — F12 → chọn element → tab <strong>Accessibility</strong>: ghi thẳng <strong>Role</strong> và <strong>Name</strong> — đúng hai thứ điền vào <code>getByRole</code>. Đừng đoán từ tên thẻ.</li><li><b>Hoặc dùng hàm không cần role</b> — <code>getByLabel</code> (theo <code>aria-label</code> hay <code>&lt;label&gt;</code>) và <code>getByPlaceholder</code> tìm được ô nhập mà không cần biết role là gì.</li></ol>
+
+      <p class="lien-quan">Liên quan: <a href="../../thuat-ngu/locator/">Locator</a> · <a href="../../thuat-ngu/playwright/">Playwright</a> · <a href="../../thuat-ngu/assertion/">Assertion</a></p>
+
+      <a class="back" href="../">← Xem các ghi chú khác</a>
+    </article>
+    <footer>Được làm cho những người tò mò về công nghệ · Bản MVP 01</footer>
+  </main>
+</body>
+</html>
