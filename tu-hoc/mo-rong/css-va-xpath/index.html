@@ -270,42 +270,157 @@
 </tbody></table>
 <p>Khác biệt cần nhớ: XPath bắt đầu bằng <code>//</code>, thuộc tính phải có <code>@</code>.</p>
 <p>Dùng <code>normalize-space()</code> khi <code>text()</code> không ra: chữ trong HTML thường có xuống dòng và thụt lề hai đầu, <code>text()</code> so từng ký tự nên trượt.</p>
-<h2>Từ CSS / XPath sang Playwright</h2>
-<p>Tìm được trong DevTools rồi, viết sang Playwright:</p>
+<h2>Từ CSS / XPath sang Playwright — 3 bước</h2>
+<p><strong>Bước 1 — Bọc nguyên vào <code>page.locator()</code>.</strong> Cách nào cũng chạy.</p>
+<p>CSS hay XPath tìm được trong DevTools đều <strong>dán nguyên văn</strong> được:</p>
+<pre><code class="language-js">page.locator(&#39;#searchButton&#39;)                    // CSS: dán y nguyên
+page.locator(&#39;//button[text()=&quot;Tìm hiểu&quot;]&#39;)      // XPath: dán y nguyên — bắt đầu bằng // nên Playwright tự nhận ra
+</code></pre>
+<p>Dịch &quot;máy móc&quot; thế này chạy được 100%. Chưa biết làm gì hơn thì dừng ở đây cũng được.</p>
+<p><strong>Bước 2 — Đổi sang <code>getBy…</code> cho bền hơn.</strong> Đọc lại selector, có phần nào trong bảng thì đổi phần đó:</p>
+<table>
+<thead>
+<tr>
+<th>Trong CSS / XPath có</th>
+<th>Đổi thành</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Thẻ <code>button</code></td>
+<td><code>getByRole(&#39;button&#39;)</code></td>
+</tr>
+<tr>
+<td>Thẻ <code>a</code></td>
+<td><code>getByRole(&#39;link&#39;)</code></td>
+</tr>
+<tr>
+<td>Thẻ <code>h1</code> … <code>h6</code></td>
+<td><code>getByRole(&#39;heading&#39;, { level: 1 })</code></td>
+</tr>
+<tr>
+<td>Thẻ <code>input</code> (ô gõ chữ)</td>
+<td><code>getByRole(&#39;textbox&#39;)</code></td>
+</tr>
+<tr>
+<td>Thẻ <code>tr</code></td>
+<td><code>getByRole(&#39;row&#39;)</code></td>
+</tr>
+<tr>
+<td>Chữ hiển thị <code>text()=&quot;…&quot;</code></td>
+<td>Thêm <code>{ name: &#39;…&#39; }</code> vào getByRole — hoặc <code>getByText(&#39;…&#39;)</code></td>
+</tr>
+<tr>
+<td><code>[aria-label=&quot;…&quot;]</code></td>
+<td><code>getByLabel(&#39;…&#39;)</code></td>
+</tr>
+<tr>
+<td><code>[placeholder=&quot;…&quot;]</code></td>
+<td><code>getByPlaceholder(&#39;…&#39;)</code></td>
+</tr>
+<tr>
+<td><code>[data-testid=&quot;…&quot;]</code></td>
+<td><code>getByTestId(&#39;…&#39;)</code></td>
+</tr>
+<tr>
+<td><strong>Dấu cách</strong> (CSS) / <strong><code>//</code> ở giữa</strong> (XPath)</td>
+<td><strong>Dấu chấm nối</strong> <code>.getBy…()</code></td>
+</tr>
+<tr>
+<td><code>contains(., &quot;…&quot;)</code> trên một khung</td>
+<td><code>.filter({ hasText: &#39;…&#39; })</code></td>
+</tr>
+<tr>
+<td><code>#id</code>, <code>.class</code>, thuộc tính khác</td>
+<td>Không có getBy tương ứng → <strong>giữ trong <code>locator()</code></strong></td>
+</tr>
+</tbody></table>
+<p><strong>Bước 3 — Ghép thành một dòng code.</strong> Mọi dòng test đều có đúng 3 phần:</p>
+<pre><code>await   +   [locator]   +   [làm gì / kiểm tra gì]
+</code></pre>
+<pre><code class="language-js">await page.getByRole(&#39;button&#39;, { name: &#39;Tìm hiểu&#39; }).click();                  // làm gì
+await expect(page.getByRole(&#39;button&#39;, { name: &#39;Tìm hiểu&#39; })).toBeVisible();     // kiểm tra gì
+</code></pre>
+<p><strong>Dịch thử:</strong></p>
 <table>
 <thead>
 <tr>
 <th>DevTools</th>
+<th>Đọc ra</th>
 <th>Playwright</th>
 </tr>
 </thead>
 <tbody><tr>
-<td><code>#searchButton</code></td>
-<td><code>page.locator(&#39;#searchButton&#39;)</code> — hoặc tốt hơn: <code>page.getByRole(&#39;button&#39;, { name: &#39;Tìm hiểu&#39; })</code></td>
+<td><code>//button[text()=&quot;Tìm hiểu&quot;]</code></td>
+<td>button + chữ</td>
+<td><code>getByRole(&#39;button&#39;, { name: &#39;Tìm hiểu&#39; })</code></td>
+</tr>
+<tr>
+<td><code>input[aria-label=&quot;Tìm thuật ngữ&quot;]</code></td>
+<td>có aria-label</td>
+<td><code>getByLabel(&#39;Tìm thuật ngữ&#39;)</code></td>
 </tr>
 <tr>
 <td><code>[role=&quot;dialog&quot;] h2</code></td>
-<td><code>page.getByRole(&#39;dialog&#39;).getByRole(&#39;heading&#39;)</code></td>
+<td>dialog · <strong>dấu cách</strong> · h2</td>
+<td><code>getByRole(&#39;dialog&#39;).getByRole(&#39;heading&#39;, { level: 2 })</code></td>
 </tr>
 <tr>
 <td><code>//tr[contains(., &quot;Elaine&quot;)]//button</code></td>
-<td><code>page.getByRole(&#39;row&#39;).filter({ hasText: &#39;Elaine&#39; }).getByRole(&#39;button&#39;)</code></td>
+<td>tr · chứa chữ · <strong>//</strong> · button</td>
+<td><code>getByRole(&#39;row&#39;).filter({ hasText: &#39;Elaine&#39; }).getByRole(&#39;button&#39;)</code></td>
+</tr>
+<tr>
+<td><code>#grid .term</code></td>
+<td>chỉ có id + class</td>
+<td>Giữ nguyên: <code>locator(&#39;#grid .term&#39;)</code></td>
 </tr>
 </tbody></table>
-<p><strong>Một dấu cách trong CSS = một dấu chấm nối trong Playwright.</strong> Mỗi <code>.getBy…()</code> nối thêm là thu hẹp chỗ tìm vào bên trong kết quả trước.</p>
+<p>Dòng cuối: không phải lúc nào cũng đổi được — <strong>giữ <code>locator()</code> không sai</strong>.</p>
 <p><code>getByRole(&#39;dialog&#39;, { name: &#39;Create a dataset&#39; })</code> và <code>getByRole(&#39;dialog&#39;).getByRole(&#39;heading&#39;, { name: &#39;Create a dataset&#39; })</code> đều đúng, nhưng trỏ vào <strong>hai thứ khác nhau</strong>: cái đầu là cả hộp thoại, cái sau là riêng dòng tiêu đề. Chọn theo việc định làm tiếp.</p>
-<p>CSS/XPath là để <strong>tìm hiểu</strong> trang. Khi viết test, vẫn ưu tiên <code>getByRole</code> / <code>getByText</code> / <code>getByLabel</code> như bảng ưu tiên ở Bài 6.</p>
+<h2>Sang ngôn ngữ khác thì sao?</h2>
+<p>Selector CSS / XPath <strong>giống hệt</strong> ở mọi ngôn ngữ, mọi công cụ. Chỉ khác hàm bọc ngoài:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Bọc CSS / XPath</th>
+<th>Dạng getByRole</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Playwright JavaScript</td>
+<td><code>page.locator(&#39;#searchButton&#39;)</code></td>
+<td><code>page.getByRole(&#39;button&#39;, { name: &#39;Tìm hiểu&#39; })</code></td>
+</tr>
+<tr>
+<td>Playwright Python</td>
+<td><code>page.locator(&quot;#searchButton&quot;)</code></td>
+<td><code>page.get_by_role(&quot;button&quot;, name=&quot;Tìm hiểu&quot;)</code></td>
+</tr>
+<tr>
+<td>Playwright Java</td>
+<td><code>page.locator(&quot;#searchButton&quot;)</code></td>
+<td><code>page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName(&quot;Tìm hiểu&quot;))</code></td>
+</tr>
+<tr>
+<td>Selenium (Java)</td>
+<td><code>driver.findElement(By.cssSelector(&quot;#searchButton&quot;))</code>, <code>By.xpath(&quot;…&quot;)</code></td>
+<td>Không có — Selenium chỉ dùng CSS / XPath / id</td>
+</tr>
+</tbody></table>
+<p>Nên kỹ năng đọc CSS / XPath <strong>mang theo được</strong> sang mọi công cụ. <code>getBy…</code> là phần riêng của Playwright.</p>
 <h2>Thử <code>getBy…</code> trực tiếp trên trang</h2>
 <pre><code class="language-powershell">npx playwright codegen http://localhost:4173
 </code></pre>
 <p>Cửa sổ Inspector có tab <strong>Locator</strong>: gõ <code>getByRole(&#39;button&#39;, { name: &#39;Tìm hiểu&#39; })</code>, phần tử khớp được tô sáng trên trang. Nút <strong>Pick locator</strong> làm ngược lại — bấm vào phần tử, nó gợi ý locator.</p>
 <p><strong>Tóm lại:</strong> DevTools thử chữ / CSS / XPath. Playwright Inspector thử <code>getBy…</code>.</p>
-<h2>Bốn câu để nhớ</h2>
+<h2>Năm câu để nhớ</h2>
 <ol>
 <li>Tên thẻ viết thẳng. Thuộc tính bỏ vào <code>[ ]</code>. <code>id</code> là <code>#</code>, <code>class</code> là <code>.</code>.</li>
 <li>Dính liền là <em>cùng một element</em>. Có dấu cách là <em>nằm bên trong</em>.</li>
 <li>Trúng nhiều thì thêm cha phía trước. Bỏ qua <code>id</code> tự sinh và class tô màu.</li>
 <li>Cần tìm theo chữ thì dùng XPath: <code>//thẻ[normalize-space()=&quot;…&quot;]</code>.</li>
+<li>Sang Playwright: bọc nguyên vào <code>page.locator()</code> trước — chạy được rồi mới đổi dần sang <code>getBy…</code>.</li>
 </ol>
 </div>
       <a class="back" href="../../automation/automation-ap-dung-vao-dau/">← Quay lại Bài 6</a>

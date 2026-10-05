@@ -109,21 +109,73 @@ Khác biệt cần nhớ: XPath bắt đầu bằng `//`, thuộc tính phải c
 
 Dùng `normalize-space()` khi `text()` không ra: chữ trong HTML thường có xuống dòng và thụt lề hai đầu, `text()` so từng ký tự nên trượt.
 
-## Từ CSS / XPath sang Playwright
+## Từ CSS / XPath sang Playwright — 3 bước
 
-Tìm được trong DevTools rồi, viết sang Playwright:
+**Bước 1 — Bọc nguyên vào `page.locator()`.** Cách nào cũng chạy.
 
-| DevTools | Playwright |
+CSS hay XPath tìm được trong DevTools đều **dán nguyên văn** được:
+
+```js
+page.locator('#searchButton')                    // CSS: dán y nguyên
+page.locator('//button[text()="Tìm hiểu"]')      // XPath: dán y nguyên — bắt đầu bằng // nên Playwright tự nhận ra
+```
+
+Dịch "máy móc" thế này chạy được 100%. Chưa biết làm gì hơn thì dừng ở đây cũng được.
+
+**Bước 2 — Đổi sang `getBy…` cho bền hơn.** Đọc lại selector, có phần nào trong bảng thì đổi phần đó:
+
+| Trong CSS / XPath có | Đổi thành |
 |---|---|
-| `#searchButton` | `page.locator('#searchButton')` — hoặc tốt hơn: `page.getByRole('button', { name: 'Tìm hiểu' })` |
-| `[role="dialog"] h2` | `page.getByRole('dialog').getByRole('heading')` |
-| `//tr[contains(., "Elaine")]//button` | `page.getByRole('row').filter({ hasText: 'Elaine' }).getByRole('button')` |
+| Thẻ `button` | `getByRole('button')` |
+| Thẻ `a` | `getByRole('link')` |
+| Thẻ `h1` … `h6` | `getByRole('heading', { level: 1 })` |
+| Thẻ `input` (ô gõ chữ) | `getByRole('textbox')` |
+| Thẻ `tr` | `getByRole('row')` |
+| Chữ hiển thị `text()="…"` | Thêm `{ name: '…' }` vào getByRole — hoặc `getByText('…')` |
+| `[aria-label="…"]` | `getByLabel('…')` |
+| `[placeholder="…"]` | `getByPlaceholder('…')` |
+| `[data-testid="…"]` | `getByTestId('…')` |
+| **Dấu cách** (CSS) / **`//` ở giữa** (XPath) | **Dấu chấm nối** `.getBy…()` |
+| `contains(., "…")` trên một khung | `.filter({ hasText: '…' })` |
+| `#id`, `.class`, thuộc tính khác | Không có getBy tương ứng → **giữ trong `locator()`** |
 
-**Một dấu cách trong CSS = một dấu chấm nối trong Playwright.** Mỗi `.getBy…()` nối thêm là thu hẹp chỗ tìm vào bên trong kết quả trước.
+**Bước 3 — Ghép thành một dòng code.** Mọi dòng test đều có đúng 3 phần:
+
+```
+await   +   [locator]   +   [làm gì / kiểm tra gì]
+```
+
+```js
+await page.getByRole('button', { name: 'Tìm hiểu' }).click();                  // làm gì
+await expect(page.getByRole('button', { name: 'Tìm hiểu' })).toBeVisible();     // kiểm tra gì
+```
+
+**Dịch thử:**
+
+| DevTools | Đọc ra | Playwright |
+|---|---|---|
+| `//button[text()="Tìm hiểu"]` | button + chữ | `getByRole('button', { name: 'Tìm hiểu' })` |
+| `input[aria-label="Tìm thuật ngữ"]` | có aria-label | `getByLabel('Tìm thuật ngữ')` |
+| `[role="dialog"] h2` | dialog · **dấu cách** · h2 | `getByRole('dialog').getByRole('heading', { level: 2 })` |
+| `//tr[contains(., "Elaine")]//button` | tr · chứa chữ · **//** · button | `getByRole('row').filter({ hasText: 'Elaine' }).getByRole('button')` |
+| `#grid .term` | chỉ có id + class | Giữ nguyên: `locator('#grid .term')` |
+
+Dòng cuối: không phải lúc nào cũng đổi được — **giữ `locator()` không sai**.
 
 `getByRole('dialog', { name: 'Create a dataset' })` và `getByRole('dialog').getByRole('heading', { name: 'Create a dataset' })` đều đúng, nhưng trỏ vào **hai thứ khác nhau**: cái đầu là cả hộp thoại, cái sau là riêng dòng tiêu đề. Chọn theo việc định làm tiếp.
 
-CSS/XPath là để **tìm hiểu** trang. Khi viết test, vẫn ưu tiên `getByRole` / `getByText` / `getByLabel` như bảng ưu tiên ở Bài 6.
+## Sang ngôn ngữ khác thì sao?
+
+Selector CSS / XPath **giống hệt** ở mọi ngôn ngữ, mọi công cụ. Chỉ khác hàm bọc ngoài:
+
+| | Bọc CSS / XPath | Dạng getByRole |
+|---|---|---|
+| Playwright JavaScript | `page.locator('#searchButton')` | `page.getByRole('button', { name: 'Tìm hiểu' })` |
+| Playwright Python | `page.locator("#searchButton")` | `page.get_by_role("button", name="Tìm hiểu")` |
+| Playwright Java | `page.locator("#searchButton")` | `page.getByRole(AriaRole.BUTTON, new Page.GetByRoleOptions().setName("Tìm hiểu"))` |
+| Selenium (Java) | `driver.findElement(By.cssSelector("#searchButton"))`, `By.xpath("…")` | Không có — Selenium chỉ dùng CSS / XPath / id |
+
+Nên kỹ năng đọc CSS / XPath **mang theo được** sang mọi công cụ. `getBy…` là phần riêng của Playwright.
 
 ## Thử `getBy…` trực tiếp trên trang
 
@@ -135,9 +187,10 @@ Cửa sổ Inspector có tab **Locator**: gõ `getByRole('button', { name: 'Tìm
 
 **Tóm lại:** DevTools thử chữ / CSS / XPath. Playwright Inspector thử `getBy…`.
 
-## Bốn câu để nhớ
+## Năm câu để nhớ
 
 1. Tên thẻ viết thẳng. Thuộc tính bỏ vào `[ ]`. `id` là `#`, `class` là `.`.
 2. Dính liền là *cùng một element*. Có dấu cách là *nằm bên trong*.
 3. Trúng nhiều thì thêm cha phía trước. Bỏ qua `id` tự sinh và class tô màu.
 4. Cần tìm theo chữ thì dùng XPath: `//thẻ[normalize-space()="…"]`.
+5. Sang Playwright: bọc nguyên vào `page.locator()` trước — chạy được rồi mới đổi dần sang `getBy…`.
